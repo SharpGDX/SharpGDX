@@ -1,0 +1,625 @@
+Should all instance of float.MinValue be replaced with Float.Epsilon? I think C# float.MinValue and Java Float.MIN_VALUE are technically different.
+Not sure that string.Substring() in C# is equivalent to the one in Java, need to verify.
+Check that all switch 'Fall Throughs' are handled appropriately (I did not understand what it meant when originally starting).
+I don't like the way the FrameBuffer classes were converted, this should be revisited.
+Verify that FileHandle is completely ported.
+
+SharpGDX
+--------
+- DONE	-	AbstractGraphics
+- DONE	-	AbstractInput
+- DONE	-	Application
+- DONE	-	ApplicationAdapter
+- DONE	-	ApplicationListener
+- DONE	-	ApplicationLogger
+- DONE	-	Audio
+- DONE	-	Files
+- DONE	-	Game
+- DONE	-	Gdx
+- DONE	-	Graphics
+- DONE	-	Input
+- DONE	-	InputAdapter
+- DONE	-	InputEventQueue
+- DONE	-	InputMultiplexer
+- DONE	-	InputProcessor
+- DONE	-	LifecycleListener
+- DONE	-	Net
+- DONE	-	Preferences
+- DONE	-	Screen
+- DONE	-	ScreenAdapter
+- DONE	-	Version
+
+SharpGDX\Assets
+---------------
+- DONE	-	AssetDescriptor
+- DONE	-	AssetErrorListener
+- DONE	-	AssetLoaderParamters
+- DONE	-	AssetLoadingTask
+- DONE	-	AssetManager
+
+SharpGDX\Assets\Loaders
+-----------------------
+- DONE	-	AssetLoader
+- DONE	-	AsynchronousAssetLoader
+- DONE	-	BitmapFontLoader
+- DONE	-	CubemapLoader
+- DONE	-	FIleHandleResolver
+-	-	I18NBundleLoader
+-	-	ModelLoader
+- DONE	-	MusicLoader
+- DONE	-	ParticleEffectLoader
+- DONE	-	PixmapLoader
+- DONE	-	ShaperProgramLoader
+-	-	SkinLoader
+- DONE	-	SoundLoader
+- DONE	-	SynchronousAssetLoader
+- DONE	-	TextureAtlasLoader
+- DONE	-	TextureLoader
+
+SharpGDX\Assets\Loaders\Resolvers
+---------------------------------
+- DONE	-	AbsoluteFileHandleResolver
+- DONE	-	ClasspathFIleHandleResolver
+- DONE	-	ExternalFileHandleResolver
+- DONE 	-	InternalFileHandleResolver
+- DONE 	-	LocalFileHandleResolver
+- DONE 	-	PrefixFIleHandleResolver
+- DONE 	-	ResolutionFileResolver
+
+SharpGDX\Audio
+--------------
+- DONE	-	AudioDevice
+- DONE	-	AudioRecorder
+- DONE	-	Music
+- DONE	-	Sound
+
+SharpGDX\Files
+--------------
+- DONE	-	FileHandle
+-	-	FileHandleStream
+
+SharpGDX\Graphics
+-----------------
+- DONE	-	Camera
+- DONE	-	Color
+- DONE	-	Colors
+- DONE	-	Cubemap
+- DONE	-	CubemapData
+- DONE	-	Cursor
+- DONE	-	FPSLogger
+- DONE	-	GL20
+- DONE	-	GL30
+- DONE	-	GL31
+- DONE	-	GL32
+- DONE	-	GLTexture
+- DONE	-	Mesh
+- DONE	-	OrthographicCamera
+- DONE	-	PerspectiveCamera
+- DONE	-	Pixmap
+- DONE	-	PixmapIO
+- DONE	-	Texture
+- DONE	-	Texture3D
+- DONE	-	Texture3DData
+- DONE	-	TextureArray
+- DONE	-	TextureArrayData
+- DONE	-	TextureData
+- DONE	-	VertexAttribute
+- DONE	-	VertexAttributes
+
+SharpGDX\Graphics\G2D
+---------------------
+- DONE	-	Animation
+- DONE	-	Batch
+- DONE	-	BitmapFont
+- DONE	-	BitmapFontCache
+- DONE	-	CpuSpriteBatch
+- DONE	-	DistanceFieldFont
+- DONE	-	Gdx2DPixmap
+- DONE	-	GlyphLayout
+- DONE	-	NinePatch
+- DONE	-	ParticleEffect
+- DONE	-	ParticleEffectPool
+- DONE	-	ParticleEmitter
+- DONE	-	PixmapPacker
+- DONE	-	PixmapPackerIO
+- DONE	-	PolygonBatch
+- DONE	-	PolygonRegion
+- DONE	-	PolygonRegionLoader
+- DONE	-	PolygonSprite
+- DONE	-	PolygonSpriteBatch
+- DONE	-	RepeatablePolygonSprite
+- DONE	-	Sprite
+- DONE	-	SpriteBatch
+- DONE	-	SpriteCache
+- DONE	-	TextureAtlas
+- DONE	-	TextureRegion
+
+SharpGDX\Graphics\GLUtils
+-------------------------
+- DONE	-	CustomTexture3DData
+- DONE	-	ETC1
+- DONE	-	ETC1TextureData
+- DONE	-	FacedCubemapData
+- DONE	-	FileTextureArrayData
+- DONE	-	FileTextureData
+- DONE	-	FloatFrameBuffer
+- DONE	-	FloatTextureData
+- DONE	-	FrameBuffer
+- DONE	-	FrameBufferCubemap
+- DONE	-	GLFrameBuffer
+- DONE	-	GLOnlyTextureData
+- DONE	-	GLVersion
+- DONE	-	HdpiMode
+- DONE	-	HdpiUtils
+- DONE	-	ImmediateModeRenderer
+- DONE	-	ImmediateModeRenderer20
+- DONE	-	IndexArray
+- DONE	-	IndexBufferObject
+- DONE	-	IndexBufferObjectSubData
+- DONE	-	IndexData
+- DONE	-	InstanceBufferObject
+- DONE	-	InstanceBufferObjectSubData
+- DONE	-	InstanceData
+- DONE	-	KTXTextureData
+- DONE	-	MipMapGenerator
+- DONE	-	MipMapTextureData
+- DONE	-	PixmapTextureData
+- DONE	-	ShaderProgram
+- DONE	-	ShapeRenderer
+- DONE	-	VertexArray
+- DONE	-	VertexBufferObject
+- DONE	-	VertexBufferObjectSubData
+- DONE	-	VertexBufferObjectWithVAO
+- DONE	-	VertexData
+
+SharpGDX\Graphics\Profiling
+---------------------------
+- DONE	-	GL20Interceptor
+- DONE	-	GL30Interceptor
+- DONE	-	GL31Interceptor
+- DONE	-	GL32Interceptor
+- DONE	-	GLErrorListener
+- DONE	-	GLInterceptor
+- DONE	-	GLProfiler
+
+SharpGDX\Input
+--------------
+- DONE	-	GestureDetector
+-	-	RemoteInput
+-	-	RemoteSender
+
+SharpGDX\Maps
+-------------
+- DONE	-	ImageResolver
+- DONE	-	Map
+- DONE	-	MapGroupLayer
+- DONE	-	MapLayer
+- DONE	-	MapLayers
+- DONE	-	MapObject
+- DONE	-	MapObjects
+- DONE	-	MapProperties
+- DONE	-	MapRenderer
+
+SharpGDX\Maps\Objects
+---------------------
+- DONE	-	CircleMapObject
+- DONE	-	EllipseMapObject
+- DONE	-	PolygonMapObject
+- DONE	-	PolylineMapObject
+- DONE	-	RectangleMapObject
+- DONE	-	TextureMapObject
+
+SharpGDX\Maps\Tiled
+-------------------
+- DONE	-	AtlasTmxMapLoader
+- DONE	-	BaseTmxMapLoader
+- DONE	-	TideMapLoader
+- DONE	-	TiledMap
+- DONE	-	TiledMapImageLayer
+- DONE	-	TiledMapRenderer
+- DONE	-	TiledMapTile
+- DONE	-	TiledMapTileLayer
+- DONE	-	TiledMapTileSet
+- DONE	-	TiledMapTileSets
+- DONE	-	TmxMapLoader
+
+SharpGDX\Maps\Tiled\Objects
+---------------------------
+- DONE	-	TiledMapTileMapObject
+
+SharpGDX\Maps\Tiled\Renderers
+-----------------------------
+- DONE	-	BatchTiledMapRenderer
+- DONE	-	HexagonalTiledMapRenderer
+- DONE	-	IsometricStaggeredTiledMapRenderer
+- DONE	-	IsometricTiledMapRenderer
+- DONE	-	OrthoCachedTiledMapRenderer
+- DONE	-	OrthogonalTiledMapRenderer
+
+SharpGDX\Maps\Tiled\Tiles
+-------------------------
+- DONE	-	AnimatedTiledMapTile
+- DONE	-	StaticTiledMapTile
+
+SharpGDX\Math
+-------------
+- DONE	-	Affine2
+- DONE	-	BSpline
+- DONE	-	Bezier
+- DONE	-	Bresenham2
+- DONE	-	CatmullRomSpline
+- DONE	-	Circle
+- DONE	-	ConvexHull
+- DONE	-	CumulativeDistribution
+- DONE	-	DelaunayTriangulator
+- DONE	-	EarClippingTriangulator
+- DONE	-	Ellipse
+- DONE	-	FloatCounter
+- DONE	-	Frustum
+- DONE	-	GeometryUtils
+- DONE	-	GridPoint2
+- DONE	-	GridPoint3
+- DONE	-	Interpolation
+- DONE	-	Intersector
+- DONE	-	MathUtils
+- DONE	-	Matrix3
+- DONE	-	Matrix4
+- DONE	-	Octree
+- DONE	-	Path
+- DONE	-	Plane
+- DONE	-	Polygon
+- DONE	-	Polyline
+- DONE	-	Quaternion
+- DONE	-	RandomXS128
+- DONE	-	Rectangle
+- DONE	-	Shape2D
+- DONE	-	Vector
+- DONE	-	Vector2
+- DONE	-	Vector3
+- DONE	-	Vector4
+- DONE	-	WindowedMean
+
+SharpGDX\Math\Collision
+-----------------------
+- DONE	-	BoundingBox
+- DONE	-	OrientedBoundingBox
+- DONE	-	Ray
+- DONE	-	Segment
+- DONE	-	Sphere
+
+SharpGDX\Net
+------------
+- DONE	-	HttpParametersUtils
+- DONE	-	HttpRequestBuilder
+- DONE	-	HttpRequestHeader
+- DONE	-	HttpResponseHeader
+- DONE	-	HttpStatus
+- DONE	-	NetJavaImpl
+- DONE	-	NetJavaServerSocketImpl
+- DONE	-	NetJavaSocketImpl
+- DONE	-	ServerSocket
+- DONE	-	ServerSocketHints
+- DONE	-	Socket
+- DONE	-	SocketHints
+
+SharpGDX\Scenes\Scene2D
+-----------------------
+- DONE	-	Action
+- DONE	-	Actor
+- DONE	-	Event
+- DONE	-	EventListener
+- DONE	-	Group
+- DONE	-	InputEvent
+- DONE	-	InputListener
+- DONE	-	Stage
+- DONE	-	Touchable
+
+SharpGDX\Scenes\Scene2D\Actions
+-------------------------------
+- DONE	-	Actions
+- DONE	-	AddAction
+- DONE	-	AddListenerAction
+- DONE	-	AfterAction
+- DONE	-	AlphaAction
+- DONE	-	ColorAction
+- DONE	-	CountdownEventAction
+- DONE	-	DelayAction
+- DONE	-	DelegateAction
+- DONE	-	EventAction
+- DONE	-	FloatAction
+- DONE	-	IntAction
+- DONE	-	LayoutAction
+- DONE	-	MoveByAction
+- DONE	-	MoveToAction
+- DONE	-	ParallelAction
+- DONE	-	RelativeTemporalAction
+- DONE	-	RemoveAction
+- DONE	-	RemoveActorAction
+- DONE	-	RemoveListenerAction
+- DONE	-	RepeatAction
+- DONE	-	RotateByAction
+- DONE	-	RotateToAction
+- DONE	-	RunnableAction
+- DONE	-	ScaleByAction
+- DONE	-	ScaleToAction
+- DONE	-	SequenceAction
+- DONE	-	SizeByAction
+- DONE	-	SizeToAction
+- DONE	-	TemporalAction
+- DONE	-	TimeScaleAction
+- DONE	-	TouchableAction
+- DONE	-	VisibleAction
+
+SharpGDX\Scenes\Scene2D\UI
+--------------------------
+- DONE	-	Button
+- DONE	-	ButtonGroup
+- DONE	-	Cell
+- DONE	-	CheckBox
+- DONE	-	Container
+- DONE	-	Dialog
+- DONE	-	HorizontalGroup
+- DONE	-	Image
+- DONE	-	ImageButton
+- DONE	-	ImageTextButton
+- DONE	-	Label
+- DONE	-	List
+- DONE	-	ParticleEffectActor
+- DONE	-	ProgressBar
+- DONE	-	ScrollPane
+- DONE	-	SelectBox
+- DONE	-	Skin
+- DONE	-	Slider
+- DONE	-	SplitPane
+- DONE	-	Stack
+- DONE	-	Table
+- DONE	-	TextArea
+- DONE	-	TextButton
+- DONE	-	TextField
+- DONE	-	TextTooltip
+- DONE	-	Tooltip
+- DONE	-	TooltipManager
+- DONE	-	Touchpad
+-	-	Tree
+- DONE	-	Value
+- DONE	-	VerticalGroup
+- DONE	-	Widget
+- DONE	-	WidgetGroup
+- DONE	-	Window
+
+SharpGDX\Scenes\Scene2D\Utils
+-----------------------------
+- DONE	-	ActorGestureListener
+- DONE	-	ArraySelection
+- DONE	-	BaseDrawable
+- DONE	-	ChangeListener
+- DONE	-	ClickListener
+- DONE	-	Cullable
+- DONE	-	Disableable
+- DONE	-	DragAndDrop
+- DONE	-	DragListener
+- DONE	-	DragScrollListener
+- DONE	-	Drawable
+- DONE	-	FocusListener
+- DONE	-	Layout
+- DONE	-	NinePatchDrawable
+- DONE	-	ScissorStack
+- DONE	-	Selection
+- DONE	-	SpriteDrawable
+- DONE	-	TextureRegionDrawable
+- DONE	-	TiledDrawable
+- DONE	-	TransformDrawable
+- DONE	-	UIUtils
+
+SharpGDX\Utils
+--------------
+- DONE 	- 	Align
+- DONE	-	Array
+-	-	ArrayMap
+-	-	AtomicQueue
+- DONE	-	Base64Coder
+-	-	BaseJsonReader
+-	-	BinaryHeap
+-	-	Bits
+- DONE	-	BooleanArray
+-	-	BufferUtils
+-	-	ByteArray
+-	-	CharArray
+- DONE	-	Clipboard
+- DONE	-	Collections
+- DONE	-	ComparableTimSort
+-	-	DataBuffer
+-	-	DataInput
+-	-	DataOutput
+- DONE	-	DelayedRemovalArray
+- DONE	-	Disposable
+- DONE	-	FloatArray
+- DONE 	-	FlushablePool
+- PROG	-	GdxNativesLoader
+- DONE	-	GdxRuntimeException
+-	-	I18NBundle
+-	-	IdentityMap
+-DONE	-	IntArray
+-	-	IntFloatMap
+-	-	IntIntMap
+- DONE	-	IntMap
+- DONE	-	IntSet
+- DONE	-	Json
+-	-	JsonReader
+- DONE	-	JsonValue
+- DONE	-	JsonWriter
+-	-	LittleEndianInputStream
+- DONE	-	Logger
+- DONE	-	LongArray
+- DONE	-	LongMap
+-	-	LongQueue
+-	-	Null
+- DONE	-	NumberUtils
+-	-	ObjectFloatMap
+- DONE	-	ObjectIntMap
+-	-	ObjectLongMap
+- DONE	-	ObjectMap
+- STUB	-	ObjectSet
+-	-	OrderedMap
+-	-	OrderedSet
+-	-	PauseableThread
+-	-	PerformanceCounter
+-	-	PerformanceCounters
+- DONE	-	Pool
+-	-	PooledLinkedList
+- DONE	-	Pools
+- DONE	-	Predicate
+-	-	PropertiesUtils
+-	-	QuadTreeFloat
+-	-	Queue
+- DONE	-	QuickSelect
+- DONE	-	ReflectionPool
+- DONE	-	Scaling
+- DONE	-	ScreenUtils
+- DONE	-	Select
+- DONE	-	SerializationException
+- DONE	-	ShortArray
+- DONE	-	SnapshotArray
+- DONE	-	Sort
+-	-	SortedIntList
+- DONE	-	StreamUtils
+-	-	StringBuilder
+-	-	TextFormatter
+- DONE	-	TimeUtils
+- DONE	-	TimSort
+- DONE	-	Timer
+-	-	UBJsonReader
+-	-	UBJsonWriter
+- DONE	-	XmlReader
+- DONE	-	XmlWriter
+
+SharpGDX\Utils\Async
+--------------------
+- DONE 	-	AsyncExecutor
+- DONE 	-	AsyncResult
+- DONE 	-	AsyncTask
+- DONE	-	ThreadUtils
+
+SharpGDX\Utils\Compression
+--------------------------
+- DONE	-	CRC
+- DONE	-	ICodeProgress
+- DONE	-	Lzma
+
+SharpGDX\Utils\Compression\LZ
+-----------------------------
+- DONE	-	BinTree
+- DONE	-	InWindow
+- DONE	-	OutWindow
+
+SharpGDX\Utils\Compression\LZMA
+-------------------------------
+- DONE	-	Base
+- DONE	-	Decoder
+- DONE	-	Encoder
+
+SharpGDX\Utils\Compression\RangeCoder
+-------------------------------------
+- DONE	-	BitTreeDecoder
+- DONE	-	BitTreeEncoder
+- DONE	-	Decoder
+- DONE	-	Encoder
+
+SharpGDX\Utils\Reflect
+----------------------
+- DONE	-	Annotation
+- DONE	-	ArrayReflect
+- DONE 	-	ClassReflection
+- DONE	-	Constructor
+- DONE	-	Field
+- DONE	-	Method
+- DONE	-	ReflectionException
+
+SharpGDX\Utils\Viewport
+-----------------------
+- DONE	-	ExtendViewport
+- DONE	-	FillViewport
+- DONE	-	FitViewport
+- DONE	-	ScalingViewport
+- DONE	-	ScreenViewport
+- DONE	-	StretchViewport
+- DONE	-	Viewport
+
+=============================================================
+
+SharpGDX.Headless
+-----------------
+- DONE	-	HeadlessApplication
+- DONE	-	HeadlessApplicationConfiguration
+- DONE	-	HeadlessApplicationLogger
+- DONE	-	HeadlessFileHandle
+- DONE	-	HeadlessFiles
+- DONE	-	HeadlessNativesLoader
+- 	-	HeadlessNet
+- DONE	-	HeadlessPreferences
+
+SharpGDX.Headless\Mock\Audio
+----------------------------
+- DONE	-	MockAudio
+- DONE	-	MockAudioDevice
+- DONE	-	MockAudioRecorder
+- DONE	-	MockMusic
+- DONE	-	MockSound
+
+SharpGDX.Headless\Mock\Graphics
+-------------------------------
+- DONE	-	MockGraphics
+
+SharpGDX.Headless\Mock\Input
+----------------------------
+- DONE	-	MockInput
+
+=============================================================
+
+SharpGDX.Desktop
+-----------------
+- DONE	-	DefaultDesktopInput
+- DONE	-	DesktopApplication
+- DONE	-	DesktopApplicationBase
+- DONE	-	DesktopApplicationConfiguration
+- DONE	-	DesktopApplicationLogger
+- DONE	-	DesktopClipboard
+- DONE 	-	DesktopCursor
+- DONE	-	DesktopFileHandle
+- DONE	-	DesktopFiles
+-	-	DesktopGL20
+-	-	DesktopGL30
+-	-	DesktopGL31
+-	-	DesktopGL32
+- DONE	-	DesktopGraphics
+- DONE	-	DesktopInput
+- DONE 	-	DesktopNativesLoader
+-	-	DesktopNet
+- DONE 	-	DesktopPreferences
+- DONE	-	DesktopWindow
+- DONE	-	DesktopWindowAdapter
+- DONE	-	DesktopWindowConfiguration
+- DONE	-	DesktopWindowListener
+- DONE	-	Sync
+
+SharpGDX.Desktop\Audio
+----------------------
+-	-	DesktopAudioRecorder
+- DONE	-	DesktopAudio
+-	-	MP3
+-	-	Ogg
+-	-	OggInputStream
+- DONE 	-	OpenALAudioDevice
+- DONE 	-	OpenALDesktopAudio	
+- DONE 	-	OpenALMusic
+- DONE 	-	OpenALSound
+- DONE	-	Wav
+
+
+SharpGDX.Desktop\Audio\Mock
+---------------------------
+- DONE	-	MockAudio
+- DONE	-	MockAudioDevice
+- DONE	-	MockAudioRecorder
+- DONE	-	MockMusic
+- DONE	-	MockSound

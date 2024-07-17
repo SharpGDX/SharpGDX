@@ -1,0 +1,1 @@
+This is a port of [libGDX](https://www.libgdx.com), all original code, modified or not, is attributed to the original authors outlined in the libGDX [repository](https://github.com/libgdx/libgdx) and it's commit history and is licensed under the [Apache-2.0 License](https://github.com/libgdx/libgdx?tab=Apache-2.0-1-ov-file#readme).
