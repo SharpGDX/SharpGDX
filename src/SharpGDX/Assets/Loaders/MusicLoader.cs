@@ -26,7 +26,7 @@ public class MusicLoader : AsynchronousAssetLoader<IMusic, MusicLoader.MusicPara
 	}
 
 	public override void loadAsync (AssetManager manager, String fileName, FileHandle file, MusicParameter parameter) {
-		music = Gdx.audio.newMusic(file);
+		music = Gdx.audio.NewMusic(file);
 	}
 
 	public override IMusic loadSync (AssetManager manager, String fileName, FileHandle file, MusicParameter parameter) {

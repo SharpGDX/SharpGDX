@@ -26,7 +26,7 @@ public class SoundLoader : AsynchronousAssetLoader<ISound, SoundLoader.SoundPara
 	}
 
 	public override void loadAsync (AssetManager manager, String fileName, FileHandle file, SoundParameter parameter) {
-		sound = Gdx.audio.newSound(file);
+		sound = Gdx.audio.NewSound(file);
 	}
 
 	public override ISound loadSync (AssetManager manager, String fileName, FileHandle file, SoundParameter parameter) {

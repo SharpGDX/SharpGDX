@@ -28,13 +28,13 @@ namespace Drop
 		ScreenUtils.clear(0, 0, 0.2f, 1);
 
 		camera.update();
-		game.batch.setProjectionMatrix(camera.combined);
+		game.Batch.setProjectionMatrix(camera.combined);
 
-		game.batch.begin();
-		game.font.draw(game.batch, "Welcome to Drop!!! ", 100, 150);
-		game.font.draw(game.batch, "Tap anywhere to begin!", 100, 100);
+		game.Batch.begin();
+		game.Font.draw(game.Batch, "Welcome to Drop!!! ", 100, 150);
+		game.Font.draw(game.Batch, "Tap anywhere to begin!", 100, 100);
 
-			game.batch.end();
+			game.Batch.end();
 
 		if (Gdx.input.isTouched())
 		{

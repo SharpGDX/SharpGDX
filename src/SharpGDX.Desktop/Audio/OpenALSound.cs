@@ -45,12 +45,12 @@ namespace SharpGDX.Desktop.Audio
 		}
 	}
 		
-		public long play()
+		public long Play()
 	{
-		return play(1);
+		return Play(1);
 	}
 
-	public long play(float volume)
+	public long Play(float volume)
 	{
 		if (audio.noDevice) return 0;
 		int sourceID = audio.obtainSource(false);
@@ -72,12 +72,12 @@ namespace SharpGDX.Desktop.Audio
 		return soundId;
 	}
 
-	public long loop()
+	public long Loop()
 	{
-		return loop(1);
+		return Loop(1);
 	}
 
-	public long loop(float volume)
+	public long Loop(float volume)
 	{
 		if (audio.noDevice) return 0;
 		int sourceID = audio.obtainSource(false);
@@ -90,7 +90,7 @@ namespace SharpGDX.Desktop.Audio
 		return soundId;
 	}
 
-	public void stop()
+	public void Stop()
 	{
 		if (audio.noDevice) return;
 		audio.stopSourcesWithBuffer(bufferID);
@@ -107,73 +107,73 @@ namespace SharpGDX.Desktop.Audio
 		audio.forget(this);
 	}
 
-	public void stop(long soundId)
+	public void Stop(long soundId)
 	{
 		if (audio.noDevice) return;
 		audio.stopSound(soundId);
 	}
 
-	public void pause()
+	public void Pause()
 	{
 		if (audio.noDevice) return;
 		audio.pauseSourcesWithBuffer(bufferID);
 	}
 
-	public void pause(long soundId)
+	public void Pause(long soundId)
 	{
 		if (audio.noDevice) return;
 		audio.pauseSound(soundId);
 	}
 
-	public void resume()
+	public void Resume()
 	{
 		if (audio.noDevice) return;
 		audio.resumeSourcesWithBuffer(bufferID);
 	}
 
-	public void resume(long soundId)
+	public void Resume(long soundId)
 	{
 		if (audio.noDevice) return;
 		audio.resumeSound(soundId);
 	}
 
-	public void setPitch(long soundId, float pitch)
+	public void SetPitch(long soundId, float pitch)
 	{
 		if (audio.noDevice) return;
 		audio.setSoundPitch(soundId, pitch);
 	}
 
-	public void setVolume(long soundId, float volume)
+	public void SetVolume(long soundId, float volume)
 	{
 		if (audio.noDevice) return;
 		audio.setSoundGain(soundId, volume);
 	}
 
-	public void setLooping(long soundId, bool looping)
+	public void SetLooping(long soundId, bool looping)
 	{
 		if (audio.noDevice) return;
 		audio.setSoundLooping(soundId, looping);
 	}
 
-	public void setPan(long soundId, float pan, float volume)
+	public void SetPan(long soundId, float pan, float volume)
 	{
 		if (audio.noDevice) return;
 		audio.setSoundPan(soundId, pan, volume);
 	}
 
-	public long play(float volume, float pitch, float pan)
+	public long Play(float volume, float pitch, float pan)
 	{
-		long id = play();
-		setPitch(id, pitch);
-		setPan(id, pan, volume);
+		long id = Play();
+		SetPitch(id, pitch);
+		SetPan(id, pan, volume);
 		return id;
 	}
 
-	public long loop(float volume, float pitch, float pan)
+	public long Loop(float volume, float pitch, float pan)
 	{
-		long id = loop();
-		setPitch(id, pitch);
-		setPan(id, pan, volume);
+		long id = Loop();
+		SetPitch(id, pitch);
+		SetPan(id, pan, volume);
 		return id;
 	}
 

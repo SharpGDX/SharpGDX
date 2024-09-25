@@ -1,6 +1,8 @@
 ﻿using SharpGDX.Audio;
 using SharpGDX.Files;
 
+// TODO: Update documentation.
+
 namespace SharpGDX
 {
 	/** This interface encapsulates the creation and management of audio resources. It allows you to get direct access to the audio
@@ -27,7 +29,7 @@ namespace SharpGDX
 		 * @return the AudioDevice
 		 * 
 		 * @throws GdxRuntimeException in case the device could not be created */
-		public IAudioDevice newAudioDevice(int samplingRate, bool isMono);
+		public IAudioDevice NewAudioDevice(int samplingRate, bool isMono);
 
 		/** Creates a new {@link AudioRecorder}. The AudioRecorder has to be disposed after it is no longer used.
 		 * 
@@ -36,7 +38,7 @@ namespace SharpGDX
 		 * @return the AudioRecorder
 		 * 
 		 * @throws GdxRuntimeException in case the recorder could not be created */
-		public IAudioRecorder newAudioRecorder(int samplingRate, bool isMono);
+		public IAudioRecorder NewAudioRecorder(int samplingRate, bool isMono);
 
 		/**
 		 * <p>
@@ -55,7 +57,7 @@ namespace SharpGDX
 		 * 
 		 * @return the new Sound
 		 * @throws GdxRuntimeException in case the sound could not be loaded */
-		public ISound newSound(FileHandle fileHandle);
+		public ISound NewSound(FileHandle fileHandle);
 
 		/** Creates a new {@link Music} instance which is used to play back a music stream from a file. Currently supported formats are
 		 * WAV, MP3 and OGG. The Music instance has to be disposed if it is no longer used via the {@link Music#dispose()} method.
@@ -65,19 +67,19 @@ namespace SharpGDX
 		 * @param file the FileHandle
 		 * @return the new Music or null if the Music could not be loaded
 		 * @throws GdxRuntimeException in case the music could not be loaded */
-		public IMusic newMusic(FileHandle file);
+		public IMusic NewMusic(FileHandle file);
 
 		/** Sets a new OutputDevice. The identifier can be retrieved from {@link Audio#getAvailableOutputDevices()}. If null is passed,
 		 * it will switch to auto.
 		 *
 		 * @param deviceIdentifier device identifier to switch to, or null for auto */
-		public bool switchOutputDevice(String? deviceIdentifier);
+		public bool SwitchOutputDevice(String? deviceIdentifier);
 
 		/** This function returns a list of fully qualified Output device names. This function is only implemented on desktop. On all
 		 * other platforms it will return a empty array. It will also return a empty array on error. The names returned need os
 		 * dependent preprocessing before exposing to a user.
 		 *
 		 * @return A array of available output devices */
-		public String[] getAvailableOutputDevices();
+		public String[] GetAvailableOutputDevices();
 	}
 }

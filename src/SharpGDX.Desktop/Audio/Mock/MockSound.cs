@@ -14,73 +14,73 @@ public class MockSound : ISound
 	{
 	}
 
-	public long loop()
+	public long Loop()
 	{
 		return 0;
 	}
 
-	public long loop(float volume)
+	public long Loop(float volume)
 	{
 		return 0;
 	}
 
-	public long loop(float volume, float pitch, float pan)
+	public long Loop(float volume, float pitch, float pan)
 	{
 		return 0;
 	}
 
-	public void pause()
+	public void Pause()
 	{
 	}
 
-	public void pause(long soundId)
+	public void Pause(long soundId)
 	{
 	}
 
-	public long play()
-	{
-		return 0;
-	}
-
-	public long play(float volume)
+	public long Play()
 	{
 		return 0;
 	}
 
-	public long play(float volume, float pitch, float pan)
+	public long Play(float volume)
 	{
 		return 0;
 	}
 
-	public void resume()
+	public long Play(float volume, float pitch, float pan)
+	{
+		return 0;
+	}
+
+	public void Resume()
 	{
 	}
 
-	public void resume(long soundId)
+	public void Resume(long soundId)
 	{
 	}
 
-	public void setLooping(long soundId, bool looping)
+	public void SetLooping(long soundId, bool looping)
 	{
 	}
 
-	public void setPan(long soundId, float pan, float volume)
+	public void SetPan(long soundId, float pan, float volume)
 	{
 	}
 
-	public void setPitch(long soundId, float pitch)
+	public void SetPitch(long soundId, float pitch)
 	{
 	}
 
-	public void setVolume(long soundId, float volume)
+	public void SetVolume(long soundId, float volume)
 	{
 	}
 
-	public void stop()
+	public void Stop()
 	{
 	}
 
-	public void stop(long soundId)
+	public void Stop(long soundId)
 	{
 	}
 }

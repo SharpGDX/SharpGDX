@@ -10,20 +10,19 @@ namespace SharpGDX.Desktop.Audio.Mock;
 /// </remarks>
 public class MockMusic : IMusic
 {
+	/// <inheritdoc cref="IMusic.Position" />
+	public float Position { get; set; }
+
+	/// <inheritdoc cref="IMusic.Volume" />
+	public float Volume { get; set; }
+
+	/// <inheritdoc cref="IMusic.IsPlaying" />
+	public bool IsPlaying => false;
+
 	public void dispose()
 	{
 	}
-
-	public float getPosition()
-	{
-		return 0;
-	}
-
-	public float getVolume()
-	{
-		return 0;
-	}
-
+	
 	public bool isLooping()
 	{
 		return false;
@@ -53,15 +52,7 @@ public class MockMusic : IMusic
 	public void setPan(float pan, float volume)
 	{
 	}
-
-	public void setPosition(float position)
-	{
-	}
-
-	public void setVolume(float volume)
-	{
-	}
-
+	
 	public void stop()
 	{
 	}

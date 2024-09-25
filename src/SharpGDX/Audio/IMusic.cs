@@ -35,8 +35,10 @@ namespace SharpGDX.Audio
 	/** Stops a playing or paused Music instance. Next time play() is invoked the Music will start from the beginning. */
 	public void stop();
 
-	/** @return whether this music stream is playing */
-	public bool isPlaying();
+		/// <summary>
+		/// Gets whether this music stream is playing.
+		/// </summary>
+		public bool IsPlaying { get; }
 
 	/** Sets whether the music stream is looping. This can be called at any time, whether the stream is playing.
 	 * 
@@ -46,28 +48,28 @@ namespace SharpGDX.Audio
 	/** @return whether the music stream is playing. */
 	public bool isLooping();
 
-	/** Sets the volume of this music stream. The volume must be given in the range [0,1] with 0 being silent and 1 being the
-	 * maximum volume.
-	 * 
-	 * @param volume */
-	public void setVolume(float volume);
-
-	/** @return the volume of this music stream. */
-	public float getVolume();
+	/// <summary>
+	/// Gets or sets the volume of the music stream.
+	/// </summary>
+	/// <remarks>
+	/// The volume must be given in the range [0,1] with 0 being silent and 1 being the maximum volume.
+	/// </remarks>
+	public float Volume { get; set; }
 
 	/** Sets the panning and volume of this music stream.
 	 * @param pan panning in the range -1 (full left) to 1 (full right). 0 is center position.
 	 * @param volume the volume in the range [0,1]. */
 	public void setPan(float pan, float volume);
+		
+	/// <summary>
+	/// Gets or sets the playback position in seconds.
+	/// </summary>
+	public float Position { get; set; }
 
-	/** Set the playback position in seconds. */
-	public void setPosition(float position);
-
-	/** Returns the playback position in seconds. */
-	public float getPosition();
-
-	/** Needs to be called when the Music is no longer needed. */
-	public void dispose();
+		/// <summary>
+		/// Needs to be called when the IMusic is no longer needed.
+		/// </summary>
+		public void dispose();
 
 	/** Register a callback to be invoked when the end of a music stream has been reached during playback.
 	 * 

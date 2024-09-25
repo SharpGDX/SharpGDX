@@ -1,30 +1,33 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace SharpGDX;
 
-namespace SharpGDX
+/// <summary>
+///     An <see cref="ILifecycleListener" /> can be added to an <see cref="IApplication" /> via
+///     <see cref="IApplication.addLifecycleListener(ILifecycleListener)" />. It will receive notification of pause, resume
+///     and dispose events. This is mainly meant to be used by extensions that need to manage resources based on the
+///     life-cycle. Normal, application level development should rely on the <see cref="IApplicationListener" /> interface.
+/// </summary>
+/// <remarks>
+///     <para>
+///         The methods will be invoked on the rendering thread.
+///     </para>
+///     <para>
+///         The methods will be executed before the <see cref="IApplicationListener" /> methods are executed.
+///     </para>
+/// </remarks>
+public interface ILifecycleListener
 {
-	/** A LifecycleListener can be added to an {@link Application} via {@link Application#addLifecycleListener(LifecycleListener)}. It
- * will receive notification of pause, resume and dispose events. This is mainly meant to be used by extensions that need to
- * manage resources based on the life-cycle. Normal, application level development should rely on the {@link ApplicationListener}
- * interface.
- * </p>
- *
- * The methods will be invoked on the rendering thread. The methods will be executed before the {@link ApplicationListener}
- * methods are executed.
- *
- * @author mzechner */
-	public interface ILifecycleListener
-	{
-		/** Called when the {@link Application} is about to pause */
-		public void pause();
+	/// <summary>
+	///     Called when the <see cref="IApplication" /> is about to be disposed.
+	/// </summary>
+	public void Dispose();
 
-		/** Called when the Application is about to be resumed */
-		public void resume();
+	/// <summary>
+	///     Called when the <see cref="IApplication" /> is about to pause.
+	/// </summary>
+	public void Pause();
 
-		/** Called when the {@link Application} is about to be disposed */
-		public void dispose();
-	}
+	/// <summary>
+	///     Called when the <see cref="IApplication" /> is about to be resumed.
+	/// </summary>
+	public void Resume();
 }

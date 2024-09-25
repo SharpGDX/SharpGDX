@@ -164,8 +164,8 @@ namespace SharpGDX.Desktop
 			}
 			catch (Exception t)
 			{
-				if (t is RuntimeException)
-					throw (RuntimeException)t;
+				if (t is RuntimeException exception)
+					throw exception;
 				else
 					throw new GdxRuntimeException(t);
 			}
@@ -238,8 +238,8 @@ namespace SharpGDX.Desktop
 						for (int i = lifecycleListeners.size - 1; i >= 0; i--)
 						{
 							ILifecycleListener l = lifecycleListeners.get(i);
-							l.pause();
-							l.dispose();
+							l.Pause();
+							l.Dispose();
 						}
 
 						lifecycleListeners.clear();
@@ -276,8 +276,8 @@ namespace SharpGDX.Desktop
 			{
 				foreach (ILifecycleListener lifecycleListener in lifecycleListeners)
 				{
-					lifecycleListener.pause();
-					lifecycleListener.dispose();
+					lifecycleListener.Pause();
+					lifecycleListener.Dispose();
 				}
 			}
 

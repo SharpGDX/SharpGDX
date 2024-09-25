@@ -25,7 +25,7 @@ public class Timer {
 	static private TimerThread thread () {
 		lock (threadLock) {
 			if (thread == null || _thread.files != Gdx.files) {
-				if (thread != null) _thread.dispose();
+				if (thread != null) _thread.Dispose();
 				_thread = new TimerThread();
 			}
 			return _thread;
@@ -304,7 +304,7 @@ public class Timer {
 				//dispose();
 			}
 
-		public void resume () {
+		public void Resume () {
 			throw new NotImplementedException();
 				//lock (threadLock) {
 				//	long delayMillis = TimeUtils.nanoTime() / 1000000 - pauseTimeMillis;
@@ -315,7 +315,7 @@ public class Timer {
 				//}
 			}
 
-		public void pause () {
+		public void Pause () {
 			throw new NotImplementedException();
 				//lock (threadLock) {
 				//	pauseTimeMillis = TimeUtils.nanoTime() / 1000000;
@@ -323,7 +323,7 @@ public class Timer {
 				//}
 			}
 
-		public void dispose () { // OK to call multiple times.
+		public void Dispose () { // OK to call multiple times.
 			throw new NotImplementedException();
 				//lock (threadLock) {
 				//	if (_thread == this) _thread = null;

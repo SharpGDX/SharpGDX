@@ -34,8 +34,8 @@ namespace Drop
 		bucketImage = new Texture(Gdx.files.@internal("assets/bucket.png"));
 
 		// load the drop sound effect and the rain background "music"
-		dropSound = Gdx.audio.newSound(Gdx.files.@internal("assets/drop.wav"));
-		rainMusic = Gdx.audio.newMusic(Gdx.files.@internal("assets/rain.wav"));
+		dropSound = Gdx.audio.NewSound(Gdx.files.@internal("assets/drop.wav"));
+		rainMusic = Gdx.audio.NewMusic(Gdx.files.@internal("assets/rain.wav"));
 		rainMusic.setLooping(true);
 
 		// create the camera and the SpriteBatch
@@ -79,19 +79,19 @@ namespace Drop
 
 		// tell the SpriteBatch to render in the
 		// coordinate system specified by the camera.
-		game.batch.setProjectionMatrix(camera.combined);
+		game.Batch.setProjectionMatrix(camera.combined);
 
 		// begin a new batch and draw the bucket and
 		// all drops
-		game.batch.begin();
-		game.font.draw(game.batch, "Drops Collected: " + dropsGathered, 0, 480);
-		game.batch.draw(bucketImage, bucket.x, bucket.y);
+		game.Batch.begin();
+		game.Font.draw(game.Batch, "Drops Collected: " + dropsGathered, 0, 480);
+		game.Batch.draw(bucketImage, bucket.x, bucket.y);
 		foreach (Rectangle raindrop in raindrops)
 		{
-			game.batch.draw(dropImage, raindrop.x, raindrop.y);
+			game.Batch.draw(dropImage, raindrop.x, raindrop.y);
 		}
 
-		game.batch.end();
+		game.Batch.end();
 
 		// process user input
 		if (Gdx.input.isTouched())
@@ -129,7 +129,7 @@ namespace Drop
 			if (raindrop.overlaps(bucket))
 			{
 				dropsGathered++;
-				dropSound.play();
+				dropSound.Play();
 				raindrops.RemoveAt(i);
 			}
 		}

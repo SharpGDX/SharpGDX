@@ -136,8 +136,8 @@ namespace SharpGDX.Headless
 			{
 				foreach (ILifecycleListener listener in lifecycleListeners)
 				{
-					listener.pause();
-					listener.dispose();
+					listener.Pause();
+					listener.Dispose();
 				}
 			}
 

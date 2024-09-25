@@ -112,12 +112,12 @@ namespace SharpGDX.Desktop.Audio
 
 					if (preferredOutputDevice != null)
 					{
-						if (Arrays.asList(getAvailableOutputDevices()).Contains(preferredOutputDevice))
+						if (Arrays.asList(GetAvailableOutputDevices()).Contains(preferredOutputDevice))
 						{
 							if (!preferredOutputDevice.Equals(ALC.GetString(device, AlcGetString.AllDevicesSpecifier)))
 							{
 								// The preferred output device is reconnected, let's switch back to it
-								switchOutputDevice(preferredOutputDevice);
+								SwitchOutputDevice(preferredOutputDevice);
 							}
 						}
 						else
@@ -132,11 +132,11 @@ namespace SharpGDX.Desktop.Audio
 					}
 					else
 					{
-						String[] currentDevices = getAvailableOutputDevices();
+						String[] currentDevices = GetAvailableOutputDevices();
 						// If a new device got added, re evaluate "auto" mode
 						if (!Arrays.equals(currentDevices, lastAvailableDevices))
 						{
-							switchOutputDevice(null);
+							SwitchOutputDevice(null);
 						}
 
 						// Update last available devices
@@ -176,7 +176,7 @@ namespace SharpGDX.Desktop.Audio
 			extensionToMusicClass.put(extension, musicClass);
 		}
 
-		public ISound newSound(FileHandle file)
+		public ISound NewSound(FileHandle file)
 		{
 			if (file == null) throw new IllegalArgumentException("file cannot be null.");
 			Type soundClass = extensionToSoundClass.get(file.extension().ToLower());
@@ -192,7 +192,7 @@ namespace SharpGDX.Desktop.Audio
 			}
 		}
 
-		public IMusic newMusic(FileHandle file)
+		public IMusic NewMusic(FileHandle file)
 		{
 			if (file == null) throw new IllegalArgumentException("file cannot be null.");
 			Type musicClass = extensionToMusicClass.get(file.extension().ToLower());
@@ -208,7 +208,7 @@ namespace SharpGDX.Desktop.Audio
 			}
 		}
 
-		public bool switchOutputDevice(String deviceIdentifier)
+		public bool SwitchOutputDevice(String deviceIdentifier)
 		{
 			return switchOutputDevice(deviceIdentifier, true);
 		}
@@ -224,7 +224,7 @@ namespace SharpGDX.Desktop.Audio
 			return false;
 		}
 
-		public String[] getAvailableOutputDevices()
+		public String[] GetAvailableOutputDevices()
 		{
 			// TODO: Verify
 			var devices = ALC.GetString(AlcGetStringList.AllDevicesSpecifier);
@@ -430,7 +430,7 @@ namespace SharpGDX.Desktop.Audio
 			ALC.CloseDevice(device);
 		}
 
-		public IAudioDevice newAudioDevice(int sampleRate, bool isMono)
+		public IAudioDevice NewAudioDevice(int sampleRate, bool isMono)
 		{
 			if (noDevice)
 				return new NoAudioDevice(isMono)
@@ -484,7 +484,7 @@ namespace SharpGDX.Desktop.Audio
 			}
 		}
 
-		public IAudioRecorder newAudioRecorder(int samplingRate, bool isMono)
+		public IAudioRecorder NewAudioRecorder(int samplingRate, bool isMono)
 		{
 			if (noDevice)
 				return new NoAudioRecorder()
@@ -516,7 +516,7 @@ namespace SharpGDX.Desktop.Audio
 			if (stop)
 			{
 				// Stop the least recent sound (the one we are about to bump off the buffer)
-				if (recentSounds[mostRecetSound] != null) recentSounds[mostRecetSound].stop();
+				if (recentSounds[mostRecetSound] != null) recentSounds[mostRecetSound].Stop();
 			}
 
 			recentSounds[mostRecetSound] = sound;

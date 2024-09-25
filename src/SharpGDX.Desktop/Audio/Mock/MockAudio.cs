@@ -14,32 +14,32 @@ public class MockAudio : IDesktopAudio
 	{
 	}
 
-	public string[] getAvailableOutputDevices()
+	public string[] GetAvailableOutputDevices()
 	{
 		return [];
 	}
 
-	public IAudioDevice newAudioDevice(int samplingRate, bool isMono)
+	public IAudioDevice NewAudioDevice(int samplingRate, bool isMono)
 	{
 		return new MockAudioDevice();
 	}
 
-	public IAudioRecorder newAudioRecorder(int samplingRate, bool isMono)
+	public IAudioRecorder NewAudioRecorder(int samplingRate, bool isMono)
 	{
 		return new MockAudioRecorder();
 	}
 
-	public IMusic newMusic(FileHandle file)
+	public IMusic NewMusic(FileHandle file)
 	{
 		return new MockMusic();
 	}
 
-	public ISound newSound(FileHandle fileHandle)
+	public ISound NewSound(FileHandle fileHandle)
 	{
 		return new MockSound();
 	}
 
-	public bool switchOutputDevice(string? deviceIdentifier)
+	public bool SwitchOutputDevice(string? deviceIdentifier)
 	{
 		return true;
 	}
