@@ -40,7 +40,7 @@ public class MockMusic : IMusic
 	{
 	}
 
-	public void setOnCompletionListener(IMusic.IOnCompletionListener listener)
+	public void setOnCompletionListener(Action<IMusic> listener)
 	{
 	}
 

@@ -5,6 +5,16 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 		<AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+		<GeneratePackageOnBuild>False</GeneratePackageOnBuild>
+		<Title>SharpGDX.Desktop</Title>
+		<Description>C# Port of Java's libGDX (Desktop).</Description>
+		<Copyright>Copyright 2024 SharpGDX - https://www.sharpgdx.com/</Copyright>
+		<PackageProjectUrl>https://sharpgdx.com</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/SharpGDX/SharpGDX</RepositoryUrl>
+		<PackageTags>SharpGDX</PackageTags>
+		<AssemblyVersion>1.12.1</AssemblyVersion>
+		<FileVersion>1.12.1</FileVersion>
+		<Version>1.12.1-alpha.3</Version>
 	</PropertyGroup>
 
 	<ItemGroup>

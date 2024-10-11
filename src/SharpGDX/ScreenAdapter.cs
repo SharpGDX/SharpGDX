@@ -6,33 +6,34 @@
 /// <remarks>
 ///     Derive from this and only override what you need.
 /// </remarks>
+/// TODO: Why wouldn't this be abstract? -RP
 public class ScreenAdapter : IScreen
 {
-	public void Dispose()
+	public virtual void Dispose()
 	{
 	}
 
-	public void Hide()
+	public virtual void Hide()
 	{
 	}
 
-	public void Pause()
+	public virtual void Pause()
 	{
 	}
 
-	public void Render(float delta)
+	public virtual void Render(float delta)
 	{
 	}
 
-	public void Resize(int width, int height)
+	public virtual void Resize(int width, int height)
 	{
 	}
 
-	public void Resume()
+	public virtual void Resume()
 	{
 	}
 
-	public void Show()
+	public virtual void Show()
 	{
 	}
 }

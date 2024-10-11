@@ -279,8 +279,7 @@ namespace SharpGDX.Desktop
 
 		public void glDeleteTexture(int texture)
 		{
-			throw new NotImplementedException();
-			//GL.glDeleteTextures(texture);
+			GL.DeleteTexture(texture);
 		}
 
 		public void glDepthFunc(int func)

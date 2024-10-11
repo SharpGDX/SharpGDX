@@ -8,8 +8,8 @@ namespace SharpGDX.Desktop
 	{
 		internal int windowX = -1;
 		internal int windowY = -1;
-		internal int windowWidth = 640;
-		internal int windowHeight = 480;
+		public int windowWidth = 640;
+		public int windowHeight = 480;
 		internal int windowMinWidth = -1, windowMinHeight = -1, windowMaxWidth = -1, windowMaxHeight = -1;
 		internal bool windowResizable = true;
 		internal bool windowDecorated = true;
@@ -20,7 +20,7 @@ namespace SharpGDX.Desktop
 		internal String[]? windowIconPaths;
 		internal IDesktopWindowListener windowListener;
 		internal DesktopGraphics.DesktopDisplayMode fullscreenMode;
-		internal String title;
+		public String title;
 		internal Color initialBackgroundColor = Color.BLACK;
 		internal bool initialVisible = true;
 		internal bool vSyncEnabled = true;

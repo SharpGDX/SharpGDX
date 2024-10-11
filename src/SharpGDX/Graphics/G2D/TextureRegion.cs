@@ -244,7 +244,7 @@ public class TextureRegion {
 	 * @param tileWidth a tile's width in pixels
 	 * @param tileHeight a tile's height in pixels
 	 * @return a 2D array of TextureRegions indexed by [row][column]. */
-	public TextureRegion[,] split (int tileWidth, int tileHeight) {
+	public TextureRegion[][] split (int tileWidth, int tileHeight) {
 		int x = getRegionX();
 		int y = getRegionY();
 		int width = regionWidth;
@@ -254,11 +254,18 @@ public class TextureRegion {
 		int cols = width / tileWidth;
 
 		int startX = x;
-		TextureRegion[,] tiles = new TextureRegion[rows,cols];
-		for (int row = 0; row < rows; row++, y += tileHeight) {
+		TextureRegion[][] tiles = new TextureRegion[rows][];
+
+
+        for (int i = 0; i < tiles.Length; i++)
+        {
+            tiles[i] = new TextureRegion[cols];
+        }
+
+            for (int row = 0; row < rows; row++, y += tileHeight) {
 			x = startX;
 			for (int col = 0; col < cols; col++, x += tileWidth) {
-				tiles[row,col] = new TextureRegion(texture, x, y, tileWidth, tileHeight);
+					tiles[row][col] = new TextureRegion(texture, x, y, tileWidth, tileHeight);
 			}
 		}
 
@@ -273,7 +280,7 @@ public class TextureRegion {
 	 * @param tileWidth a tile's width in pixels
 	 * @param tileHeight a tile's height in pixels
 	 * @return a 2D array of TextureRegions indexed by [row][column]. */
-	public static TextureRegion[,] split (Texture texture, int tileWidth, int tileHeight) {
+	public static TextureRegion[][] split (Texture texture, int tileWidth, int tileHeight) {
 		TextureRegion region = new TextureRegion(texture);
 		return region.split(tileWidth, tileHeight);
 	}

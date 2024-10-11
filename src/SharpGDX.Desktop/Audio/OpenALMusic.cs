@@ -35,7 +35,7 @@ namespace SharpGDX.Desktop.Audio
 
 		protected readonly FileHandle file;
 
-		private IOnCompletionListener onCompletionListener;
+		private Action<IMusic>? onCompletionListener;
 
 		public OpenALMusic(OpenALDesktopAudio audio, FileHandle file)
 		{
@@ -88,7 +88,7 @@ namespace SharpGDX.Desktop.Audio
 
 				}
 
-				if (!filled && onCompletionListener != null) onCompletionListener.onCompletion(this);
+				if (!filled && onCompletionListener != null) onCompletionListener?.Invoke(this);
 
 				if (AL.GetError() != ALError.NoError)
 				{
@@ -239,7 +239,7 @@ namespace SharpGDX.Desktop.Audio
 				if (!filled)
 				{
 					stop();
-					if (onCompletionListener != null) onCompletionListener.onCompletion(this);
+					if (onCompletionListener != null) onCompletionListener?.Invoke(this);
 				}
 
 				AL.Source(sourceID, ALSourcef.SecOffset, value - renderedSeconds);
@@ -302,7 +302,7 @@ namespace SharpGDX.Desktop.Audio
 			if (end && queued == 0)
 			{
 				stop();
-				if (onCompletionListener != null) onCompletionListener.onCompletion(this);
+				if (onCompletionListener != null) onCompletionListener?.Invoke(this);
 			}
 
 			// A buffer underflow will cause the source to stop.
@@ -350,7 +350,7 @@ namespace SharpGDX.Desktop.Audio
 			onCompletionListener = null;
 		}
 
-		public void setOnCompletionListener(IOnCompletionListener listener)
+		public void setOnCompletionListener(Action<IMusic> listener)
 		{
 			onCompletionListener = listener;
 		}
