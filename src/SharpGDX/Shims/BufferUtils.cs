@@ -1,4 +1,5 @@
-﻿using SharpGDX.Utils;
+﻿using System.Runtime.InteropServices;
+using SharpGDX.Utils;
 using SharpGDX.Mathematics;
 
 namespace SharpGDX.Shims
@@ -543,8 +544,15 @@ namespace SharpGDX.Shims
 					throw new IllegalArgumentException("buffer not allocated with newUnsafeByteBuffer or already disposed");
 			}
 			allocatedUnsafe -= size;
-			freeMemory(buffer);
-		}
+
+			// TODO: Why would this be needed? It wasn't gotten from unmanaged code, why free it there?
+			//freeMemory(buffer);
+
+            GCHandle handle = GCHandle.Alloc(buffer.array(), GCHandleType.Pinned);
+            
+            Marshal.FreeHGlobal(handle.AddrOfPinnedObject());
+            handle.Free();
+        }
 
 		public static bool isUnsafeByteBuffer(ByteBuffer buffer)
 		{
@@ -603,6 +611,7 @@ namespace SharpGDX.Shims
 
 		/** Frees the memory allocated for the ByteBuffer, which MUST have been allocated via {@link #newUnsafeByteBuffer(ByteBuffer)}
 		 * or in native code. */
+		[DllImport("msvcrt.dll", EntryPoint = "free")]
 		private static extern void freeMemory(ByteBuffer buffer); /*
 		free(buffer);
 	 */

@@ -32,7 +32,6 @@ namespace Drop
 		// load the images for the droplet and the bucket, 64x64 pixels each
 		dropImage = new Texture(Gdx.files.@internal("assets/droplet.png"));
 
-		dropImage.dispose();
 		bucketImage = new Texture(Gdx.files.@internal("assets/bucket.png"));
 
 		// load the drop sound effect and the rain background "music"

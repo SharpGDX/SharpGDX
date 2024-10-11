@@ -12,6 +12,7 @@ public class Drop : Game
 	public override void Create()
 	{
 		Batch = new SpriteBatch();
+
 		Font = new BitmapFont();
 
 		SetScreen(new MainMenuScreen(this));
