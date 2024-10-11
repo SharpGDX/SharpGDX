@@ -30,7 +30,7 @@ namespace SharpGDX.Desktop
 		private readonly Array<Runnable> runnables = new();
 		private readonly Array<Runnable> executedRunnables = new();
 		private readonly Array<ILifecycleListener> lifecycleListeners = new();
-		private static ErrorCallback errorCallback;
+		private static ErrorCallback? errorCallback;
 		private static GLVersion glVersion;
 		private static DebugProc? glDebugCallback;
 		private readonly Sync sync;

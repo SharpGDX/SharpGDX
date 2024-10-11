@@ -13,7 +13,7 @@
     <PackageTags>SharpGDX</PackageTags>
     <AssemblyVersion>1.12.1</AssemblyVersion>
     <FileVersion>1.12.1</FileVersion>
-    <Version>1.12.1-alpha.4</Version>
+    <Version>1.12.1-alpha.5</Version>
   </PropertyGroup>
 
   <ItemGroup>

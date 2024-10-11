@@ -30,41 +30,13 @@ private unsafe void charCallback(Window* window, uint codepoint)
 	eventQueue.keyTyped((char)codepoint, TimeUtils.nanoTime());
 }
 	
-
-private unsafe void scrollCallback(Window* window, double scrollX, double scrollY)
-{
-	this.window.getGraphics().requestRendering();
-	eventQueue.scrolled(-(float)scrollX, -(float)scrollY, TimeUtils.nanoTime());
-}
 private int logicalMouseY;
 private int logicalMouseX;
 
-private CursorPosCallback cursorPosCallback;
+private CursorPosCallback _cursorPosCallback;
 private MouseButtonCallback _mouseButtonCallback;
-
-private unsafe void mouseButtonCallback(Window* window, MouseButton button, InputAction action, KeyModifiers mods)
-{
-	
-	int gdxButton = toGdxButton((int)button);
-	// TODO: This isn't possible???
-			//if (button != -1 && gdxButton == -1) return;
-
-			long time = TimeUtils.nanoTime();
-	if (action == InputAction.Press)
-	{
-		mousePressed++;
-		_justTouched = true;
-		justPressedButtons[gdxButton] = true;
-		this.window.getGraphics().requestRendering();
-		eventQueue.touchDown(mouseX, mouseY, 0, gdxButton, time);
-	}
-	else
-	{
-		mousePressed = Math.Max(0, mousePressed - 1);
-		this.window.getGraphics().requestRendering();
-		eventQueue.touchUp(mouseX, mouseY, 0, gdxButton, time);
-	}
-}
+private CharCallback _charCallback;
+private ScrollCallback _scrollCallback;
 
 private int toGdxButton(int button)
 {
@@ -98,81 +70,120 @@ public void ResetPollingStates()
 	eventQueue.drain(null);
 }
 
-	public unsafe void WindowHandleChanged(Window* windowHandle)
+public unsafe void WindowHandleChanged(Window* windowHandle)
 {
-	ResetPollingStates();
-	GLFW.SetKeyCallback(window.getWindowPtr(), keyCallback= (Window* window, OpenTK.Windowing.GraphicsLibraryFramework.Keys key, int scancode, InputAction action, KeyModifiers mods) =>
-	{
-		var intKey = getGdxKeyCode((int)key);
-		switch (action)
-		{
-			case InputAction.Press:
-				eventQueue.keyDown((int)intKey, TimeUtils.nanoTime());
-				pressedKeyCount++;
-				keyJustPressed = true;
-				pressedKeys[(int)intKey] = true;
-				justPressedKeys[(int)intKey] = true;
-				this.window.getGraphics().requestRendering();
-				lastCharacter = (char)0;
-				char character = characterForKeyCode((int)intKey);
-				if (character != 0) charCallback(window, character);
-				break;
-			case InputAction.Release:
-				pressedKeyCount--;
-				pressedKeys[(int)intKey] = false;
-				this.window.getGraphics().requestRendering();
-				eventQueue.keyUp((int)intKey, TimeUtils.nanoTime());
-				break;
-			case InputAction.Repeat:
-				if (lastCharacter != 0)
-				{
-					this.window.getGraphics().requestRendering();
-					eventQueue.keyTyped(lastCharacter, TimeUtils.nanoTime());
-				}
-				break;
-		}
-	});
-	GLFW.SetCharCallback(window.getWindowPtr(), charCallback);
-	GLFW.SetScrollCallback(window.getWindowPtr(), scrollCallback);
+    ResetPollingStates();
+    GLFW.SetKeyCallback(window.getWindowPtr(), keyCallback =
+        (Window* window, OpenTK.Windowing.GraphicsLibraryFramework.Keys key, int scancode, InputAction action,
+            KeyModifiers mods) =>
+        {
+            var intKey = getGdxKeyCode((int)key);
+            switch (action)
+            {
+                case InputAction.Press:
+                    eventQueue.keyDown((int)intKey, TimeUtils.nanoTime());
+                    pressedKeyCount++;
+                    keyJustPressed = true;
+                    pressedKeys[(int)intKey] = true;
+                    justPressedKeys[(int)intKey] = true;
+                    this.window.getGraphics().requestRendering();
+                    lastCharacter = (char)0;
+                    char character = characterForKeyCode((int)intKey);
+                    if (character != 0) charCallback(window, character);
+                    break;
+                case InputAction.Release:
+                    pressedKeyCount--;
+                    pressedKeys[(int)intKey] = false;
+                    this.window.getGraphics().requestRendering();
+                    eventQueue.keyUp((int)intKey, TimeUtils.nanoTime());
+                    break;
+                case InputAction.Repeat:
+                    if (lastCharacter != 0)
+                    {
+                        this.window.getGraphics().requestRendering();
+                        eventQueue.keyTyped(lastCharacter, TimeUtils.nanoTime());
+                    }
 
-	GLFW.SetCursorPosCallback
-		(
-			window.getWindowPtr(),
-			cursorPosCallback = (Window* windowHandle, double x, double y) =>
-	{
-		deltaX = (int)x - logicalMouseX;
-		deltaY = (int)y - logicalMouseY;
-		mouseX = logicalMouseX = (int)x;
-		mouseY = logicalMouseY = (int)y;
+                    break;
+            }
+        });
+    GLFW.SetCharCallback(window.getWindowPtr(), _charCallback = charCallback);
+    GLFW.SetScrollCallback
+    (
+        window.getWindowPtr(),
+        _scrollCallback = (_, scrollX, scrollY) =>
+        {
+            this.window.getGraphics().requestRendering();
+            eventQueue.scrolled(-(float)scrollX, -(float)scrollY, TimeUtils.nanoTime());
+        }
+    );
 
-		if (window.getConfig().hdpiMode == HdpiMode.Pixels)
-		{
-			float xScale = window.getGraphics().getBackBufferWidth() / (float)window.getGraphics().getLogicalWidth();
-			float yScale = window.getGraphics().getBackBufferHeight() / (float)window.getGraphics().getLogicalHeight();
-			deltaX = (int)(deltaX * xScale);
-			deltaY = (int)(deltaY * yScale);
-			mouseX = (int)(mouseX * xScale);
-			mouseY = (int)(mouseY * yScale);
-		}
+    GLFW.SetCursorPosCallback
+    (
+        window.getWindowPtr(),
+        _cursorPosCallback = (_, x, y) =>
+        {
+            deltaX = (int)x - logicalMouseX;
+            deltaY = (int)y - logicalMouseY;
+            mouseX = logicalMouseX = (int)x;
+            mouseY = logicalMouseY = (int)y;
 
-		this.window.getGraphics().requestRendering();
-		long time = TimeUtils.nanoTime();
-		if (mousePressed > 0)
-		{
-			eventQueue.touchDragged(mouseX, mouseY, 0, time);
-		}
-		else
-		{
-			eventQueue.mouseMoved(mouseX, mouseY, time);
-		}
-	}
-			);
+            if (window.getConfig().hdpiMode == HdpiMode.Pixels)
+            {
+                float xScale = window.getGraphics().getBackBufferWidth() /
+                               (float)window.getGraphics().getLogicalWidth();
+                float yScale = window.getGraphics().getBackBufferHeight() /
+                               (float)window.getGraphics().getLogicalHeight();
+                deltaX = (int)(deltaX * xScale);
+                deltaY = (int)(deltaY * yScale);
+                mouseX = (int)(mouseX * xScale);
+                mouseY = (int)(mouseY * yScale);
+            }
 
-	// TODO: Clear this in the dispose method.
-	GLFW.SetMouseButtonCallback(window.getWindowPtr(), _mouseButtonCallback= mouseButtonCallback);
+            this.window.getGraphics().requestRendering();
+            long time = TimeUtils.nanoTime();
+            if (mousePressed > 0)
+            {
+                eventQueue.touchDragged(mouseX, mouseY, 0, time);
+            }
+            else
+            {
+                eventQueue.mouseMoved(mouseX, mouseY, time);
+            }
+        }
+    );
+
+    // TODO: Clear this in the dispose method.
+    GLFW.SetMouseButtonCallback
+    (
+        window.getWindowPtr(),
+        _mouseButtonCallback = (_, button, action, _) =>
+        {
+
+            int gdxButton = toGdxButton((int)button);
+            // TODO: This isn't possible???
+            //if (button != -1 && gdxButton == -1) return;
+
+            long time = TimeUtils.nanoTime();
+            if (action == InputAction.Press)
+            {
+                mousePressed++;
+                _justTouched = true;
+                justPressedButtons[gdxButton] = true;
+                this.window.getGraphics().requestRendering();
+                eventQueue.touchDown(mouseX, mouseY, 0, gdxButton, time);
+            }
+            else
+            {
+                mousePressed = Math.Max(0, mousePressed - 1);
+                this.window.getGraphics().requestRendering();
+                eventQueue.touchUp(mouseX, mouseY, 0, gdxButton, time);
+            }
+        }
+    );
 }
 
-	public void Update()
+public void Update()
 {
 	eventQueue.drain(inputProcessor);
 }
@@ -336,7 +347,7 @@ public override unsafe void setCursorPosition(int x, int y)
 		y = (int)(y * yScale);
 	}
 	GLFW.SetCursorPos(window.getWindowPtr(), x, y);
-	cursorPosCallback(window.getWindowPtr(), x, y);
+	_cursorPosCallback(window.getWindowPtr(), x, y);
 }
 
 protected char characterForKeyCode(int key)

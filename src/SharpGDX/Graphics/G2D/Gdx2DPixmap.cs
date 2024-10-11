@@ -410,7 +410,7 @@ namespace SharpGDX.Graphics.G2D
 			return pixel_buffer;
 		 */
 
-		[DllImport("gdx2d.dll")]
+		[DllImport("gdx2d.dll", EntryPoint = "gdx2d_new")]
 		private static extern ByteBuffer newPixmap(long[] nativeData, int width, int height, int format); /*MANUAL
 		gdx2d_pixmap* pixmap = gdx2d_new(width, height, format);
 		if(pixmap==0)
@@ -432,53 +432,53 @@ namespace SharpGDX.Graphics.G2D
 		gdx2d_free((gdx2d_pixmap*)pixmap);
 	 */
 
-		[DllImport("gdx2d.dll")]
+		[DllImport("gdx2d.dll", EntryPoint = "gdx2d_clear")]
 		private static extern void clear(long pixmap, int color); /*
 		gdx2d_clear((gdx2d_pixmap*)pixmap, color);
 	 */
 
-		[DllImport("gdx2d.dll")]
+		[DllImport("gdx2d.dll", EntryPoint = "gdx2d_set_pixel")]
 		private static extern void setPixel(long pixmap, int x, int y, int color); /*
 		gdx2d_set_pixel((gdx2d_pixmap*)pixmap, x, y, color);
 	 */
 
-		[DllImport("gdx2d.dll")]
+		[DllImport("gdx2d.dll", EntryPoint = "gdx2d_get_pixel")]
 		private static extern int getPixel(long pixmap, int x, int y); /*
 		return gdx2d_get_pixel((gdx2d_pixmap*)pixmap, x, y);
 	 */
 
-		[DllImport("gdx2d.dll")]
+		[DllImport("gdx2d.dll", EntryPoint = "gdx2d_draw_line")]
 		private static extern void drawLine(long pixmap, int x, int y, int x2, int y2, int color); /*
 		gdx2d_draw_line((gdx2d_pixmap*)pixmap, x, y, x2, y2, color);
 	 */
 
-		[DllImport("gdx2d.dll")]
+		[DllImport("gdx2d.dll", EntryPoint = "gdx2d_draw_rect")]
 		private static extern void drawRect(long pixmap, int x, int y, int width, int height, int color); /*
 		gdx2d_draw_rect((gdx2d_pixmap*)pixmap, x, y, width, height, color);
 	 */
 
-		[DllImport("gdx2d.dll")]
+		[DllImport("gdx2d.dll", EntryPoint = "gdx2d_draw_circle")]
 		private static extern void drawCircle(long pixmap, int x, int y, int radius, int color); /*
 		gdx2d_draw_circle((gdx2d_pixmap*)pixmap, x, y, radius, color);
 	 */
 
-		[DllImport("gdx2d.dll")]
+		[DllImport("gdx2d.dll", EntryPoint = "gdx2d_fill_rect")]
 		private static extern void fillRect(long pixmap, int x, int y, int width, int height, int color); /*
 		gdx2d_fill_rect((gdx2d_pixmap*)pixmap, x, y, width, height, color);
 	 */
 
-		[DllImport("gdx2d.dll")]
+		[DllImport("gdx2d.dll", EntryPoint = "gdx2d_fill_circle")]
 		private static extern void fillCircle(long pixmap, int x, int y, int radius, int color); /*
 		gdx2d_fill_circle((gdx2d_pixmap*)pixmap, x, y, radius, color);
 	 */
 
-		[DllImport("gdx2d.dll")]
+		[DllImport("gdx2d.dll", EntryPoint = "gdx2d_fill_triangle")]
 		private static extern void
 			fillTriangle(long pixmap, int x1, int y1, int x2, int y2, int x3, int y3, int color); /*
 			gdx2d_fill_triangle((gdx2d_pixmap*)pixmap, x1, y1, x2, y2, x3, y3, color);
 		 */
 
-		[DllImport("gdx2d.dll")]
+		[DllImport("gdx2d.dll", EntryPoint = "gdx2d_draw_pixmap")]
 		private static extern void drawPixmap(long src, long dst, int srcX, int srcY, int srcWidth, int srcHeight,
 			int dstX,
 			int dstY, int dstWidth, int dstHeight); /*
