@@ -4,6 +4,7 @@ using SharpGDX.Graphics.G2D;
 using Timer = SharpGDX.Utils.Timer;
 using Task = SharpGDX.Utils.Timer.Task;
 using System.Text;
+using SharpGDX.Input;
 using SharpGDX.Scenes.Scene2D.Utils;
 using SharpGDX.Mathematics;
 using SharpGDX.Utils;
@@ -896,21 +897,21 @@ public class TextField : Widget , IDisableable {
 
 			if (ctrl) {
 				switch (keycode) {
-				case IInput.Keys.V:
+				case Keys.V:
 					_textField.paste(_textField.clipboard.GetContents(), true);
 					repeat = true;
 					break;
-				case IInput.Keys.C:
-				case IInput.Keys.INSERT:
+				case Keys.C:
+				case Keys.INSERT:
 					_textField.copy();
 					return true;
-				case IInput.Keys.X:
+				case Keys.X:
 					_textField.cut(true);
 					return true;
-				case IInput.Keys.A:
+				case Keys.A:
 					_textField.selectAll();
 					return true;
-				case IInput.Keys.Z:
+				case Keys.Z:
 					String oldText = _textField.text;
 					_textField.setText(_textField.undoText);
 					_textField.undoText = oldText;
@@ -924,10 +925,10 @@ public class TextField : Widget , IDisableable {
 
 			if (UIUtils.shift()) {
 				switch (keycode) {
-				case IInput.Keys.INSERT:
+				case Keys.INSERT:
 					_textField.paste(_textField.clipboard.GetContents(), true);
 					break;
-				case IInput.Keys.FORWARD_DEL:
+				case Keys.FORWARD_DEL:
 					_textField.cut(true);
 					break;
 				}
@@ -938,21 +939,21 @@ public class TextField : Widget , IDisableable {
 					{
 						switch (keycode)
 						{
-							case IInput.Keys.LEFT:
+							case Keys.LEFT:
 								_textField.moveCursor(false, jump);
 								repeat = true;
 								handled = true;
 								goto keys;
-							case IInput.Keys.RIGHT:
+							case Keys.RIGHT:
 								_textField.moveCursor(true, jump);
 								repeat = true;
 								handled = true;
 								goto keys;
-							case IInput.Keys.HOME:
+							case Keys.HOME:
 								goHome(jump);
 								handled = true;
 								goto keys;
-							case IInput.Keys.END:
+							case Keys.END:
 								goEnd(jump);
 								handled = true;
 								goto keys;
@@ -975,24 +976,24 @@ public class TextField : Widget , IDisableable {
 			} else {
 				// Cursor movement or other keys (kills selection).
 				switch (keycode) {
-				case IInput.Keys.LEFT:
+				case Keys.LEFT:
 					_textField.moveCursor(false, jump);
 					_textField.clearSelection();
 					repeat = true;
 					handled = true;
 					break;
-				case IInput.Keys.RIGHT:
+				case Keys.RIGHT:
 					_textField.moveCursor(true, jump);
 					_textField.clearSelection();
 					repeat = true;
 					handled = true;
 					break;
-				case IInput.Keys.HOME:
+				case Keys.HOME:
 					goHome(jump);
 					_textField.clearSelection();
 					handled = true;
 					break;
-				case IInput.Keys.END:
+				case Keys.END:
 					goEnd(jump);
 					_textField.clearSelection();
 					handled = true;
@@ -1046,7 +1047,7 @@ public class TextField : Widget , IDisableable {
 
 			if (!_textField.hasKeyboardFocus()) return false;
 
-			if (UIUtils.isMac && Gdx.input.isKeyPressed(IInput.Keys.SYM)) return true;
+			if (UIUtils.isMac && Gdx.input.isKeyPressed(Keys.SYM)) return true;
 
 			if (checkFocusTraversal(character))
 				_textField.next(UIUtils.shift());

@@ -4,6 +4,7 @@ using SharpGDX.Graphics.GLUtils;
 using SharpGDX.Graphics.G2D;
 using static SharpGDX.Scenes.Scene2D.Actions.Actions;
 using SharpGDX;
+using SharpGDX.Input;
 using SharpGDX.Scenes.Scene2D;
 using SharpGDX.Scenes.Scene2D.UI;
 using SharpGDX.Scenes.Scene2D.Utils;
@@ -480,15 +481,15 @@ private class SelectBoxSelection : ArraySelection<T>
 			{
 				switch (keycode)
 				{
-					case IInput.Keys.NUMPAD_ENTER:
-					case IInput.Keys.ENTER:
+					case Keys.NUMPAD_ENTER:
+					case Keys.ENTER:
 						_selectBoxScrollPane.selectBox.selection.choose(_selectBoxScrollPane.list.getSelected());
 						// TODO: This is ugly, need to condense code, C# can't fall thru.
 				// Fall thru.
 						_selectBoxScrollPane.hide();
 						@event.stop();
 						return true;
-			case IInput.Keys.ESCAPE:
+			case Keys.ESCAPE:
 						_selectBoxScrollPane.hide();
 						@event.stop();
 						return true;

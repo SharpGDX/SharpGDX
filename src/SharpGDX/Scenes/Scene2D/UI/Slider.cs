@@ -1,3 +1,4 @@
+using SharpGDX.Input;
 using SharpGDX.Shims;
 using SharpGDX.Scenes.Scene2D.Utils;
 using SharpGDX.Mathematics;
@@ -170,7 +171,7 @@ public class Slider : ProgressBar {
 		}
 
 		float oldValue = value;
-		if (!Gdx.input.isKeyPressed(IInput.Keys.SHIFT_LEFT) && !Gdx.input.isKeyPressed(SharpGDX.IInput.Keys.SHIFT_RIGHT)) value = snap(value);
+		if (!Gdx.input.isKeyPressed(Keys.SHIFT_LEFT) && !Gdx.input.isKeyPressed(Keys.SHIFT_RIGHT)) value = snap(value);
 		bool valueSet = setValue(value);
 		if (value == oldValue) position = oldPosition;
 		return valueSet;

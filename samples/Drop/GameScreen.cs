@@ -7,6 +7,7 @@ using SharpGDX;
 using SharpGDX.Audio;
 using SharpGDX.Desktop.Audio;
 using SharpGDX.Graphics;
+using SharpGDX.Input;
 using SharpGDX.Mathematics;
 using SharpGDX.Utils;
 
@@ -103,9 +104,9 @@ namespace Drop
 			bucket.x = touchPos.x - 64 / 2;
 		}
 
-		if (Gdx.input.isKeyPressed(IInput.Keys.LEFT))
+		if (Gdx.input.isKeyPressed(Keys.LEFT))
 			bucket.x -= 200 * Gdx.graphics.getDeltaTime();
-		if (Gdx.input.isKeyPressed(IInput.Keys.RIGHT))
+		if (Gdx.input.isKeyPressed(Keys.RIGHT))
 			bucket.x += 200 * Gdx.graphics.getDeltaTime();
 
 		// make sure the bucket stays within the screen bounds

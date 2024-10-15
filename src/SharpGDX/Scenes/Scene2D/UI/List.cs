@@ -2,6 +2,7 @@ using SharpGDX.Shims;
 using SharpGDX.Graphics;
 using SharpGDX.Graphics.GLUtils;
 using SharpGDX.Graphics.G2D;
+using SharpGDX.Input;
 using SharpGDX.Scenes.Scene2D.Utils;
 using SharpGDX.Mathematics;
 using SharpGDX.Utils;
@@ -57,7 +58,7 @@ public class List<T> : Widget , ICullable {
 			int index;
 			switch (keycode)
 			{
-				case IInput.Keys.A:
+				case Keys.A:
 					if (UIUtils.ctrl() && _list.selection.getMultiple())
 					{
 						_list.selection.clear();
@@ -65,23 +66,23 @@ public class List<T> : Widget , ICullable {
 						return true;
 					}
 					break;
-				case IInput.Keys.HOME:
+				case Keys.HOME:
 					_list.setSelectedIndex(0);
 					return true;
-				case IInput.Keys.END:
+				case Keys.END:
 					_list.setSelectedIndex(_list.items.size - 1);
 					return true;
-				case IInput.Keys.DOWN:
+				case Keys.DOWN:
 					index = _list.items.indexOf(_list.getSelected(), false) + 1;
 					if (index >= _list.items.size) index = 0;
 					_list.setSelectedIndex(index);
 					return true;
-				case IInput.Keys.UP:
+				case Keys.UP:
 					index = _list.items.indexOf(_list.getSelected(), false) - 1;
 					if (index < 0) index = _list.items.size - 1;
 					_list.setSelectedIndex(index);
 					return true;
-				case IInput.Keys.ESCAPE:
+				case Keys.ESCAPE:
 					if (_list.getStage() != null) _list.getStage().setKeyboardFocus(null);
 					return true;
 			}

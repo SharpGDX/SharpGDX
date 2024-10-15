@@ -1,11 +1,12 @@
-﻿using SharpGDX.Utils;
+﻿using SharpGDX.Input;
+using SharpGDX.Utils;
 
 namespace SharpGDX;
 
 public abstract class AbstractInput : IInput
 {
-	protected readonly bool[] justPressedKeys = new bool[IInput.Keys.MAX_KEYCODE + 1];
-	protected readonly bool[] pressedKeys = new bool[IInput.Keys.MAX_KEYCODE + 1];
+	protected readonly bool[] justPressedKeys = new bool[Keys.MAX_KEYCODE + 1];
+	protected readonly bool[] pressedKeys = new bool[Keys.MAX_KEYCODE + 1];
 	protected bool keyJustPressed;
 	protected int pressedKeyCount;
 	private readonly IntSet keysToCatch = new();
@@ -38,7 +39,7 @@ public abstract class AbstractInput : IInput
 
 	public abstract int getMaxPointers();
 
-	public abstract IInput.Orientation getNativeOrientation();
+	public abstract Orientation getNativeOrientation();
 
 	public abstract float getPitch();
 
@@ -60,7 +61,7 @@ public abstract class AbstractInput : IInput
 		string title,
 		string text,
 		string hint,
-		IInput.OnscreenKeyboardType type
+		OnscreenKeyboardType type
 	);
 
 	public abstract int getX();
@@ -77,7 +78,7 @@ public abstract class AbstractInput : IInput
 
 	public bool isCatchBackKey()
 	{
-		return keysToCatch.contains(IInput.Keys.BACK);
+		return keysToCatch.contains(Keys.BACK);
 	}
 
 	public bool isCatchKey(int keycode)
@@ -87,19 +88,19 @@ public abstract class AbstractInput : IInput
 
 	public bool isCatchMenuKey()
 	{
-		return keysToCatch.contains(IInput.Keys.MENU);
+		return keysToCatch.contains(Keys.MENU);
 	}
 
 	public abstract bool isCursorCatched();
 
 	public bool isKeyJustPressed(int key)
 	{
-		if (key == IInput.Keys.ANY_KEY)
+		if (key == Keys.ANY_KEY)
 		{
 			return keyJustPressed;
 		}
 
-		if (key < 0 || key > IInput.Keys.MAX_KEYCODE)
+		if (key < 0 || key > Keys.MAX_KEYCODE)
 		{
 			return false;
 		}
@@ -109,12 +110,12 @@ public abstract class AbstractInput : IInput
 
 	public bool isKeyPressed(int key)
 	{
-		if (key == IInput.Keys.ANY_KEY)
+		if (key == Keys.ANY_KEY)
 		{
 			return pressedKeyCount > 0;
 		}
 
-		if (key is < 0 or > IInput.Keys.MAX_KEYCODE)
+		if (key is < 0 or > Keys.MAX_KEYCODE)
 		{
 			return false;
 		}
@@ -122,14 +123,14 @@ public abstract class AbstractInput : IInput
 		return pressedKeys[key];
 	}
 
-	public abstract bool isPeripheralAvailable(IInput.Peripheral peripheral);
+	public abstract bool isPeripheralAvailable(Peripheral peripheral);
 	public abstract bool isTouched();
 	public abstract bool isTouched(int pointer);
 	public abstract bool justTouched();
 
 	public void setCatchBackKey(bool catchBack)
 	{
-		setCatchKey(IInput.Keys.BACK, catchBack);
+		setCatchKey(Keys.BACK, catchBack);
 	}
 
 	public void setCatchKey(int keycode, bool catchKey)
@@ -146,7 +147,7 @@ public abstract class AbstractInput : IInput
 
 	public void setCatchMenuKey(bool catchMenu)
 	{
-		setCatchKey(IInput.Keys.MENU, catchMenu);
+		setCatchKey(Keys.MENU, catchMenu);
 	}
 
 	public abstract void setCursorCatched(bool catched);
@@ -157,7 +158,7 @@ public abstract class AbstractInput : IInput
 
 	public abstract void setOnscreenKeyboardVisible(bool visible);
 
-	public abstract void setOnscreenKeyboardVisible(bool visible, IInput.OnscreenKeyboardType type);
+	public abstract void setOnscreenKeyboardVisible(bool visible, OnscreenKeyboardType type);
 
 	public abstract void vibrate(int milliseconds);
 
@@ -165,5 +166,5 @@ public abstract class AbstractInput : IInput
 
 	public abstract void vibrate(int milliseconds, int amplitude, bool fallback);
 
-	public abstract void vibrate(IInput.VibrationType vibrationType);
+	public abstract void vibrate(VibrationType vibrationType);
 }

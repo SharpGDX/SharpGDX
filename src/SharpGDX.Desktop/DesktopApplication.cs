@@ -11,6 +11,7 @@ using SharpGDX.Desktop.Audio;
 using SharpGDX.Desktop.Audio.Mock;
 using SharpGDX.Mathematics;
 using OpenTK.Graphics.OpenGL4;
+using SharpGDX.Input;
 
 namespace SharpGDX.Desktop
 {

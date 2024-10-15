@@ -1,4 +1,5 @@
 ﻿using OpenTK.Windowing.GraphicsLibraryFramework;
+using SharpGDX.Input;
 using SharpGDX.Utils;
 
 namespace SharpGDX.Desktop;

@@ -2,6 +2,7 @@ using SharpGDX.Shims;
 using SharpGDX.Graphics;
 using SharpGDX.Graphics.GLUtils;
 using SharpGDX.Graphics.G2D;
+using SharpGDX.Input;
 using SharpGDX.Scenes.Scene2D.Utils;
 using SharpGDX.Mathematics;
 using SharpGDX.Utils;
@@ -411,8 +412,8 @@ public class TextArea : TextField {
 			bool result = base.keyDown(@event, keycode);
 			if (_textArea.hasKeyboardFocus()) {
 				bool repeat = false;
-				bool shift = Gdx.input.isKeyPressed(IInput.Keys.SHIFT_LEFT) || Gdx.input.isKeyPressed(IInput.Keys.SHIFT_RIGHT);
-				if (keycode == IInput.Keys.DOWN) {
+				bool shift = Gdx.input.isKeyPressed(Keys.SHIFT_LEFT) || Gdx.input.isKeyPressed(Keys.SHIFT_RIGHT);
+				if (keycode == Keys.DOWN) {
 					if (shift) {
 						if (!_textArea.hasSelection) {
 							_textArea.selectionStart = _textArea.cursor;
@@ -424,7 +425,7 @@ public class TextArea : TextField {
 					_textArea.moveCursorLine(_textArea.cursorLine + 1);
 					repeat = true;
 
-				} else if (keycode == IInput.Keys.UP) {
+				} else if (keycode == Keys.UP) {
 					if (shift) {
 						if (!_textArea.hasSelection) {
 							_textArea.selectionStart = _textArea.cursor;

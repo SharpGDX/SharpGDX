@@ -3,11 +3,6 @@ using Timer = SharpGDX.Utils.Timer;
 using Task = SharpGDX.Utils.Timer.Task;
 using SharpGDX.Shims;
 using SharpGDX.Mathematics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SharpGDX.Input
 {
