@@ -1,4 +1,3 @@
-Should all instance of float.MinValue be replaced with Float.Epsilon? I think C# float.MinValue and Java Float.MIN_VALUE are technically different.
 Not sure that string.Substring() in C# is equivalent to the one in Java, need to verify.
 Check that all switch 'Fall Throughs' are handled appropriately (I did not understand what it meant when originally starting).
 I don't like the way the FrameBuffer classes were converted, this should be revisited.
