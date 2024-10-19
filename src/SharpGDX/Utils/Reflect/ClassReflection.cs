@@ -13,16 +13,19 @@ namespace SharpGDX.Utils.Reflect
 	{
 
 		//	/** Returns the Class object associated with the class or interface with the supplied string name. */
-		//	static public Class forName (String name) throws ReflectionException {
-		//		try {
-		//			return Class.forName(name);
-		//		} catch (ClassNotFoundException e) {
-		//			throw new ReflectionException("Class not found: " + name, e);
-		//		}
-		//	}
+		static public Type forName(String name)// throws ReflectionException
+		{
+				try {
+				return Type.GetType(name);
+				
+			} catch (Exception e) {
+                    // TODO: This exception is really too generic. -RP
+                throw new ReflectionException("Class not found: " + name, e);
+	}
+}
 
-		/** Returns the simple name of the underlying class as supplied in the source code. */
-		static public String getSimpleName(Type c)
+/** Returns the simple name of the underlying class as supplied in the source code. */
+static public String getSimpleName(Type c)
 		{
 			return c.Name;
 		}
