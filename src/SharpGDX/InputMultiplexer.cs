@@ -25,52 +25,52 @@ namespace SharpGDX
 		this.processors.addAll(processors);
 	}
 
-	public void addProcessor(int index, IInputProcessor processor)
+	public void AddProcessor(int index, IInputProcessor processor)
 	{
 		if (processor == null) throw new NullPointerException("processor cannot be null");
 		processors.insert(index, processor);
 	}
 
-	public void removeProcessor(int index)
+	public void RemoveProcessor(int index)
 	{
 		processors.removeIndex(index);
 	}
 
-	public void addProcessor(IInputProcessor processor)
+	public void AddProcessor(IInputProcessor processor)
 	{
 		if (processor == null) throw new NullPointerException("processor cannot be null");
 		processors.add(processor);
 	}
 
-	public void removeProcessor(IInputProcessor processor)
+	public void RemoveProcessor(IInputProcessor processor)
 	{
 		processors.removeValue(processor, true);
 	}
 
 	/** @return the number of processors in this multiplexer */
-	public int size()
+	public int Size()
 	{
 		return processors.size;
 	}
 
-	public void clear()
+	public void Clear()
 	{
 		processors.clear();
 	}
 
-	public void setProcessors(IInputProcessor[]processors)
+	public void SetProcessors(IInputProcessor[]processors)
 	{
 		this.processors.clear();
 		this.processors.addAll(processors);
 	}
 
-	public void setProcessors(Array<IInputProcessor> processors)
+	public void SetProcessors(Array<IInputProcessor> processors)
 	{
 		this.processors.clear();
 		this.processors.addAll(processors);
 	}
 
-	public SnapshotArray<IInputProcessor> getProcessors()
+	public SnapshotArray<IInputProcessor> GetProcessors()
 	{
 		return processors;
 	}

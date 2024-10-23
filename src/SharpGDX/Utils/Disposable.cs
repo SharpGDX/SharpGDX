@@ -6,11 +6,14 @@ using System.Threading.Tasks;
 
 namespace SharpGDX.Utils
 {
-	/** Interface for disposable resources.
- * @author mzechner */
-	public interface Disposable
+    /// <summary>
+    /// Interface for disposable resources.
+    /// </summary>
+    public interface Disposable
 	{
-		/** Releases all resources of this object. */
-		public void dispose();
+        /// <summary>
+        /// Releases all resources of this object.
+        /// </summary>
+        public void Dispose();
 	}
 }

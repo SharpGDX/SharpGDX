@@ -96,7 +96,7 @@ namespace SharpGDX.Desktop.Audio
 		audio.stopSourcesWithBuffer(bufferID);
 	}
 
-	public void dispose()
+	public void Dispose()
 	{
 		if (audio.noDevice) return;
 		if (bufferID == -1) return;

@@ -176,8 +176,8 @@ public class Stage : InputAdapter , Disposable {
 		}
 
 		// Update over actor for the mouse on the desktop.
-		IApplication.ApplicationType type = Gdx.app.getType();
-		if (type == IApplication.ApplicationType.Desktop || type == IApplication.ApplicationType.Applet || type == IApplication.ApplicationType.WebGL)
+		ApplicationType type = Gdx.app.getType();
+		if (type == ApplicationType.Desktop || type == ApplicationType.Applet || type == ApplicationType.WebGL)
 			mouseOverActor = fireEnterAndExit(mouseOverActor, mouseScreenX, mouseScreenY, -1);
 
 		root.act(delta);
@@ -831,10 +831,10 @@ public class Stage : InputAdapter , Disposable {
 		setDebugTableUnderMouse(debugTableUnderMouse ? Table.Debug.all : Table.Debug.none);
 	}
 
-	public void dispose () {
+	public void Dispose () {
 		clear();
-		if (ownsBatch) batch.dispose();
-		if (debugShapes != null) debugShapes.dispose();
+		if (ownsBatch) batch.Dispose();
+		if (debugShapes != null) debugShapes.Dispose();
 	}
 
 	/** Check if screen coordinates are inside the viewport's screen area. */

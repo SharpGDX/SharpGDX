@@ -63,7 +63,8 @@ public interface IndexData : Disposable {
 	/** Invalidates the IndexBufferObject so a new OpenGL buffer handle is created. Use this in case of a context loss. */
 	public void invalidate ();
 
-	/** Disposes this IndexDatat and all its associated OpenGL resources. */
-	public void dispose ();
+        /** Disposes this IndexDatat and all its associated OpenGL resources. */
+        /// TODO: Does this really need 'new' or can it just inherit Dispose() and this isn't needed?
+        public new void Dispose ();
 }
 }

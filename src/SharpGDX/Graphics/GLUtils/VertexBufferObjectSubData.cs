@@ -197,7 +197,7 @@ public class VertexBufferObjectSubData : IVertexData {
 	}
 
 	/** Disposes of all resources this VertexBufferObject uses. */
-	public void dispose () {
+	public void Dispose () {
 		GL20 gl = Gdx.gl20;
 		gl.glBindBuffer(GL20.GL_ARRAY_BUFFER, 0);
 		gl.glDeleteBuffer(bufferHandle);

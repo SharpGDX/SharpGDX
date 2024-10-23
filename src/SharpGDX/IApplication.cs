@@ -88,14 +88,6 @@ namespace SharpGDX
  * @author mzechner */
 	public interface IApplication
 	{
-		/** Enumeration of possible {@link Application} types
-		 * 
-		 * @author mzechner */
-		public enum ApplicationType
-		{
-			Android, Desktop, HeadlessDesktop, Applet, WebGL, iOS
-		}
-
 		public static readonly int LOG_NONE = 0;
 		public static readonly int LOG_DEBUG = 3;
 		public static readonly int LOG_INFO = 2;

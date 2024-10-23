@@ -689,7 +689,7 @@ public class ShaderProgram : Disposable {
 	}
 
 	/** Disposes all resources associated with this shader. Must be called when the shader is no longer used. */
-	public void dispose () {
+	public void Dispose () {
 		GL20 gl = Gdx.gl20;
 		gl.glUseProgram(0);
 		gl.glDeleteShader(vertexShaderHandle);

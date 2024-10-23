@@ -287,7 +287,7 @@ namespace SharpGDX.Assets
 					log.info("Unload (dispose): " + fileName);
 
 					// if it is disposable dispose it
-					if (assetRef.@object is Disposable) ((Disposable)assetRef.@object).dispose();
+					if (assetRef.@object is Disposable) ((Disposable)assetRef.@object).Dispose();
 
 					// remove the asset from the manager.
 					assetTypes.remove(fileName);
@@ -523,7 +523,7 @@ namespace SharpGDX.Assets
 		 * @return true if all loading is finished. */
 		public bool update(int millis)
 		{
-			if (Gdx.app.getType() == IApplication.ApplicationType.WebGL) return update();
+			if (Gdx.app.getType() == ApplicationType.WebGL) return update();
 			long endTime = TimeUtils.millis() + millis;
 			while (true)
 			{
@@ -857,11 +857,11 @@ namespace SharpGDX.Assets
 		}
 
 		/** Disposes all assets in the manager and stops all asynchronous loading. */
-		public void dispose()
+		public void Dispose()
 		{
 			log.debug("Disposing.");
 			clear();
-			executor.dispose();
+			executor.Dispose();
 		}
 
 		/** Clears and disposes all assets and the preloading queue. */

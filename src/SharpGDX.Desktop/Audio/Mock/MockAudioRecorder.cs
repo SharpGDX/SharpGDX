@@ -10,7 +10,7 @@ namespace SharpGDX.Desktop.Audio.Mock;
 /// </remarks>
 public class MockAudioRecorder : IAudioRecorder
 {
-	public void dispose()
+	public void Dispose()
 	{
 	}
 

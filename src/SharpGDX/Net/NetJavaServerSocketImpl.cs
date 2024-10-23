@@ -71,7 +71,7 @@ public class NetJavaServerSocketImpl : ServerSocket {
 	}
 
 	
-	public void dispose () {
+	public void Dispose () {
 		throw new NotImplementedException();
 		//if (server != null) {
 		//	try {

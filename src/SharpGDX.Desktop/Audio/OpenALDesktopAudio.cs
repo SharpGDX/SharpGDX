@@ -409,7 +409,7 @@ namespace SharpGDX.Desktop.Audio
 			}
 		}
 
-		public void dispose()
+		public void Dispose()
 		{
 			if (noDevice) return;
 			observerThread.Interrupt();
@@ -471,7 +471,7 @@ namespace SharpGDX.Desktop.Audio
 				return 0;
 			}
 
-			public void dispose()
+			public void Dispose()
 			{
 			}
 
@@ -500,7 +500,7 @@ namespace SharpGDX.Desktop.Audio
 			{
 			}
 
-			public void dispose()
+			public void Dispose()
 			{
 			}
 		}

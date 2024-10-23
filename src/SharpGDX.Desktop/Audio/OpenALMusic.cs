@@ -51,7 +51,7 @@ namespace SharpGDX.Desktop.Audio
 			maxSecondsPerBuffer = (float)bufferSize / (bytesPerSample * channels * sampleRate);
 		}
 
-		public void play()
+		public void Play()
 		{
 			if (audio.noDevice) return;
 			if (sourceID == -1)
@@ -73,7 +73,7 @@ namespace SharpGDX.Desktop.Audio
 				}
 
 				AL.Source(sourceID, ALSourceb.Looping, false);
-				setPan(pan, volume);
+				SetPan(pan, volume);
 
 				AL.GetError();
 
@@ -92,7 +92,7 @@ namespace SharpGDX.Desktop.Audio
 
 				if (AL.GetError() != ALError.NoError)
 				{
-					stop();
+					Stop();
 					return;
 				}
 			}
@@ -104,7 +104,7 @@ namespace SharpGDX.Desktop.Audio
 			}
 		}
 
-		public void stop()
+		public void Stop()
 		{
 			if (audio.noDevice) return;
 			if (sourceID == -1) return;
@@ -117,7 +117,7 @@ namespace SharpGDX.Desktop.Audio
 			_isPlaying = false;
 		}
 
-		public void pause()
+		public void Pause()
 		{
 			if (audio.noDevice) return;
 			if (sourceID != -1) AL.SourcePause(sourceID);
@@ -143,12 +143,12 @@ namespace SharpGDX.Desktop.Audio
 			}
 		}
 
-		public void setLooping(bool isLooping)
+		public void SetLooping(bool isLooping)
 		{
 			this._isLooping = isLooping;
 		}
 
-		public bool isLooping()
+		public bool IsLooping()
 		{
 			return _isLooping;
 		}
@@ -178,7 +178,7 @@ namespace SharpGDX.Desktop.Audio
 			}
 		}
 
-		public void setPan(float pan, float volume)
+		public void SetPan(float pan, float volume)
 		{
 			this.volume = volume;
 			this.pan = pan;
@@ -238,7 +238,7 @@ namespace SharpGDX.Desktop.Audio
 				renderedSecondsQueue.pop();
 				if (!filled)
 				{
-					stop();
+					Stop();
 					if (onCompletionListener != null) onCompletionListener?.Invoke(this);
 				}
 
@@ -301,7 +301,7 @@ namespace SharpGDX.Desktop.Audio
 
 			if (end && queued == 0)
 			{
-				stop();
+				Stop();
 				if (onCompletionListener != null) onCompletionListener?.Invoke(this);
 			}
 
@@ -340,9 +340,9 @@ namespace SharpGDX.Desktop.Audio
 			return true;
 		}
 
-		public void dispose()
+		public void Dispose()
 		{
-			stop();
+			Stop();
 			if (audio.noDevice) return;
 			if (buffers == null) return;
 			AL.DeleteBuffers(1, buffers.array());

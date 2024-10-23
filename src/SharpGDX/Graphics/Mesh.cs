@@ -177,7 +177,7 @@ public class Mesh : Disposable {
 	public Mesh disableInstancedRendering () {
 		if (_isInstanced) {
 			_isInstanced = false;
-			instances.dispose();
+			instances.Dispose();
 			instances = null;
 		}
 		return this;
@@ -626,11 +626,11 @@ public class Mesh : Disposable {
 	}
 
 	/** Frees all resources associated with this Mesh */
-	public void dispose () {
+	public void Dispose () {
 		if (meshes.get(Gdx.app) != null) meshes.get(Gdx.app).removeValue(this, true);
-		_vertices.dispose();
-		if (instances != null) instances.dispose();
-		indices.dispose();
+		_vertices.Dispose();
+		if (instances != null) instances.Dispose();
+		indices.Dispose();
 	}
 
 	/** Returns the first {@link VertexAttribute} having the given {@link Usage}.

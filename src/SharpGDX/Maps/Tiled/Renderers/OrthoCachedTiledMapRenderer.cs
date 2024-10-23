@@ -416,7 +416,7 @@ public class OrthoCachedTiledMapRenderer : ITiledMapRenderer, Disposable {
 		return spriteCache;
 	}
 
-	public void dispose () {
-		spriteCache.dispose();
+	public void Dispose () {
+		spriteCache.Dispose();
 	}
 }

@@ -270,7 +270,7 @@ namespace SharpGDX.Desktop
 		setIcon(windowHandle, pixmaps);
 
 		foreach (Pixmap pixmap in pixmaps) {
-			pixmap.dispose();
+			pixmap.Dispose();
 		}
 	}
 
@@ -421,12 +421,12 @@ namespace SharpGDX.Desktop
 		GLFW.MakeContextCurrent(windowHandle);
 	}
 
-	public unsafe void dispose () {
+	public unsafe void Dispose () {
 		listener.Pause();
 		listener.Dispose();
 		DesktopCursor.dispose(this);
-		graphics.dispose();
-		input.dispose();
+		graphics.Dispose();
+		input.Dispose();
 
 		GLFW.SetWindowFocusCallback(windowHandle, null);
 		GLFW.SetWindowIconifyCallback(windowHandle, null);

@@ -269,7 +269,7 @@ namespace SharpGDX.Graphics.G2D
 		}
 
 		/** Disposes the texture for each sprite for each ParticleEmitter. */
-		public void dispose()
+		public void Dispose()
 		{
 			if (!ownsTexture) return;
 			for (int i = 0, n = emitters.size; i < n; i++)
@@ -277,7 +277,7 @@ namespace SharpGDX.Graphics.G2D
 				ParticleEmitter emitter = emitters.get(i);
 				foreach (Sprite sprite in emitter.getSprites())
 				{
-					sprite.getTexture().dispose();
+					sprite.getTexture().Dispose();
 				}
 			}
 		}

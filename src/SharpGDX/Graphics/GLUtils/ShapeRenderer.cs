@@ -1235,7 +1235,7 @@ public class ShapeRenderer : Disposable {
 		return shapeType != null;
 	}
 
-	public void dispose () {
+	public void Dispose () {
 		renderer.dispose();
 	}
 }

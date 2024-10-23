@@ -984,9 +984,9 @@ public class SpriteBatch : IBatch {
 		return blendDstFuncAlpha;
 	}
 
-	public void dispose () {
-		mesh.dispose();
-		if (ownsShader && shader != null) shader.dispose();
+	public void Dispose () {
+		mesh.Dispose();
+		if (ownsShader && shader != null) shader.Dispose();
 	}
 
 	public Matrix4 getProjectionMatrix () {

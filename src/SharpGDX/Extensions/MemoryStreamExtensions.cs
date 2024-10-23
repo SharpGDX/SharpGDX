@@ -1,17 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Runtime.InteropServices;
 
-namespace SharpGDX.Extensions
+namespace SharpGDX.Extensions;
+
+internal static class MemoryStreamExtensions
 {
-	internal static class MemoryStreamExtensions
-	{
-		public static void Write(this MemoryStream stream, float[] values)
-		{
-			stream.Write(MemoryMarshal.Cast<float, byte>(values));
-		}
-	}
+    public static void Write(this MemoryStream stream, float[] values)
+    {
+        stream.Write(MemoryMarshal.Cast<float, byte>(values));
+    }
 }

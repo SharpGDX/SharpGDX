@@ -208,9 +208,9 @@ public abstract class BatchTiledMapRenderer : ITiledMapRenderer, Disposable {
 		batch.end();
 	}
 
-	public void dispose () {
+	public void Dispose () {
 		if (ownsBatch) {
-			batch.dispose();
+			batch.Dispose();
 		}
 	}
 

@@ -38,7 +38,7 @@ namespace Drop
 		// load the drop sound effect and the rain background "music"
 		dropSound = Gdx.audio.NewSound(Gdx.files.@internal("assets/drop.wav"));
 		rainMusic = Gdx.audio.NewMusic(Gdx.files.@internal("assets/rain.wav"));
-		rainMusic.setLooping(true);
+		rainMusic.SetLooping(true);
 		
 		// create the camera and the SpriteBatch
 		camera = new OrthographicCamera();
@@ -143,7 +143,7 @@ namespace Drop
 	public void Show() {
 		// start the playback of the background music
 		// when the screen is shown
-		rainMusic.play();
+		rainMusic.Play();
 	}
 
 	public void Hide() {
@@ -156,10 +156,10 @@ namespace Drop
 	}
 
 	public void Dispose() {
-		dropImage.dispose();
-		bucketImage.dispose();
-		dropSound.dispose();
-		rainMusic.dispose();
+		dropImage.Dispose();
+		bucketImage.Dispose();
+		dropSound.Dispose();
+		rainMusic.Dispose();
 	}
 
 }

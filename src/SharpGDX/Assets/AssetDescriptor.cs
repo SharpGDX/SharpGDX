@@ -62,9 +62,11 @@ public class AssetDescriptor<T> : IAssetDescriptor
 	public override string ToString()
 	{
 		var sb = new StringBuilder();
+
 		sb.Append(FileName);
 		sb.Append(", ");
 		sb.Append(Type.Name);
+
 		return sb.ToString();
 	}
 }

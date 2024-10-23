@@ -246,7 +246,7 @@ namespace SharpGDX.Desktop
 						lifecycleListeners.clear();
 					}
 
-					closedWindow.dispose();
+					closedWindow.Dispose();
 
 					windows.removeValue(closedWindow, false);
 				}
@@ -284,7 +284,7 @@ namespace SharpGDX.Desktop
 
 			foreach (DesktopWindow window in windows)
 			{
-				window.dispose();
+				window.Dispose();
 			}
 
 			windows.clear();
@@ -293,7 +293,7 @@ namespace SharpGDX.Desktop
 		protected void cleanup()
 		{
 			DesktopCursor.disposeSystemCursors();
-			audio.dispose();
+			audio.Dispose();
 			// TODO: errorCallback.free();
 			errorCallback = null;
 			if (glDebugCallback != null)
@@ -385,9 +385,9 @@ namespace SharpGDX.Desktop
 			return applicationLogger;
 		}
 
-		public IApplication.ApplicationType getType()
+		public ApplicationType getType()
 		{
-			return IApplication.ApplicationType.Desktop;
+			return ApplicationType.Desktop;
 		}
 
 		public int getVersion()
@@ -699,7 +699,7 @@ namespace SharpGDX.Desktop
 				String versionString = GL.GetString(StringName.Version);
 				String vendorString = GL.GetString(StringName.Vendor);
 				String rendererString = GL.GetString(StringName.Renderer);
-				glVersion = new GLVersion(IApplication.ApplicationType.Desktop, versionString, vendorString,
+				glVersion = new GLVersion(ApplicationType.Desktop, versionString, vendorString,
 					rendererString);
 			}
 			else

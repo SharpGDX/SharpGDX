@@ -83,7 +83,7 @@ public class ImmediateModeRenderer20 : ImmediateModeRenderer {
 	}
 
 	public void setShader (ShaderProgram shader) {
-		if (ownsShader) this.shader.dispose();
+		if (ownsShader) this.shader.Dispose();
 		this.shader = shader;
 		ownsShader = false;
 	}
@@ -161,8 +161,8 @@ public class ImmediateModeRenderer20 : ImmediateModeRenderer {
 	}
 
 	public void dispose () {
-		if (ownsShader && shader != null) shader.dispose();
-		mesh.dispose();
+		if (ownsShader && shader != null) shader.Dispose();
+		mesh.Dispose();
 	}
 
 	static private String createVertexShader (bool hasNormals, bool hasColors, int numTexCoords) {

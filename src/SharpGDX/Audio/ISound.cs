@@ -7,7 +7,7 @@ namespace SharpGDX.Audio;
 /// </summary>
 /// <remarks>
 ///     <para>It's completely loaded into memory so only load small audio files.</para>
-///     <para>Call the <see cref="dispose()" /> method when you're done using the Sound.</para>
+///     <para>Call the <see cref="Dispose()" /> method when you're done using the Sound.</para>
 ///     <para>Sound instances are created via a call to <see cref="IAudio.NewSound(Files.FileHandle)" />.</para>
 ///     <para>
 ///         Calling the <see cref="Play()" /> or <see cref="Play(float)" /> method will return a long which is an id to
@@ -20,7 +20,7 @@ public interface ISound : Disposable
 	/// <summary>
 	///     Releases all the resources.
 	/// </summary>
-	public void dispose();
+	public void Dispose();
 
 	/// <summary>
 	///     Plays the sound, looping.

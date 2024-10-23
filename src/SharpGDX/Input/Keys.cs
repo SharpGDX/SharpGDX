@@ -10,6 +10,7 @@ namespace SharpGDX.Input
 {
     public static class Keys
     {
+        // TODO: Fix casing. -RP
         public const int ANY_KEY = -1;
         public const int NUM_0 = 7;
         public const int NUM_1 = 8;

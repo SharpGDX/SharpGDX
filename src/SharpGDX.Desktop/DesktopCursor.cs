@@ -73,7 +73,7 @@ namespace SharpGDX.Desktop
 			cursors.add(this);
 		}
 
-		public unsafe void dispose()
+		public unsafe void Dispose()
 		{
 			if (pixmapCopy == null)
 			{
@@ -81,7 +81,7 @@ namespace SharpGDX.Desktop
 			}
 
 			cursors.removeValue(this, true);
-			pixmapCopy.dispose();
+			pixmapCopy.Dispose();
 			pixmapCopy = null;
 
 			glfwImage = null;
@@ -95,7 +95,7 @@ namespace SharpGDX.Desktop
 				DesktopCursor cursor = cursors.get(i);
 				if (cursor.window.Equals(window))
 				{
-					cursors.removeIndex(i).dispose();
+					cursors.removeIndex(i).Dispose();
 				}
 			}
 		}

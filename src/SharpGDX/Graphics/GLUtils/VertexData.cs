@@ -59,6 +59,6 @@ public interface IVertexData : Disposable {
 	public void invalidate ();
 
 	/** Disposes this VertexData and all its associated OpenGL resources. */
-	public void dispose ();
+	public void Dispose ();
 }
 }

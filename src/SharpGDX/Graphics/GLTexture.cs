@@ -216,7 +216,7 @@ public abstract class GLTexture : Disposable {
 		}
 	}
 
-	public virtual void dispose () {
+	public virtual void Dispose () {
 		delete();
 	}
 
@@ -245,7 +245,7 @@ public abstract class GLTexture : Disposable {
 			tmp.setBlending(Pixmap.Blending.None);
 			tmp.drawPixmap(pixmap, 0, 0, 0, 0, pixmap.getWidth(), pixmap.getHeight());
 			if (data.disposePixmap()) {
-				pixmap.dispose();
+				pixmap.Dispose();
 			}
 			pixmap = tmp;
 			disposePixmap = true;
@@ -262,7 +262,7 @@ public abstract class GLTexture : Disposable {
 
 			pixmap.getPixels().put(array);
 		}
-		if (disposePixmap) pixmap.dispose();
+		if (disposePixmap) pixmap.Dispose();
 	}
 }
 }

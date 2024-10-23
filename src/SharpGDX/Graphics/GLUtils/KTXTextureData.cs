@@ -237,7 +237,7 @@ public class KTXTextureData : ITextureData, ICubemapData {
 								Pixmap pixmap = ETC1.decodeImage(etcData, Pixmap.Format.RGB888);
 								Gdx.gl.glTexImage2D(target + face, level, pixmap.getGLInternalFormat(), pixmap.getWidth(),
 									pixmap.getHeight(), 0, pixmap.getGLFormat(), pixmap.getGLType(), pixmap.getPixels());
-								pixmap.dispose();
+								pixmap.Dispose();
 							} else {
 								Gdx.gl.glCompressedTexImage2D(target + face, level, glInternalFormat, pixelWidth, pixelHeight, 0,
 									faceLodSize, data);

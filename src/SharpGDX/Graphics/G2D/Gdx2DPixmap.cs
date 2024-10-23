@@ -158,7 +158,7 @@ namespace SharpGDX.Graphics.G2D
 			Gdx2DPixmap pixmap = new Gdx2DPixmap(width, height, requestedFormat);
 			pixmap.setBlend(GDX2D_BLEND_NONE);
 			pixmap.drawPixmap(this, 0, 0, 0, 0, width, height);
-			dispose();
+			Dispose();
 			this.basePtr = pixmap.basePtr;
 			this.format = pixmap.format;
 			this.height = pixmap.height;
@@ -167,7 +167,7 @@ namespace SharpGDX.Graphics.G2D
 			this.width = pixmap.width;
 		}
 
-		public void dispose()
+		public void Dispose()
 		{
 			free(basePtr);
 		}

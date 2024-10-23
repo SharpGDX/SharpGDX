@@ -99,7 +99,7 @@ namespace SharpGDX.Graphics.GLUtils
 	}
 
 	/** Disposes this IndexArray and all its associated OpenGL resources. */
-	public void dispose () {
+	public void Dispose () {
 		BufferUtils.disposeUnsafeByteBuffer(byteBuffer);
 	}
 }

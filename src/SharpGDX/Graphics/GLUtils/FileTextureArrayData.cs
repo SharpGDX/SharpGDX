@@ -66,14 +66,14 @@ public class FileTextureArrayData : ITextureArrayData {
 					temp.setBlending(Pixmap.Blending.None);
 					temp.drawPixmap(pixmap, 0, 0, 0, 0, pixmap.getWidth(), pixmap.getHeight());
 					if (texData.disposePixmap()) {
-						pixmap.dispose();
+						pixmap.Dispose();
 					}
 					pixmap = temp;
 					disposePixmap = true;
 				}
 				Gdx.gl30.glTexSubImage3D(GL30.GL_TEXTURE_2D_ARRAY, 0, 0, 0, i, pixmap.getWidth(), pixmap.getHeight(), 1,
 					pixmap.getGLInternalFormat(), pixmap.getGLType(), pixmap.getPixels());
-				if (disposePixmap) pixmap.dispose();
+				if (disposePixmap) pixmap.Dispose();
 			}
 		}
 		if (useMipMaps && !containsCustomData) {

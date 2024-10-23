@@ -54,7 +54,7 @@ public class VertexArray : IVertexData {
 		bb = new byte[this.attributes.vertexSize * numVertices];
 	}
 
-	public void dispose () {
+	public void Dispose () {
 		BufferUtils.disposeUnsafeByteBuffer(byteBuffer);
 	}
 		

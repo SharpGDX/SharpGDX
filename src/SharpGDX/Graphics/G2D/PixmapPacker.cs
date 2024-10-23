@@ -360,7 +360,7 @@ public class PixmapPacker : Disposable {
 
 	/** Disposes any pixmap pages which don't have a texture. Page pixmaps that have a texture will not be disposed until their
 	 * texture is disposed. */
-	public  void dispose()
+	public  void Dispose()
 	{
 		throw new NotImplementedException();
 		//lock (this)

@@ -301,10 +301,10 @@ public class BitmapFont : Disposable {
 	}
 
 	/** Disposes the texture used by this BitmapFont's region IF this BitmapFont created the texture. */
-	public void dispose () {
+	public void Dispose () {
 		if (_ownsTexture) {
 			for (int i = 0; i < regions.size; i++)
-				regions.get(i).getTexture().dispose();
+				regions.get(i).getTexture().Dispose();
 		}
 	}
 

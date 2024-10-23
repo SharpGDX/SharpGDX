@@ -306,7 +306,7 @@ public class PixmapIO {
 
 		/** Disposal will happen automatically in {@link #finalize()} but can be done explicitly if desired. */
 		// TODO: @SuppressWarnings("javadoc")
-		public void dispose () {
+		public void Dispose () {
 			// TODO:
 			throw new NotImplementedException();
 				//deflater.end();

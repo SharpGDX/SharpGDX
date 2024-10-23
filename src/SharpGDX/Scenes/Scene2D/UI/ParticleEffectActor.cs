@@ -112,9 +112,9 @@ public class ParticleEffectActor : Actor , Disposable {
 		particleEffect.allowCompletion();
 	}
 
-	public void dispose () {
+	public void Dispose () {
 		if (ownsEffect) {
-			particleEffect.dispose();
+			particleEffect.Dispose();
 		}
 	}
 

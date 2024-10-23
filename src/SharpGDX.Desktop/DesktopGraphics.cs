@@ -124,7 +124,7 @@ namespace SharpGDX.Desktop
 			String versionString = gl20.glGetString(GL11.GL_VERSION);
 			String vendorString = gl20.glGetString(GL11.GL_VENDOR);
 			String rendererString = gl20.glGetString(GL11.GL_RENDERER);
-			glVersion = new GLVersion(IApplication.ApplicationType.Desktop, versionString, vendorString,
+			glVersion = new GLVersion(ApplicationType.Desktop, versionString, vendorString,
 				rendererString);
 			if (supportsCubeMapSeamless())
 			{
@@ -621,7 +621,7 @@ namespace SharpGDX.Desktop
 			DesktopCursor.setSystemCursor(getWindow().getWindowPtr(), systemCursor);
 		}
 
-		public void dispose()
+		public void Dispose()
 		{
 			// TODO: Set to null
 			//this.resizeCallback.free();

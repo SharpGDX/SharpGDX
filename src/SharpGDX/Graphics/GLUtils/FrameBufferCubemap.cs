@@ -104,7 +104,7 @@ public class FrameBufferCubemap : GLFrameBuffer<Cubemap> {
 	}
 
 	protected override void disposeColorTexture (Cubemap colorTexture) {
-		colorTexture.dispose();
+		colorTexture.Dispose();
 	}
 
 	protected override void attachFrameBufferColorTexture (Cubemap texture) {

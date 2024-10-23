@@ -19,11 +19,11 @@ public class MockMusic : IMusic
 	/// <inheritdoc cref="IMusic.IsPlaying" />
 	public bool IsPlaying => false;
 
-	public void dispose()
+	public void Dispose()
 	{
 	}
 	
-	public bool isLooping()
+	public bool IsLooping()
 	{
 		return false;
 	}
@@ -33,15 +33,15 @@ public class MockMusic : IMusic
 		return false;
 	}
 
-	public void pause()
+	public void Pause()
 	{
 	}
 
-	public void play()
+	public void Play()
 	{
 	}
 
-	public void setLooping(bool isLooping)
+	public void SetLooping(bool isLooping)
 	{
 	}
 
@@ -49,11 +49,11 @@ public class MockMusic : IMusic
 	{
 	}
 
-	public void setPan(float pan, float volume)
+	public void SetPan(float pan, float volume)
 	{
 	}
 	
-	public void stop()
+	public void Stop()
 	{
 	}
 }

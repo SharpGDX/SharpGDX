@@ -36,12 +36,9 @@ public abstract class Game : IApplicationListener
 
 	/// <inheritdoc cref="IApplicationListener.Pause()" />
 	public virtual void Pause()
-	{
-		if (Screen != null)
-		{
-			Screen.Pause();
-		}
-	}
+    {
+        Screen?.Pause();
+    }
 
 	/// <inheritdoc cref="IApplicationListener.Render()" />
 	public virtual void Render()

@@ -185,7 +185,7 @@ public class IndexBufferObject : IndexData {
 	}
 
 	/** Disposes this IndexBufferObject and all its associated OpenGL resources. */
-	public void dispose () {
+	public void Dispose () {
 		Gdx.gl20.glBindBuffer(GL20.GL_ELEMENT_ARRAY_BUFFER, 0);
 		Gdx.gl20.glDeleteBuffer(bufferHandle);
 		bufferHandle = 0;

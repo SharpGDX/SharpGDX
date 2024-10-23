@@ -10,7 +10,7 @@ namespace SharpGDX.Headless.Mock.Audio;
 /// </remarks>
 public class MockAudioDevice : IAudioDevice
 {
-	public void dispose()
+	public void Dispose()
 	{
 	}
 

@@ -166,14 +166,14 @@ public class FacedCubemapData : ICubemapData {
 					Pixmap tmp = new Pixmap(pixmap.getWidth(), pixmap.getHeight(), data[i].getFormat());
 					tmp.setBlending(Pixmap.Blending.None);
 					tmp.drawPixmap(pixmap, 0, 0, 0, 0, pixmap.getWidth(), pixmap.getHeight());
-					if (data[i].disposePixmap()) pixmap.dispose();
+					if (data[i].disposePixmap()) pixmap.Dispose();
 					pixmap = tmp;
 					disposePixmap = true;
 				}
 				Gdx.gl.glPixelStorei(GL20.GL_UNPACK_ALIGNMENT, 1);
 				Gdx.gl.glTexImage2D(GL20.GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, pixmap.getGLInternalFormat(), pixmap.getWidth(),
 					pixmap.getHeight(), 0, pixmap.getGLFormat(), pixmap.getGLType(), pixmap.getPixels());
-				if (disposePixmap) pixmap.dispose();
+				if (disposePixmap) pixmap.Dispose();
 			}
 		}
 	}

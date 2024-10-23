@@ -90,7 +90,7 @@ public class NetJavaSocketImpl : Socket {
 		//return socket.getRemoteSocketAddress().toString();
 	}
 
-	public void dispose () {
+	public void Dispose () {
 		throw new NotImplementedException();
 		//if (socket != null) {
 		//	try {

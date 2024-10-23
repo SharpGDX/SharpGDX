@@ -65,7 +65,7 @@ public  AsyncResult < T > submit<T>(IAsyncTask < T > task) {
 
 	/** Waits for running {@link AsyncTask} instances to finish, then destroys any resources like threads. Can not be used after
 	 * this method is called. */
-	public void dispose()
+	public void Dispose()
 {
 	cancellationTokenSource.Cancel();
 	try

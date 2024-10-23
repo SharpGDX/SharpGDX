@@ -211,7 +211,7 @@ namespace SharpGDX.Desktop.Audio
 			return sampleRate;
 		}
 
-		public void dispose()
+		public void Dispose()
 		{
 			if (buffers == null) return;
 			if (sourceID != -1)

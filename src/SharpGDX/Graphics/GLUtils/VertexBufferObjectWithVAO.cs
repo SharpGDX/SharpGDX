@@ -237,7 +237,7 @@ public class VertexBufferObjectWithVAO : IVertexData {
 	}
 
 	/** Disposes of all resources this VertexBufferObject uses. */
-	public void dispose () {
+	public void Dispose () {
 		GL30 gl = Gdx.gl30;
 
 		gl.glBindBuffer(GL20.GL_ARRAY_BUFFER, 0);

@@ -225,9 +225,9 @@ public class TextureAtlas : Disposable {
 
 	/** Releases all resources associated with this TextureAtlas instance. This releases all the textures backing all
 	 * TextureRegions and Sprites, which should no longer be used after calling dispose. */
-	public void dispose () {
+	public void Dispose () {
 		foreach (Texture texture in textures)
-			texture.dispose();
+			texture.Dispose();
 		textures.clear(0);
 	}
 

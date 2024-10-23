@@ -26,14 +26,14 @@ namespace SharpGDX.Audio
 	{
 		/** Starts the play back of the music stream. In case the stream was paused this will resume the play back. In case the music
 		 * stream is finished playing this will restart the play back. */
-		public void play();
+		public void Play();
 
 		/** Pauses the play back. If the music stream has not been started yet or has finished playing a call to this method will be
 		 * ignored. */
-		public void pause();
+		public void Pause();
 
 		/** Stops a playing or paused Music instance. Next time play() is invoked the Music will start from the beginning. */
-		public void stop();
+		public void Stop();
 
 		/// <summary>
 		/// Gets whether this music stream is playing.
@@ -43,10 +43,10 @@ namespace SharpGDX.Audio
 		/** Sets whether the music stream is looping. This can be called at any time, whether the stream is playing.
 		 *
 		 * @param isLooping whether to loop the stream */
-		public void setLooping(bool isLooping);
+		public void SetLooping(bool isLooping);
 
 		/** @return whether the music stream is playing. */
-		public bool isLooping();
+		public bool IsLooping();
 
 		/// <summary>
 		/// Gets or sets the volume of the music stream.
@@ -59,7 +59,7 @@ namespace SharpGDX.Audio
 		/** Sets the panning and volume of this music stream.
 		 * @param pan panning in the range -1 (full left) to 1 (full right). 0 is center position.
 		 * @param volume the volume in the range [0,1]. */
-		public void setPan(float pan, float volume);
+		public void SetPan(float pan, float volume);
 
 		/// <summary>
 		/// Gets or sets the playback position in seconds.
@@ -69,7 +69,7 @@ namespace SharpGDX.Audio
 		/// <summary>
 		/// Needs to be called when the IMusic is no longer needed.
 		/// </summary>
-		public void dispose();
+		public void Dispose();
 
 		/** Register a callback to be invoked when the end of a music stream has been reached during playback.
 		 *

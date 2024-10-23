@@ -8,27 +8,33 @@
 /// </remarks>
 public abstract class ApplicationAdapter : IApplicationListener
 {
-	public virtual void Create()
-	{
-	}
+    /// <inheritdoc cref="IApplicationListener.Create()" />
+    public virtual void Create()
+    {
+    }
 
-	public virtual void Dispose()
-	{
-	}
+    /// <inheritdoc cref="IApplicationListener.Dispose()" />
+    public virtual void Dispose()
+    {
+    }
 
-	public virtual void Pause()
-	{
-	}
+    /// <inheritdoc cref="IApplicationListener.Pause()" />
+    public virtual void Pause()
+    {
+    }
 
-	public virtual void Render()
-	{
-	}
+    /// <inheritdoc cref="IApplicationListener.Render()" />
+    public virtual void Render()
+    {
+    }
 
-	public virtual void Resize(int width, int height)
-	{
-	}
+    /// <inheritdoc cref="IApplicationListener.Resize(int, int)" />
+    public virtual void Resize(int width, int height)
+    {
+    }
 
-	public virtual void Resume()
-	{
-	}
+    /// <inheritdoc cref="IApplicationListener.Resume()" />
+    public virtual void Resume()
+    {
+    }
 }

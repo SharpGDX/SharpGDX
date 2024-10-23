@@ -100,7 +100,7 @@ public abstract class GLFrameBuffer<T> : GLFrameBuffer, Disposable
 		// iOS uses a different framebuffer handle! (not necessarily 0)
 		if (!defaultFramebufferHandleInitialized) {
 			defaultFramebufferHandleInitialized = true;
-			if (Gdx.app.getType() == IApplication.ApplicationType.iOS) {
+			if (Gdx.app.getType() == ApplicationType.iOS) {
 				// TODO: sizeof(int) may not work here in place of Integer.SIZE
 				IntBuffer intbuf = ByteBuffer.allocateDirect(16 * sizeof(int) / 8).order(ByteOrder.nativeOrder()).asIntBuffer();
 				gl.glGetIntegerv(GL20.GL_FRAMEBUFFER_BINDING, intbuf);
@@ -276,7 +276,7 @@ public abstract class GLFrameBuffer<T> : GLFrameBuffer, Disposable
 	}
 
 	/** Releases all resources associated with the FrameBuffer. */
-	public void dispose () {
+	public void Dispose () {
 		GL20 gl = Gdx.gl20;
 
 		foreach (T texture in textureAttachments) {

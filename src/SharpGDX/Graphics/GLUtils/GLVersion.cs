@@ -22,19 +22,19 @@ public class GLVersion
 	private int _minorVersion;
 	private int _releaseVersion;
 
-	public GLVersion(IApplication.ApplicationType appType, string versionString, string vendorString, string rendererString)
+	public GLVersion(ApplicationType appType, string versionString, string vendorString, string rendererString)
 	{
 		switch (appType)
 		{
-			case IApplication.ApplicationType.Android:
-			case IApplication.ApplicationType.iOS:
+			case ApplicationType.Android:
+			case ApplicationType.iOS:
 				_type = GLType.GLES;
 				break;
-			case IApplication.ApplicationType.Desktop:
-			case IApplication.ApplicationType.Applet:
+			case ApplicationType.Desktop:
+			case ApplicationType.Applet:
 				_type = GLType.OpenGL;
 				break;
-			case IApplication.ApplicationType.WebGL:
+			case ApplicationType.WebGL:
 				_type = GLType.WebGL;
 				break;
 			default:

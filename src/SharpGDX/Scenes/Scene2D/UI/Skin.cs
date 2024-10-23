@@ -417,11 +417,11 @@ public class Skin : Disposable {
 	}
 
 	/** Disposes the {@link TextureAtlas} and all {@link Disposable} resources in the skin. */
-	public void dispose () {
-		if (atlas != null) atlas.dispose();
+	public void Dispose () {
+		if (atlas != null) atlas.Dispose();
 		foreach (ObjectMap<String, Object> entry in resources.values()) {
 			foreach (Object resource in entry.values())
-				if (resource is Disposable) ((Disposable)resource).dispose();
+				if (resource is Disposable) ((Disposable)resource).Dispose();
 		}
 	}
 

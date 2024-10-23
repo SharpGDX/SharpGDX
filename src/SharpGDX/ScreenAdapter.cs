@@ -6,8 +6,7 @@
 /// <remarks>
 ///     Derive from this and only override what you need.
 /// </remarks>
-/// TODO: Why wouldn't this be abstract? -RP
-public class ScreenAdapter : IScreen
+public abstract class ScreenAdapter : IScreen
 {
 	public virtual void Dispose()
 	{

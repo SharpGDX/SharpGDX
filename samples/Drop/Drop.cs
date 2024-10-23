@@ -20,7 +20,7 @@ public class Drop : Game
 
 	public override void Dispose()
 	{
-		Batch?.dispose();
-		Font?.dispose();
+		Batch?.Dispose();
+		Font?.Dispose();
 	}
 }

@@ -36,7 +36,7 @@ namespace SharpGDX.Desktop.Audio
 		//	samples[offset + j] = (short)((buffer[i + 1] << 8) | (buffer[i] & 0xff));
 	}
 
-	public void dispose()
+	public void Dispose()
 	{
 		//line.close();
 	}

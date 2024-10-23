@@ -8,7 +8,7 @@ using Keys = SharpGDX.Input.Keys;
 
 namespace SharpGDX.Desktop
 {
-	public class DefaultDesktopInput : AbstractInput , IDesktopInput
+    public class DefaultDesktopInput : AbstractInput , IDesktopInput
 	{
 		readonly DesktopWindow window;
 	private IInputProcessor inputProcessor;
@@ -29,7 +29,7 @@ private unsafe void charCallback(Window* window, uint codepoint)
 	if ((codepoint & 0xff00) == 0xf700) return;
 	lastCharacter = (char)codepoint;
 	this.window.getGraphics().requestRendering();
-	eventQueue.keyTyped((char)codepoint, TimeUtils.nanoTime());
+	eventQueue.KeyTyped((char)codepoint, TimeUtils.nanoTime());
 }
 	
 private int logicalMouseY;
@@ -69,7 +69,7 @@ public void ResetPollingStates()
 	{
 		justPressedButtons[i] = false;
 	}
-	eventQueue.drain(null);
+	eventQueue.Drain(null);
 }
 
 public unsafe void WindowHandleChanged(Window* windowHandle)
@@ -83,7 +83,7 @@ public unsafe void WindowHandleChanged(Window* windowHandle)
             switch (action)
             {
                 case InputAction.Press:
-                    eventQueue.keyDown((int)intKey, TimeUtils.nanoTime());
+                    eventQueue.KeyDown((int)intKey, TimeUtils.nanoTime());
                     pressedKeyCount++;
                     keyJustPressed = true;
                     pressedKeys[(int)intKey] = true;
@@ -97,13 +97,13 @@ public unsafe void WindowHandleChanged(Window* windowHandle)
                     pressedKeyCount--;
                     pressedKeys[(int)intKey] = false;
                     this.window.getGraphics().requestRendering();
-                    eventQueue.keyUp((int)intKey, TimeUtils.nanoTime());
+                    eventQueue.KeyUp((int)intKey, TimeUtils.nanoTime());
                     break;
                 case InputAction.Repeat:
                     if (lastCharacter != 0)
                     {
                         this.window.getGraphics().requestRendering();
-                        eventQueue.keyTyped(lastCharacter, TimeUtils.nanoTime());
+                        eventQueue.KeyTyped(lastCharacter, TimeUtils.nanoTime());
                     }
 
                     break;
@@ -116,7 +116,7 @@ public unsafe void WindowHandleChanged(Window* windowHandle)
         _scrollCallback = (_, scrollX, scrollY) =>
         {
             this.window.getGraphics().requestRendering();
-            eventQueue.scrolled(-(float)scrollX, -(float)scrollY, TimeUtils.nanoTime());
+            eventQueue.Scrolled(-(float)scrollX, -(float)scrollY, TimeUtils.nanoTime());
         }
     );
 
@@ -146,11 +146,11 @@ public unsafe void WindowHandleChanged(Window* windowHandle)
             long time = TimeUtils.nanoTime();
             if (mousePressed > 0)
             {
-                eventQueue.touchDragged(mouseX, mouseY, 0, time);
+                eventQueue.TouchDragged(mouseX, mouseY, 0, time);
             }
             else
             {
-                eventQueue.mouseMoved(mouseX, mouseY, time);
+                eventQueue.MouseMoved(mouseX, mouseY, time);
             }
         }
     );
@@ -173,13 +173,13 @@ public unsafe void WindowHandleChanged(Window* windowHandle)
                 _justTouched = true;
                 justPressedButtons[gdxButton] = true;
                 this.window.getGraphics().requestRendering();
-                eventQueue.touchDown(mouseX, mouseY, 0, gdxButton, time);
+                eventQueue.TouchDown(mouseX, mouseY, 0, gdxButton, time);
             }
             else
             {
                 mousePressed = Math.Max(0, mousePressed - 1);
                 this.window.getGraphics().requestRendering();
-                eventQueue.touchUp(mouseX, mouseY, 0, gdxButton, time);
+                eventQueue.TouchUp(mouseX, mouseY, 0, gdxButton, time);
             }
         }
     );
@@ -187,7 +187,7 @@ public unsafe void WindowHandleChanged(Window* windowHandle)
 
 public void Update()
 {
-	eventQueue.drain(inputProcessor);
+	eventQueue.Drain(inputProcessor);
 }
 
 	public void PrepareNext()
@@ -315,7 +315,7 @@ public override void getTextInput(TextInputListener listener, String title, Stri
 public override long getCurrentEventTime()
 {
 	// queue sets its event time for each event dequeued/processed
-	return eventQueue.getCurrentEventTime();
+	return eventQueue.GetCurrentEventTime();
 }
 
 public override void setInputProcessor(IInputProcessor processor)
@@ -618,7 +618,7 @@ public int getGdxKeyCode(int lwjglKeyCode)
 	}
 }
 
-public void dispose()
+public void Dispose()
 {
 	// TODO: Set to null
 	//keyCallback.free();

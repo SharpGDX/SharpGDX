@@ -917,9 +917,9 @@ public class SpriteCache : Disposable {
 	}
 
 	/** Releases all resources held by this SpriteCache. */
-	public void dispose () {
-		mesh.dispose();
-		if (shader != null) shader.dispose();
+	public void Dispose () {
+		mesh.Dispose();
+		if (shader != null) shader.Dispose();
 	}
 
 	public Matrix4 getProjectionMatrix () {
