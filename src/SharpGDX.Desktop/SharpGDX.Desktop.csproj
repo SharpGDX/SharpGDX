@@ -12,9 +12,9 @@
 		<PackageProjectUrl>https://sharpgdx.com</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/SharpGDX/SharpGDX</RepositoryUrl>
 		<PackageTags>SharpGDX</PackageTags>
-		<AssemblyVersion>1.12.1</AssemblyVersion>
-		<FileVersion>1.12.1</FileVersion>
-		<Version>1.12.1-alpha.6</Version>
+		<AssemblyVersion>1.13.0</AssemblyVersion>
+		<FileVersion>1.13.0</FileVersion>
+		<Version>1.13.0-alpha.1</Version>
 	</PropertyGroup>
 
 	<ItemGroup>
