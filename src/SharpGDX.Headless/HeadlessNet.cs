@@ -34,4 +34,9 @@ public class HeadlessNet : INet
 	{
 		throw new NotImplementedException();
 	}
+
+    public bool isHttpRequestPending(INet.HttpRequest httpRequest)
+    {
+        throw new NotImplementedException();
+    }
 }

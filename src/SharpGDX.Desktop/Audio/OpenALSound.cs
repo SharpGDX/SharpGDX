@@ -12,40 +12,48 @@ namespace SharpGDX.Desktop.Audio
 	private readonly OpenALDesktopAudio audio;
 	private float _duration;
 	private int sampleRate, channels;
+    private String type;
 
-	public OpenALSound(OpenALDesktopAudio audio)
+        public OpenALSound(OpenALDesktopAudio audio)
 	{
 		this.audio = audio;
 	}
 
-	protected void setup(byte[] pcm, int channels, int sampleRate)
-	{
-		int validBytes = pcm.Length - (pcm.Length % (channels > 1 ? 4 : 2));
-		ByteBuffer buffer = BufferUtils.newByteBuffer(validBytes);
+    /** Prepare our sound for playback!
+     * @param pcm Byte array of raw PCM data to be played.
+     * @param channels The number of channels for the sound. Most commonly 1 (for mono) or 2 (for stereo).
+     * @param bitDepth The number of bits in each sample. Normally 16. Can also be 8, 32, 64.
+     * @param sampleRate The number of samples to be played each second. Commonly 44100; can be anything within reason. */
+    internal void setup(byte[] pcm, int channels, int bitDepth, int sampleRate)
+    {
+        int validBytes = pcm.Length - (pcm.Length % (channels * (bitDepth >> 3)));
+            ByteBuffer buffer = BufferUtils.newByteBuffer(validBytes);
 		buffer.put(pcm, 0, validBytes);
 		((Buffer)buffer).flip();
 
-		setup(buffer, channels, sampleRate);
-	}
+		// TODO: Really doesn't need to be a short buffer. -RP
+        setup(buffer.asShortBuffer(), channels, bitDepth, sampleRate);
+        }
 
-	protected void setup(ByteBuffer pcm, int channels, int sampleRate)
-	{
-		this.channels = channels;
-		this.sampleRate = sampleRate;
-		int sampleFrames = pcm.limit() / channels;
-		_duration = sampleFrames / (float)sampleRate;
+    void setup(ShortBuffer pcm, int channels, int bitDepth, int sampleRate)
+    {
+            this.channels = channels;
+            this.sampleRate = sampleRate;
+            int sampleFrames = (pcm.limit() << 1) / (bitDepth >> 3) / channels;
+            _duration = sampleFrames / (float)sampleRate;
 
-		if (bufferID == -1)
-		{
-			// TODO: I don't like this. -RP
-			var bufferIds =new int[1];
-			AL.GenBuffers(1, bufferIds);
-			bufferID = bufferIds[0];
-			AL.BufferData(bufferID, channels > 1 ? ALFormat.Stereo16 : ALFormat.Mono16, pcm.array(), sampleRate);
-		}
-	}
-		
-		public long Play()
+            if (bufferID == -1)
+            {
+                // TODO: I don't like this. -RP
+                var bufferIds = new int[1];
+                AL.GenBuffers(1, bufferIds);
+                bufferID = bufferIds[0];
+                var format = OpenALUtils.determineFormat(channels, bitDepth);
+                AL.BufferData(bufferID, format, pcm.array(), sampleRate);
+            }
+        }
+
+        public long Play()
 	{
 		return Play(1);
 	}
@@ -183,16 +191,28 @@ namespace SharpGDX.Desktop.Audio
 		return _duration;
 	}
 
-	/** returns the original sample rate of the sound in Hz. */
-	public int getRate()
+    /** Returns the original sample rate of the sound in Hz. */
+        public int getRate()
 	{
 		return sampleRate;
 	}
 
-	/** returns the number of channels of the sound (1 for mono, 2 for stereo). */
-	public int getChannels()
+    /** Returns the number of channels of the sound. Usually 1 for mono; 2 for stereo. */
+        public int getChannels()
 	{
 		return channels;
 	}
-}
+
+
+    /** @param type The type of audio, such as mp3, ogg or wav. */
+    public void setType(String type)
+    {
+        this.type = type;
+    }
+
+    public String getType()
+    {
+        return type;
+    }
+    }
 }

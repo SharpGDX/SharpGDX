@@ -1,13 +1,8 @@
-﻿using System;
 using SharpGDX.Utils;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace SharpGDX.Graphics.GLUtils
-{
-	/**
+namespace SharpGDX.Graphics.GLUtils;
+
+/**
  * <p>
  * Encapsulates OpenGL ES 2.0 frame buffer objects. This is a simple helper class which should cover most FBO uses. It will
  * automatically create a cubemap for the color attachment and a renderbuffer for the depth buffer. You can get a hold of the
@@ -57,9 +52,9 @@ public class FrameBufferCubemap : GLFrameBuffer<Cubemap> {
 	/** Creates a GLFrameBuffer from the specifications provided by bufferBuilder
 	 *
 	 * @param bufferBuilder **/
-	internal protected FrameBufferCubemap (GLFrameBufferBuilder bufferBuilder) 
-	: base(bufferBuilder)
-	{
+	protected internal  FrameBufferCubemap (FrameBufferCubemapBuilder bufferBuilder) 
+    : base(bufferBuilder)
+    {
 		
 	}
 
@@ -70,8 +65,8 @@ public class FrameBufferCubemap : GLFrameBuffer<Cubemap> {
 	 * @param height
 	 * @param hasDepth */
 	public FrameBufferCubemap (Pixmap.Format format, int width, int height, bool hasDepth) 
-	: this(format, width, height, hasDepth, false)
-	{
+    : this(format, width, height, hasDepth, false)
+    {
 		
 	}
 
@@ -94,7 +89,7 @@ public class FrameBufferCubemap : GLFrameBuffer<Cubemap> {
 		build();
 	}
 
-	protected override Cubemap createTexture (FrameBufferTextureAttachmentSpec attachmentSpec) {
+    protected override Cubemap createTexture (FrameBufferTextureAttachmentSpec attachmentSpec) {
 		GLOnlyTextureData data = new GLOnlyTextureData(bufferBuilder.width, bufferBuilder.height, 0, attachmentSpec.internalFormat,
 			attachmentSpec.format, attachmentSpec.type);
 		Cubemap result = new Cubemap(data, data, data, data, data, data);
@@ -103,11 +98,11 @@ public class FrameBufferCubemap : GLFrameBuffer<Cubemap> {
 		return result;
 	}
 
-	protected override void disposeColorTexture (Cubemap colorTexture) {
+    protected override void disposeColorTexture (Cubemap colorTexture) {
 		colorTexture.Dispose();
 	}
 
-	protected override void attachFrameBufferColorTexture (Cubemap texture) {
+    protected override void attachFrameBufferColorTexture (Cubemap texture) {
 		GL20 gl = Gdx.gl20;
 		int glHandle = texture.getTextureObjectHandle();
 		Cubemap.CubemapSide[] sides = Cubemap.CubemapSide.values();
@@ -116,9 +111,9 @@ public class FrameBufferCubemap : GLFrameBuffer<Cubemap> {
 		}
 	}
 
-		/** Makes the frame buffer current so everything gets drawn to it, must be followed by call to either {@link #nextSide()} or
-		 * {@link #bindSide(com.badlogic.gdx.graphics.Cubemap.CubemapSide)} to activate the side to render onto. */
-		public override void bind () {
+	/** Makes the frame buffer current so everything gets drawn to it, must be followed by call to either {@link #nextSide()} or
+	 * {@link #bindSide(com.badlogic.gdx.graphics.Cubemap.CubemapSide)} to activate the side to render onto. */
+	public override void bind () {
 		currentSide = -1;
 		base.bind();
 	}
@@ -148,5 +143,4 @@ public class FrameBufferCubemap : GLFrameBuffer<Cubemap> {
 	public Cubemap.CubemapSide getSide () {
 		return currentSide < 0 ? null : cubemapSides[currentSide];
 	}
-}
 }

@@ -45,20 +45,25 @@ public interface ISound : Disposable
 	///     Plays the sound, looping.
 	/// </summary>
 	/// <remarks>
+	/// <para>
 	///     If the sound is already playing, it will be played again, concurrently.
-	/// </remarks>
-	/// <param name="volume">The volume in the range [0, 1].</param>
-	/// <param name="pitch">
-	///     <para>
-	///         The pitch multiplier.
-	///     </para>
-	///     <para>
-	///         1 == default, &gt;1 == faster, &lt;1 == slower, the value has to be between 0.5 and 2.0.
-	///     </para>
-	/// </param>
-	/// <param name="pan">Panning in the range -1 (full left) to 1 (full right). 0 is center position.</param>
-	/// <returns>The id of the sound instance if successful, or -1 on failure.</returns>
-	public long Loop(float volume, float pitch, float pan);
+	/// </para>
+	/// <para>
+	///Note that (with the exception of the web backend) panning only works for mono sounds, not for stereo sounds!
+    /// </para>
+    /// </remarks>
+    /// <param name="volume">The volume in the range [0, 1].</param>
+    /// <param name="pitch">
+    ///     <para>
+    ///         The pitch multiplier.
+    ///     </para>
+    ///     <para>
+    ///         1 == default, &gt;1 == faster, &lt;1 == slower, the value has to be between 0.5 and 2.0.
+    ///     </para>
+    /// </param>
+    /// <param name="pan">Panning in the range -1 (full left) to 1 (full right). 0 is center position.</param>
+    /// <returns>The id of the sound instance if successful, or -1 on failure.</returns>
+    public long Loop(float volume, float pitch, float pan);
 
 	/// <summary>
 	///     Pauses all instances of this sound.
@@ -97,15 +102,20 @@ public interface ISound : Disposable
 	///     Plays the sound.
 	/// </summary>
 	/// <remarks>
+	/// <para>
 	///     If the sound is already playing, it will be played again, concurrently.
-	/// </remarks>
-	/// <param name="volume">The volume in the range [0,1].</param>
-	/// <param name="pitch">
-	///     The pitch multiplier, 1 == default, &gt;1 == faster, &lt;1 == slower, the value has to be between 0.5 and 2.0.
-	/// </param>
-	/// <param name="pan">Panning in the range -1 (full left) to 1 (full right). 0 is center position.</param>
-	/// <returns>The id of the sound instance if successful, or -1 on failure.</returns>
-	public long Play(float volume, float pitch, float pan);
+	/// </para>
+	/// <para>
+	/// Note that (with the exception of the web backend) panning only works for mono sounds, not for stereo sounds!
+    /// </para>
+    /// </remarks>
+    /// <param name="volume">The volume in the range [0,1].</param>
+    /// <param name="pitch">
+    ///     The pitch multiplier, 1 == default, &gt;1 == faster, &lt;1 == slower, the value has to be between 0.5 and 2.0.
+    /// </param>
+    /// <param name="pan">Panning in the range -1 (full left) to 1 (full right). 0 is center position.</param>
+    /// <returns>The id of the sound instance if successful, or -1 on failure.</returns>
+    public long Play(float volume, float pitch, float pan);
 
 	/// <summary>
 	///     Resumes all paused instances of this sound.

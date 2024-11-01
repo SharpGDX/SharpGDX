@@ -570,13 +570,21 @@ protected List<T> newList () {
 				setY(stagePosition.y - height);
 			else
 				setY(stagePosition.y + selectBox.getHeight());
-			setX(stagePosition.x);
+			
 			setHeight(height);
 			validate();
 			float width = Math.Max(getPrefWidth(), selectBox.getWidth());
 			setWidth(width);
 
-			validate();
+            float x = stagePosition.x;
+            if (x + width > stage.getWidth())
+            {
+                x -= getWidth() - selectBox.getWidth() - 1;
+                if (x < 0) x = 0;
+            }
+            setX(x);
+
+            validate();
 			scrollTo(0, list.getHeight() - selectBox.getSelectedIndex() * itemHeight - itemHeight / 2, 0, 0, true, true);
 			updateVisualScroll();
 

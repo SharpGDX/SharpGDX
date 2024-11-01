@@ -53,8 +53,8 @@ namespace SharpGDX.Scenes.Scene2D.Utils
 
 		public override void touchUp(InputEvent @event, float x, float y, int pointer, int button)
 		{
-			if (pointer == pressedPointer)
-			{
+            if (pointer == pressedPointer && (this._button == -1 || button == this._button))
+            {
 				if (dragging) dragStop(@event, x, y, pointer);
 				cancel();
 			}

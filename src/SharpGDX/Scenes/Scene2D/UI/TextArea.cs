@@ -99,10 +99,10 @@ public class TextArea : TextField {
 		if (prefRows <= 0) {
 			return base.getPrefHeight();
 		} else {
-			// without ceil we might end up with one less row then expected
-			// due to how linesShowing is calculated in #sizeChanged and #getHeight() returning rounded value
-			float prefHeight = MathUtils.ceil(style.font.getLineHeight() * prefRows);
-			if (style.background != null) {
+            // without ceil we might end up with one less row then expected
+            // due to how linesShowing is calculated in #sizeChanged and #getHeight() returning rounded value
+            float prefHeight = (float)Math.Ceiling(style.font.getLineHeight() * prefRows);
+            if (style.background != null) {
 				prefHeight = Math.Max(prefHeight + style.background.getBottomHeight() + style.background.getTopHeight(),
 					style.background.getMinHeight());
 			}
@@ -230,13 +230,13 @@ public class TextArea : TextField {
 
 				float fontLineOffsetX = 0;
 				float fontLineOffsetWidth = 0;
-				// we can't use fontOffset as it is valid only for first glyph/line in the text
-				// we will grab first character in this line and calculate proper offset for this line
-				BitmapFont.Glyph lineFirst = fontData.getGlyph(displayText[lineStart]);
+                // We can't use fontOffset as it is valid only for first glyph/line in the text.
+                // We will grab first character in this line and calculate proper offset for this line.
+                BitmapFont.Glyph lineFirst = fontData.getGlyph(displayText[lineStart]);
 				if (lineFirst != null) {
-					// see BitmapFontData.getGlyphs()#852 for offset calculation
-					// if selection starts when line starts we want to offset width instead of moving the start as it looks better
-					if (start == lineStart) {
+                    // See BitmapFontData.getGlyphs() for offset calculation.
+                    // If selection starts when line starts we want to offset width instead of moving the start as it looks better.
+                    if (start == lineStart) {
 						fontLineOffsetWidth = lineFirst.fixedWidth ? 0 : -lineFirst.xoffset * fontData.scaleX - fontData.padLeft;
 					} else {
 						fontLineOffsetX = lineFirst.fixedWidth ? 0 : -lineFirst.xoffset * fontData.scaleX - fontData.padLeft;
@@ -361,8 +361,8 @@ public class TextArea : TextField {
 			float glyphOffset = 0;
 			BitmapFont.Glyph lineFirst = fontData.getGlyph(displayText[lineStart]);
 			if (lineFirst != null) {
-				// BitmapFontData.getGlyphs()#852
-				glyphOffset = lineFirst.fixedWidth ? 0 : -lineFirst.xoffset * fontData.scaleX - fontData.padLeft;
+                // See BitmapFontData.getGlyphs() for offset calculation.
+                glyphOffset = lineFirst.fixedWidth ? 0 : -lineFirst.xoffset * fontData.scaleX - fontData.padLeft;
 			}
 			textOffset = glyphPositions.get(cursor) - glyphPositions.get(lineStart) + glyphOffset;
 		}

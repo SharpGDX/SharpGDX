@@ -76,21 +76,11 @@ public abstract class AbstractInput : IInput
 
     public abstract bool isButtonPressed(int button);
 
-    public bool isCatchBackKey()
-    {
-        return keysToCatch.contains(Keys.BACK);
-    }
-
-    public bool isCatchKey(int keycode)
+   public bool isCatchKey(int keycode)
     {
         return keysToCatch.contains(keycode);
     }
-
-    public bool isCatchMenuKey()
-    {
-        return keysToCatch.contains(Keys.MENU);
-    }
-
+    
     public abstract bool isCursorCatched();
 
     public bool isKeyJustPressed(int key)
@@ -128,11 +118,6 @@ public abstract class AbstractInput : IInput
     public abstract bool isTouched(int pointer);
     public abstract bool justTouched();
 
-    public void setCatchBackKey(bool catchBack)
-    {
-        setCatchKey(Keys.BACK, catchBack);
-    }
-
     public void setCatchKey(int keycode, bool catchKey)
     {
         if (!catchKey)
@@ -144,12 +129,7 @@ public abstract class AbstractInput : IInput
             keysToCatch.add(keycode);
         }
     }
-
-    public void setCatchMenuKey(bool catchMenu)
-    {
-        setCatchKey(Keys.MENU, catchMenu);
-    }
-
+    
     public abstract void setCursorCatched(bool catched);
 
     public abstract void setCursorPosition(int x, int y);
@@ -167,4 +147,7 @@ public abstract class AbstractInput : IInput
     public abstract void vibrate(int milliseconds, int amplitude, bool fallback);
 
     public abstract void vibrate(VibrationType vibrationType);
+    public abstract void openTextInputField(NativeInputConfiguration configuration);
+    public abstract void closeTextInputField(bool sendReturn);
+    public abstract void setKeyboardHeightObserver(IInput.KeyboardHeightObserver observer);
 }

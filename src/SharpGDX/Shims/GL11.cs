@@ -22,6 +22,7 @@ namespace SharpGDX.Shims
 			GL_INT = 0x1404,
 			GL_UNSIGNED_INT = 0x1405,
 			GL_FLOAT = 0x1406,
-			GL_DOUBLE = 0x140A;
+            GL_COLOR_BUFFER_BIT = 0x4000,
+            GL_DOUBLE = 0x140A;
 	}
 }

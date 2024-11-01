@@ -16,6 +16,7 @@ public class GLVersion
 	
 	private readonly string _rendererString;
 	private readonly GLType _type;
+    private readonly String _versionString;
 	private readonly string _vendorString;
 
 	private int _majorVersion;
@@ -63,14 +64,21 @@ public class GLVersion
 				break;
 		}
 
-		_vendorString = vendorString;
+        _versionString = versionString;
+        _vendorString = vendorString;
 		_rendererString = rendererString;
 	}
 
-	/**
+    /** @return The version string as reported by `glGetString(GL_VERSION)` */
+    public String getVersionString()
+    {
+        return _versionString;
+    }
+
+    /**
 	 * @return a string with the current GL connection data
 	 */
-	public string GetDebugVersionString()
+    public string GetDebugVersionString()
 	{
 		return "Type: " + _type + "\n" + "Version: " + _majorVersion + ":" + _minorVersion + ":" + _releaseVersion +
 		       "\n" + "Vendor: "

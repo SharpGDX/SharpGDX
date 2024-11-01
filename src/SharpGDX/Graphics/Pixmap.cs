@@ -430,9 +430,14 @@ public int getHeight()
 /** Releases all resources associated with this Pixmap. */
 public void Dispose()
 {
-	if (disposed) throw new GdxRuntimeException("Pixmap already disposed!");
-	pixmap.Dispose();
-	disposed = true;
+    if (disposed)
+    {
+        Gdx.app.error("Pixmap", "Pixmap already disposed!");
+        return;
+    }
+
+    pixmap.Dispose();
+    disposed = true;
 }
 
 public bool isDisposed()

@@ -20,7 +20,7 @@ public class Version
 	public static readonly int REVISION;
 
 	/** The current version of libGDX as a String in the major.minor.revision format **/
-	public static readonly string VERSION = "1.12.1";
+	public static readonly string VERSION = "1.13.0";
 
 	static Version()
 	{

@@ -754,13 +754,13 @@ public class Table : WidgetGroup {
 		return columnWidth[columnIndex];
 	}
 
-	/** Returns the min height of the specified column. */
+	/** Returns the min width of the specified column. */
 	public float getColumnMinWidth (int columnIndex) {
 		if (sizeInvalid) computeSize();
 		return columnMinWidth[columnIndex];
 	}
 
-	/** Returns the pref height of the specified column. */
+	/** Returns the pref width of the specified column. */
 	public float getColumnPrefWidth (int columnIndex) {
 		if (sizeInvalid) computeSize();
 		return columnPrefWidth[columnIndex];

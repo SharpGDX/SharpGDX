@@ -45,7 +45,8 @@ public sealed class Colors {
 	public static void reset () {
 		map.clear();
 		map.put("CLEAR", Color.CLEAR);
-		map.put("BLACK", Color.BLACK);
+        map.put("CLEAR_WHITE", Color.CLEAR_WHITE);
+            map.put("BLACK", Color.BLACK);
 
 		map.put("WHITE", Color.WHITE);
 		map.put("LIGHT_GRAY", Color.LIGHT_GRAY);

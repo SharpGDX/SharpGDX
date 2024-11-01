@@ -140,11 +140,11 @@ where T: Actor{
 			y += (containerHeight - height) / 2;
 
 		if (round) {
-			x = (float)Math.Round(x);
-			y = (float)Math.Round(y);
-			width = (float)Math.Round(width);
-			height = (float)Math.Round(height);
-		}
+            x = (float)Math.Floor(x);
+            y = (float)Math.Floor(y);
+            width = (float)Math.Ceiling(width);
+            height = (float)Math.Ceiling(height);
+        }
 
 		actor.setBounds(x, y, width, height);
 		if (actor is ILayout) ((ILayout)actor).validate();

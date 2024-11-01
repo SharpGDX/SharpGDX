@@ -8,6 +8,7 @@ using SharpGDX.Input;
 using SharpGDX.Scenes.Scene2D.Utils;
 using SharpGDX.Mathematics;
 using SharpGDX.Utils;
+using static SharpGDX.Graphics.G2D.BitmapFont;
 
 
 namespace SharpGDX.Scenes.Scene2D.UI;
@@ -337,7 +338,10 @@ public class TextField : Widget , IDisableable {
 				drawMessageText(batch, messageFont, x + bgLeftWidth, y + textY + yOffset, width - bgLeftWidth - bgRightWidth);
 			}
 		} else {
-			font.setColor(fontColor.r, fontColor.g, fontColor.b, fontColor.a * color.a * parentAlpha);
+            BitmapFontData data = font.getData();
+            bool markupEnabled = data.markupEnabled;
+            data.markupEnabled = false;
+            font.setColor(fontColor.r, fontColor.g, fontColor.b, fontColor.a * color.a * parentAlpha);
 			drawText(batch, font, x + bgLeftWidth, y + textY + yOffset);
 		}
 		if (!disabled && cursorOn && cursorPatch != null) {
@@ -403,8 +407,12 @@ public class TextField : Widget , IDisableable {
 		} else
 			displayText = newDisplayText;
 
-		layout.setText(font, displayText.ToString().Replace('\r', ' ').Replace('\n', ' '));
-		glyphPositions.clear();
+        bool markupEnabled = data.markupEnabled;
+        data.markupEnabled = false;
+        layout.setText(font, displayText.ToString().Replace('\r', ' ').Replace('\n', ' '));
+        data.markupEnabled = markupEnabled;
+
+        glyphPositions.clear();
 		float x = 0;
 		if (layout.runs.size > 0) {
 			GlyphLayout.GlyphRun run = layout.runs.first();

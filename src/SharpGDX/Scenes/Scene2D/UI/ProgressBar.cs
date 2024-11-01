@@ -127,8 +127,8 @@ public class ProgressBar : Widget , IDisableable {
 					x + (width - knobAfter.getMinWidth()) * 0.5f, //
 					y + position + knobHeightHalf, //
 					knobAfter.getMinWidth(),
-					total - (_round ? (float)Math.Round(beforeHeight - knobHeightHalf) : beforeHeight - knobHeightHalf));
-			}
+                    total - (_round ? (float)Math.Ceiling(beforeHeight - knobHeightHalf) : beforeHeight - knobHeightHalf));
+            }
 			if (currentKnob != null) {
 				float w = currentKnob.getMinWidth(), h = currentKnob.getMinHeight();
 				drawRound(batch, currentKnob, //
@@ -160,8 +160,9 @@ public class ProgressBar : Widget , IDisableable {
 				drawRound(batch, knobAfter, //
 					x + position + knobWidthHalf, //
 					y + (height - knobAfter.getMinHeight()) * 0.5f, //
-					total - (_round ? (float)Math.Round(beforeWidth - knobWidthHalf) : beforeWidth - knobWidthHalf), knobAfter.getMinHeight());
-			}
+                    total - (_round ? (float)Math.Ceiling(beforeWidth - knobWidthHalf) : beforeWidth - knobWidthHalf),
+                    knobAfter.getMinHeight());
+            }
 			if (currentKnob != null) {
 				float w = currentKnob.getMinWidth(), h = currentKnob.getMinHeight();
 				drawRound(batch, currentKnob, //
@@ -174,11 +175,11 @@ public class ProgressBar : Widget , IDisableable {
 
 	private void drawRound (IBatch batch, IDrawable drawable, float x, float y, float w, float h) {
 		if (_round) {
-			x = (float)Math.Round(x);
-			y = (float)Math.Round(y);
-			w = (float)Math.Round(w);
-			h = (float)Math.Round(h);
-		}
+            x = (float)Math.Floor(x);
+            y = (float)Math.Floor(y);
+            w = (float)Math.Ceiling(w);
+            h = (float)Math.Ceiling(h);
+        }
 		drawable.draw(batch, x, y, w, h);
 	}
 

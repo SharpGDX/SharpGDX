@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+namespace SharpGDX.Graphics.GLUtils;
 
-namespace SharpGDX.Graphics.GLUtils
-{
-	/**
+/**
  * <p>
  * Encapsulates OpenGL ES 2.0 frame buffer objects. This is a simple helper class which should cover most FBO uses. It will
  * automatically create a texture for the color attachment and a renderbuffer for the depth buffer. You can get a hold of the
@@ -25,22 +19,22 @@ namespace SharpGDX.Graphics.GLUtils
  * @author mzechner, realitix */
 public class FrameBuffer : GLFrameBuffer<Texture> {
 
-	internal FrameBuffer () {
+	private protected FrameBuffer () {
 	}
 
 	/** Creates a GLFrameBuffer from the specifications provided by bufferBuilder
 	 *
 	 * @param bufferBuilder **/
-	internal protected FrameBuffer (GLFrameBufferBuilder bufferBuilder) 
-	: base(bufferBuilder)
-	{
+	protected internal FrameBuffer (GLFrameBufferBuilder<GLFrameBuffer<GLTexture>> bufferBuilder) 
+    : base(bufferBuilder)
+    {
 		
 	}
 
 	/** Creates a new FrameBuffer having the given dimensions and potentially a depth buffer attached. */
 	public FrameBuffer (Pixmap.Format format, int width, int height, bool hasDepth) 
-	: this(format, width, height, hasDepth, false)
-	{
+    : this(format, width, height, hasDepth, false)
+    {
 		
 	}
 
@@ -75,18 +69,18 @@ public class FrameBuffer : GLFrameBuffer<Texture> {
 		return result;
 	}
 
-	protected override void disposeColorTexture (Texture colorTexture) {
+    protected override void disposeColorTexture (Texture colorTexture) {
 		colorTexture.Dispose();
 	}
 
-	protected override void attachFrameBufferColorTexture (Texture texture) {
+    protected override void attachFrameBufferColorTexture (Texture texture) {
 		Gdx.gl20.glFramebufferTexture2D(GL20.GL_FRAMEBUFFER, GL20.GL_COLOR_ATTACHMENT0, GL20.GL_TEXTURE_2D,
 			texture.getTextureObjectHandle(), 0);
 	}
 
 	/** See {@link GLFrameBuffer#unbind()} */
 	public static void unbind () {
-		GLFrameBuffer<Texture>.unbind();
+		// TODO: Zero clue if this is correct. -RP
+		GLFrameBuffer<GLTexture>.unbind();
 	}
-}
 }

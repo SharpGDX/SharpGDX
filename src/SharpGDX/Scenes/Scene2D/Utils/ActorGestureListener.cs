@@ -119,16 +119,21 @@ public class ActorGestureListener : IEventListener {
 				@event.getPointer(), @event.getButton());
 			return true;
 		case InputEvent.Type.touchUp:
-			if (@event.isTouchFocusCancel()) {
-				detector.reset();
-				return false;
+            bool touchFocusCancel = @event.isTouchFocusCancel();
+            if (touchFocusCancel)
+                detector.reset();
+            else {
+                this.@event = @event;
+                actor = e.getListenerActor();
+                detector.touchUp(@event.getStageX(), @event.getStageY(), @event.getPointer(), @event.getButton());
+                actor.stageToLocalCoordinates(tmpCoords.set(@event.getStageX(), @event.getStageY()));
+                touchUp(@event, tmpCoords.x, tmpCoords.y, @event.getPointer(), @event.getButton());
 			}
-			this.@event = @event;
-			actor = @event.getListenerActor();
-			detector.touchUp(@event.getStageX(), @event.getStageY(), @event.getPointer(), @event.getButton());
-			actor.stageToLocalCoordinates(tmpCoords.set(@event.getStageX(), @event.getStageY()));
-			touchUp(@event, tmpCoords.x, tmpCoords.y, @event.getPointer(), @event.getButton());
-			return true;
+
+            this.@event = null;
+            actor = null;
+            touchDownTarget = null;
+            return !touchFocusCancel;
 		case InputEvent.Type.touchDragged:
 			this.@event = @event;
 			actor = @event.getListenerActor();

@@ -440,13 +440,14 @@ public class GlyphLayout : IPoolable {
 
 	/** Returns the distance from the glyph's drawing position to the right edge of the glyph. */
 	private float getGlyphWidth (BitmapFont.Glyph glyph, BitmapFont.BitmapFontData fontData) {
-		return (glyph.width + glyph.xoffset) * fontData.scaleX - fontData.padRight;
-	}
+        return (glyph.fixedWidth ? glyph.xadvance : glyph.width + glyph.xoffset) * fontData.scaleX - fontData.padRight;
+        }
 
 	/** Returns an X offset for the first glyph so when drawn, none of it is left of the line's drawing position. */
 	private float getLineOffset (Array<BitmapFont.Glyph> glyphs, BitmapFont.BitmapFontData fontData) {
-		return -glyphs.first().xoffset * fontData.scaleX - fontData.padLeft;
-	}
+        var first = glyphs.first();
+        return (first.fixedWidth ? 0 : -first.xoffset * fontData.scaleX) - fontData.padLeft;
+        }
 
 	private int parseColorMarkup (string str, int start, int end) {
 		if (start == end) return -1; // String ended with "[".

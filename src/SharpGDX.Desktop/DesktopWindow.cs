@@ -19,7 +19,8 @@ namespace SharpGDX.Desktop
 	public class DesktopWindow : Disposable {
 	private unsafe Window* windowHandle;
 	readonly IApplicationListener listener;
-	readonly IDesktopApplicationBase application;
+    private readonly Array<ILifecycleListener> lifecycleListeners;
+        readonly IDesktopApplicationBase application;
 	private bool listenerInitialized = false;
 	IDesktopWindowListener windowListener;
 	private DesktopGraphics graphics;
@@ -31,7 +32,8 @@ namespace SharpGDX.Desktop
 	private readonly IntBuffer tmpBuffer2;
 	bool iconified = false;
 	bool focused = false;
-	private bool _requestRendering = false;
+    internal bool asyncResized = false;
+        private bool _requestRendering = false;
 
 	private WindowFocusCallback _focusCallback;
 
@@ -57,9 +59,12 @@ namespace SharpGDX.Desktop
 
 		private WindowRefreshCallback refreshCallback;
 
-	internal DesktopWindow (IApplicationListener listener, DesktopApplicationConfiguration config, IDesktopApplicationBase application) {
-		this.listener = listener;
-		this.windowListener = config.windowListener;
+	internal DesktopWindow(IApplicationListener listener, Array<ILifecycleListener> lifecycleListeners, DesktopApplicationConfiguration config,
+        IDesktopApplicationBase application)
+    {
+            this.listener = listener;
+            this.lifecycleListeners = lifecycleListeners;
+            this.windowListener = config.windowListener;
 		this.config = config;
 		this.application = application;
 
@@ -83,12 +88,32 @@ namespace SharpGDX.Desktop
 				{
 					if (focused)
 					{
-						windowListener.FocusGained();
+                        if (config.pauseWhenLostFocus)
+                        {
+                            lock(lifecycleListeners) {
+                                foreach (ILifecycleListener lifecycleListener in lifecycleListeners)
+                                {
+                                    lifecycleListener.Resume();
+                                }
+                            }
+                        }
+                        windowListener.FocusGained();
 					}
 					else
 					{
 						windowListener.FocusLost();
-					}
+
+                        if (config.pauseWhenLostFocus)
+                        {
+                            lock(lifecycleListeners) {
+                                foreach (ILifecycleListener lifecycleListener in lifecycleListeners)
+                                {
+                                    lifecycleListener.Pause();
+                                }
+                            }
+                            listener.Pause();
+                        }
+                    }
 
 					this.focused = focused;
 				}
@@ -109,12 +134,30 @@ namespace SharpGDX.Desktop
 				this.iconified = iconified;
 				if (iconified)
 				{
-					listener.Pause();
-				}
+                    if (config.pauseWhenMinimized)
+                    {
+                        lock(lifecycleListeners) {
+                            foreach (ILifecycleListener lifecycleListener in lifecycleListeners)
+                            {
+                                lifecycleListener.Pause();
+                            }
+                        }
+                        listener.Pause();
+                    }
+                }
 				else
 				{
-					listener.Resume();
-				}
+                    if (config.pauseWhenMinimized)
+                    {
+                        lock(lifecycleListeners) {
+                            foreach (ILifecycleListener lifecycleListener in lifecycleListeners)
+                            {
+                                lifecycleListener.Resume();
+                            }
+                        }
+                        listener.Resume();
+                    }
+                }
 			})
 		);
 
@@ -372,7 +415,20 @@ namespace SharpGDX.Desktop
 			_requestRendering = false;
 		}
 
-		if (shouldRender) {
+        // In case glfw_async is used, we need to resize outside the GLFW
+        if (asyncResized)
+        {
+            asyncResized = false;
+            graphics.updateFramebufferInfo();
+            graphics.gl20.glViewport(0, 0, graphics.getBackBufferWidth(), graphics.getBackBufferHeight());
+            listener.Resize(graphics.getWidth(), graphics.getHeight());
+            graphics.update();
+            listener.Render();
+            GLFW.SwapBuffers(windowHandle);
+            return true;
+        }
+
+            if (shouldRender) {
 			graphics.update();
 			listener.Render();
 			GLFW.SwapBuffers(windowHandle);

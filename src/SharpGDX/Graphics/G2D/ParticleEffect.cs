@@ -40,7 +40,7 @@ namespace SharpGDX.Graphics.G2D
 		 * {@link #reset(boolean)}. */
 		public void reset()
 		{
-			reset(true);
+			reset(true, true);
 		}
 
 		/** Resets the effect so it can be started again like a new effect.
@@ -48,9 +48,18 @@ namespace SharpGDX.Graphics.G2D
 		 *           resetting may introduce error. */
 		public void reset(bool resetScaling)
 		{
-			for (int i = 0, n = emitters.size; i < n; i++)
-				emitters.get(i).reset();
-			if (resetScaling && (xSizeScale != 1f || ySizeScale != 1f || motionScale != 1f))
+            reset(resetScaling, true);
+        }
+
+        /** Resets the effect so it can be started again like a new effect.
+         * @param resetScaling Whether to restore the original size and motion parameters if they were scaled. Repeated scaling and
+         *           resetting may introduce error.
+         * @param start Whether to start the effect after resetting. */
+        public void reset(bool resetScaling, bool start)
+        {
+            for (int i = 0, n = emitters.size; i < n; i++)
+                emitters.get(i).reset(start);
+            if (resetScaling && (xSizeScale != 1f || ySizeScale != 1f || motionScale != 1f))
 			{
 				scaleEffect(1f / xSizeScale, 1f / ySizeScale, 1f / motionScale);
 				xSizeScale = ySizeScale = motionScale = 1f;
@@ -219,8 +228,8 @@ namespace SharpGDX.Graphics.G2D
 					if (lastDotIndex != -1) imageName = imageName.Substring(0, lastDotIndex);
 					if (atlasPrefix != null) imageName = atlasPrefix + imageName;
 					Sprite sprite = atlas.createSprite(imageName);
-					if (sprite == null) throw new IllegalArgumentException("SpriteSheet missing image: " + imageName);
-					sprites.add(sprite);
+                    if (sprite == null) throw new IllegalArgumentException("Atlas is missing region: " + imageName);
+                    sprites.add(sprite);
 				}
 
 				emitter.setSprites(sprites);

@@ -306,9 +306,18 @@ public class Vector2 : IVector<Vector2> {
 		return angle;
 	}
 
-	/** @return the angle in radians of this vector (point) relative to the x-axis. Angles are towards the positive y-axis.
-	 *         (typically counter-clockwise) */
-	public float angleRad () {
+    /** @return the angle in degrees of this vector (point) relative to the x-axis. Angles are towards the positive y-axis
+     *         (typically counter-clockwise) and in the [0, 360) range. */
+    public static float angleDeg(float x, float y)
+    {
+        float angle = (float)Math.Atan2(y, x) * MathUtils.radiansToDegrees;
+        if (angle < 0) angle += 360;
+        return angle;
+    }
+
+        /** @return the angle in radians of this vector (point) relative to the x-axis. Angles are towards the positive y-axis.
+         *         (typically counter-clockwise) */
+        public float angleRad () {
 		return (float)Math.Atan2(y, x);
 	}
 
@@ -317,10 +326,17 @@ public class Vector2 : IVector<Vector2> {
 	public float angleRad (Vector2 reference) {
 		return (float)Math.Atan2(reference.crs(this), reference.dot(this));
 	}
-		
-	/** Sets the angle of the vector in degrees relative to the x-axis, towards the positive y-axis (typically counter-clockwise).
-	 * @param degrees The angle in degrees to set. */
-	public Vector2 setAngleDeg (float degrees) {
+
+    /** @return the angle in radians of this vector (point) relative to the x-axis. Angles are towards the positive y-axis.
+     *         (typically counter-clockwise) */
+    public static float angleRad(float x, float y)
+    {
+        return (float)Math.Atan2(y, x);
+    }
+
+        /** Sets the angle of the vector in degrees relative to the x-axis, towards the positive y-axis (typically counter-clockwise).
+         * @param degrees The angle in degrees to set. */
+        public Vector2 setAngleDeg (float degrees) {
 		return setAngleRad(degrees * MathUtils.degreesToRadians);
 	}
 

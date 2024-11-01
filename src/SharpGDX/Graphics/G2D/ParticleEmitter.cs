@@ -330,14 +330,19 @@ namespace SharpGDX.Graphics.G2D
 	}
 
 	public void reset () {
-		emissionDelta = 0;
+        reset(true);
+    }
+
+    public void reset(bool _start)
+    {
+            emissionDelta = 0;
 		durationTimer = duration;
 		bool[] active = this.active;
 		for (int i = 0, n = active.Length; i < n; i++)
 			active[i] = false;
 		activeCount = 0;
-		start();
-	}
+        if (_start) start();
+        }
 
 	private void restart () {
 		delay = delayValue.active ? delayValue.newLowValue() : 0;
@@ -348,21 +353,21 @@ namespace SharpGDX.Graphics.G2D
 
 		emission = (int)emissionValue.newLowValue();
 		emissionDiff = (int)emissionValue.newHighValue();
-		if (!emissionValue.isRelative()) emissionDiff -= emission;
+        if (!emissionValue.relative) emissionDiff -= emission;
 
-		if (!lifeValue.independent) generateLifeValues();
+            if (!lifeValue.independent) generateLifeValues();
 
 		if (!lifeOffsetValue.independent) generateLifeOffsetValues();
 
 		spawnWidth = spawnWidthValue.newLowValue();
 		spawnWidthDiff = spawnWidthValue.newHighValue();
-		if (!spawnWidthValue.isRelative()) spawnWidthDiff -= spawnWidth;
+        if (!spawnWidthValue.relative) spawnWidthDiff -= spawnWidth;
 
-		spawnHeight = spawnHeightValue.newLowValue();
+            spawnHeight = spawnHeightValue.newLowValue();
 		spawnHeightDiff = spawnHeightValue.newHighValue();
-		if (!spawnHeightValue.isRelative()) spawnHeightDiff -= spawnHeight;
+        if (!spawnHeightValue.relative) spawnHeightDiff -= spawnHeight;
 
-		updateFlags = 0;
+            updateFlags = 0;
 		if (angleValue.active && angleValue.timeline.Length > 1) updateFlags |= UPDATE_ANGLE;
 		if (velocityValue.active) updateFlags |= UPDATE_VELOCITY;
 		if (xScaleValue.timeline.Length > 1) updateFlags |= UPDATE_SCALE;
@@ -414,13 +419,13 @@ namespace SharpGDX.Graphics.G2D
 		if (velocityValue.active) {
 			particle.velocity = velocityValue.newLowValue();
 			particle.velocityDiff = velocityValue.newHighValue();
-			if (!velocityValue.isRelative()) particle.velocityDiff -= particle.velocity;
-		}
+            if (!velocityValue.relative) particle.velocityDiff -= particle.velocity;
+            }
 
 		particle.angle = angleValue.newLowValue();
 		particle.angleDiff = angleValue.newHighValue();
-		if (!angleValue.isRelative()) particle.angleDiff -= particle.angle;
-		float angle = 0;
+        if (!angleValue.relative) particle.angleDiff -= particle.angle;
+            float angle = 0;
 		if ((updateFlags & UPDATE_ANGLE) == 0) {
 			angle = particle.angle + particle.angleDiff * angleValue.getScale(0);
 			particle.angle = angle;
@@ -433,13 +438,13 @@ namespace SharpGDX.Graphics.G2D
 
 		particle.xScale = xScaleValue.newLowValue() / spriteWidth;
 		particle.xScaleDiff = xScaleValue.newHighValue() / spriteWidth;
-		if (!xScaleValue.isRelative()) particle.xScaleDiff -= particle.xScale;
+        if (!xScaleValue.relative) particle.xScaleDiff -= particle.xScale;
 
-		if (yScaleValue.active) {
+            if (yScaleValue.active) {
 			particle.yScale = yScaleValue.newLowValue() / spriteHeight;
 			particle.yScaleDiff = yScaleValue.newHighValue() / spriteHeight;
-			if (!yScaleValue.isRelative()) particle.yScaleDiff -= particle.yScale;
-			particle.setScale(particle.xScale + particle.xScaleDiff * xScaleValue.getScale(0),
+            if (!yScaleValue.relative) particle.yScaleDiff -= particle.yScale;
+                particle.setScale(particle.xScale + particle.xScaleDiff * xScaleValue.getScale(0),
 				particle.yScale + particle.yScaleDiff * yScaleValue.getScale(0));
 		} else {
 			particle.setScale(particle.xScale + particle.xScaleDiff * xScaleValue.getScale(0));
@@ -448,8 +453,8 @@ namespace SharpGDX.Graphics.G2D
 		if (rotationValue.active) {
 			particle.rotation = rotationValue.newLowValue();
 			particle.rotationDiff = rotationValue.newHighValue();
-			if (!rotationValue.isRelative()) particle.rotationDiff -= particle.rotation;
-			float rotation = particle.rotation + particle.rotationDiff * rotationValue.getScale(0);
+            if (!rotationValue.relative) particle.rotationDiff -= particle.rotation;
+                float rotation = particle.rotation + particle.rotationDiff * rotationValue.getScale(0);
 			if (aligned) rotation += angle;
 			particle.setRotation(rotation);
 		}
@@ -457,14 +462,14 @@ namespace SharpGDX.Graphics.G2D
 		if (windValue.active) {
 			particle.wind = windValue.newLowValue();
 			particle.windDiff = windValue.newHighValue();
-			if (!windValue.isRelative()) particle.windDiff -= particle.wind;
-		}
+            if (!windValue.relative) particle.windDiff -= particle.wind;
+            }
 
 		if (gravityValue.active) {
 			particle.gravity = gravityValue.newLowValue();
 			particle.gravityDiff = gravityValue.newHighValue();
-			if (!gravityValue.isRelative()) particle.gravityDiff -= particle.gravity;
-		}
+            if (!gravityValue.relative) particle.gravityDiff -= particle.gravity;
+            }
 
 		float[] color = particle.tint;
 		if (color == null) particle.tint = color = new float[3];
@@ -485,16 +490,16 @@ namespace SharpGDX.Graphics.G2D
 		case SpawnShape.square: {
 			float width = spawnWidth + (spawnWidthDiff * spawnWidthValue.getScale(percent));
 			float height = spawnHeight + (spawnHeightDiff * spawnHeightValue.getScale(percent));
-			x += MathUtils.random(width) - width / 2;
-			y += MathUtils.random(height) - height / 2;
-			break;
+            x += MathUtils.random(width) - width * 0.5f;
+            y += MathUtils.random(height) - height * 0.5f;
+                        break;
 		}
 		case SpawnShape.ellipse: {
 			float width = spawnWidth + (spawnWidthDiff * spawnWidthValue.getScale(percent));
 			float height = spawnHeight + (spawnHeightDiff * spawnHeightValue.getScale(percent));
-			float radiusX = width / 2;
-			float radiusY = height / 2;
-			if (radiusX == 0 || radiusY == 0) break;
+            float radiusX = width * 0.5f;
+            float radiusY = height * 0.5f;
+                        if (radiusX == 0 || radiusY == 0) break;
 			float scaleY = radiusX / (float)radiusY;
 			if (spawnShapeValue.edges) {
 				float spawnAngle;
@@ -545,9 +550,9 @@ namespace SharpGDX.Graphics.G2D
 		}
 		}
 
-		particle.setBounds(x - spriteWidth / 2, y - spriteHeight / 2, spriteWidth, spriteHeight);
+        particle.setBounds(x - spriteWidth * 0.5f, y - spriteHeight * 0.5f, spriteWidth, spriteHeight);
 
-		int offsetTime = (int)(lifeOffset + lifeOffsetDiff * lifeOffsetValue.getScale(percent));
+            int offsetTime = (int)(lifeOffset + lifeOffsetDiff * lifeOffsetValue.getScale(percent));
 		if (offsetTime > 0) {
 			if (offsetTime >= particle.currentLife) offsetTime = particle.currentLife - 1;
 			updateParticle(particle, offsetTime / 1000f, offsetTime);
@@ -630,8 +635,8 @@ namespace SharpGDX.Graphics.G2D
 				particle.setRegion(sprite);
 				particle.setSize(sprite.getWidth(), sprite.getHeight());
 				particle.setOrigin(sprite.getOriginX(), sprite.getOriginY());
-				particle.translate((prevSpriteWidth - sprite.getWidth()) / 2, (prevSpriteHeight - sprite.getHeight()) / 2);
-				particle.frame = frame;
+                particle.translate((prevSpriteWidth - sprite.getWidth()) * 0.5f, (prevSpriteHeight - sprite.getHeight()) * 0.5f);
+                    particle.frame = frame;
 			}
 		}
 
@@ -641,14 +646,14 @@ namespace SharpGDX.Graphics.G2D
 	private void generateLifeValues () {
 		life = (int)lifeValue.newLowValue();
 		lifeDiff = (int)lifeValue.newHighValue();
-		if (!lifeValue.isRelative()) lifeDiff -= life;
-	}
+        if (!lifeValue.relative) lifeDiff -= life;
+        }
 
 	private void generateLifeOffsetValues () {
 		lifeOffset = lifeOffsetValue.active ? (int)lifeOffsetValue.newLowValue() : 0;
 		lifeOffsetDiff = (int)lifeOffsetValue.newHighValue();
-		if (!lifeOffsetValue.isRelative()) lifeOffsetDiff -= lifeOffset;
-	}
+        if (!lifeOffsetValue.relative) lifeOffsetDiff -= lifeOffset;
+        }
 
 	public void setPosition (float x, float y) {
 		if (attached) {
@@ -712,7 +717,12 @@ namespace SharpGDX.Graphics.G2D
 		durationTimer = duration;
 	}
 
-	public Array<Sprite> getSprites () {
+    public bool getAllowCompletion()
+    {
+        return _allowCompletion;
+    }
+
+        public Array<Sprite> getSprites () {
 		return sprites;
 	}
 
@@ -1378,7 +1388,7 @@ namespace SharpGDX.Graphics.G2D
 		private float[] scaling = {1};
 		internal float[] timeline = {0};
 		private float highMin, highMax;
-		private bool relative;
+		internal bool relative;
 
 		public float newHighValue () {
 			return highMin + (highMax - highMin) * MathUtils.random();

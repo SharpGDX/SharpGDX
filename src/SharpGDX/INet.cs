@@ -320,10 +320,13 @@ public interface INet {
 
 	public void cancelHttpRequest (HttpRequest httpRequest);
 
-	/** Protocol used by {@link Net#newServerSocket(Protocol, int, ServerSocketHints)} and
-	 * {@link Net#newClientSocket(Protocol, String, int, SocketHints)}.
-	 * @author mzechner */
-	public enum Protocol {
+    public bool isHttpRequestPending(HttpRequest httpRequest);
+
+
+        /** Protocol used by {@link Net#newServerSocket(Protocol, int, ServerSocketHints)} and
+         * {@link Net#newClientSocket(Protocol, String, int, SocketHints)}.
+         * @author mzechner */
+        public enum Protocol {
 		TCP
 	}
 

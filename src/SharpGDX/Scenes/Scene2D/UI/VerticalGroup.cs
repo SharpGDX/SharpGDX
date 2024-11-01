@@ -107,9 +107,9 @@ public class VerticalGroup : WidgetGroup {
 		}
 		prefWidth += _padLeft + _padRight;
 		if (round) {
-			prefWidth = (float)Math.Round(prefWidth);
-			prefHeight = (float)Math.Round(prefHeight);
-		}
+            prefWidth = (float)Math.Ceiling(prefWidth);
+            prefHeight = (float)Math.Ceiling(prefHeight);
+        }
 	}
 
 	public override void layout () {
@@ -177,8 +177,8 @@ public class VerticalGroup : WidgetGroup {
 
 			y -= height + space;
 			if (round)
-				child.setBounds((float)Math.Round(x), (float)Math.Round(y), (float)Math.Round(width), (float)Math.Round(height));
-			else
+                child.setBounds((float)Math.Floor(x), (float)Math.Floor(y), (float)Math.Ceiling(width), (float)Math.Ceiling(height));
+            else
 				child.setBounds(x, y, width, height);
 
 			if (layout != null) layout.validate();
@@ -266,8 +266,8 @@ public class VerticalGroup : WidgetGroup {
 
 			y -= height + space;
 			if (round)
-				child.setBounds((float)Math.Round(x), (float)Math.Round(y), (float)Math.Round(width), (float)Math.Round(height));
-			else
+                child.setBounds((float)Math.Floor(x), (float)Math.Floor(y), (float)Math.Ceiling(width), (float)Math.Ceiling(height));
+            else
 				child.setBounds(x, y, width, height);
 
 			if (layout != null) layout.validate();

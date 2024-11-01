@@ -12,7 +12,7 @@ namespace SharpGDX.Desktop
 	public class DesktopGraphics : AbstractGraphics, Disposable
 	{
 		readonly DesktopWindow window;
-		GL20 gl20;
+		internal GL20 gl20;
 		private GL30 gl30;
 		private GL31 gl31;
 		private GL32 gl32;
@@ -39,46 +39,30 @@ namespace SharpGDX.Desktop
 		// TODO: this was originally BufferUtils.createIntBuffer, not sure if this works
 		IntBuffer tmpBuffer = IntBuffer.allocate(1);
 		IntBuffer tmpBuffer2 = IntBuffer.allocate(1);
-
-		private volatile bool posted;
-
+        
 		private GLFWCallbacks.FramebufferSizeCallback _framebufferSizeCallback;
 
 		private unsafe void resizeCallback(Window* windowHandle, int width, int height)
 		{
-			// TODO: Implement, this might really only be a Java(lwjgl) thing.
-			// TODO: This was used to ensure that glfwInit was called on the first thread of the JVM process.
-			//if (Configuration.GLFW_CHECK_THREAD0.get(true))
-			//{
-			//	renderWindow(windowHandle, width, height);
-			//}
-			//else
+            if (!"glfw_async".Equals(Configuration.GLFW_LIBRARY_NAME))
+            {
+                updateFramebufferInfo();
+                if (!window.isListenerInitialized())
+                {
+                    return;
+                }
+
+                window.makeCurrent();
+                gl20.glViewport(0, 0, backBufferWidth, backBufferHeight);
+                window.getListener().Resize(getWidth(), getHeight());
+                update();
+                window.getListener().Render();
+                GLFW.SwapBuffers(windowHandle);
+            }
+            else
 			{
-				if (posted) return;
-				posted = true;
-				Gdx.app.postRunnable(() =>
-				{
-
-					posted = false;
-					renderWindow(windowHandle, width, height);
-
-				});
-			}
-		}
-
-		private unsafe void renderWindow(Window* windowHandle, int width, int height)
-		{
-			updateFramebufferInfo();
-			if (!window.isListenerInitialized())
-			{
-				return;
-			}
-
-			window.makeCurrent();
-			gl20.glViewport(0, 0, backBufferWidth, backBufferHeight);
-			window.getListener().Resize(getWidth(), getHeight());
-			window.getListener().Render();
-			GLFW.SwapBuffers(windowHandle);
+                window.asyncResized = true;
+            }
 		}
 
 		public unsafe DesktopGraphics(DesktopWindow window)
@@ -158,7 +142,7 @@ namespace SharpGDX.Desktop
 			return window;
 		}
 
-		private unsafe void updateFramebufferInfo()
+		internal unsafe void updateFramebufferInfo()
 		{
 			GLFW.GetFramebufferSize(window.getWindowPtr(), out backBufferWidth, out backBufferHeight);
 			GLFW.GetWindowSize(window.getWindowPtr(), out logicalWidth, out logicalHeight);

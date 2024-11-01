@@ -192,22 +192,7 @@ namespace SharpGDX.Headless.Mock.Input
 	{
 		return 0;
 	}
-
-	public void setCatchBackKey(bool catchBack)
-	{
-
-	}
-
-	public bool isCatchBackKey()
-	{
-		return false;
-	}
-
-	public void setCatchMenuKey(bool catchMenu)
-	{
-
-	}
-
+        
 	public bool isCatchMenuKey()
 	{
 		return false;
@@ -268,5 +253,20 @@ namespace SharpGDX.Headless.Mock.Input
 	{
 
 	}
-}
+
+    public void openTextInputField(NativeInputConfiguration configuration)
+    {
+
+    }
+
+    public void closeTextInputField(bool sendReturn)
+    {
+
+    }
+
+    public void setKeyboardHeightObserver(KeyboardHeightObserver observer)
+    {
+
+    }
+    }
 }

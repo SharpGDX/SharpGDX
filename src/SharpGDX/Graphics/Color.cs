@@ -1,4 +1,5 @@
 ﻿using SharpGDX.Utils;
+using SharpGDX.Mathematics;
 
 namespace SharpGDX.Graphics
 {
@@ -18,8 +19,9 @@ namespace SharpGDX.Graphics
 		public static readonly float WHITE_FLOAT_BITS = WHITE.toFloatBits();
 
 		public static readonly Color CLEAR = new Color(0, 0, 0, 0);
+        public static readonly Color CLEAR_WHITE = new Color(1, 1, 1, 0);
 
-		public static readonly Color BLUE = new Color(0, 0, 1, 1);
+        public static readonly Color BLUE = new Color(0, 0, 1, 1);
 		public static readonly Color NAVY = new Color(0, 0, 0.5f, 1);
 		public static readonly Color ROYAL = new Color(0x4169e1ff);
 		public static readonly Color SLATE = new Color(0x708090ff);
@@ -90,10 +92,11 @@ namespace SharpGDX.Graphics
 			set(color);
 		}
 
-		/** Sets this color to the given color.
+        /** Sets this color to the given color.
 		 * 
-		 * @param color the Color */
-		public Color set(Color color)
+		* @param color the Color
+	 * @return this color. */
+        public Color set(Color color)
 		{
 			this.r = color.r;
 			this.g = color.g;
@@ -102,11 +105,26 @@ namespace SharpGDX.Graphics
 			return this;
 		}
 
-		/** Multiplies the this color and the given color
+        /** Sets this color to the red, green and blue components of the provided Color and a deviating alpha value.
+     *
+     * @param rgb the desired red, green and blue values (alpha of that Color is ignored)
+     * @param alpha the desired alpha value (will be clamped to the range [0, 1])
+     * @return this color. */
+        public Color set(Color rgb, float alpha)
+        {
+            this.r = rgb.r;
+            this.g = rgb.g;
+            this.b = rgb.b;
+            this.a = MathUtils.clamp(alpha, 0f, 1f);
+            return this;
+        }
+
+
+        /** Multiplies the this color and the given color
 		 * 
 		 * @param color the color
 		 * @return this color. */
-		public Color mul(Color color)
+        public Color mul(Color color)
 		{
 			this.r *= color.r;
 			this.g *= color.g;

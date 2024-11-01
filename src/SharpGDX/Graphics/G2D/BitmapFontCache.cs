@@ -1,6 +1,7 @@
 ﻿using SharpGDX.Shims;
 using SharpGDX.Mathematics;
 using SharpGDX.Utils;
+using SharpGDX.Scenes.Scene2D.Utils;
 
 namespace SharpGDX.Graphics.G2D
 {
@@ -15,9 +16,9 @@ namespace SharpGDX.Graphics.G2D
 
 		private readonly BitmapFont _font;
 		private bool _integer;
-		private readonly Array<GlyphLayout> _layouts = new();
-		private readonly Array<GlyphLayout> _pooledLayouts = new();
-		private int _glyphCount;
+        private readonly Array<GlyphLayout> _layouts = new (1);
+        private readonly Array<GlyphLayout> _pooledLayouts = new (0);
+        private int _glyphCount;
 		private float _x, _y;
 		private readonly Color _color = new Color(1, 1, 1, 1);
 		private float _currentTint;

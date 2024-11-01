@@ -115,7 +115,14 @@ public class SpriteBatch : IBatch {
 			ownsShader = true;
 		} else
 			shader = defaultShader;
-	}
+
+        // Pre bind the mesh to force the upload of indices data.
+        if (vertexDataType != Mesh.VertexDataType.VertexArray)
+        {
+            mesh.bind(shader);
+            mesh.unbind(shader);
+        }
+        }
 
 	/** Returns a new instance of the default shader used by SpriteBatch for GL2 when no shader is specified. */
 	static public ShaderProgram createDefaultShader () {
@@ -926,8 +933,8 @@ public class SpriteBatch : IBatch {
 		lastTexture.bind();
 		Mesh mesh = this.mesh;
 		mesh.setVertices(vertices, 0, idx);
-		Buffer indicesBuffer = (Buffer)mesh.getIndicesBuffer(true);
-		indicesBuffer.position(0);
+        Buffer indicesBuffer = (Buffer)mesh.getIndicesBuffer(false);
+            indicesBuffer.position(0);
 		indicesBuffer.limit(count);
 
 		if (blendingDisabled) {

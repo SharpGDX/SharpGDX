@@ -12,6 +12,9 @@ using SharpGDX.Desktop.Audio.Mock;
 using SharpGDX.Mathematics;
 using OpenTK.Graphics.OpenGL4;
 using SharpGDX.Input;
+using SharpGDX.Scenes.Scene2D.UI;
+using static SharpGDX.Desktop.DesktopApplicationConfiguration;
+using Window = OpenTK.Windowing.GraphicsLibraryFramework.Window;
 
 namespace SharpGDX.Desktop
 {
@@ -40,12 +43,6 @@ namespace SharpGDX.Desktop
 		{
 			if (errorCallback == null)
 			{
-				if (SharedLibraryLoader.isMac)
-				{
-					//loadGlfwAwtMacos();
-					throw new NotImplementedException();
-				}
-
 				DesktopNativesLoader.Load();
 				errorCallback = (OpenTK.Windowing.GraphicsLibraryFramework.ErrorCode code, string description) =>
 				{
@@ -56,13 +53,13 @@ namespace SharpGDX.Desktop
 
 				GLFW.SetErrorCallback(errorCallback);
 
-				if (SharedLibraryLoader.isMac)
-				{
-					// TODO: GLFW.InitHint(GLFW.GLFW_ANGLE_PLATFORM_TYPE, GLFW.GLFW_ANGLE_PLATFORM_TYPE_METAL);
-					throw new NotImplementedException();
-				}
+                if (SharedLibraryLoader.isMac)
+                {
+                    throw new NotImplementedException();
+                    //GLFW.glfwInitHint(GLFW.GLFW_ANGLE_PLATFORM_TYPE, GLFW.GLFW_ANGLE_PLATFORM_TYPE_METAL);
+                }
 
-				GLFW.InitHint(InitHintBool.JoystickHatButtons, false);
+                GLFW.InitHint(InitHintBool.JoystickHatButtons, false);
 				if (!GLFW.Init())
 				{
 					throw new GdxRuntimeException("Unable to initialize GLFW");
@@ -97,23 +94,7 @@ namespace SharpGDX.Desktop
 			//}
 			throw new NotImplementedException();
 		}
-
-		static void loadGlfwAwtMacos()
-		{
-			//try {
-			//	Class loader = Class.forName("com.badlogic.gdx.backends.lwjgl3.awt.GlfwAWTLoader");
-			//	Method load = loader.getMethod("load");
-			//	WebRequestMethods.File sharedLib = (WebRequestMethods.File)load.invoke(loader);
-			//	Configuration.GLFW_LIBRARY_NAME.set(sharedLib.getAbsolutePath());
-			//	Configuration.GLFW_CHECK_THREAD0.set(false);
-			//} catch (ClassNotFoundException t) {
-			//	return;
-			//} catch (Exception t) {
-			//	throw new GdxRuntimeException("Couldn't load GLFW AWT for macOS.", t);
-			//}
-			throw new NotImplementedException();
-		}
-
+        
 		public DesktopApplication(IApplicationListener listener)
 			: this(listener, new DesktopApplicationConfiguration())
 		{
@@ -189,9 +170,16 @@ namespace SharpGDX.Desktop
 				int targetFramerate = -2;
 				foreach (DesktopWindow window in windows)
 				{
-					window.makeCurrent();
-					currentWindow = window;
-					if (targetFramerate == -2) targetFramerate = window.getConfig().foregroundFPS;
+                    if (currentWindow != window)
+                    {
+                        window.makeCurrent();
+                        currentWindow = window;
+                    }
+
+                    if (targetFramerate == -2)
+                    {
+                        targetFramerate = window.getConfig().foregroundFPS;
+                    }
 					lock (lifecycleListeners)
 					{
 						haveWindowsRendered |= window.update();
@@ -484,10 +472,10 @@ namespace SharpGDX.Desktop
 		}
 
 		private unsafe DesktopWindow createWindow(DesktopApplicationConfiguration config, IApplicationListener listener,
-			Window* sharedContext)
+        Window* sharedContext)
 		{
-			DesktopWindow window = new DesktopWindow(listener, config, this);
-			if (sharedContext == null)
+            DesktopWindow window = new DesktopWindow(listener, lifecycleListeners, config, this);
+            if (sharedContext == null)
 			{
 				// the main window is created immediately
 				createWindow(window, config, sharedContext);
@@ -514,12 +502,19 @@ namespace SharpGDX.Desktop
 
 			for (int i = 0; i < 2; i++)
 			{
-				GL.ClearColor(config.initialBackgroundColor.r, config.initialBackgroundColor.g,
-					config.initialBackgroundColor.b, config.initialBackgroundColor.a);
-				GL.Clear(ClearBufferMask.ColorBufferBit);
-				GLFW.SwapBuffers(windowHandle);
+                window.getGraphics().gl20.glClearColor(config.initialBackgroundColor.r, config.initialBackgroundColor.g,
+                    config.initialBackgroundColor.b, config.initialBackgroundColor.a);
+                window.getGraphics().gl20.glClear(GL11.GL_COLOR_BUFFER_BIT);
+                GLFW.SwapBuffers(windowHandle);
 			}
-		}
+
+            if (currentWindow != null)
+            {
+                // the call above to createGlfwWindow switches the OpenGL context to the newly created window,
+                // ensure that the invariant "currentWindow is the window with the current active OpenGL context" holds
+                currentWindow.makeCurrent();
+            }
+        }
 
 		private static unsafe Window* createGlfwWindow(DesktopApplicationConfiguration config,
 			Window* sharedContextWindow)
@@ -643,8 +638,6 @@ namespace SharpGDX.Desktop
 				{
 					//Class gles = Class.forName("org.lwjgl.opengles.GLES");
 					//gles.getMethod("createCapabilities").invoke(gles);
-					//// TODO: Remove once https://github.com/LWJGL/lwjgl3/issues/931 is fixed
-					//ThreadLocalUtil.setFunctionMissingAddresses(0);
 					throw new NotImplementedException();
 				}
 				catch (Exception e)
@@ -670,14 +663,20 @@ namespace SharpGDX.Desktop
 			if (config.glEmulation != DesktopApplicationConfiguration.GLEmulation.ANGLE_GLES20 && !supportsFBO())
 			{
 				throw new NotImplementedException();
-				//throw new GdxRuntimeException("OpenGL 2.0 or higher with the FBO extension is required. OpenGL version: "
-				//	+ GL11.glGetString(GL11.GL_VERSION) + ", FBO extension: false\n" + glVersion.getDebugVersionString());
-			}
+                //throw new GdxRuntimeException("OpenGL 2.0 or higher with the FBO extension is required. OpenGL version: "
+                //	+ glVersion.getVersionString() + ", FBO extension: false\n" + glVersion.getDebugVersionString());
+            }
 
-			if (config.debug)
+            if (config.debug)
 			{
-				// TODO: Remove
-				GL.Enable(EnableCap.DebugOutputSynchronous);
+                if (config.glEmulation == GLEmulation.ANGLE_GLES20)
+                {
+                    throw new IllegalStateException(
+                        "ANGLE currently can't be used with with Lwjgl3ApplicationConfiguration#enableGLDebugOutput");
+                }
+
+                // TODO: Remove
+                GL.Enable(EnableCap.DebugOutputSynchronous);
 				GL.DebugMessageCallback(glDebugCallback = GLDebugCallback, IntPtr.Zero);
 				setGLDebugMessageControl(GLDebugMessageSeverity.NOTIFICATION, false);
 			}

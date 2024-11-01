@@ -172,6 +172,32 @@
          * @param visible visible or not */
         public void setOnscreenKeyboardVisible(bool visible);
 
+         interface InputStringValidator
+        {
+            /** @param toCheck The string that should be validated
+             * @return true, if the string is acceptable, false if not. */
+            bool validate(String toCheck);
+        }
+
+        /** Sets the on-screen keyboard visible if available.
+         *
+         * @param configuration The configuration for the native input field */
+        public void openTextInputField(NativeInputConfiguration configuration);
+
+        /** Closes the native input field and applies the result to the input wrapper.
+         * @param sendReturn Whether a "return" key should be send after processing */
+        public void closeTextInputField(bool sendReturn);
+
+        interface KeyboardHeightObserver
+        {
+            void onKeyboardHeightChanged(int height);
+        }
+
+        /** This will set a keyboard height callback. This will get called, whenever the keyboard height changes. Note: When using
+         * openTextInputField, it will report the height of the native input field too. */
+        public void setKeyboardHeightObserver(KeyboardHeightObserver observer);
+
+
         /** Sets the on-screen keyboard visible if available.
          *
          * @param visible visible or not

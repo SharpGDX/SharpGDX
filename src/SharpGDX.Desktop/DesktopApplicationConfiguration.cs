@@ -42,7 +42,10 @@ namespace SharpGDX.Desktop
 		internal int idleFPS = 60;
 		internal int foregroundFPS = 0;
 
-		internal String preferencesDirectory = ".prefs/";
+        internal bool pauseWhenMinimized = true;
+        internal bool pauseWhenLostFocus = false;
+
+        internal String preferencesDirectory = ".prefs/";
 		internal IFiles.FileType preferencesFileType = FileType.External;
 
 		internal HdpiMode hdpiMode = HdpiMode.Logical;
@@ -77,7 +80,9 @@ namespace SharpGDX.Desktop
 			transparentFramebuffer = config.transparentFramebuffer;
 			idleFPS = config.idleFPS;
 			foregroundFPS = config.foregroundFPS;
-			preferencesDirectory = config.preferencesDirectory;
+            pauseWhenMinimized = config.pauseWhenMinimized;
+            pauseWhenLostFocus = config.pauseWhenLostFocus;
+            preferencesDirectory = config.preferencesDirectory;
 			preferencesFileType = config.preferencesFileType;
 			hdpiMode = config.hdpiMode;
 			debug = config.debug;
@@ -172,9 +177,24 @@ namespace SharpGDX.Desktop
 			this.foregroundFPS = fps;
 		}
 
-		/** Sets the directory where {@link Preferences} will be stored, as well as the file type to be used to store them. Defaults to
+        /** Sets whether to pause the application {@link ApplicationListener#pause()} and fire
+     * {@link LifecycleListener#pause()}/{@link LifecycleListener#resume()} events on when window is minimized/restored. **/
+        public void setPauseWhenMinimized(bool pauseWhenMinimized)
+        {
+            this.pauseWhenMinimized = pauseWhenMinimized;
+        }
+
+        /** Sets whether to pause the application {@link ApplicationListener#pause()} and fire
+         * {@link LifecycleListener#pause()}/{@link LifecycleListener#resume()} events on when window loses/gains focus. **/
+        public void setPauseWhenLostFocus(bool pauseWhenLostFocus)
+        {
+            this.pauseWhenLostFocus = pauseWhenLostFocus;
+        }
+
+
+        /** Sets the directory where {@link Preferences} will be stored, as well as the file type to be used to store them. Defaults to
 		 * "$USER_HOME/.prefs/" and {@link FileType#External}. */
-		public void setPreferencesConfig(String preferencesDirectory, IFiles.FileType preferencesFileType)
+        public void setPreferencesConfig(String preferencesDirectory, IFiles.FileType preferencesFileType)
 		{
 			this.preferencesDirectory = preferencesDirectory;
 			this.preferencesFileType = preferencesFileType;

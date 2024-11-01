@@ -1,4 +1,6 @@
-﻿using System;
+﻿// TODO: Implement
+
+using System;
 using SharpGDX.Net;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,7 +32,12 @@ namespace SharpGDX.Desktop
 			throw new NotImplementedException();
 		}
 
-		public Socket newClientSocket(INet.Protocol protocol, string host, int port, SocketHints hints)
+        public bool isHttpRequestPending(INet.HttpRequest httpRequest)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Socket newClientSocket(INet.Protocol protocol, string host, int port, SocketHints hints)
 		{
 			throw new NotImplementedException();
 		}

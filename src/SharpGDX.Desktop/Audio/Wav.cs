@@ -16,16 +16,16 @@ namespace SharpGDX.Desktop.Audio
 
 				input = new WavInputStream(file);
 				if (audio.noDevice) return;
-				setup(input.channels, input.sampleRate);
-			}
+                setup(input.channels, input.bitDepth, input.sampleRate);
+            }
 
 			public override int read(byte[] buffer)
 			{
 				if (input == null)
 				{
 					input = new WavInputStream(file);
-					setup(input.channels, input.sampleRate);
-				}
+                    setup(input.channels, input.bitDepth, input.sampleRate);
+                }
 
 				try
 				{
@@ -56,9 +56,14 @@ namespace SharpGDX.Desktop.Audio
 				try
 				{
 					input = new WavInputStream(file);
-					setup(StreamUtils.copyStreamToByteArray(input, input.dataRemaining), input.channels,
-						input.sampleRate);
-				}
+                    if (input.type == 0x0055)
+                    {
+                        setType("mp3");
+                        return;
+                    }
+                    setup(StreamUtils.copyStreamToByteArray(input, input.dataRemaining), input.channels, input.bitDepth,
+                        input.sampleRate);
+                }
 				catch (IOException ex)
 				{
 					throw new GdxRuntimeException("Error reading WAV file: " + file, ex);
@@ -74,9 +79,9 @@ namespace SharpGDX.Desktop.Audio
 		public class WavInputStream : FilterInputStream
 		{
 
-			public int channels, sampleRate, dataRemaining;
+            public int channels, bitDepth, sampleRate, dataRemaining, type;
 
-			public WavInputStream(FileHandle file)
+            public WavInputStream(FileHandle file)
 				: base(file.read())
 			{
 
@@ -92,49 +97,31 @@ namespace SharpGDX.Desktop.Audio
 
 					int fmtChunkLength = seekToChunk('f', 'm', 't', ' ');
 
-					// http://www-mmsp.ece.mcgill.ca/Documents/AudioFormats/WAVE/WAVE.html
-					// http://soundfile.sapp.org/doc/WaveFormat/
-					int type = read() & 0xff | (read() & 0xff) << 8;
-					if (type != 1)
-					{
-						String name;
-						switch (type)
-						{
-							case 0x0002:
-								name = "ADPCM";
-								break;
-							case 0x0003:
-								name = "IEEE float";
-								break;
-							case 0x0006:
-								name = "8-bit ITU-T G.711 A-law";
-								break;
-							case 0x0007:
-								name = "8-bit ITU-T G.711 u-law";
-								break;
-							case 0xFFFE:
-								name = "Extensible";
-								break;
-							default:
-								name = "Unknown";
-								break;
-						}
+                    // http://www-mmsp.ece.mcgill.ca/Documents/AudioFormats/WAVE/WAVE.html
+                    // http://soundfile.sapp.org/doc/WaveFormat/
+                    type = read() & 0xff | (read() & 0xff) << 8;
 
-						throw new GdxRuntimeException("WAV files must be PCM, unsupported format: " + name + " (" +
-						                              type + ")");
-					}
+                    if (type == 0x0055) return; // Handle MP3 in constructor instead
+                    if (type != 0x0001 && type != 0x0003) throw new GdxRuntimeException(
+                        "WAV files must be PCM, unsupported format: " + getCodecName(type) + " (" + type + ")");
 
-					channels = read() & 0xff | (read() & 0xff) << 8;
-					if (channels != 1 && channels != 2)
-						throw new GdxRuntimeException("WAV files must have 1 or 2 channels: " + channels);
-					sampleRate = read() & 0xff | (read() & 0xff) << 8 | (read() & 0xff) << 16 | (read() & 0xff) << 24;
+                    channels = read() & 0xff | (read() & 0xff) << 8;
+                    sampleRate = read() & 0xff | (read() & 0xff) << 8 | (read() & 0xff) << 16 | (read() & 0xff) << 24;
 					skipFully(6);
 
-					int bitsPerSample = read() & 0xff | (read() & 0xff) << 8;
-					if (bitsPerSample != 16)
-						throw new GdxRuntimeException("WAV files must have 16 bits per sample: " + bitsPerSample);
+                    bitDepth = read() & 0xff | (read() & 0xff) << 8;
+                    if (type == 0x0001)
+                    { // PCM
+                        if (bitDepth != 8 && bitDepth != 16)
+                            throw new GdxRuntimeException("PCM WAV files must be 8 or 16-bit: " + bitDepth);
+                    }
+                    else if (type == 0x0003)
+                    { // Float
+                        if (bitDepth != 32 && bitDepth != 64)
+                            throw new GdxRuntimeException("Floating-point WAV files must be 32 or 64-bit: " + bitDepth);
+                    }
 
-					skipFully(fmtChunkLength - 16);
+                    skipFully(fmtChunkLength - 16);
 
 					dataRemaining = seekToChunk('d', 'a', 't', 'a');
 				}
@@ -172,7 +159,30 @@ namespace SharpGDX.Desktop.Audio
 				}
 			}
 
-			public override int read(byte[] buffer) // TODO: throws IOException
+
+            /** List is a combination of Audacity's export formats and Windows ACM. For a more thorough list, see
+             * https://wiki.multimedia.cx/index.php/TwoCC
+             * @param type 16-bit value from the fmt chunk.
+             * @return A human-readable name for the codec. */
+            private String getCodecName(int type)
+            {
+                switch (type)
+                { // @off
+                    case 0x0002: return "Microsoft ADPCM";
+                    case 0x0006: return "ITU-T G.711 A-law";
+                    case 0x0007: return "ITU-T G.711 u-law";
+                    case 0x0011: return "IMA ADPCM";
+                    case 0x0022: return "DSP Group TrueSpeech";
+                    case 0x0031: return "Microsoft GSM 6.10";
+                    case 0x0040: return "Antex G.721 ADPCM";
+                    case 0x0070: return "Lernout & Hauspie CELP 4.8kbps";
+                    case 0x0072: return "Lernout & Hauspie CBS 12kbps";
+                    case 0xfffe: return "Extensible";
+                    default: return "Unknown"; // @on
+                }
+            }
+
+            public override int read(byte[] buffer) // TODO: throws IOException
 			{
 				if (dataRemaining == 0) return -1;
 				int offset = 0;

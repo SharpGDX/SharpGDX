@@ -84,10 +84,10 @@ namespace SharpGDX.Desktop.Audio
 			}
 
 			idleSources = new IntArray(allSources);
-			soundIdToSource = new LongMap<int>();
-			sourceToSoundId = new IntMap<long>();
+            soundIdToSource = new ();
+            sourceToSoundId = new ();
 
-			AL.Listener(ALListenerfv.Orientation, new float[] { 0.0f, 0.0f, -1.0f, 0.0f, 1.0f, 0.0f });
+            AL.Listener(ALListenerfv.Orientation, new float[] { 0.0f, 0.0f, -1.0f, 0.0f, 1.0f, 0.0f });
 			AL.Listener(ALListener3f.Velocity, 0.0f, 0.0f, 0.0f);
 			AL.Listener(ALListener3f.Position, 0.0f, 0.0f, 0.0f);
 
@@ -178,13 +178,22 @@ namespace SharpGDX.Desktop.Audio
 
 		public ISound NewSound(FileHandle file)
 		{
-			if (file == null) throw new IllegalArgumentException("file cannot be null.");
-			Type soundClass = extensionToSoundClass.get(file.extension().ToLower());
-			if (soundClass == null) throw new GdxRuntimeException("Unknown file extension for sound: " + file);
+            String extension = file.extension().ToLower();
+            return newSound(file, extension);
+        }
+
+        public OpenALSound newSound(FileHandle file, String extension)
+        {
+            if (file == null) throw new IllegalArgumentException("file cannot be null.");
+			Type soundClass = extensionToSoundClass.get(extension);
+            if (soundClass == null) throw new GdxRuntimeException("Unknown file extension for sound: " + file);
 			try
 			{
-				return (ISound)soundClass.GetConstructor([typeof(OpenALDesktopAudio), typeof(FileHandle)])
-					.Invoke([this, file]);
+                OpenALSound sound = (OpenALSound)soundClass.GetConstructor([typeof(OpenALDesktopAudio), typeof(FileHandle)]).Invoke([this, file]);
+                if (sound.getType() != null && !sound.getType().Equals(extension)) {
+                    return newSound(file, sound.getType());
+                }
+                return sound;
 			}
 			catch (Exception ex)
 			{

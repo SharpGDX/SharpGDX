@@ -1,4 +1,6 @@
-﻿namespace SharpGDX;
+﻿using SharpGDX.Utils;
+
+namespace SharpGDX;
 
 /// <summary>
 ///     Represents one of many application screens, such as a main menu, a settings menu, the game screen and so on.
@@ -6,12 +8,13 @@
 /// <remarks>
 ///     Note that <see cref="Dispose()" /> is not called automatically.
 /// </remarks>
-public interface IScreen
+public interface IScreen : Disposable
 {
     /// <summary>
     ///     Called when this screen should release all resources.
     /// </summary>
-    public void Dispose();
+    /// TODO: Should this really have a 'new'? -RP
+    public new void Dispose();
 
     /// <summary>
     ///     Called when this screen is no longer the current screen for a <see cref="Game" />.

@@ -247,6 +247,8 @@ public class ScrollPane : WidgetGroup {
 
 		public override bool scrolled(InputEvent @event, float x, float y, float scrollAmountX, float scrollAmountY)
 		{
+
+            @event.cancel();
 			_scrollPane.setScrollbarsVisible(true);
 			if (_scrollPane._scrollY || _scrollPane._scrollX)
 			{
@@ -830,8 +832,8 @@ public class ScrollPane : WidgetGroup {
 		if (centerHorizontal)
 			amountX = x + (width - actorArea.width) / 2;
 		else
-			amountX = MathUtils.clamp(amountX, x + width - actorArea.width, x);
-		scrollX(MathUtils.clamp(amountX, 0, maxX));
+            amountX = MathUtils.clamp(amountX, x, x + width - actorArea.width);
+        scrollX(MathUtils.clamp(amountX, 0, maxX));
 
 		float amountY = this.amountY;
 		y = maxY - y;

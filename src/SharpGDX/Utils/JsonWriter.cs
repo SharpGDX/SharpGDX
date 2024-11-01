@@ -1,4 +1,6 @@
-﻿using System;
+﻿// TODO: Implement
+
+using System;
 using System.Numerics;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,9 +9,9 @@ using SharpGDX.Shims;
 
 namespace SharpGDX.Utils
 {
-	/** Builder style API for emitting JSON.
- * @author Nathan Sweet */
-public class JsonWriter : Writer {
+    /** Builder API for emitting JSON to a {@link Writer}.
+     * @author Nathan Sweet */
+    public class JsonWriter : Writer {
 	readonly Writer writer;
 	private readonly Array<JsonObject> stack = new ();
 	private JsonObject current;
@@ -25,8 +27,8 @@ public class JsonWriter : Writer {
 		return writer;
 	}
 
-	/** Sets the type of JSON output. Default is {@link OutputType#minimal}. */
-	public void setOutputType (OutputType outputType) {
+    /** Sets the type of JSON output. Default is {@link OutputType#json}. */
+        public void setOutputType (OutputType outputType) {
 		this.outputType = outputType;
 	}
 
@@ -63,7 +65,7 @@ public class JsonWriter : Writer {
 		return this;
 	}
 
-	public JsonWriter value (Object value)// TODO: throws IOException 
+	public JsonWriter value (Object? value)// TODO: throws IOException 
 	{
 		throw new NotImplementedException();
 		//if (quoteLongValues
@@ -192,7 +194,7 @@ public class JsonWriter : Writer {
 			// TODO: static private Pattern minimalNamePattern = Pattern.compile("^[^\":,}/ ][^:]*$");
 			// TODO: static private Pattern minimalValuePattern = Pattern.compile("^[^\":,{\\[\\]/ ][^}\\],]*$");
 
-			static public String quoteValue(Object value)
+			static public String quoteValue(Object? value)
 		{
 			throw new NotImplementedException();
 			//if (value == null) return "null";

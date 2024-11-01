@@ -23,11 +23,13 @@ namespace SharpGDX.Utils
 	public int size;
 	public bool ordered;
 
-	private ArrayIterable iterable;
-	private IPredicate<T>.PredicateIterable<T> predicateIterable;
+		[NonSerialized]
+    private ArrayIterable<T> iterable;
+    [NonSerialized]
+        private IPredicate<T>.PredicateIterable<T> predicateIterable;
 
-	/** Creates an ordered array with a capacity of 16. */
-	public Array()
+        /** Creates an ordered array with a capacity of 16. */
+        public Array()
 	: this(true, 16)
 		{
 	}
@@ -549,9 +551,9 @@ namespace SharpGDX.Utils
 	 * Use the {@link ArrayIterator} constructor for nested or multithreaded iteration. */
 	public IEnumerator<T> GetEnumerator()
 	{
-		if (Collections.allocateIterators) return new ArrayIterator(this, true);
-		if (iterable == null) iterable = new ArrayIterable(this);
-		return iterable.GetEnumerator();
+        if (Collections.allocateIterators) return new ArrayIterator<T>(this, true);
+        if (iterable == null) iterable = new ArrayIterable<T>(this);
+            return iterable.GetEnumerator();
 	}
 
 	/** Returns an iterable for the selected items in the array. Remove is supported, but not between hasNext() and next().
@@ -704,7 +706,7 @@ namespace SharpGDX.Utils
 		return new Array<T>(array);
 	}
 
-	public class ArrayIterator : IEnumerator<T>, IEnumerable<T> {
+	public class ArrayIterator<T> : IEnumerator<T>, IEnumerable<T> {
 		private readonly Array<T> array;
 		private readonly bool allowRemove;
 		internal int index;
@@ -775,10 +777,12 @@ namespace SharpGDX.Utils
 	}
 	}
 
-public class ArrayIterable : IEnumerable<T> {
+public class ArrayIterable<T> : IEnumerable<T> {
 		private readonly Array<T> array;
 private readonly bool allowRemove;
-private ArrayIterator iterator1, iterator2;
+
+			[NonSerialized]
+private ArrayIterator<T> iterator1, iterator2;
 
 // java.io.StringWriter lastAcquire = new java.io.StringWriter();
 
@@ -796,13 +800,13 @@ public ArrayIterable (Array<T> array, bool allowRemove)
 /** @see Collections#allocateIterators */
 public IEnumerator<T> GetEnumerator()
 {
-	if (Collections.allocateIterators) return new ArrayIterator(array, allowRemove);
+	if (Collections.allocateIterators) return new ArrayIterator<T>(array, allowRemove);
 	// lastAcquire.getBuffer().setLength(0);
 	// new Throwable().printStackTrace(new java.io.PrintWriter(lastAcquire));
 	if (iterator1 == null)
 	{
-		iterator1 = new ArrayIterator(array, allowRemove);
-		iterator2 = new ArrayIterator(array, allowRemove);
+		iterator1 = new ArrayIterator<T>(array, allowRemove);
+		iterator2 = new ArrayIterator<T>(array, allowRemove);
 		// iterator1.iterable = this;
 		// iterator2.iterable = this;
 	}

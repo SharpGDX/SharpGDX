@@ -126,7 +126,7 @@ public class PixmapPacker : Disposable {
 
 	/** Inserts the pixmap without a name. It cannot be looked up by name.
 	 * @see #pack(String, Pixmap) */
-	public Rectangle pack (Pixmap image) {
+	public PixmapPackerRectangle pack (Pixmap image) {
 		lock(this)
 		return pack(null, image);
 	}
@@ -137,175 +137,175 @@ public class PixmapPacker : Disposable {
 	 * @return Rectangle describing the area the pixmap was rendered to.
 	 * @throws GdxRuntimeException in case the image did not fit due to the page size being too small or providing a duplicate
 	 *            name. */
-	public Rectangle pack(String name, Pixmap image)
+	public PixmapPackerRectangle pack(String name, Pixmap image)
 	{
 		throw new NotImplementedException();
-		//lock (this)
-		//{
-		//	if (disposed) return null;
-		//	if (name != null && getRect(name) != null)
-		//		throw new GdxRuntimeException("Pixmap has already been packed with name: " + name);
+        //lock (this)
+        //{
+        //	if (disposed) return null;
+        //	if (name != null && getRect(name) != null)
+        //		throw new GdxRuntimeException("Pixmap has already been packed with name: " + name);
 
-		//	PixmapPackerRectangle rect;
-		//	Pixmap pixmapToDispose = null;
-		//	if (name != null && name.endsWith(".9"))
-		//	{
-		//		rect = new PixmapPackerRectangle(0, 0, image.getWidth() - 2, image.getHeight() - 2);
-		//		pixmapToDispose = new Pixmap(image.getWidth() - 2, image.getHeight() - 2, image.getFormat());
-		//		pixmapToDispose.setBlending(Blending.None);
-		//		rect.splits = getSplits(image);
-		//		rect.pads = getPads(image, rect.splits);
-		//		pixmapToDispose.drawPixmap(image, 0, 0, 1, 1, image.getWidth() - 1, image.getHeight() - 1);
-		//		image = pixmapToDispose;
-		//		name = name.split("\\.")[0];
-		//	}
-		//	else
-		//	{
-		//		if (stripWhitespaceX || stripWhitespaceY)
-		//		{
-		//			int originalWidth = image.getWidth();
-		//			int originalHeight = image.getHeight();
-		//			// Strip whitespace, manipulate the pixmap and return corrected Rect
-		//			int top = 0;
-		//			int bottom = image.getHeight();
-		//			if (stripWhitespaceY)
-		//			{
-		//				outer:
-		//				for (int y = 0; y < image.getHeight(); y++)
-		//				{
-		//					for (int x = 0; x < image.getWidth(); x++)
-		//					{
-		//						int pixel = image.getPixel(x, y);
-		//						int alpha = ((pixel & 0x000000ff));
-		//						if (alpha > alphaThreshold) break
-		//						outer;
-		//					}
+        //	PixmapPackerRectangle rect;
+        //	Pixmap pixmapToDispose = null;
+        //	if (name != null && name.endsWith(".9"))
+        //	{
+        //		rect = new PixmapPackerRectangle(0, 0, image.getWidth() - 2, image.getHeight() - 2);
+        //		pixmapToDispose = new Pixmap(image.getWidth() - 2, image.getHeight() - 2, image.getFormat());
+        //		pixmapToDispose.setBlending(Blending.None);
+        //		rect.splits = getSplits(image);
+        //		rect.pads = getPads(image, rect.splits);
+        //		pixmapToDispose.drawPixmap(image, 0, 0, 1, 1, image.getWidth() - 1, image.getHeight() - 1);
+        //		image = pixmapToDispose;
+        //		name = name.split("\\.")[0];
+        //	}
+        //	else
+        //	{
+        //		if (stripWhitespaceX || stripWhitespaceY)
+        //		{
+        //			int originalWidth = image.getWidth();
+        //			int originalHeight = image.getHeight();
+        //			// Strip whitespace, manipulate the pixmap and return corrected Rect
+        //			int top = 0;
+        //			int bottom = image.getHeight();
+        //			if (stripWhitespaceY)
+        //			{
+        //				outer:
+        //				for (int y = 0; y < image.getHeight(); y++)
+        //				{
+        //					for (int x = 0; x < image.getWidth(); x++)
+        //					{
+        //						int pixel = image.getPixel(x, y);
+        //						int alpha = ((pixel & 0x000000ff));
+        //						if (alpha > alphaThreshold) break
+        //						outer;
+        //					}
 
-		//					top++;
-		//				}
+        //					top++;
+        //				}
 
-		//				outer:
-		//				for (int y = image.getHeight(); --y >= top;)
-		//				{
-		//					for (int x = 0; x < image.getWidth(); x++)
-		//					{
-		//						int pixel = image.getPixel(x, y);
-		//						int alpha = ((pixel & 0x000000ff));
-		//						if (alpha > alphaThreshold) break
-		//						outer;
-		//					}
+        //				outer:
+        //				for (int y = image.getHeight(); --y >= top;)
+        //				{
+        //					for (int x = 0; x < image.getWidth(); x++)
+        //					{
+        //						int pixel = image.getPixel(x, y);
+        //						int alpha = ((pixel & 0x000000ff));
+        //						if (alpha > alphaThreshold) break
+        //						outer;
+        //					}
 
-		//					bottom--;
-		//				}
-		//			}
+        //					bottom--;
+        //				}
+        //			}
 
-		//			int left = 0;
-		//			int right = image.getWidth();
-		//			if (stripWhitespaceX)
-		//			{
-		//				outer:
-		//				for (int x = 0; x < image.getWidth(); x++)
-		//				{
-		//					for (int y = top; y < bottom; y++)
-		//					{
-		//						int pixel = image.getPixel(x, y);
-		//						int alpha = ((pixel & 0x000000ff));
-		//						if (alpha > alphaThreshold) break
-		//						outer;
-		//					}
+        //			int left = 0;
+        //			int right = image.getWidth();
+        //			if (stripWhitespaceX)
+        //			{
+        //				outer:
+        //				for (int x = 0; x < image.getWidth(); x++)
+        //				{
+        //					for (int y = top; y < bottom; y++)
+        //					{
+        //						int pixel = image.getPixel(x, y);
+        //						int alpha = ((pixel & 0x000000ff));
+        //						if (alpha > alphaThreshold) break
+        //						outer;
+        //					}
 
-		//					left++;
-		//				}
+        //					left++;
+        //				}
 
-		//				outer:
-		//				for (int x = image.getWidth(); --x >= left;)
-		//				{
-		//					for (int y = top; y < bottom; y++)
-		//					{
-		//						int pixel = image.getPixel(x, y);
-		//						int alpha = ((pixel & 0x000000ff));
-		//						if (alpha > alphaThreshold) break
-		//						outer;
-		//					}
+        //				outer:
+        //				for (int x = image.getWidth(); --x >= left;)
+        //				{
+        //					for (int y = top; y < bottom; y++)
+        //					{
+        //						int pixel = image.getPixel(x, y);
+        //						int alpha = ((pixel & 0x000000ff));
+        //						if (alpha > alphaThreshold) break
+        //						outer;
+        //					}
 
-		//					right--;
-		//				}
-		//			}
+        //					right--;
+        //				}
+        //			}
 
-		//			int newWidth = right - left;
-		//			int newHeight = bottom - top;
+        //			int newWidth = right - left;
+        //			int newHeight = bottom - top;
 
-		//			pixmapToDispose = new Pixmap(newWidth, newHeight, image.getFormat());
-		//			pixmapToDispose.setBlending(Blending.None);
-		//			pixmapToDispose.drawPixmap(image, 0, 0, left, top, newWidth, newHeight);
-		//			image = pixmapToDispose;
+        //			pixmapToDispose = new Pixmap(newWidth, newHeight, image.getFormat());
+        //			pixmapToDispose.setBlending(Blending.None);
+        //			pixmapToDispose.drawPixmap(image, 0, 0, left, top, newWidth, newHeight);
+        //			image = pixmapToDispose;
 
-		//			rect = new PixmapPackerRectangle(0, 0, newWidth, newHeight, left, top, originalWidth,
-		//				originalHeight);
-		//		}
-		//		else
-		//		{
-		//			rect = new PixmapPackerRectangle(0, 0, image.getWidth(), image.getHeight());
-		//		}
-		//	}
+        //			rect = new PixmapPackerRectangle(0, 0, newWidth, newHeight, left, top, originalWidth,
+        //				originalHeight);
+        //		}
+        //		else
+        //		{
+        //			rect = new PixmapPackerRectangle(0, 0, image.getWidth(), image.getHeight());
+        //		}
+        //	}
 
-		//	if (rect.getWidth() > pageWidth || rect.getHeight() > pageHeight)
-		//	{
-		//		if (name == null) throw new GdxRuntimeException("Page size too small for pixmap.");
-		//		throw new GdxRuntimeException("Page size too small for pixmap: " + name);
-		//	}
+        //	if (rect.getWidth() > pageWidth || rect.getHeight() > pageHeight)
+        //	{
+        //		if (name == null) throw new GdxRuntimeException("Page size too small for pixmap.");
+        //		throw new GdxRuntimeException("Page size too small for pixmap: " + name);
+        //	}
 
-		//	Page page = packStrategy.pack(this, name, rect);
-		//	if (name != null)
-		//	{
-		//		page.rects.put(name, rect);
-		//		page.addedRects.add(name);
-		//	}
+        //	Page page = packStrategy.pack(this, name, rect);
+        //	if (name != null)
+        //	{
+        //		page.rects.put(name, rect);
+        //		page.addedRects.add(name);
+        //	}
 
-		//	int rectX = (int)rect.x, rectY = (int)rect.y, rectWidth = (int)rect.width, rectHeight = (int)rect.height;
+        //	int rectX = (int)rect.x, rectY = (int)rect.y, rectWidth = (int)rect.width, rectHeight = (int)rect.height;
 
-		//	if (packToTexture && !duplicateBorder && page.texture != null && !page.dirty)
-		//	{
-		//		page.texture.bind();
-		//		Gdx.gl.glTexSubImage2D(page.texture.glTarget, 0, rectX, rectY, rectWidth, rectHeight,
-		//			image.getGLFormat(),
-		//			image.getGLType(), image.getPixels());
-		//	}
-		//	else
-		//		page.dirty = true;
+        //	if (packToTexture && !duplicateBorder && page.texture != null && !page.dirty)
+        //	{
+        //		page.texture.bind();
+        //		Gdx.gl.glTexSubImage2D(page.texture.glTarget, 0, rectX, rectY, rectWidth, rectHeight,
+        //			image.getGLFormat(),
+        //			image.getGLType(), image.getPixels());
+        //	}
+        //	else
+        //		page.dirty = true;
 
-		//	page.image.drawPixmap(image, rectX, rectY);
+        //	page.image.drawPixmap(image, rectX, rectY);
 
-		//	if (duplicateBorder)
-		//	{
-		//		int imageWidth = image.getWidth(), imageHeight = image.getHeight();
-		//		// Copy corner pixels to fill corners of the padding.
-		//		page.image.drawPixmap(image, 0, 0, 1, 1, rectX - 1, rectY - 1, 1, 1);
-		//		page.image.drawPixmap(image, imageWidth - 1, 0, 1, 1, rectX + rectWidth, rectY - 1, 1, 1);
-		//		page.image.drawPixmap(image, 0, imageHeight - 1, 1, 1, rectX - 1, rectY + rectHeight, 1, 1);
-		//		page.image.drawPixmap(image, imageWidth - 1, imageHeight - 1, 1, 1, rectX + rectWidth,
-		//			rectY + rectHeight, 1, 1);
-		//		// Copy edge pixels into padding.
-		//		page.image.drawPixmap(image, 0, 0, imageWidth, 1, rectX, rectY - 1, rectWidth, 1);
-		//		page.image.drawPixmap(image, 0, imageHeight - 1, imageWidth, 1, rectX, rectY + rectHeight, rectWidth,
-		//			1);
-		//		page.image.drawPixmap(image, 0, 0, 1, imageHeight, rectX - 1, rectY, 1, rectHeight);
-		//		page.image.drawPixmap(image, imageWidth - 1, 0, 1, imageHeight, rectX + rectWidth, rectY, 1,
-		//			rectHeight);
-		//	}
+        //	if (duplicateBorder)
+        //	{
+        //		int imageWidth = image.getWidth(), imageHeight = image.getHeight();
+        //		// Copy corner pixels to fill corners of the padding.
+        //		page.image.drawPixmap(image, 0, 0, 1, 1, rectX - 1, rectY - 1, 1, 1);
+        //		page.image.drawPixmap(image, imageWidth - 1, 0, 1, 1, rectX + rectWidth, rectY - 1, 1, 1);
+        //		page.image.drawPixmap(image, 0, imageHeight - 1, 1, 1, rectX - 1, rectY + rectHeight, 1, 1);
+        //		page.image.drawPixmap(image, imageWidth - 1, imageHeight - 1, 1, 1, rectX + rectWidth,
+        //			rectY + rectHeight, 1, 1);
+        //		// Copy edge pixels into padding.
+        //		page.image.drawPixmap(image, 0, 0, imageWidth, 1, rectX, rectY - 1, rectWidth, 1);
+        //		page.image.drawPixmap(image, 0, imageHeight - 1, imageWidth, 1, rectX, rectY + rectHeight, rectWidth,
+        //			1);
+        //		page.image.drawPixmap(image, 0, 0, 1, imageHeight, rectX - 1, rectY, 1, rectHeight);
+        //		page.image.drawPixmap(image, imageWidth - 1, 0, 1, imageHeight, rectX + rectWidth, rectY, 1,
+        //			rectHeight);
+        //	}
 
-		//	if (pixmapToDispose != null)
-		//	{
-		//		pixmapToDispose.dispose();
-		//	}
+        //	if (pixmapToDispose != null)
+        //	{
+        //		pixmapToDispose.dispose();
+        //	}
+        //  rect.page = page;
+        //	return rect;
+        //}
+    }
 
-		//	return rect;
-		//}
-	}
-
-	/** @return the {@link Page} instances created so far. If multiple threads are accessing the packer, iterating over the pages
+    /** @return the {@link Page} instances created so far. If multiple threads are accessing the packer, iterating over the pages
 	 *         must be done only after synchronizing on the packer. */
-	public Array<Page> getPages () {
+    public Array<Page> getPages () {
 		return pages;
 	}
 
@@ -931,12 +931,13 @@ public class PixmapPacker : Disposable {
 	}
 
 	public class PixmapPackerRectangle : Rectangle {
-		internal int[] splits;
-		internal int[] pads;
-		internal int offsetX, offsetY;
-		internal int originalWidth, originalHeight;
+        public Page page;
+        public int[] splits;
+        public int[] pads;
+        public int offsetX, offsetY;
+        public int originalWidth, originalHeight;
 
-		PixmapPackerRectangle (int x, int y, int width, int height) 
+        PixmapPackerRectangle (int x, int y, int width, int height) 
 		: base(x, y, width, height)
 		{
 			this.offsetX = 0;

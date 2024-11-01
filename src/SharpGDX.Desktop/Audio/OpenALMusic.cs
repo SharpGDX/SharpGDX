@@ -15,7 +15,6 @@ namespace SharpGDX.Desktop.Audio
 	{
 		private static readonly int bufferSize = 4096 * 10;
 		private static readonly int bufferCount = 3;
-		private static readonly int bytesPerSample = 2;
 		private static readonly byte[] tempBytes = new byte[bufferSize];
 
 		// TODO: This was originally using BufferUtils.createByteBuffer, not sure if this will work.
@@ -44,12 +43,16 @@ namespace SharpGDX.Desktop.Audio
 			this.onCompletionListener = null;
 		}
 
-		protected void setup(int channels, int sampleRate)
-		{
-			this.format = channels > 1 ? ALFormat.Stereo16 : ALFormat.Mono16;
-			this.sampleRate = sampleRate;
-			maxSecondsPerBuffer = (float)bufferSize / (bytesPerSample * channels * sampleRate);
-		}
+        /** Prepare our music for playback!
+     * @param channels The number of channels for the music. Most commonly 1 (for mono) or 2 (for stereo).
+     * @param bitDepth The number of bits in each sample. Normally 16. Can also be 8, 32, 64.
+     * @param sampleRate The number of samples to be played each second. Commonly 44100; can be anything within reason. */
+        protected void setup(int channels, int bitDepth, int sampleRate)
+        {
+            this.format = OpenALUtils.determineFormat(channels, bitDepth);
+            this.sampleRate = sampleRate;
+            this.maxSecondsPerBuffer = (float)bufferSize / ((bitDepth >> 3) * channels * sampleRate);
+        }
 
 		public void Play()
 		{

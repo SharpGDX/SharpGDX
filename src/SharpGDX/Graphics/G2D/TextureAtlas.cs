@@ -312,10 +312,11 @@ public class TextureAtlas : Disposable {
 			});
 
 			BufferedReader reader = packFile.reader(1024);
-			try {
-				String line = reader.readLine();
-				// Ignore empty lines before first entry.
-				while (line != null && line.Trim().Length == 0)
+            String line = null;
+                try {
+                    line = reader.readLine();
+                    // Ignore empty lines before first entry.
+                    while (line != null && line.Trim().Length == 0)
 					line = reader.readLine();
 				// Header entries.
 				while (true) {
@@ -333,7 +334,8 @@ public class TextureAtlas : Disposable {
 						line = reader.readLine();
 					} else if (page == null) {
 						page = new Page();
-						page.textureFile = imagesDir.child(line);
+                        page.name = line;
+                            page.textureFile = imagesDir.child(line);
 						while (true) {
 							if (readEntry(entry, line = reader.readLine()) == 0) break;
 							var field = pageFields.get(entry[0]);
@@ -381,8 +383,9 @@ public class TextureAtlas : Disposable {
 					}
 				}
 			} catch (Exception ex) {
-				throw new GdxRuntimeException("Error reading texture atlas file: " + packFile, ex);
-			} finally {
+                    throw new GdxRuntimeException(
+                        "Error reading texture atlas file: " + packFile + (line == null ? "" : "\nLine: " + line), ex);
+                } finally {
 				StreamUtils.closeQuietly(reader);
 			}
 
@@ -411,9 +414,9 @@ public class TextureAtlas : Disposable {
 			return regions;
 		}
 
-		static private int readEntry (String[] entry,  String? line) // TODO: throws IOException
-                                                               {
-			if (line == null) return 0;
+        static private int readEntry(String[] entry, String? line)
+        {
+                if (line == null) return 0;
 			line = line.Trim();
 			if (line.Length == 0) return 0;
 			int colon = line.IndexOf(':');
@@ -443,8 +446,9 @@ public class TextureAtlas : Disposable {
 		}
 
 		public class Page {
-			/** May be null if this page isn't associated with a file. In that case, {@link #texture} must be set. */
-			public  FileHandle? textureFile;
+            public String name;
+                /** May be null if this page isn't associated with a file. In that case, {@link #texture} must be set. */
+                public  FileHandle? textureFile;
 			/** May be null if the texture is not yet loaded. */
 			public Texture? texture;
 			public float width, height;

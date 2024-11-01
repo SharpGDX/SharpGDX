@@ -25,15 +25,15 @@ namespace SharpGDX.Mathematics
 			return computePolygon(polygon, 0, polygon.Length, sorted);
 		}
 
-		/** Returns a list of points on the convex hull in counter-clockwise order. Note: the last point in the returned list is the
+        /** Returns a list of points on the convex hull in counter-clockwise order. Note: the last point in the returned list is the
 		 * same as the first one. */
-		/** Returns the convex hull polygon for the given point cloud.
-		 * @param points x,y pairs describing points. Duplicate points will result in undefined behavior.
+        /** Returns the convex hull polygon for the given point cloud.
+		 * @param points x,y pairs describing points in counter-clockwise order. Duplicate points will result in undefined behavior.
 		 * @param sorted If false, the points will be sorted by the x coordinate then the y coordinate, which is required by the convex
 		 *           hull algorithm. If sorting is done the input array is not modified and count additional working memory is needed.
 		 * @return pairs of coordinates that describe the convex hull polygon in counterclockwise order. Note the returned array is
 		 *         reused for later calls to the same method. */
-		public FloatArray computePolygon(float[] points, int offset, int count, bool sorted)
+        public FloatArray computePolygon(float[] points, int offset, int count, bool sorted)
 		{
 			int end = offset + count;
 
@@ -43,7 +43,8 @@ namespace SharpGDX.Mathematics
 				Array.Copy(points, offset, sortedPoints, 0, count);
 				points = sortedPoints;
 				offset = 0;
-				sort(points, count);
+                end = count;
+                sort(points, count);
 			}
 
 			FloatArray hull = this.hull;
@@ -98,7 +99,8 @@ namespace SharpGDX.Mathematics
 				Array.Copy(points, offset, sortedPoints, 0, count);
 				points = sortedPoints;
 				offset = 0;
-				sortWithIndices(points, count, yDown);
+                end = count;
+                sortWithIndices(points, count, yDown);
 			}
 
 			IntArray indices = this.indices;

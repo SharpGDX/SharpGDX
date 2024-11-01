@@ -258,7 +258,8 @@ public class GestureDetector : InputAdapter {
 	}
 
 	public void reset () {
-		touchDownTime = 0;
+        longPressTask.cancel();
+            touchDownTime = 0;
 		panning = false;
 		inTapRectangle = false;
 		tracker.lastTime = 0;

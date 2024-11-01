@@ -180,8 +180,10 @@ public sealed class Intersector {
 			floatArray2.addAll(floatArray);
 			floatArray.clear();
 		}
-		if (floatArray2.size != 0) {
-			if (overlap != null) {
+        // Check for 3 or more vertices needed due to floating point precision errors
+        if (floatArray2.size >= 6)
+        {
+                if (overlap != null) {
 				if (overlap.getVertices().Length == floatArray2.size)
 					Array.Copy(floatArray2.items, 0, overlap.getVertices(), 0, floatArray2.size);
 				else

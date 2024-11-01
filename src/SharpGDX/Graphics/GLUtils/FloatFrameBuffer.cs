@@ -1,14 +1,8 @@
-﻿using System;
 using SharpGDX.Utils;
-using SharpGDX.Shims;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace SharpGDX.Graphics.GLUtils
-{
-	/** This is a {@link FrameBuffer} variant backed by a float texture. */
+namespace SharpGDX.Graphics.GLUtils;
+
+/** This is a {@link FrameBuffer} variant backed by a float texture. */
 public class FloatFrameBuffer : FrameBuffer {
 
 	FloatFrameBuffer () {
@@ -18,9 +12,9 @@ public class FloatFrameBuffer : FrameBuffer {
 	/** Creates a GLFrameBuffer from the specifications provided by bufferBuilder
 	 *
 	 * @param bufferBuilder **/
-	internal protected FloatFrameBuffer (GLFrameBufferBuilder bufferBuilder) 
-	: base(bufferBuilder)
-	{
+	protected internal FloatFrameBuffer (GLFrameBufferBuilder<GLFrameBuffer<GLTexture>> bufferBuilder) 
+    : base(bufferBuilder)
+    {
 		
 		checkExtensions();
 	}
@@ -35,7 +29,7 @@ public class FloatFrameBuffer : FrameBuffer {
 	public FloatFrameBuffer (int width, int height, bool hasDepth) {
 		checkExtensions();
 		FloatFrameBufferBuilder bufferBuilder = new FloatFrameBufferBuilder(width, height);
-		bufferBuilder.addFloatAttachment(GL30.GL_RGBA32F, GL20.GL_RGBA, GL20.GL_FLOAT, false);
+		bufferBuilder.addFloatAttachment(GL30.GL_RGBA32F, GL30.GL_RGBA, GL30.GL_FLOAT, false);
 		if (hasDepth) bufferBuilder.addBasicDepthRenderBuffer();
 		this.bufferBuilder = bufferBuilder;
 
@@ -64,5 +58,4 @@ public class FloatFrameBuffer : FrameBuffer {
 		}
 	}
 
-}
 }
