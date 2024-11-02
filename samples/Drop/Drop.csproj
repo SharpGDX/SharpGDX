@@ -11,19 +11,8 @@
     <ProjectReference Include="..\..\src\SharpGDX.Desktop\SharpGDX.Desktop.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Update="assets\bucket.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="assets\drop.wav">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="assets\droplet.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="assets\rain.wav">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
+	<Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+		<Exec Command="XCOPY &quot;$(SolutionDir)samples\assets\&quot; &quot;$(TargetDir)\&quot; /S /Y" />
+	</Target>
 
 </Project>

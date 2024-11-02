@@ -31,13 +31,13 @@ namespace Drop
 		this.game = gam;
 
 		// load the images for the droplet and the bucket, 64x64 pixels each
-		dropImage = new Texture(Gdx.files.@internal("assets/droplet.png"));
+		dropImage = new Texture(Gdx.files.@internal("data/droplet.png"));
 
-		bucketImage = new Texture(Gdx.files.@internal("assets/bucket.png"));
+		bucketImage = new Texture(Gdx.files.@internal("data/bucket.png"));
 
 		// load the drop sound effect and the rain background "music"
-		dropSound = Gdx.audio.NewSound(Gdx.files.@internal("assets/drop.wav"));
-		rainMusic = Gdx.audio.NewMusic(Gdx.files.@internal("assets/rain.wav"));
+		dropSound = Gdx.audio.NewSound(Gdx.files.@internal("data/drop.wav"));
+		rainMusic = Gdx.audio.NewMusic(Gdx.files.@internal("data/rain.wav"));
 		rainMusic.SetLooping(true);
 		
 		// create the camera and the SpriteBatch

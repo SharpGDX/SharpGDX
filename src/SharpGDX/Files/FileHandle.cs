@@ -60,7 +60,7 @@ namespace SharpGDX.Files
 			this._type = type;
 		}
 
-		/** @return the path of the file as specified on construction, e.g. Gdx.files.internal("dir/file.png") -> dir/file.png.
+		/** @return the path of the file as specified on construction, e.g. Gdx.files.@internal("dir/file.png") -> dir/file.png.
 		 *         backward slashes will be replaced by forward slashes. */
 		public String path()
 		{

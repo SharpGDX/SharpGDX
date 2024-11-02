@@ -12,16 +12,48 @@ using SharpGDX.Scenes.Scene2D.Utils;
 namespace SharpGDX.Scenes.Scene2D.UI
 {
 	// TODO: Had to shim this to get things to work. -RP
+	// TODO: Why does this have a generic version?
 	public abstract class Cell
 	{
-		internal Cell()
+        static private protected readonly float zerof = 0f, onef = 1f;
+        static private protected readonly int zeroi = 0, onei = 1;
+        static private protected readonly int centeri = onei, topi = SharpGDX.Utils.Align.top, bottomi = SharpGDX.Utils.Align.bottom, lefti = SharpGDX.Utils.Align.left,
+            righti = SharpGDX.Utils.Align.right;
+
+        internal Cell()
 		{
 
 		}
 
-		/** Sets the actor in this cell and adds the actor to the cell's table. If null, removes any current actor. */
-		// TODO: This was originally SetActor<A> where A : Actor. Why? -RP
-		public Cell<T> SetActor<T>(T? newActor)
+        public Cell ExpandX()
+        {
+            expandX = onei;
+            return this;
+        }
+
+        /** Adds {@link Align#left} and clears {@link Align#right} for the alignment of the actor within the cell. */
+        public Cell Left()
+        {
+            if (align == null)
+                align = lefti;
+            else
+                align = (align | SharpGDX.Utils.Align.left) & ~SharpGDX.Utils.Align.right;
+            return this;
+        }
+
+        /** Sets expandX, expandY, fillX, and fillY to 1. */
+        public Cell Grow()
+        {
+            expandX = onei;
+            expandY = onei;
+            fillX = onef;
+            fillY = onef;
+            return this;
+        }
+
+        /** Sets the actor in this cell and adds the actor to the cell's table. If null, removes any current actor. */
+        // TODO: This was originally SetActor<A> where A : Actor. Why? -RP
+        public Cell<T> SetActor<T>(T? newActor)
 		where T: Actor
 		{
 			if (actor != newActor)
@@ -139,11 +171,7 @@ public virtual Cell Space(float space)
  * @author Nathan Sweet */
 public class Cell<T> : Cell,IPoolable
 	where T: Actor{
-	static private readonly float zerof = 0f, onef = 1f;
-	static private readonly int zeroi = 0, onei = 1;
-	static private readonly int centeri = onei, topi = SharpGDX.Utils.Align.top, bottomi = SharpGDX.Utils.Align.bottom, lefti = SharpGDX.Utils.Align.left,
-		righti = SharpGDX.Utils.Align.right;
-
+	
 	static private IFiles files;
 	static private Cell<T> defaults;
 
@@ -589,7 +617,7 @@ public class Cell<T> : Cell,IPoolable
 	}
 
 	/** Adds {@link Align#left} and clears {@link Align#right} for the alignment of the actor within the cell. */
-	public Cell<T> Left () {
+	public new Cell<T> Left () {
 		if (align == null)
 			align = lefti;
 		else
@@ -616,7 +644,7 @@ public class Cell<T> : Cell,IPoolable
 	}
 
 	/** Sets expandX, expandY, fillX, and fillY to 1. */
-	public Cell<T> Grow () {
+	public new Cell<T> Grow () {
 		expandX = onei;
 		expandY = onei;
 		fillX = onef;
@@ -646,7 +674,7 @@ public class Cell<T> : Cell,IPoolable
 	}
 
 	/** Sets expandX to 1. */
-	public Cell<T> ExpandX () {
+	public new Cell<T> ExpandX () {
 		expandX = onei;
 		return this;
 	}
