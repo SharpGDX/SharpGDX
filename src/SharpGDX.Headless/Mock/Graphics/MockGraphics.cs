@@ -34,42 +34,42 @@ namespace SharpGDX.Headless.Mock.Graphics
 		return false;
 	}
 
-	public override GL20 getGL20()
+	public override IGL20 getGL20()
 	{
 		return null;
 	}
 
-	public override void setGL20(GL20 gl20)
+	public override void setGL20(IGL20 gl20)
 	{
 
 	}
 
-	public override GL30 getGL30()
-	{
-		return null;
-	}
-
-	public override void setGL30(GL30 gl30)
-	{
-
-	}
-
-	public override GL31 getGL31()
+	public override IGL30 getGL30()
 	{
 		return null;
 	}
 
-	public override void setGL31(GL31 gl31)
+	public override void setGL30(IGL30 gl30)
 	{
 
 	}
 
-	public override GL32 getGL32()
+	public override IGL31 getGL31()
 	{
 		return null;
 	}
 
-	public override void setGL32(GL32 gl32)
+	public override void setGL31(IGL31 gl31)
+	{
+
+	}
+
+	public override IGL32 getGL32()
+	{
+		return null;
+	}
+
+	public override void setGL32(IGL32 gl32)
 	{
 
 	}

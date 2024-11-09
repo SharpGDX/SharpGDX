@@ -114,8 +114,8 @@ public class OrthoCachedTiledMapRenderer : ITiledMapRenderer, Disposable {
 		}
 
 		if (blending) {
-			Gdx.gl.glEnable(GL20.GL_BLEND);
-			Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+			Gdx.GL.glEnable(IGL20.GL_BLEND);
+			Gdx.GL.glBlendFunc(IGL20.GL_SRC_ALPHA, IGL20.GL_ONE_MINUS_SRC_ALPHA);
 		}
 		spriteCache.begin();
 		MapLayers mapLayers = map.getLayers();
@@ -127,7 +127,7 @@ public class OrthoCachedTiledMapRenderer : ITiledMapRenderer, Disposable {
 			}
 		}
 		spriteCache.end();
-		if (blending) Gdx.gl.glDisable(GL20.GL_BLEND);
+		if (blending) Gdx.GL.glDisable(IGL20.GL_BLEND);
 	}
 
 	public void render (int[] layers) {
@@ -155,8 +155,8 @@ public class OrthoCachedTiledMapRenderer : ITiledMapRenderer, Disposable {
 		}
 
 		if (blending) {
-			Gdx.gl.glEnable(GL20.GL_BLEND);
-			Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+			Gdx.GL.glEnable(IGL20.GL_BLEND);
+			Gdx.GL.glBlendFunc(IGL20.GL_SRC_ALPHA, IGL20.GL_ONE_MINUS_SRC_ALPHA);
 		}
 		spriteCache.begin();
 		MapLayers mapLayers = map.getLayers();
@@ -168,7 +168,7 @@ public class OrthoCachedTiledMapRenderer : ITiledMapRenderer, Disposable {
 			}
 		}
 		spriteCache.end();
-		if (blending) Gdx.gl.glDisable(GL20.GL_BLEND);
+		if (blending) Gdx.GL.glDisable(IGL20.GL_BLEND);
 	}
 
 	public void renderObjects (MapLayer layer) {

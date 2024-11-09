@@ -11,7 +11,7 @@ using Buffer = SharpGDX.Shims.Buffer;
 
 namespace SharpGDX.Desktop
 {
-	internal class DesktopGL30 : DesktopGL20, GL30
+	internal class DesktopGL30 : DesktopGL20, IGL30
 	{
 		public void glReadBuffer(int mode)
 		{

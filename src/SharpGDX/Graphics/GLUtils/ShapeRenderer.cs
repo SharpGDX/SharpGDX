@@ -63,7 +63,7 @@ public class ShapeRenderer : Disposable {
 	/** Shape types to be used with {@link #begin(ShapeType)}.
 	 * @author mzechner, stbachmann */
 	public enum ShapeType {
-		Point=(GL20.GL_POINTS), Line=(GL20.GL_LINES), Filled=(GL20.GL_TRIANGLES)
+		Point=(IGL20.GL_POINTS), Line=(IGL20.GL_LINES), Filled=(IGL20.GL_TRIANGLES)
 	}
 
 	public class ShapeTypeUtils
@@ -114,7 +114,7 @@ public class ShapeRenderer : Disposable {
 		} else {
 			renderer = new ImmediateModeRenderer20(maxVertices, false, true, 0, defaultShader);
 		}
-		projectionMatrix.setToOrtho2D(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		projectionMatrix.setToOrtho2D(0, 0, Gdx.Graphics.getWidth(), Gdx.Graphics.getHeight());
 		matrixDirty = true;
 	}
 

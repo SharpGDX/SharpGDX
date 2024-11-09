@@ -1,4 +1,5 @@
-﻿using static SharpGDX.IFiles;
+﻿using SharpGDX.Files;
+using static SharpGDX.IFiles;
 using SharpGDX.Graphics;
 using static SharpGDX.IGraphics;
 

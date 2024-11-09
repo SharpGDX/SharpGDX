@@ -19,7 +19,7 @@ public class TextureAtlas : Disposable {
 	/** Loads the specified pack file using {@link FileType#Internal}, using the parent directory of the pack file to find the page
 	 * images. */
 	public TextureAtlas (String internalPackFile) 
-	: this(Gdx.files.@internal(internalPackFile))
+	: this(Gdx.Files.Internal(internalPackFile))
 	{
 		
 	}
@@ -428,7 +428,7 @@ public class TextureAtlas : Disposable {
 					entry[i] = line.Substring(lastMatch).Trim();
 					return i;
 				}
-				entry[i] = line.Substring(lastMatch, comma).Trim();
+				entry[i] = line.Substring(lastMatch, comma - lastMatch).Trim();
 				lastMatch = comma + 1;
 				if (i == 4) return 4;
 			}

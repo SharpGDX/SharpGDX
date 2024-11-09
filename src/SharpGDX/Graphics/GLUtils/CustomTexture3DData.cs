@@ -84,25 +84,25 @@ public class CustomTexture3DData : ITexture3DData {
 		if (pixels == null) {
 
 			int numChannels;
-			if (glFormat == GL30.GL_RED || glFormat == GL30.GL_RED_INTEGER || glFormat == GL20.GL_LUMINANCE
-				|| glFormat == GL20.GL_ALPHA) {
+			if (glFormat == IGL30.GL_RED || glFormat == IGL30.GL_RED_INTEGER || glFormat == IGL20.GL_LUMINANCE
+				|| glFormat == IGL20.GL_ALPHA) {
 				numChannels = 1;
-			} else if (glFormat == GL30.GL_RG || glFormat == GL30.GL_RG_INTEGER || glFormat == GL20.GL_LUMINANCE_ALPHA) {
+			} else if (glFormat == IGL30.GL_RG || glFormat == IGL30.GL_RG_INTEGER || glFormat == IGL20.GL_LUMINANCE_ALPHA) {
 				numChannels = 2;
-			} else if (glFormat == GL20.GL_RGB || glFormat == GL30.GL_RGB_INTEGER) {
+			} else if (glFormat == IGL20.GL_RGB || glFormat == IGL30.GL_RGB_INTEGER) {
 				numChannels = 3;
-			} else if (glFormat == GL20.GL_RGBA || glFormat == GL30.GL_RGBA_INTEGER) {
+			} else if (glFormat == IGL20.GL_RGBA || glFormat == IGL30.GL_RGBA_INTEGER) {
 				numChannels = 4;
 			} else {
 				throw new GdxRuntimeException("unsupported glFormat: " + glFormat);
 			}
 
 			int bytesPerChannel;
-			if (glType == GL20.GL_UNSIGNED_BYTE || glType == GL20.GL_BYTE) {
+			if (glType == IGL20.GL_UNSIGNED_BYTE || glType == IGL20.GL_BYTE) {
 				bytesPerChannel = 1;
-			} else if (glType == GL20.GL_UNSIGNED_SHORT || glType == GL20.GL_SHORT || glType == GL30.GL_HALF_FLOAT) {
+			} else if (glType == IGL20.GL_UNSIGNED_SHORT || glType == IGL20.GL_SHORT || glType == IGL30.GL_HALF_FLOAT) {
 				bytesPerChannel = 2;
-			} else if (glType == GL20.GL_UNSIGNED_INT || glType == GL20.GL_INT || glType == GL20.GL_FLOAT) {
+			} else if (glType == IGL20.GL_UNSIGNED_INT || glType == IGL20.GL_INT || glType == IGL20.GL_FLOAT) {
 				bytesPerChannel = 4;
 			} else {
 				throw new GdxRuntimeException("unsupported glType: " + glType);
@@ -116,7 +116,7 @@ public class CustomTexture3DData : ITexture3DData {
 	}
 
 	public void consume3DData () {
-		Gdx.gl30.glTexImage3D(GL30.GL_TEXTURE_3D, mipMapLevel, glInternalFormat, width, height, depth, 0, glFormat, glType, pixels);
+		Gdx.GL30.glTexImage3D(IGL30.GL_TEXTURE_3D, mipMapLevel, glInternalFormat, width, height, depth, 0, glFormat, glType, pixels);
 	}
 
 }

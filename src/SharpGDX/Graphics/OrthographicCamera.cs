@@ -57,7 +57,7 @@ public class OrthographicCamera : Camera {
 	 * (Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2), with the y-axis pointing up or down.
 	 * @param yDown whether y should be pointing down */
 	public void setToOrtho (bool yDown) {
-		setToOrtho(yDown, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		setToOrtho(yDown, Gdx.Graphics.getWidth(), Gdx.Graphics.getHeight());
 	}
 
 	/** Sets this camera to an orthographic projection, centered at (viewportWidth/2, viewportHeight/2), with the y-axis pointing

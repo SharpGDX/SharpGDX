@@ -412,7 +412,7 @@ public class TextArea : TextField {
 			bool result = base.keyDown(@event, keycode);
 			if (_textArea.hasKeyboardFocus()) {
 				bool repeat = false;
-				bool shift = Gdx.input.isKeyPressed(Keys.SHIFT_LEFT) || Gdx.input.isKeyPressed(Keys.SHIFT_RIGHT);
+				bool shift = Gdx.Input.isKeyPressed(Keys.SHIFT_LEFT) || Gdx.Input.isKeyPressed(Keys.SHIFT_RIGHT);
 				if (keycode == Keys.DOWN) {
 					if (shift) {
 						if (!_textArea.hasSelection) {

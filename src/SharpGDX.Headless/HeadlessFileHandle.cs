@@ -6,12 +6,12 @@ namespace SharpGDX.Headless;
 
 public sealed class HeadlessFileHandle : FileHandle
 {
-	public HeadlessFileHandle(string fileName, IFiles.FileType type)
+	public HeadlessFileHandle(string fileName, FileType type)
 		: base(fileName, type)
 	{
 	}
 
-	public HeadlessFileHandle(File file, IFiles.FileType type)
+	public HeadlessFileHandle(File file, FileType type)
 		: base(file, type)
 	{
 	}
@@ -27,15 +27,15 @@ public sealed class HeadlessFileHandle : FileHandle
 	{
 		return _type switch
 		{
-			IFiles.FileType.External => new File(HeadlessFiles.ExternalPath, _file.getPath()),
-			IFiles.FileType.Local => new File(HeadlessFiles.LocalPath, _file.getPath()),
+			FileType.External => new File(HeadlessFiles.ExternalPath, _file.getPath()),
+			FileType.Local => new File(HeadlessFiles.LocalPath, _file.getPath()),
 			_ => _file
 		};
 	}
 
 	public override FileHandle parent()
 	{
-		var parent = _file.getParentFile() ?? (_type == IFiles.FileType.Absolute ? new File("/") : new File(""));
+		var parent = _file.getParentFile() ?? (_type == FileType.Absolute ? new File("/") : new File(""));
 
 		return new HeadlessFileHandle(parent, _type);
 	}

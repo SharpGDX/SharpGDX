@@ -33,29 +33,29 @@ public class Texture : GLTexture {
 		
 	public enum TextureFilter {
 		/** Fetch the nearest texel that best maps to the pixel on screen. */
-		Nearest=(GL20.GL_NEAREST),
+		Nearest=(IGL20.GL_NEAREST),
 
 		/** Fetch four nearest texels that best maps to the pixel on screen. */
-		Linear=(GL20.GL_LINEAR),
+		Linear=(IGL20.GL_LINEAR),
 
 		/** @see TextureFilter#MipMapLinearLinear */
-		MipMap=(GL20.GL_LINEAR_MIPMAP_LINEAR),
+		MipMap=(IGL20.GL_LINEAR_MIPMAP_LINEAR),
 
 		/** Fetch the best fitting image from the mip map chain based on the pixel/texel ratio and then sample the texels with a
 		 * nearest filter. */
-		MipMapNearestNearest=(GL20.GL_NEAREST_MIPMAP_NEAREST),
+		MipMapNearestNearest=(IGL20.GL_NEAREST_MIPMAP_NEAREST),
 
 		/** Fetch the best fitting image from the mip map chain based on the pixel/texel ratio and then sample the texels with a
 		 * linear filter. */
-		MipMapLinearNearest=(GL20.GL_LINEAR_MIPMAP_NEAREST),
+		MipMapLinearNearest=(IGL20.GL_LINEAR_MIPMAP_NEAREST),
 
 		/** Fetch the two best fitting images from the mip map chain and then sample the nearest texel from each of the two images,
 		 * combining them to the final output pixel. */
-		MipMapNearestLinear=(GL20.GL_NEAREST_MIPMAP_LINEAR),
+		MipMapNearestLinear=(IGL20.GL_NEAREST_MIPMAP_LINEAR),
 
 		/** Fetch the two best fitting images from the mip map chain and then sample the four nearest texels from each of the two
 		 * images, combining them to the final output pixel. */
-		MipMapLinearLinear=(GL20.GL_LINEAR_MIPMAP_LINEAR)
+		MipMapLinearLinear=(IGL20.GL_LINEAR_MIPMAP_LINEAR)
 		
 	}
 
@@ -64,7 +64,7 @@ public class Texture : GLTexture {
 		public static bool isMipMap(TextureFilter filter)
 		{
 			var glEnum = (int)filter;
-			return glEnum != GL20.GL_NEAREST && glEnum != GL20.GL_LINEAR;
+			return glEnum != IGL20.GL_NEAREST && glEnum != IGL20.GL_LINEAR;
 		}
 
 		public static int getGLEnum(TextureFilter filter)
@@ -74,9 +74,9 @@ public class Texture : GLTexture {
 		}
 
 	public enum TextureWrap {
-		MirroredRepeat=(GL20.GL_MIRRORED_REPEAT),
-		ClampToEdge=(GL20.GL_CLAMP_TO_EDGE),
-		Repeat=(GL20.GL_REPEAT)
+		MirroredRepeat=(IGL20.GL_MIRRORED_REPEAT),
+		ClampToEdge=(IGL20.GL_CLAMP_TO_EDGE),
+		Repeat=(IGL20.GL_REPEAT)
 		
 	}
 
@@ -98,7 +98,7 @@ public class Texture : GLTexture {
 
 
         public Texture (String internalPath) 
-	: this(Gdx.files.@internal(internalPath))
+	: this(Gdx.Files.Internal(internalPath))
 	{
 		
 	}
@@ -146,7 +146,7 @@ public class Texture : GLTexture {
 	}
 
 	public Texture (ITextureData data) 
-	: this(GL20.GL_TEXTURE_2D, Gdx.gl.glGenTexture(), data)
+	: this(IGL20.GL_TEXTURE_2D, Gdx.GL.glGenTexture(), data)
 	{
 		
 	}
@@ -156,7 +156,7 @@ public class Texture : GLTexture {
 	{
 		
 		load(data);
-		if (data.isManaged()) addManagedTexture(Gdx.app, this);
+		if (data.isManaged()) addManagedTexture(Gdx.App, this);
 	}
 
 	public void load (ITextureData data) {
@@ -167,19 +167,19 @@ public class Texture : GLTexture {
 		if (!data.isPrepared()) data.prepare();
 
 		bind();
-		uploadImageData(GL20.GL_TEXTURE_2D, data);
+		uploadImageData(IGL20.GL_TEXTURE_2D, data);
 
 		unsafeSetFilter(minFilter, magFilter, true);
 		unsafeSetWrap(uWrap, vWrap, true);
 		unsafeSetAnisotropicFilter(anisotropicFilterLevel, true);
-		Gdx.gl.glBindTexture(glTarget, 0);
+		Gdx.GL.glBindTexture(glTarget, 0);
 	}
 
 	/** Used internally to reload after context loss. Creates a new GL handle then calls {@link #load(TextureData)}. Use this only
 	 * if you know what you do! */
 	protected override void reload () {
 		if (!isManaged()) throw new GdxRuntimeException("Tried to reload unmanaged Texture");
-		glHandle = Gdx.gl.glGenTexture();
+		glHandle = Gdx.GL.glGenTexture();
 		load(data);
 	}
 
@@ -193,7 +193,7 @@ public class Texture : GLTexture {
 		if (data.isManaged()) throw new GdxRuntimeException("can't draw to a managed texture");
 
 		bind();
-		Gdx.gl.glTexSubImage2D(glTarget, 0, x, y, pixmap.getWidth(), pixmap.getHeight(), pixmap.getGLFormat(), pixmap.getGLType(),
+		Gdx.GL.glTexSubImage2D(glTarget, 0, x, y, pixmap.getWidth(), pixmap.getHeight(), pixmap.getGLFormat(), pixmap.getGLType(),
 			pixmap.getPixels());
 	}
 
@@ -226,7 +226,7 @@ public class Texture : GLTexture {
 		// removal from the asset manager.
 		if (glHandle == 0) return;
 		delete();
-		if (data.isManaged()) if (managedTextures.get(Gdx.app) != null) managedTextures.get(Gdx.app).removeValue(this, true);
+		if (data.isManaged()) if (managedTextures.get(Gdx.App) != null) managedTextures.get(Gdx.App).removeValue(this, true);
 	}
 
 		public override String ToString () {
@@ -297,7 +297,7 @@ public class Texture : GLTexture {
 
 					// unload the texture, create a new gl handle then reload it.
 					assetManager.unload(fileName);
-					texture.glHandle = Gdx.gl.glGenTexture();
+					texture.glHandle = Gdx.GL.glGenTexture();
 					assetManager.load(fileName, typeof(Texture), @params);
 				}
 			}
@@ -327,7 +327,7 @@ public class Texture : GLTexture {
 
 	/** @return the number of managed textures currently loaded */
 	public static int getNumManagedTextures () {
-		return managedTextures.get(Gdx.app).size;
+		return managedTextures.get(Gdx.App).size;
 	}
 }
 }

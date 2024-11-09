@@ -11,7 +11,7 @@ public class DesktopClipboard : IClipboard
 	/// <inheritdoc cref="IClipboard.GetContents()" />
 	public unsafe string? GetContents()
 	{
-		return GLFW.GetClipboardString(((DesktopGraphics)Gdx.graphics).getWindow().getWindowPtr());
+		return GLFW.GetClipboardString(((DesktopGraphics)Gdx.Graphics).getWindow().getWindowPtr());
 	}
 
 	/// <inheritdoc cref="IClipboard.HasContents" />
@@ -23,6 +23,6 @@ public class DesktopClipboard : IClipboard
 	/// <inheritdoc cref="IClipboard.SetContents" />
 	public unsafe void SetContents(string content)
 	{
-		GLFW.SetClipboardString(((DesktopGraphics)Gdx.graphics).getWindow().getWindowPtr(), content);
+		GLFW.SetClipboardString(((DesktopGraphics)Gdx.Graphics).getWindow().getWindowPtr(), content);
 	}
 }

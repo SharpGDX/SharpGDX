@@ -523,7 +523,7 @@ namespace SharpGDX.Assets
 		 * @return true if all loading is finished. */
 		public bool update(int millis)
 		{
-			if (Gdx.app.getType() == ApplicationType.WebGL) return update();
+			if (Gdx.App.getType() == ApplicationType.WebGL) return update();
 			long endTime = TimeUtils.millis() + millis;
 			while (true)
 			{

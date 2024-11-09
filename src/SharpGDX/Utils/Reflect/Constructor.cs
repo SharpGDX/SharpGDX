@@ -47,7 +47,7 @@ namespace SharpGDX.Utils.Reflect
 
 		/** Uses the constructor to create and initialize a new instance of the constructor's declaring class, with the supplied
 		 * initialization parameters. */
-		public Object newInstance(Object[] args) // TODO:  throws ReflectionException 
+		public Object newInstance(params Object[] args) // TODO:  throws ReflectionException 
 		{
 			// TODO: try
 			//{

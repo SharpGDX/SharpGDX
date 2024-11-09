@@ -49,11 +49,11 @@ public static class ScreenUtils {
      * @param applyAntialiasing applies multi-sampling for antialiasing if true. */
     public static void clear(float r, float g, float b, float a, bool clearDepth, bool applyAntialiasing)
     {
-            Gdx.gl.glClearColor(r, g, b, a);
-		int mask = GL20.GL_COLOR_BUFFER_BIT;
-		if (clearDepth) mask = mask | GL20.GL_DEPTH_BUFFER_BIT;
-        if (applyAntialiasing && Gdx.graphics.getBufferFormat().coverageSampling) mask = mask | GL20.GL_COVERAGE_BUFFER_BIT_NV;
-            Gdx.gl.glClear(mask);
+            Gdx.GL.glClearColor(r, g, b, a);
+		int mask = IGL20.GL_COLOR_BUFFER_BIT;
+		if (clearDepth) mask = mask | IGL20.GL_DEPTH_BUFFER_BIT;
+        if (applyAntialiasing && Gdx.Graphics.getBufferFormat().coverageSampling) mask = mask | IGL20.GL_COVERAGE_BUFFER_BIT_NV;
+            Gdx.GL.glClear(mask);
 	}
 
 	/** Returns the current framebuffer contents as a {@link TextureRegion} with a width and height equal to the current screen
@@ -61,8 +61,8 @@ public static class ScreenUtils {
 	 * accessed via {@link TextureRegion#getTexture}. The texture is not managed and has to be reloaded manually on a context loss.
 	 * The returned TextureRegion is flipped along the Y axis by default. */
 	public static TextureRegion getFrameBufferTexture () {
-		 int w = Gdx.graphics.getBackBufferWidth();
-		 int h = Gdx.graphics.getBackBufferHeight();
+		 int w = Gdx.Graphics.getBackBufferWidth();
+		 int h = Gdx.Graphics.getBackBufferHeight();
 		return getFrameBufferTexture(0, 0, w, h);
 	}
 
@@ -99,8 +99,8 @@ public static class ScreenUtils {
 	 *
 	 * @param flipY whether to flip pixels along Y axis */
 	public static byte[] getFrameBufferPixels (bool flipY) {
-		 int w = Gdx.graphics.getBackBufferWidth();
-		 int h = Gdx.graphics.getBackBufferHeight();
+		 int w = Gdx.Graphics.getBackBufferWidth();
+		 int h = Gdx.Graphics.getBackBufferHeight();
 		return getFrameBufferPixels(0, 0, w, h, flipY);
 	}
 
@@ -113,9 +113,9 @@ public static class ScreenUtils {
 	 *
 	 * @param flipY whether to flip pixels along Y axis */
 	public static byte[] getFrameBufferPixels (int x, int y, int w, int h, bool flipY) {
-		Gdx.gl.glPixelStorei(GL20.GL_PACK_ALIGNMENT, 1);
+		Gdx.GL.glPixelStorei(IGL20.GL_PACK_ALIGNMENT, 1);
 		 ByteBuffer pixels = BufferUtils.newByteBuffer(w * h * 4);
-		Gdx.gl.glReadPixels(x, y, w, h, GL20.GL_RGBA, GL20.GL_UNSIGNED_BYTE, pixels);
+		Gdx.GL.glReadPixels(x, y, w, h, IGL20.GL_RGBA, IGL20.GL_UNSIGNED_BYTE, pixels);
 		 int numBytes = w * h * 4;
 		byte[] lines = new byte[numBytes];
 		if (flipY) {

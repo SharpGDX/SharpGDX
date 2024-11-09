@@ -7,7 +7,7 @@ using Buffer = SharpGDX.Shims.Buffer;
 
 namespace SharpGDX.Desktop
 {
-	internal class DesktopGL20 : GL20
+	internal class DesktopGL20 : IGL20
 	{
 		private ByteBuffer buffer = null;
 		private FloatBuffer floatBuffer = null;
@@ -322,7 +322,7 @@ namespace SharpGDX.Desktop
 			GCHandle bufferHandle;
 
 			// TODO: Should this be in a try/finally?
-			if (indices is ShortBuffer && type == GL20.GL_UNSIGNED_SHORT)
+			if (indices is ShortBuffer && type == IGL20.GL_UNSIGNED_SHORT)
 			{
 				ShortBuffer sb = (ShortBuffer)indices;
 				int position = sb.position();
@@ -335,7 +335,7 @@ namespace SharpGDX.Desktop
 				GL.DrawElements((PrimitiveType)mode, count, (DrawElementsType)type, sb.array());
 				sb.limit(oldLimit);
 			}
-			else if (indices is ByteBuffer && type == GL20.GL_UNSIGNED_SHORT)
+			else if (indices is ByteBuffer && type == IGL20.GL_UNSIGNED_SHORT)
 			{
 				ShortBuffer sb = ((ByteBuffer)indices).asShortBuffer();
 				int position = sb.position();
@@ -346,7 +346,7 @@ namespace SharpGDX.Desktop
 				GL.DrawElements((PrimitiveType)mode, sb.remaining(), DrawElementsType.UnsignedShort, bufferHandle.AddrOfPinnedObject());
 				sb.limit(oldLimit);
 			}
-			else if (indices is ByteBuffer && type == GL20.GL_UNSIGNED_BYTE)
+			else if (indices is ByteBuffer && type == IGL20.GL_UNSIGNED_BYTE)
 			{
 				ByteBuffer bb = (ByteBuffer)indices;
 				int position = bb.position();
@@ -725,8 +725,7 @@ namespace SharpGDX.Desktop
 
 		public void glScissor(int x, int y, int width, int height)
 		{
-			throw new NotImplementedException();
-			//GL.glScissor(x, y, width, height);
+			GL.Scissor(x, y, width, height);
 		}
 
 		public void glShaderBinary(int n, IntBuffer shaders, int binaryformat, Buffer binary, int length)
@@ -1144,7 +1143,7 @@ namespace SharpGDX.Desktop
 			// TODO: I don't think this method works at all
 			if (buffer is ByteBuffer)
 			{
-				if (type == GL20.GL_BYTE)
+				if (type == IGL20.GL_BYTE)
 				{
 					var array = new byte[buffer.limit()];
 					Array.Copy(((ByteBuffer)buffer).array(), buffer.position(), array, 0, array.Length);
@@ -1153,7 +1152,7 @@ namespace SharpGDX.Desktop
 					//GL.VertexAttribPointer(indx, size, (VertexAttribPointerType)type, normalized, stride, ((ByteBuffer)buffer).array());
 					GL.VertexAttribPointer(indx, size, (VertexAttribPointerType)type, normalized, stride, array);
 				}
-				else if (type == GL20.GL_UNSIGNED_BYTE)
+				else if (type == IGL20.GL_UNSIGNED_BYTE)
 				{
 					var array = new byte[buffer.limit()];
 					Array.Copy(((ByteBuffer)buffer).array(), buffer.position(), array, 0, array.Length);
@@ -1161,11 +1160,11 @@ namespace SharpGDX.Desktop
 					//GL.VertexAttribPointer(indx, size, (VertexAttribPointerType)type, normalized, stride, ((ByteBuffer)buffer).array());
 					GL.VertexAttribPointer(indx, size, (VertexAttribPointerType)type, normalized, stride, array);
 				}
-				else if (type == GL20.GL_SHORT)
+				else if (type == IGL20.GL_SHORT)
 					GL.VertexAttribPointer(indx, size, (VertexAttribPointerType)type, normalized, stride, ((ByteBuffer)buffer).asShortBuffer().array());
-				else if (type == GL20.GL_UNSIGNED_SHORT)
+				else if (type == IGL20.GL_UNSIGNED_SHORT)
 					GL.VertexAttribPointer(indx, size, (VertexAttribPointerType)type, normalized, stride, ((ByteBuffer)buffer).asShortBuffer().array());
-				else if (type == GL20.GL_FLOAT)
+				else if (type == IGL20.GL_FLOAT)
 				{
 					var array = new float[buffer.limit()];
 					Array.Copy(((ByteBuffer)buffer).asFloatBuffer().array(), buffer.position(), array, 0, array.Length);
@@ -1181,7 +1180,7 @@ namespace SharpGDX.Desktop
 			}
 			else if (buffer is FloatBuffer)
 			{
-				if (type == GL20.GL_FLOAT)
+				if (type == IGL20.GL_FLOAT)
 				{
 					var array = new float[buffer.limit()];
 					Array.Copy(((FloatBuffer)buffer).array(), buffer.position(), array, 0, array.Length);

@@ -280,7 +280,7 @@ public class Dialog : Window {
 			if (keycode == keycode2)
 			{
 				// Delay a frame to eat the keyTyped event.
-				Gdx.app.postRunnable(() =>
+				Gdx.App.postRunnable(() =>
 				{
 
 					_dialog.result(obj);

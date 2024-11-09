@@ -11,52 +11,52 @@ namespace SharpGDX.Desktop
 		public static string localPath => "";
 
 
-		public FileHandle getFileHandle(String fileName, IFiles.FileType type)
+		public FileHandle GetFileHandle(String fileName, FileType type)
 		{
 			return new DesktopFileHandle(fileName, type);
 		}
 
-		public FileHandle classpath(String path)
+		public FileHandle Classpath(String path)
 		{
-			return new DesktopFileHandle(path, IFiles.FileType.Classpath);
+			return new DesktopFileHandle(path, FileType.Classpath);
 		}
 
-		public FileHandle @internal(String path)
+		public FileHandle Internal(String path)
 		{
-			return new DesktopFileHandle(path, IFiles.FileType.Internal);
+			return new DesktopFileHandle(path, FileType.Internal);
 		}
 
-		public FileHandle external(String path)
+		public FileHandle External(String path)
 		{
-			return new DesktopFileHandle(path, IFiles.FileType.External);
+			return new DesktopFileHandle(path, FileType.External);
 		}
 
-		public FileHandle absolute(String path)
+		public FileHandle Absolute(String path)
 		{
-			return new DesktopFileHandle(path, IFiles.FileType.Absolute);
+			return new DesktopFileHandle(path, FileType.Absolute);
 		}
 
-		public FileHandle local(String path)
+		public FileHandle Local(String path)
 		{
-			return new DesktopFileHandle(path, IFiles.FileType.Local);
+			return new DesktopFileHandle(path, FileType.Local);
 		}
 
-		public String getExternalStoragePath()
+		public String GetExternalStoragePath()
 		{
 			return externalPath;
 		}
 
-		public bool isExternalStorageAvailable()
+		public bool IsExternalStorageAvailable()
 		{
 			return true;
 		}
 
-		public String getLocalStoragePath()
+		public String GetLocalStoragePath()
 		{
 			return localPath;
 		}
 
-		public bool isLocalStorageAvailable()
+		public bool IsLocalStorageAvailable()
 		{
 			return true;
 		}

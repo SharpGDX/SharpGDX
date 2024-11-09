@@ -9,7 +9,7 @@ using Buffer = SharpGDX.Shims.Buffer;
 
 namespace SharpGDX.Graphics.Profiling
 {
-	public abstract class GLInterceptor : GL20 {
+	public abstract class GLInterceptor : IGL20 {
 
 	protected int calls;
 	protected int textureBindings;
@@ -25,15 +25,15 @@ namespace SharpGDX.Graphics.Profiling
 
 	public static String resolveErrorNumber (int error) {
 		switch (error) {
-		case GL20.GL_INVALID_VALUE:
+		case IGL20.GL_INVALID_VALUE:
 			return "GL_INVALID_VALUE";
-		case GL20.GL_INVALID_OPERATION:
+		case IGL20.GL_INVALID_OPERATION:
 			return "GL_INVALID_OPERATION";
-		case GL20.GL_INVALID_FRAMEBUFFER_OPERATION:
+		case IGL20.GL_INVALID_FRAMEBUFFER_OPERATION:
 			return "GL_INVALID_FRAMEBUFFER_OPERATION";
-		case GL20.GL_INVALID_ENUM:
+		case IGL20.GL_INVALID_ENUM:
 			return "GL_INVALID_ENUM";
-		case GL20.GL_OUT_OF_MEMORY:
+		case IGL20.GL_OUT_OF_MEMORY:
 			return "GL_OUT_OF_MEMORY";
 		default:
 			return "number " + error;

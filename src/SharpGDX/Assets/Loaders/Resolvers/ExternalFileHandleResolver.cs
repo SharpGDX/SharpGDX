@@ -7,6 +7,6 @@ namespace SharpGDX.Assets.Loaders.Resolvers;
 
 public class ExternalFileHandleResolver : IFileHandleResolver {
 	public FileHandle Resolve (String fileName) {
-		return Gdx.files.external(fileName);
+		return Gdx.Files.External(fileName);
 	}
 }

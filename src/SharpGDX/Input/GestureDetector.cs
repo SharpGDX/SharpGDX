@@ -103,9 +103,9 @@ public class GestureDetector : InputAdapter {
 
 		if (pointer == 0) {
 			pointer1.set(x, y);
-			touchDownTime = Gdx.input.getCurrentEventTime();
+			touchDownTime = Gdx.Input.getCurrentEventTime();
 			tracker.start(x, y, touchDownTime);
-			if (Gdx.input.isTouched(1)) {
+			if (Gdx.Input.isTouched(1)) {
 				// Start pinch.
 				inTapRectangle = false;
 				pinching = true;
@@ -153,7 +153,7 @@ public class GestureDetector : InputAdapter {
 		}
 
 		// update tracker
-		tracker.update(x, y, Gdx.input.getCurrentEventTime());
+		tracker.update(x, y, Gdx.Input.getCurrentEventTime());
 
 		// check if we are still tapping.
 		if (inTapRectangle && !isWithinTapRectangle(x, y, tapRectangleCenterX, tapRectangleCenterY)) {
@@ -208,10 +208,10 @@ public class GestureDetector : InputAdapter {
 			// we are in pan mode again, reset velocity tracker
 			if (pointer == 0) {
 				// first pointer has lifted off, set up panning to use the second pointer...
-				tracker.start(pointer2.x, pointer2.y, Gdx.input.getCurrentEventTime());
+				tracker.start(pointer2.x, pointer2.y, Gdx.Input.getCurrentEventTime());
 			} else {
 				// second pointer has lifted off, set up panning to use the first pointer...
-				tracker.start(pointer1.x, pointer1.y, Gdx.input.getCurrentEventTime());
+				tracker.start(pointer1.x, pointer1.y, Gdx.Input.getCurrentEventTime());
 			}
 			return false;
 		}
@@ -221,7 +221,7 @@ public class GestureDetector : InputAdapter {
 		if (wasPanning && !panning) handled = listener.panStop(x, y, pointer, button);
 
 		// handle fling
-		long time = Gdx.input.getCurrentEventTime();
+		long time = Gdx.Input.getCurrentEventTime();
 		if (time - touchDownTime <= maxFlingDelay) {
 			tracker.update(x, y, time);
 			handled = listener.fling(tracker.getVelocityX(), tracker.getVelocityY(), button) || handled;

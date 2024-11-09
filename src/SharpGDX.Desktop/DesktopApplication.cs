@@ -110,7 +110,7 @@ namespace SharpGDX.Desktop
 			this.config = config = DesktopApplicationConfiguration.copy(config);
 			if (config.title == null) config.title = listener.GetType().Name;
 
-			Gdx.app = this;
+			Gdx.App = this;
 			if (!config._disableAudio)
 			{
 				try
@@ -129,9 +129,9 @@ namespace SharpGDX.Desktop
 				this.audio = new MockAudio();
 			}
 
-			Gdx.audio = audio;
-			this.files = Gdx.files = createFiles();
-			this.net = Gdx.net = new DesktopNet(config);
+			Gdx.Audio = audio;
+			this.files = Gdx.Files = createFiles();
+			this.net = Gdx.Net = new DesktopNet(config);
 			this.clipboard = new DesktopClipboard();
 
 			this.sync = new Sync();

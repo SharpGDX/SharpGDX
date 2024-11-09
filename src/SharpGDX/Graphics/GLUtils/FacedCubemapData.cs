@@ -158,7 +158,7 @@ public class FacedCubemapData : ICubemapData {
 	public void consumeCubemapData () {
 		for (int i = 0; i < data.Length; i++) {
 			if (data[i].getType() == ITextureData.TextureDataType.Custom) {
-				data[i].consumeCustomData(GL20.GL_TEXTURE_CUBE_MAP_POSITIVE_X + i);
+				data[i].consumeCustomData(IGL20.GL_TEXTURE_CUBE_MAP_POSITIVE_X + i);
 			} else {
 				Pixmap pixmap = data[i].consumePixmap();
 				bool disposePixmap = data[i].disposePixmap();
@@ -170,8 +170,8 @@ public class FacedCubemapData : ICubemapData {
 					pixmap = tmp;
 					disposePixmap = true;
 				}
-				Gdx.gl.glPixelStorei(GL20.GL_UNPACK_ALIGNMENT, 1);
-				Gdx.gl.glTexImage2D(GL20.GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, pixmap.getGLInternalFormat(), pixmap.getWidth(),
+				Gdx.GL.glPixelStorei(IGL20.GL_UNPACK_ALIGNMENT, 1);
+				Gdx.GL.glTexImage2D(IGL20.GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, pixmap.getGLInternalFormat(), pixmap.getWidth(),
 					pixmap.getHeight(), 0, pixmap.getGLFormat(), pixmap.getGLType(), pixmap.getPixels());
 				if (disposePixmap) pixmap.Dispose();
 			}

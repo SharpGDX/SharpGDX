@@ -234,11 +234,11 @@ namespace SharpGDX.Graphics.G2D
 
 	public void draw (IBatch batch) {
 		if (premultipliedAlpha) {
-			batch.setBlendFunction(GL20.GL_ONE, GL20.GL_ONE_MINUS_SRC_ALPHA);
+			batch.setBlendFunction(IGL20.GL_ONE, IGL20.GL_ONE_MINUS_SRC_ALPHA);
 		} else if (additive) {
-			batch.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE);
+			batch.setBlendFunction(IGL20.GL_SRC_ALPHA, IGL20.GL_ONE);
 		} else {
-			batch.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+			batch.setBlendFunction(IGL20.GL_SRC_ALPHA, IGL20.GL_ONE_MINUS_SRC_ALPHA);
 		}
 		Particle[] particles = this.particles;
 		bool[] active = this.active;
@@ -248,7 +248,7 @@ namespace SharpGDX.Graphics.G2D
 		}
 
 		if (_cleansUpBlendFunction && (additive || premultipliedAlpha))
-			batch.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+			batch.setBlendFunction(IGL20.GL_SRC_ALPHA, IGL20.GL_ONE_MINUS_SRC_ALPHA);
 
 	}
 
@@ -264,11 +264,11 @@ namespace SharpGDX.Graphics.G2D
 		accumulator -= deltaMillis;
 
 		if (premultipliedAlpha) {
-			batch.setBlendFunction(GL20.GL_ONE, GL20.GL_ONE_MINUS_SRC_ALPHA);
+			batch.setBlendFunction(IGL20.GL_ONE, IGL20.GL_ONE_MINUS_SRC_ALPHA);
 		} else if (additive) {
-			batch.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE);
+			batch.setBlendFunction(IGL20.GL_SRC_ALPHA, IGL20.GL_ONE);
 		} else {
-			batch.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+			batch.setBlendFunction(IGL20.GL_SRC_ALPHA, IGL20.GL_ONE_MINUS_SRC_ALPHA);
 		}
 
 		Particle[] particles = this.particles;
@@ -288,7 +288,7 @@ namespace SharpGDX.Graphics.G2D
 		this.activeCount = activeCount;
 
 		if (_cleansUpBlendFunction && (additive || premultipliedAlpha))
-			batch.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+			batch.setBlendFunction(IGL20.GL_SRC_ALPHA, IGL20.GL_ONE_MINUS_SRC_ALPHA);
 
 		if (delayTimer < delay) {
 			delayTimer += deltaMillis;
@@ -1593,7 +1593,7 @@ namespace SharpGDX.Graphics.G2D
 				String errorMessage = "The loaded particle effect descriptor file uses an old invalid format. "
 					+ "Please download the latest version of the Particle Editor tool and recreate the file by"
 					+ " loading and saving it again.";
-				Gdx.app.error("ParticleEmitter", errorMessage);
+				Gdx.App.error("ParticleEmitter", errorMessage);
 				throw new IOException(errorMessage);
 			}
 		}

@@ -7,6 +7,6 @@ namespace SharpGDX.Assets.Loaders.Resolvers;
 
 public class LocalFileHandleResolver : IFileHandleResolver {
 	public FileHandle Resolve (String fileName) {
-		return Gdx.files.local(fileName);
+		return Gdx.Files.Local(fileName);
 	}
 }

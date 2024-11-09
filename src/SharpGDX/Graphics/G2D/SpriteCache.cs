@@ -112,7 +112,7 @@ public class SpriteCache : Disposable {
 			mesh.setIndices(indices);
 		}
 
-		projectionMatrix.setToOrtho2D(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		projectionMatrix.setToOrtho2D(0, 0, Gdx.Graphics.getWidth(), Gdx.Graphics.getHeight());
 	}
 
 	/** Sets the color used to tint images when they are added to the SpriteCache. Default is {@link Color#WHITE}. */
@@ -831,7 +831,7 @@ public class SpriteCache : Disposable {
 		renderCalls = 0;
 		combinedMatrix.set(projectionMatrix).mul(transformMatrix);
 
-		Gdx.gl20.glDepthMask(false);
+		Gdx.GL20.glDepthMask(false);
 
 		if (customShader != null) {
 			customShader.bind();
@@ -854,7 +854,7 @@ public class SpriteCache : Disposable {
 		if (!drawing) throw new IllegalStateException("begin must be called before end.");
 		drawing = false;
 
-		GL20 gl = Gdx.gl20;
+		IGL20 gl = Gdx.GL20;
 		gl.glDepthMask(true);
 		if (customShader != null)
 			mesh.unbind(customShader);
@@ -876,9 +876,9 @@ public class SpriteCache : Disposable {
 			int count = counts[i];
 			textures[i].bind();
 			if (customShader != null)
-				mesh.render(customShader, GL20.GL_TRIANGLES, offset, count);
+				mesh.render(customShader, IGL20.GL_TRIANGLES, offset, count);
 			else
-				mesh.render(shader, GL20.GL_TRIANGLES, offset, count);
+				mesh.render(shader, IGL20.GL_TRIANGLES, offset, count);
 			offset += count;
 		}
 		renderCalls += textureCount;
@@ -907,9 +907,9 @@ public class SpriteCache : Disposable {
 			} else
 				length -= count;
 			if (customShader != null)
-				mesh.render(customShader, GL20.GL_TRIANGLES, offset, count);
+				mesh.render(customShader, IGL20.GL_TRIANGLES, offset, count);
 			else
-				mesh.render(shader, GL20.GL_TRIANGLES, offset, count);
+				mesh.render(shader, IGL20.GL_TRIANGLES, offset, count);
 			offset += count;
 		}
 		renderCalls += cache.textureCount;

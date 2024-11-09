@@ -439,36 +439,40 @@ public List (ListStyle style)
 	public InputListener getKeyListener () {
 		return keyListener;
 	}
+}
 
-	/** The style for a list, see {@link List}.
-	 * @author mzechner
-	 * @author Nathan Sweet */
-	public class ListStyle {
-		public BitmapFont font;
-		public Color fontColorSelected = new Color(1, 1, 1, 1);
-		public Color fontColorUnselected = new Color(1, 1, 1, 1);
-		public IDrawable selection;
-		public IDrawable? down, over, background;
+/** The style for a list, see {@link List}.
+     * @author mzechner
+     * @author Nathan Sweet */
+public class ListStyle
+{
+    public BitmapFont font;
+    public Color fontColorSelected = new Color(1, 1, 1, 1);
+    public Color fontColorUnselected = new Color(1, 1, 1, 1);
+    public IDrawable selection;
+    public IDrawable? down, over, background;
 
-		public ListStyle () {
-		}
+    public ListStyle()
+    {
+    }
 
-		public ListStyle (BitmapFont font, Color fontColorSelected, Color fontColorUnselected, IDrawable selection) {
-			this.font = font;
-			this.fontColorSelected.set(fontColorSelected);
-			this.fontColorUnselected.set(fontColorUnselected);
-			this.selection = selection;
-		}
+    public ListStyle(BitmapFont font, Color fontColorSelected, Color fontColorUnselected, IDrawable selection)
+    {
+        this.font = font;
+        this.fontColorSelected.set(fontColorSelected);
+        this.fontColorUnselected.set(fontColorUnselected);
+        this.selection = selection;
+    }
 
-		public ListStyle (ListStyle style) {
-			font = style.font;
-			fontColorSelected.set(style.fontColorSelected);
-			fontColorUnselected.set(style.fontColorUnselected);
-			selection = style.selection;
+    public ListStyle(ListStyle style)
+    {
+        font = style.font;
+        fontColorSelected.set(style.fontColorSelected);
+        fontColorUnselected.set(style.fontColorUnselected);
+        selection = style.selection;
 
-			down = style.down;
-			over = style.over;
-			background = style.background;
-		}
-	}
+        down = style.down;
+        over = style.over;
+        background = style.background;
+    }
 }

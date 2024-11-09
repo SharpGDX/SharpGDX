@@ -49,16 +49,16 @@ public class VertexBufferObject : IVertexData {
 	 * @param numVertices the maximum number of vertices
 	 * @param attributes the {@link VertexAttributes}. */
 	public VertexBufferObject (bool isStatic, int numVertices, VertexAttributes attributes) {
-		bufferHandle = Gdx.gl20.glGenBuffer();
+		bufferHandle = Gdx.GL20.glGenBuffer();
 
 		ByteBuffer data = BufferUtils.newUnsafeByteBuffer(attributes.vertexSize * numVertices);
 		((Buffer)data).limit(0);
 		setBuffer(data, true, attributes);
-		setUsage(isStatic ? GL20.GL_STATIC_DRAW : GL20.GL_DYNAMIC_DRAW);
+		setUsage(isStatic ? IGL20.GL_STATIC_DRAW : IGL20.GL_DYNAMIC_DRAW);
 	}
 
 	protected VertexBufferObject (int usage, ByteBuffer data, bool ownsBuffer, VertexAttributes attributes) {
-		bufferHandle = Gdx.gl20.glGenBuffer();
+		bufferHandle = Gdx.GL20.glGenBuffer();
 
 		setBuffer(data, ownsBuffer, attributes);
 		setUsage(usage);
@@ -104,7 +104,7 @@ public class VertexBufferObject : IVertexData {
 
 	private void bufferChanged () {
 		if (isBound) {
-			Gdx.gl20.glBufferData(GL20.GL_ARRAY_BUFFER, byteBuffer.limit(), byteBuffer, usage);
+			Gdx.GL20.glBufferData(IGL20.GL_ARRAY_BUFFER, byteBuffer.limit(), byteBuffer, usage);
 			isDirty = false;
 		}
 	}
@@ -147,12 +147,12 @@ public class VertexBufferObject : IVertexData {
 	}
 
 	public void bind (ShaderProgram shader, int[] locations) {
-		GL20 gl = Gdx.gl20;
+		IGL20 gl = Gdx.GL20;
 
-		gl.glBindBuffer(GL20.GL_ARRAY_BUFFER, bufferHandle);
+		gl.glBindBuffer(IGL20.GL_ARRAY_BUFFER, bufferHandle);
 		if (isDirty) {
 			((Buffer)byteBuffer).limit(buffer.limit() * 4);
-			gl.glBufferData(GL20.GL_ARRAY_BUFFER, byteBuffer.limit(), byteBuffer, usage);
+			gl.glBufferData(IGL20.GL_ARRAY_BUFFER, byteBuffer.limit(), byteBuffer, usage);
 			isDirty = false;
 		}
 
@@ -190,7 +190,7 @@ public class VertexBufferObject : IVertexData {
 	}
 
 	public void unbind (ShaderProgram shader, int[] locations) {
-		 GL20 gl = Gdx.gl20;
+		 IGL20 gl = Gdx.GL20;
 		 int numAttributes = attributes.size();
 		if (locations == null) {
 			for (int i = 0; i < numAttributes; i++) {
@@ -202,20 +202,20 @@ public class VertexBufferObject : IVertexData {
 				if (location >= 0) shader.disableVertexAttribute(location);
 			}
 		}
-		gl.glBindBuffer(GL20.GL_ARRAY_BUFFER, 0);
+		gl.glBindBuffer(IGL20.GL_ARRAY_BUFFER, 0);
 		isBound = false;
 	}
 
 	/** Invalidates the VertexBufferObject so a new OpenGL buffer handle is created. Use this in case of a context loss. */
 	public void invalidate () {
-		bufferHandle = Gdx.gl20.glGenBuffer();
+		bufferHandle = Gdx.GL20.glGenBuffer();
 		isDirty = true;
 	}
 
 	/** Disposes of all resources this VertexBufferObject uses. */
 	public void Dispose () {
-		GL20 gl = Gdx.gl20;
-		gl.glBindBuffer(GL20.GL_ARRAY_BUFFER, 0);
+		IGL20 gl = Gdx.GL20;
+		gl.glBindBuffer(IGL20.GL_ARRAY_BUFFER, 0);
 		gl.glDeleteBuffer(bufferHandle);
 		bufferHandle = 0;
 		if (ownsBuffer) BufferUtils.disposeUnsafeByteBuffer(byteBuffer);

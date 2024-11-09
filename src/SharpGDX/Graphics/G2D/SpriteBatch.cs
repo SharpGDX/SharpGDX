@@ -34,10 +34,10 @@ public class SpriteBatch : IBatch {
 	private readonly Matrix4 combinedMatrix = new Matrix4();
 
 	private bool blendingDisabled = false;
-	private int blendSrcFunc = GL20.GL_SRC_ALPHA;
-	private int blendDstFunc = GL20.GL_ONE_MINUS_SRC_ALPHA;
-	private int blendSrcFuncAlpha = GL20.GL_SRC_ALPHA;
-	private int blendDstFuncAlpha = GL20.GL_ONE_MINUS_SRC_ALPHA;
+	private int blendSrcFunc = IGL20.GL_SRC_ALPHA;
+	private int blendDstFunc = IGL20.GL_ONE_MINUS_SRC_ALPHA;
+	private int blendSrcFuncAlpha = IGL20.GL_SRC_ALPHA;
+	private int blendDstFuncAlpha = IGL20.GL_ONE_MINUS_SRC_ALPHA;
 
 	private readonly ShaderProgram shader;
 	private ShaderProgram customShader = null;
@@ -83,7 +83,7 @@ public class SpriteBatch : IBatch {
 		// 32767 is max vertex index, so 32767 / 4 vertices per sprite = 8191 sprites max.
 		if (size > 8191) throw new IllegalArgumentException("Can't have more than 8191 sprites per batch: " + size);
 
-		Mesh.VertexDataType vertexDataType = (Gdx.gl30 != null) ? Mesh.VertexDataType.VertexBufferObjectWithVAO : defaultVertexDataType;
+		Mesh.VertexDataType vertexDataType = (Gdx.GL30 != null) ? Mesh.VertexDataType.VertexBufferObjectWithVAO : defaultVertexDataType;
 
 		mesh = new Mesh(vertexDataType, false, size * 4, size * 6,
 			new VertexAttribute[]
@@ -93,7 +93,7 @@ public class SpriteBatch : IBatch {
 				new VertexAttribute(VertexAttributes.Usage.TextureCoordinates, 2, ShaderProgram.TEXCOORD_ATTRIBUTE + "0")
 			});
 
-			projectionMatrix.setToOrtho2D(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+			projectionMatrix.setToOrtho2D(0, 0, Gdx.Graphics.getWidth(), Gdx.Graphics.getHeight());
 
 		vertices = new float[size * Sprite.SPRITE_SIZE];
 
@@ -163,7 +163,7 @@ public class SpriteBatch : IBatch {
 		if (drawing) throw new IllegalStateException("SpriteBatch.end must be called before begin.");
 		renderCalls = 0;
 
-		Gdx.gl.glDepthMask(false);
+		Gdx.GL.glDepthMask(false);
 		if (customShader != null)
 			customShader.bind();
 		else
@@ -182,9 +182,9 @@ public class SpriteBatch : IBatch {
 		lastTexture = null;
 		drawing = false;
 
-		GL20 gl = Gdx.gl;
+		IGL20 gl = Gdx.GL;
 		gl.glDepthMask(true);
-		if (isBlendingEnabled()) gl.glDisable(GL20.GL_BLEND);
+		if (isBlendingEnabled()) gl.glDisable(IGL20.GL_BLEND);
 	}
 
 	public void setColor (Color tint) {
@@ -938,13 +938,13 @@ public class SpriteBatch : IBatch {
 		indicesBuffer.limit(count);
 
 		if (blendingDisabled) {
-			Gdx.gl.glDisable(GL20.GL_BLEND);
+			Gdx.GL.glDisable(IGL20.GL_BLEND);
 		} else {
-			Gdx.gl.glEnable(GL20.GL_BLEND);
-			if (blendSrcFunc != -1) Gdx.gl.glBlendFuncSeparate(blendSrcFunc, blendDstFunc, blendSrcFuncAlpha, blendDstFuncAlpha);
+			Gdx.GL.glEnable(IGL20.GL_BLEND);
+			if (blendSrcFunc != -1) Gdx.GL.glBlendFuncSeparate(blendSrcFunc, blendDstFunc, blendSrcFuncAlpha, blendDstFuncAlpha);
 		}
 
-		mesh.render(customShader != null ? customShader : shader, GL20.GL_TRIANGLES, 0, count);
+		mesh.render(customShader != null ? customShader : shader, IGL20.GL_TRIANGLES, 0, count);
 
 		idx = 0;
 	}

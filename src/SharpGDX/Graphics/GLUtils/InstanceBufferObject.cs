@@ -32,15 +32,15 @@ public class InstanceBufferObject : InstanceData {
 	}
 
 	public InstanceBufferObject (bool isStatic, int numVertices, VertexAttributes instanceAttributes) {
-		if (Gdx.gl30 == null)
+		if (Gdx.GL30 == null)
 			throw new GdxRuntimeException("InstanceBufferObject requires a device running with GLES 3.0 compatibilty");
 
-		bufferHandle = Gdx.gl20.glGenBuffer();
+		bufferHandle = Gdx.GL20.glGenBuffer();
 
 		ByteBuffer data = BufferUtils.newUnsafeByteBuffer(instanceAttributes.vertexSize * numVertices);
 		((Buffer)data).limit(0);
 		setBuffer(data, true, instanceAttributes);
-		setUsage(isStatic ? GL20.GL_STATIC_DRAW : GL20.GL_DYNAMIC_DRAW);
+		setUsage(isStatic ? IGL20.GL_STATIC_DRAW : IGL20.GL_DYNAMIC_DRAW);
 	}
 
 	public VertexAttributes getAttributes () {
@@ -84,8 +84,8 @@ public class InstanceBufferObject : InstanceData {
 
 	private void bufferChanged () {
 		if (isBound) {
-			Gdx.gl20.glBufferData(GL20.GL_ARRAY_BUFFER, byteBuffer.limit(), null, usage);
-			Gdx.gl20.glBufferData(GL20.GL_ARRAY_BUFFER, byteBuffer.limit(), byteBuffer, usage);
+			Gdx.GL20.glBufferData(IGL20.GL_ARRAY_BUFFER, byteBuffer.limit(), null, usage);
+			Gdx.GL20.glBufferData(IGL20.GL_ARRAY_BUFFER, byteBuffer.limit(), byteBuffer, usage);
 			isDirty = false;
 		}
 	}
@@ -148,12 +148,12 @@ public class InstanceBufferObject : InstanceData {
 	}
 
 	public void bind (ShaderProgram shader, int[] locations) {
-		 GL20 gl = Gdx.gl20;
+		 IGL20 gl = Gdx.GL20;
 
-		gl.glBindBuffer(GL20.GL_ARRAY_BUFFER, bufferHandle);
+		gl.glBindBuffer(IGL20.GL_ARRAY_BUFFER, bufferHandle);
 		if (isDirty) {
 			((Buffer)byteBuffer).limit(buffer.limit() * 4);
-			gl.glBufferData(GL20.GL_ARRAY_BUFFER, byteBuffer.limit(), byteBuffer, usage);
+			gl.glBufferData(IGL20.GL_ARRAY_BUFFER, byteBuffer.limit(), byteBuffer, usage);
 			isDirty = false;
 		}
 
@@ -168,7 +168,7 @@ public class InstanceBufferObject : InstanceData {
 
 				shader.setVertexAttribute(location + unitOffset, attribute.numComponents, attribute.type, attribute.normalized,
 					attributes.vertexSize, attribute.offset);
-				Gdx.gl30.glVertexAttribDivisor(location + unitOffset, 1);
+				Gdx.GL30.glVertexAttribDivisor(location + unitOffset, 1);
 			}
 
 		} else {
@@ -181,7 +181,7 @@ public class InstanceBufferObject : InstanceData {
 
 				shader.setVertexAttribute(location + unitOffset, attribute.numComponents, attribute.type, attribute.normalized,
 					attributes.vertexSize, attribute.offset);
-				Gdx.gl30.glVertexAttribDivisor(location + unitOffset, 1);
+				Gdx.GL30.glVertexAttribDivisor(location + unitOffset, 1);
 			}
 		}
 		isBound = true;
@@ -195,7 +195,7 @@ public class InstanceBufferObject : InstanceData {
 	}
 
 	public void unbind ( ShaderProgram shader,  int[] locations) {
-		 GL20 gl = Gdx.gl20;
+		 IGL20 gl = Gdx.GL20;
 		 int numAttributes = attributes.size();
 		if (locations == null) {
 			for (int i = 0; i < numAttributes; i++) {
@@ -214,20 +214,20 @@ public class InstanceBufferObject : InstanceData {
 				shader.disableVertexAttribute(location + unitOffset);
 			}
 		}
-		gl.glBindBuffer(GL20.GL_ARRAY_BUFFER, 0);
+		gl.glBindBuffer(IGL20.GL_ARRAY_BUFFER, 0);
 		isBound = false;
 	}
 
 	/** Invalidates the InstanceBufferObject so a new OpenGL buffer handle is created. Use this in case of a context loss. */
 	public void invalidate () {
-		bufferHandle = Gdx.gl20.glGenBuffer();
+		bufferHandle = Gdx.GL20.glGenBuffer();
 		isDirty = true;
 	}
 
 	/** Disposes of all resources this InstanceBufferObject uses. */
 	public void Dispose () {
-		GL20 gl = Gdx.gl20;
-		gl.glBindBuffer(GL20.GL_ARRAY_BUFFER, 0);
+		IGL20 gl = Gdx.GL20;
+		gl.glBindBuffer(IGL20.GL_ARRAY_BUFFER, 0);
 		gl.glDeleteBuffer(bufferHandle);
 		bufferHandle = 0;
 		if (ownsBuffer) BufferUtils.disposeUnsafeByteBuffer(byteBuffer);

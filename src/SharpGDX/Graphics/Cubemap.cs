@@ -23,20 +23,20 @@ public class Cubemap : GLTexture {
 	// TODO: Should this be converted to an enum with extension methods? -RP
 	public class CubemapSide {
 		/** The positive X and first side of the cubemap */
-		public static CubemapSide PositiveX = new(0, GL20.GL_TEXTURE_CUBE_MAP_POSITIVE_X, 0, -1, 0, 1, 0, 0);
+		public static CubemapSide PositiveX = new(0, IGL20.GL_TEXTURE_CUBE_MAP_POSITIVE_X, 0, -1, 0, 1, 0, 0);
 
-		public static CubemapSide NegativeX = new(1, GL20.GL_TEXTURE_CUBE_MAP_NEGATIVE_X, 0, -1, 0, -1, 0, 0);
+		public static CubemapSide NegativeX = new(1, IGL20.GL_TEXTURE_CUBE_MAP_NEGATIVE_X, 0, -1, 0, -1, 0, 0);
 
 		/** The positive Y and third side of the cubemap */
-		public static CubemapSide PositiveY = new(2, GL20.GL_TEXTURE_CUBE_MAP_POSITIVE_Y, 0, 0, 1, 0, 1, 0);
+		public static CubemapSide PositiveY = new(2, IGL20.GL_TEXTURE_CUBE_MAP_POSITIVE_Y, 0, 0, 1, 0, 1, 0);
 
 		/** The negative Y and fourth side of the cubemap */
-		public static CubemapSide NegativeY = new(3, GL20.GL_TEXTURE_CUBE_MAP_NEGATIVE_Y, 0, 0, -1, 0, -1, 0);
+		public static CubemapSide NegativeY = new(3, IGL20.GL_TEXTURE_CUBE_MAP_NEGATIVE_Y, 0, 0, -1, 0, -1, 0);
 
 		/** The positive Z and fifth side of the cubemap */
-		public static CubemapSide PositiveZ = new(4, GL20.GL_TEXTURE_CUBE_MAP_POSITIVE_Z, 0, -1, 0, 0, 0, 1);
+		public static CubemapSide PositiveZ = new(4, IGL20.GL_TEXTURE_CUBE_MAP_POSITIVE_Z, 0, -1, 0, 0, 0, 1);
 		/** The negative Z and sixth side of the cubemap */
-		public static CubemapSide NegativeZ = new(5, GL20.GL_TEXTURE_CUBE_MAP_NEGATIVE_Z, 0, -1, 0, 0, 0, -1);
+		public static CubemapSide NegativeZ = new(5, IGL20.GL_TEXTURE_CUBE_MAP_NEGATIVE_Z, 0, -1, 0, 0, 0, -1);
 
 		static CubemapSide()
 		{
@@ -94,12 +94,12 @@ public class Cubemap : GLTexture {
 
 	/** Construct a Cubemap based on the given CubemapData. */
 	public Cubemap (ICubemapData data) 
-		: base(GL20.GL_TEXTURE_CUBE_MAP)
+		: base(IGL20.GL_TEXTURE_CUBE_MAP)
 	{
 		
 		this.data = data;
 		load(data);
-		if (data.isManaged()) addManagedCubemap(Gdx.app, this);
+		if (data.isManaged()) addManagedCubemap(Gdx.App, this);
 	}
 
 	/** Construct a Cubemap with the specified texture files for the sides, does not generate mipmaps. */
@@ -168,7 +168,7 @@ public class Cubemap : GLTexture {
 		unsafeSetWrap(uWrap, vWrap, true);
 		unsafeSetAnisotropicFilter(anisotropicFilterLevel, true);
 		data.consumeCubemapData();
-		Gdx.gl.glBindTexture(glTarget, 0);
+		Gdx.GL.glBindTexture(glTarget, 0);
 	}
 
 	public ICubemapData getCubemapData () {
@@ -181,7 +181,7 @@ public class Cubemap : GLTexture {
 
 	protected override void reload () {
 		if (!isManaged()) throw new GdxRuntimeException("Tried to reload an unmanaged Cubemap");
-		glHandle = Gdx.gl.glGenTexture();
+		glHandle = Gdx.GL.glGenTexture();
 		load(data);
 	}
 
@@ -205,7 +205,7 @@ public class Cubemap : GLTexture {
 		// removal from the asset manager.
 		if (glHandle == 0) return;
 		delete();
-		if (data.isManaged()) if (managedCubemaps.get(Gdx.app) != null) managedCubemaps.get(Gdx.app).removeValue(this, true);
+		if (data.isManaged()) if (managedCubemaps.get(Gdx.App) != null) managedCubemaps.get(Gdx.App).removeValue(this, true);
 	}
 
 	private static void addManagedCubemap (IApplication app, Cubemap cubemap) {
@@ -270,7 +270,7 @@ public class Cubemap : GLTexture {
 
 					// unload the c, create a new gl handle then reload it.
 					assetManager.unload(fileName);
-					cubemap.glHandle = Gdx.gl.glGenTexture();
+					cubemap.glHandle = Gdx.GL.glGenTexture();
 					assetManager.load(fileName, typeof(Cubemap), @params);
 				}
 			}
@@ -300,7 +300,7 @@ public class Cubemap : GLTexture {
 
 	/** @return the number of managed cubemaps currently loaded */
 	public static int getNumManagedCubemaps () {
-		return managedCubemaps.get(Gdx.app).size;
+		return managedCubemaps.get(Gdx.App).size;
 	}
 
 }

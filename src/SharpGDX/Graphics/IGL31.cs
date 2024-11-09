@@ -3,7 +3,7 @@ using Buffer  = SharpGDX.Shims.Buffer;
 
 namespace SharpGDX.Graphics
 {
-	public interface GL31 : GL30
+	public interface IGL31 : IGL30
 	{
 
 	public static readonly int GL_VERTEX_SHADER_BIT = 0x00000001;

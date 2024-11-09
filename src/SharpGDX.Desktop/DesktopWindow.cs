@@ -11,6 +11,7 @@ using OpenTK.Windowing.GraphicsLibraryFramework;
 using static OpenTK.Windowing.GraphicsLibraryFramework.GLFWCallbacks;
 using SharpGDX;
 using SharpGDX.Desktop;
+using SharpGDX.Files;
 using SharpGDX.Shims;
 using SharpGDX.Utils;
 
@@ -302,12 +303,12 @@ namespace SharpGDX.Desktop
 		setIcon(windowHandle, image);
 	}
 
-	private static unsafe void setIcon (Window* windowHandle, String[] imagePaths, IFiles.FileType imageFileType) {
+	private static unsafe void setIcon (Window* windowHandle, String[] imagePaths, FileType imageFileType) {
 		if (SharedLibraryLoader.isMac) return;
 
 		Pixmap[] pixmaps = new Pixmap[imagePaths.Length];
 		for (int i = 0; i < imagePaths.Length; i++) {
-			pixmaps[i] = new Pixmap(Gdx.files.getFileHandle(imagePaths[i], imageFileType));
+			pixmaps[i] = new Pixmap(Gdx.Files.GetFileHandle(imagePaths[i], imageFileType));
 		}
 
 		setIcon(windowHandle, pixmaps);
@@ -466,13 +467,13 @@ namespace SharpGDX.Desktop
 	}
 
 	internal unsafe void makeCurrent () {
-		Gdx.graphics = graphics;
-		Gdx.gl32 = graphics.getGL32();
-		Gdx.gl31 = Gdx.gl32 != null ? Gdx.gl32 : graphics.getGL31();
-		Gdx.gl30 = Gdx.gl31 != null ? Gdx.gl31 : graphics.getGL30();
-		Gdx.gl20 = Gdx.gl30 != null ? Gdx.gl30 : graphics.getGL20();
-		Gdx.gl = Gdx.gl20;
-		Gdx.input = input;
+		Gdx.Graphics = graphics;
+		Gdx.GL32 = graphics.getGL32();
+		Gdx.GL31 = Gdx.GL32 != null ? Gdx.GL32 : graphics.getGL31();
+		Gdx.GL30 = Gdx.GL31 != null ? Gdx.GL31 : graphics.getGL30();
+		Gdx.GL20 = Gdx.GL30 != null ? Gdx.GL30 : graphics.getGL20();
+		Gdx.GL = Gdx.GL20;
+		Gdx.Input = input;
 
 		GLFW.MakeContextCurrent(windowHandle);
 	}

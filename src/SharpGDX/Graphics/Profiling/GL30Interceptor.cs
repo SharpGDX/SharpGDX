@@ -11,11 +11,11 @@ namespace SharpGDX.Graphics.Profiling;
 
 /** @author Daniel Holderbaum
  * @author Jan Polák */
-public class GL30Interceptor : GLInterceptor , GL30 {
+public class GL30Interceptor : GLInterceptor , IGL30 {
 
-	internal protected readonly GL30 gl30;
+	internal protected readonly IGL30 gl30;
 
-	internal protected GL30Interceptor (GLProfiler glProfiler, GL30 gl30) 
+	internal protected GL30Interceptor (GLProfiler glProfiler, IGL30 gl30) 
 	: base(glProfiler)
 	{
 		
@@ -32,7 +32,7 @@ public class GL30Interceptor : GLInterceptor , GL30 {
 
 	private void check () {
 		int error = gl30.glGetError();
-		while (error != GL20.GL_NO_ERROR) {
+		while (error != IGL20.GL_NO_ERROR) {
 			glProfiler.getListener().onError(error);
 			error = gl30.glGetError();
 		}

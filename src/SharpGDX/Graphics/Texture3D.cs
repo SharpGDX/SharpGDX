@@ -26,17 +26,17 @@ public class Texture3D : GLTexture {
 	}
 
 	public Texture3D (ITexture3DData data) 
-	: base(GL30.GL_TEXTURE_3D, Gdx.gl.glGenTexture())
+	: base(IGL30.GL_TEXTURE_3D, Gdx.GL.glGenTexture())
 	{
 		
 
-		if (Gdx.gl30 == null) {
+		if (Gdx.GL30 == null) {
 			throw new GdxRuntimeException("Texture3D requires a device running with GLES 3.0 compatibilty");
 		}
 
 		load(data);
 
-		if (data.isManaged()) addManagedTexture(Gdx.app, this);
+		if (data.isManaged()) addManagedTexture(Gdx.App, this);
 	}
 
 	private void load (ITexture3DData data) {
@@ -53,7 +53,7 @@ public class Texture3D : GLTexture {
 		setFilter(minFilter, magFilter);
 		setWrap(uWrap, vWrap, rWrap);
 
-		Gdx.gl.glBindTexture(glTarget, 0);
+		Gdx.GL.glBindTexture(glTarget, 0);
 	}
 
 	public ITexture3DData getData () {
@@ -83,7 +83,7 @@ public class Texture3D : GLTexture {
 
 	protected override void reload () {
 		if (!isManaged()) throw new GdxRuntimeException("Tried to reload an unmanaged TextureArray");
-		glHandle = Gdx.gl.glGenTexture();
+		glHandle = Gdx.GL.glGenTexture();
 		load(data);
 	}
 
@@ -123,19 +123,19 @@ public class Texture3D : GLTexture {
 
 	/** @return the number of managed Texture3D currently loaded */
 	public static int getNumManagedTextures3D () {
-		return managedTexture3Ds.get(Gdx.app).size;
+		return managedTexture3Ds.get(Gdx.App).size;
 	}
 
 	public void setWrap (TextureWrap u, TextureWrap v, TextureWrap r) {
 		this.rWrap = r;
 		base.setWrap(u, v);
-		Gdx.gl.glTexParameteri(glTarget, GL30.GL_TEXTURE_WRAP_R, TextureWrapUtils.getGLEnum(r));
+		Gdx.GL.glTexParameteri(glTarget, IGL30.GL_TEXTURE_WRAP_R, TextureWrapUtils.getGLEnum(r));
 	}
 
 	public void unsafeSetWrap (TextureWrap u, TextureWrap v, TextureWrap r, bool force) {
 		unsafeSetWrap(u, v, force);
 		if (r != null && (force || rWrap != r)) {
-			Gdx.gl.glTexParameteri(glTarget, GL30.GL_TEXTURE_WRAP_R, TextureWrapUtils.getGLEnum(u));
+			Gdx.GL.glTexParameteri(glTarget, IGL30.GL_TEXTURE_WRAP_R, TextureWrapUtils.getGLEnum(u));
 			rWrap = r;
 		}
 	}

@@ -7,6 +7,6 @@ namespace SharpGDX.Assets.Loaders.Resolvers;
 
 public class AbsoluteFileHandleResolver : IFileHandleResolver {
 	public FileHandle Resolve (String fileName) {
-		return Gdx.files.absolute(fileName);
+		return Gdx.Files.Absolute(fileName);
 	}
 }

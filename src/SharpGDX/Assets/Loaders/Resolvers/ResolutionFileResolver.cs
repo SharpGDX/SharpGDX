@@ -32,7 +32,7 @@ public class ResolutionFileResolver : IFileHandleResolver
 
 	public static Resolution Choose(Resolution[] descriptors)
 	{
-		int w = Gdx.graphics.getBackBufferWidth(), h = Gdx.graphics.getBackBufferHeight();
+		int w = Gdx.Graphics.getBackBufferWidth(), h = Gdx.Graphics.getBackBufferHeight();
 		var best = descriptors[0];
 
 		if (w < h)

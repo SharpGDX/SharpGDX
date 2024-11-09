@@ -96,7 +96,7 @@ public class TextField : Widget , IDisableable {
 				return;
 			}
 			_textField.cursorOn = !_textField.cursorOn;
-			Gdx.graphics.requestRendering();
+			Gdx.Graphics.requestRendering();
 		}
 }
 
@@ -120,7 +120,7 @@ public class TextField : Widget , IDisableable {
 		keyRepeatTask = new KeyRepeatTask(this);
 		blinkTask = new BlinkTask(this);
 		setStyle(style);
-		clipboard = Gdx.app.getClipboard();
+		clipboard = Gdx.App.getClipboard();
 		initialize();
 		setText(text);
 		setSize(getPrefWidth(), getPrefHeight());
@@ -519,7 +519,7 @@ public class TextField : Widget , IDisableable {
 				textField = current.findNextTextField(stage.getActors(), null, bestCoords, currentCoords, up);
 			}
 			if (textField == null) {
-				Gdx.input.setOnscreenKeyboardVisible(false);
+				Gdx.Input.setOnscreenKeyboardVisible(false);
 				break;
 			}
 			if (stage.setKeyboardFocus(textField)) {
@@ -827,7 +827,7 @@ public class TextField : Widget , IDisableable {
 	 * @author mzechner */
 	public class DefaultOnscreenKeyboard : IOnscreenKeyboard {
 		public void show (bool visible) {
-			Gdx.input.setOnscreenKeyboardVisible(visible);
+			Gdx.Input.setOnscreenKeyboardVisible(visible);
 		}
 	}
 
@@ -1055,7 +1055,7 @@ public class TextField : Widget , IDisableable {
 
 			if (!_textField.hasKeyboardFocus()) return false;
 
-			if (UIUtils.isMac && Gdx.input.isKeyPressed(Keys.SYM)) return true;
+			if (UIUtils.isMac && Gdx.Input.isKeyPressed(Keys.SYM)) return true;
 
 			if (checkFocusTraversal(character))
 				_textField.next(UIUtils.shift());

@@ -9,11 +9,11 @@ using SharpGDX.Mathematics;
 
 namespace SharpGDX.Graphics.Profiling;
 
-public class GL32Interceptor : GL31Interceptor , GL32 {
+public class GL32Interceptor : GL31Interceptor , IGL32 {
 
-	internal readonly GL32 gl32;
+	internal readonly IGL32 gl32;
 
-	public GL32Interceptor (GLProfiler glProfiler, GL32 gl32) 
+	public GL32Interceptor (GLProfiler glProfiler, IGL32 gl32) 
 	: base(glProfiler, gl32)
 	{
 		
@@ -46,7 +46,7 @@ public class GL32Interceptor : GL31Interceptor , GL32 {
 		check();
 	}
 
-	public void glDebugMessageCallback (GL32.DebugProc callsback) {
+	public void glDebugMessageCallback (IGL32.DebugProc callsback) {
 		calls++;
 		gl32.glDebugMessageCallback(callsback);
 		check();

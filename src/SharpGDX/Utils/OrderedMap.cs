@@ -27,7 +27,7 @@ namespace SharpGDX.Utils
  * @author Nathan Sweet
  * @author Tommy Ettinger */
 public class OrderedMap<K, V> : ObjectMap<K, V> {
-	readonly Array<K> _keys;
+	internal readonly Array<K> _keys;
 
 	/** Creates a new map with an initial capacity of 51 and a load factor of 0.8. */
 	public OrderedMap () {
@@ -62,20 +62,20 @@ public class OrderedMap<K, V> : ObjectMap<K, V> {
 
 		public override V? put (K key, V value)
 	{
-		throw new NotImplementedException();
-		//int i = locateKey(key);
-		//if (i >= 0) { // Existing key was found.
-		//	V oldValue = valueTable[i];
-		//	valueTable[i] = value;
-		//	return oldValue;
-		//}
-		//i = -(i + 1); // Empty space was found.
-		//keyTable[i] = key;
-		//valueTable[i] = value;
-		//_keys.add(key);
-		//if (++size >= threshold) resize(keyTable.Length << 1);
-		//return default;
-	}
+			int i = locateKey(key);
+			if (i >= 0)
+			{ // Existing key was found.
+				V oldValue = valueTable[i];
+				valueTable[i] = value;
+				return oldValue;
+			}
+			i = -(i + 1); // Empty space was found.
+			keyTable[i] = key;
+			valueTable[i] = value;
+			_keys.add(key);
+			if (++size >= threshold) resize(keyTable.Length << 1);
+			return default;
+		}
 
 	public void putAll<T> (OrderedMap<T,  V> map) 
 	where T: K{

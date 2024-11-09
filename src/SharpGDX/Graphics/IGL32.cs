@@ -3,7 +3,7 @@ using Buffer = SharpGDX.Shims.Buffer;
 
 namespace SharpGDX.Graphics
 {
-	public interface GL32 : GL31
+	public interface IGL32 : IGL31
 	{
 		public static readonly int GL_TEXTURE_CUBE_MAP_SEAMLESS = 0x884F;
 		public static readonly int GL_CONTEXT_FLAG_DEBUG_BIT = 0x00000002;

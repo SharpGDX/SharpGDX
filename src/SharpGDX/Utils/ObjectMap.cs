@@ -28,11 +28,11 @@ namespace SharpGDX.Utils
 
 		public int size;
 
-		K[] keyTable;
-		V[] valueTable;
+		internal K[] keyTable;
+		internal V[] valueTable;
 
 		float loadFactor;
-		int threshold;
+		internal int threshold;
 
 		/** Used by {@link #place(Object)} to bit shift the upper bits of a {@code long} into a usable range (&gt;= 0 and &lt;=
 		 * {@link #mask}). The shift can be negative, which is convenient to match the number of bits in mask: if mask is a 7-bit
@@ -114,7 +114,7 @@ namespace SharpGDX.Utils
 
 		/** Returns the index of the key if already present, else -(index + 1) for the next empty index. This can be overridden in this
 		 * pacakge to compare for equality differently than {@link Object#equals(Object)}. */
-		int locateKey(K key)
+		internal int locateKey(K key)
 		{
 			if (key == null) throw new IllegalArgumentException("key cannot be null.");
 			K[] keyTable = this.keyTable;
@@ -334,7 +334,7 @@ namespace SharpGDX.Utils
 			if (keyTable.Length < tableSize) resize(tableSize);
 		}
 
-		void resize(int newSize)
+		internal void resize(int newSize)
 		{
 			int oldCapacity = keyTable.Length;
 			threshold = (int)(newSize * loadFactor);

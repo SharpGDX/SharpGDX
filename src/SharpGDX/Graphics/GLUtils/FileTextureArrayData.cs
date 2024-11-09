@@ -55,7 +55,7 @@ public class FileTextureArrayData : ITextureArrayData {
 		bool containsCustomData = false;
 		for (int i = 0; i < textureDatas.Length; i++) {
 			if (textureDatas[i].getType() == ITextureData.TextureDataType.Custom) {
-				textureDatas[i].consumeCustomData(GL30.GL_TEXTURE_2D_ARRAY);
+				textureDatas[i].consumeCustomData(IGL30.GL_TEXTURE_2D_ARRAY);
 				containsCustomData = true;
 			} else {
 				ITextureData texData = textureDatas[i];
@@ -71,13 +71,13 @@ public class FileTextureArrayData : ITextureArrayData {
 					pixmap = temp;
 					disposePixmap = true;
 				}
-				Gdx.gl30.glTexSubImage3D(GL30.GL_TEXTURE_2D_ARRAY, 0, 0, 0, i, pixmap.getWidth(), pixmap.getHeight(), 1,
+				Gdx.GL30.glTexSubImage3D(IGL30.GL_TEXTURE_2D_ARRAY, 0, 0, 0, i, pixmap.getWidth(), pixmap.getHeight(), 1,
 					pixmap.getGLInternalFormat(), pixmap.getGLType(), pixmap.getPixels());
 				if (disposePixmap) pixmap.Dispose();
 			}
 		}
 		if (useMipMaps && !containsCustomData) {
-			Gdx.gl20.glGenerateMipmap(GL30.GL_TEXTURE_2D_ARRAY);
+			Gdx.GL20.glGenerateMipmap(IGL30.GL_TEXTURE_2D_ARRAY);
 		}
 	}
 

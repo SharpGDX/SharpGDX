@@ -1,3 +1,4 @@
+using System.Reflection;
 using SharpGDX.Graphics;
 using SharpGDX.Graphics.G2D;
 using SharpGDX.Scenes.Scene2D;
@@ -57,7 +58,9 @@ public class CommandLineOptions
 	public bool isTestCompatible(String testName)
 	{
 		Type clazz = GdxTests.forName(testName);
-		GdxTestConfig? config = clazz.GetCustomAttributes(typeof(GdxTestConfig), true)?[0] as GdxTestConfig;
+        var t = clazz.GetCustomAttributes(typeof(GdxTestConfig), true);
+        var g = t.Length;
+        GdxTestConfig? config = clazz.GetCustomAttribute(typeof(GdxTestConfig)) as GdxTestConfig;
 		if (config != null) {
 			if (config.RequireGL32 && !gl32) return false;
 			if (config.RequireGL31 && !(gl31 || gl32)) return false;

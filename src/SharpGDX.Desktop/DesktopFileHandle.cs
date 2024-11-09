@@ -6,12 +6,12 @@ namespace SharpGDX.Desktop
 {
 	public sealed class DesktopFileHandle : FileHandle
 	{
-	public DesktopFileHandle(String fileName, IFiles.FileType type)
+	public DesktopFileHandle(String fileName, FileType type)
 	: base(fileName, type)
 		{
 	}
 
-	public DesktopFileHandle(File file, IFiles.FileType type)
+	public DesktopFileHandle(File file, FileType type)
 	:base(file, type)
 		{
 		
@@ -34,7 +34,7 @@ namespace SharpGDX.Desktop
 		File parent = _file.getParentFile();
 		if (parent == null)
 		{
-			if (_type == IFiles.FileType.Absolute)
+			if (_type == FileType.Absolute)
 				parent = new File("/");
 			else
 				parent = new File("");
@@ -44,8 +44,8 @@ namespace SharpGDX.Desktop
 
 		public override File file()
 	{
-		if (_type == IFiles.FileType.External) return new File(DesktopFiles.externalPath, _file.getPath());
-		if (_type == IFiles.FileType.Local) return new File(DesktopFiles.localPath, _file.getPath());
+		if (_type == FileType.External) return new File(DesktopFiles.externalPath, _file.getPath());
+		if (_type == FileType.Local) return new File(DesktopFiles.localPath, _file.getPath());
 		return _file;
 	}
 	}

@@ -45,7 +45,7 @@ public sealed class VertexAttribute {
 	 * @param alias the alias used in a shader for this attribute. Can be changed after construction.
 	 * @param unit Optional unit/index specifier, used for texture coordinates and bone weights */
 	public VertexAttribute (int usage, int numComponents, String alias, int unit) 
-	: this(usage, numComponents, usage == Usage.ColorPacked ? GL20.GL_UNSIGNED_BYTE : GL20.GL_FLOAT, usage == Usage.ColorPacked, alias, unit)
+	: this(usage, numComponents, usage == Usage.ColorPacked ? IGL20.GL_UNSIGNED_BYTE : IGL20.GL_FLOAT, usage == Usage.ColorPacked, alias, unit)
 	{
 		
 	}
@@ -105,11 +105,11 @@ public sealed class VertexAttribute {
 	}
 
 	public static VertexAttribute ColorPacked () {
-		return new VertexAttribute(Usage.ColorPacked, 4, GL20.GL_UNSIGNED_BYTE, true, ShaderProgram.COLOR_ATTRIBUTE);
+		return new VertexAttribute(Usage.ColorPacked, 4, IGL20.GL_UNSIGNED_BYTE, true, ShaderProgram.COLOR_ATTRIBUTE);
 	}
 
 	public static VertexAttribute ColorUnpacked () {
-		return new VertexAttribute(Usage.ColorUnpacked, 4, GL20.GL_FLOAT, false, ShaderProgram.COLOR_ATTRIBUTE);
+		return new VertexAttribute(Usage.ColorUnpacked, 4, IGL20.GL_FLOAT, false, ShaderProgram.COLOR_ATTRIBUTE);
 	}
 
 	public static VertexAttribute Tangent () {
@@ -145,14 +145,14 @@ public sealed class VertexAttribute {
 	/** @return How many bytes this attribute uses. */
 	public int getSizeInBytes () {
 		switch (type) {
-		case GL20.GL_FLOAT:
-		case GL20.GL_FIXED:
+		case IGL20.GL_FLOAT:
+		case IGL20.GL_FIXED:
 			return 4 * numComponents;
-		case GL20.GL_UNSIGNED_BYTE:
-		case GL20.GL_BYTE:
+		case IGL20.GL_UNSIGNED_BYTE:
+		case IGL20.GL_BYTE:
 			return numComponents;
-		case GL20.GL_UNSIGNED_SHORT:
-		case GL20.GL_SHORT:
+		case IGL20.GL_UNSIGNED_SHORT:
+		case IGL20.GL_SHORT:
 			return 2 * numComponents;
 		}
 		return 0;

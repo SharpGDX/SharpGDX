@@ -1,6 +1,7 @@
 ﻿using SharpGDX.Shims;
 using SharpGDX.Graphics.GLUtils;
 using OpenTK.Windowing.GraphicsLibraryFramework;
+using SharpGDX.Files;
 using SharpGDX.Mathematics;
 using static SharpGDX.IFiles;
 using static SharpGDX.IGraphics;
@@ -46,7 +47,7 @@ namespace SharpGDX.Desktop
         internal bool pauseWhenLostFocus = false;
 
         internal String preferencesDirectory = ".prefs/";
-		internal IFiles.FileType preferencesFileType = FileType.External;
+		internal FileType preferencesFileType = FileType.External;
 
 		internal HdpiMode hdpiMode = HdpiMode.Logical;
 
@@ -194,7 +195,7 @@ namespace SharpGDX.Desktop
 
         /** Sets the directory where {@link Preferences} will be stored, as well as the file type to be used to store them. Defaults to
 		 * "$USER_HOME/.prefs/" and {@link FileType#External}. */
-        public void setPreferencesConfig(String preferencesDirectory, IFiles.FileType preferencesFileType)
+        public void setPreferencesConfig(String preferencesDirectory, FileType preferencesFileType)
 		{
 			this.preferencesDirectory = preferencesDirectory;
 			this.preferencesFileType = preferencesFileType;

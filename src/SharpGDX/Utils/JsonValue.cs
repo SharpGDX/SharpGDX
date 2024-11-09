@@ -30,7 +30,7 @@ namespace SharpGDX.Utils
 		private ValueType _type;
 
 		/** May be null. */
-		private String? stringValue;
+		internal  String? stringValue;
 
 		private double doubleValue;
 		private long longValue;

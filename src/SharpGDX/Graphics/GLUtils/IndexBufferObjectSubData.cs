@@ -43,7 +43,7 @@ public class IndexBufferObjectSubData : IndexData {
 		byteBuffer = BufferUtils.newByteBuffer(maxIndices * 2);
 		isDirect = true;
 
-		usage = isStatic ? GL20.GL_STATIC_DRAW : GL20.GL_DYNAMIC_DRAW;
+		usage = isStatic ? IGL20.GL_STATIC_DRAW : IGL20.GL_DYNAMIC_DRAW;
 		buffer = byteBuffer.asShortBuffer();
 		((Buffer)buffer).flip();
 		((Buffer)byteBuffer).flip();
@@ -57,7 +57,7 @@ public class IndexBufferObjectSubData : IndexData {
 		byteBuffer = BufferUtils.newByteBuffer(maxIndices * 2);
 		this.isDirect = true;
 
-		usage = GL20.GL_STATIC_DRAW;
+		usage = IGL20.GL_STATIC_DRAW;
 		buffer = byteBuffer.asShortBuffer();
 		((Buffer)buffer).flip();
 		((Buffer)byteBuffer).flip();
@@ -65,10 +65,10 @@ public class IndexBufferObjectSubData : IndexData {
 	}
 
 	private int createBufferObject () {
-		int result = Gdx.gl20.glGenBuffer();
-		Gdx.gl20.glBindBuffer(GL20.GL_ELEMENT_ARRAY_BUFFER, result);
-		Gdx.gl20.glBufferData(GL20.GL_ELEMENT_ARRAY_BUFFER, byteBuffer.capacity(), null, usage);
-		Gdx.gl20.glBindBuffer(GL20.GL_ELEMENT_ARRAY_BUFFER, 0);
+		int result = Gdx.GL20.glGenBuffer();
+		Gdx.GL20.glBindBuffer(IGL20.GL_ELEMENT_ARRAY_BUFFER, result);
+		Gdx.GL20.glBufferData(IGL20.GL_ELEMENT_ARRAY_BUFFER, byteBuffer.capacity(), null, usage);
+		Gdx.GL20.glBindBuffer(IGL20.GL_ELEMENT_ARRAY_BUFFER, 0);
 		return result;
 	}
 
@@ -104,7 +104,7 @@ public class IndexBufferObjectSubData : IndexData {
 		((Buffer)byteBuffer).limit(count << 1);
 
 		if (isBound) {
-			Gdx.gl20.glBufferSubData(GL20.GL_ELEMENT_ARRAY_BUFFER, 0, byteBuffer.limit(), byteBuffer);
+			Gdx.GL20.glBufferSubData(IGL20.GL_ELEMENT_ARRAY_BUFFER, 0, byteBuffer.limit(), byteBuffer);
 			isDirty = false;
 		}
 	}
@@ -120,7 +120,7 @@ public class IndexBufferObjectSubData : IndexData {
 		((Buffer)byteBuffer).limit(buffer.limit() << 1);
 
 		if (isBound) {
-			Gdx.gl20.glBufferSubData(GL20.GL_ELEMENT_ARRAY_BUFFER, 0, byteBuffer.limit(), byteBuffer);
+			Gdx.GL20.glBufferSubData(IGL20.GL_ELEMENT_ARRAY_BUFFER, 0, byteBuffer.limit(), byteBuffer);
 			isDirty = false;
 		}
 	}
@@ -134,7 +134,7 @@ public class IndexBufferObjectSubData : IndexData {
 		((Buffer)buffer).position(0);
 
 		if (isBound) {
-			Gdx.gl20.glBufferSubData(GL20.GL_ELEMENT_ARRAY_BUFFER, 0, byteBuffer.limit(), byteBuffer);
+			Gdx.GL20.glBufferSubData(IGL20.GL_ELEMENT_ARRAY_BUFFER, 0, byteBuffer.limit(), byteBuffer);
 			isDirty = false;
 		}
 	}
@@ -148,10 +148,10 @@ public class IndexBufferObjectSubData : IndexData {
 	public void bind () {
 		if (bufferHandle == 0) throw new GdxRuntimeException("IndexBufferObject cannot be used after it has been disposed.");
 
-		Gdx.gl20.glBindBuffer(GL20.GL_ELEMENT_ARRAY_BUFFER, bufferHandle);
+		Gdx.GL20.glBindBuffer(IGL20.GL_ELEMENT_ARRAY_BUFFER, bufferHandle);
 		if (isDirty) {
 			((Buffer)byteBuffer).limit(buffer.limit() * 2);
-			Gdx.gl20.glBufferSubData(GL20.GL_ELEMENT_ARRAY_BUFFER, 0, byteBuffer.limit(), byteBuffer);
+			Gdx.GL20.glBufferSubData(IGL20.GL_ELEMENT_ARRAY_BUFFER, 0, byteBuffer.limit(), byteBuffer);
 			isDirty = false;
 		}
 		isBound = true;
@@ -159,7 +159,7 @@ public class IndexBufferObjectSubData : IndexData {
 
 	/** Unbinds this IndexBufferObject. */
 	public void unbind () {
-		Gdx.gl20.glBindBuffer(GL20.GL_ELEMENT_ARRAY_BUFFER, 0);
+		Gdx.GL20.glBindBuffer(IGL20.GL_ELEMENT_ARRAY_BUFFER, 0);
 		isBound = false;
 	}
 
@@ -171,8 +171,8 @@ public class IndexBufferObjectSubData : IndexData {
 
 	/** Disposes this IndexBufferObject and all its associated OpenGL resources. */
 	public void Dispose () {
-		GL20 gl = Gdx.gl20;
-		gl.glBindBuffer(GL20.GL_ELEMENT_ARRAY_BUFFER, 0);
+		IGL20 gl = Gdx.GL20;
+		gl.glBindBuffer(IGL20.GL_ELEMENT_ARRAY_BUFFER, 0);
 		gl.glDeleteBuffer(bufferHandle);
 		bufferHandle = 0;
 	}

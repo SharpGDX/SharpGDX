@@ -286,7 +286,7 @@ namespace SharpGDX.Scenes.Scene2D.UI
 
 			Stage stage = getStage();
 			if (stage != null && stage.getActionsRequestRendering() && isPressed() != clickListener.isPressed())
-				Gdx.graphics.requestRendering();
+				Gdx.Graphics.requestRendering();
 		}
 
 		public override float getPrefWidth()

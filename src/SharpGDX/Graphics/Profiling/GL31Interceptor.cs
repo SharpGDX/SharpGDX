@@ -9,11 +9,11 @@ using SharpGDX.Mathematics;
 
 namespace SharpGDX.Graphics.Profiling;
 
-public class GL31Interceptor : GL30Interceptor , GL31 {
+public class GL31Interceptor : GL30Interceptor , IGL31 {
 
-	internal readonly GL31 gl31;
+	internal readonly IGL31 gl31;
 
-	public GL31Interceptor (GLProfiler glProfiler, GL31 gl31) 
+	public GL31Interceptor (GLProfiler glProfiler, IGL31 gl31) 
 	: base(glProfiler, gl31)
 	{
 		
@@ -22,7 +22,7 @@ public class GL31Interceptor : GL30Interceptor , GL31 {
 
 	protected void check () {
 		int error = gl30.glGetError();
-		while (error != GL20.GL_NO_ERROR) {
+		while (error != IGL20.GL_NO_ERROR) {
 			glProfiler.getListener().onError(error);
 			error = gl30.glGetError();
 		}

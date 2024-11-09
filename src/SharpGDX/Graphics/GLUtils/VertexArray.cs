@@ -110,7 +110,7 @@ public class VertexArray : IVertexData {
 				if (location < 0) continue;
 				shader.enableVertexAttribute(location);
 
-				if (attribute.type == GL20.GL_FLOAT)
+				if (attribute.type == IGL20.GL_FLOAT)
 				{
 						buffer.position(attribute.offset / 4);
 						//shader.setVertexAttribute(location, attribute.numComponents, attribute.type, attribute.normalized,
@@ -169,7 +169,7 @@ public class VertexArray : IVertexData {
 				if (location < 0) continue;
 				shader.enableVertexAttribute(location);
 
-				if (attribute.type == GL20.GL_FLOAT)
+				if (attribute.type == IGL20.GL_FLOAT)
 				{
 					((Buffer)buffer).position(attribute.offset / 4);
 					shader.setVertexAttribute(location, attribute.numComponents, attribute.type, attribute.normalized,

@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using SharpGDX.Graphics;
 using SharpGDX.Utils;
 using SharpGDX.Shims;
@@ -258,33 +259,49 @@ typeof(NoncontinuousRenderingTest)//,
 
 	static readonly ObjectMap<String, String> obfuscatedToOriginal = new ();
 	static readonly ObjectMap<String, String> originalToObfuscated = new ();
-	static GdxTests() {
-		InputStream mappingInput = new InputStream(System.IO.File.OpenRead("/mapping.txt"));
-		if (mappingInput != null) {
-			BufferedReader reader = null;
-			try {
-				reader = new BufferedReader(new InputStreamReader(mappingInput), 512);
-				while (true) {
-					String line = reader.readLine();
-					if (line == null) break;
-					if (line.StartsWith("    ")) continue;
-					String[] split = line.Replace(":", "").Split(" -> ");
-	String original = split[0];
-					if (original.IndexOf('.') != -1) original = original.Substring(original.LastIndexOf('.') + 1);
-					originalToObfuscated.put(original, split[1]);
-					obfuscatedToOriginal.put(split[1], original);
-				}
-reader.close();
-			} catch (Exception ex) {
-				Console.WriteLine("GdxTests: Error reading mapping file: mapping.txt");
-// TODO: ??? ex.printStackTrace();
-			} finally {
-	StreamUtils.closeQuietly(reader);
-}
-		}
-	}
 
-	public static List<String> getNames()
+    static GdxTests()
+    {
+        Type g;
+
+
+        if (System.IO.File.Exists("/mapping.txt"))
+        {
+            InputStream mappingInput = new InputStream(System.IO.File.OpenRead("/mapping.txt"));
+            if (mappingInput != null)
+            {
+                BufferedReader reader = null;
+                try
+                {
+                    reader = new BufferedReader(new InputStreamReader(mappingInput), 512);
+                    while (true)
+                    {
+                        String line = reader.readLine();
+                        if (line == null) break;
+                        if (line.StartsWith("    ")) continue;
+                        String[] split = line.Replace(":", "").Split(" -> ");
+                        String original = split[0];
+                        if (original.IndexOf('.') != -1) original = original.Substring(original.LastIndexOf('.') + 1);
+                        originalToObfuscated.put(original, split[1]);
+                        obfuscatedToOriginal.put(split[1], original);
+                    }
+
+                    reader.close();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("GdxTests: Error reading mapping file: mapping.txt");
+// TODO: ??? ex.printStackTrace();
+                }
+                finally
+                {
+                    StreamUtils.closeQuietly(reader);
+                }
+            }
+        }
+    }
+
+    public static List<String> getNames()
 {
 	List<String> names = new List<String>(tests.Count);
 	foreach (Type clazz in tests)

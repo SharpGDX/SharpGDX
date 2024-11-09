@@ -211,7 +211,7 @@ private class SelectBoxSelection : ArraySelection<T>
 			prefWidth = maxItemWidth;
 			if (bg != null) prefWidth = Math.Max(prefWidth + bg.getLeftWidth() + bg.getRightWidth(), bg.getMinWidth());
 
-			List<T>.ListStyle listStyle = style.listStyle;
+			ListStyle listStyle = style.listStyle;
 			ScrollPane.ScrollPaneStyle scrollStyle = style.scrollStyle;
 			float scrollWidth = maxItemWidth + listStyle.selection.getLeftWidth() + listStyle.selection.getRightWidth();
 			bg = scrollStyle.background;
@@ -644,45 +644,49 @@ protected List<T> newList () {
 			return selectBox;
 		}
 	}
+}
 
-	/** The style for a select box, see {@link SelectBox}.
-	 * @author mzechner
-	 * @author Nathan Sweet */
-	 public class SelectBoxStyle {
-		public BitmapFont font;
-		public Color fontColor = new Color(1, 1, 1, 1);
-		public Color? overFontColor, disabledFontColor;
-		public IDrawable? background;
-		public ScrollPane.ScrollPaneStyle scrollStyle;
-		public List<T>.ListStyle listStyle;
-		public IDrawable? backgroundOver, backgroundOpen, backgroundDisabled;
+/** The style for a select box, see {@link SelectBox}.
+     * @author mzechner
+     * @author Nathan Sweet */
+public class SelectBoxStyle
+{
+    public BitmapFont font;
+    public Color fontColor = new Color(1, 1, 1, 1);
+    public Color? overFontColor, disabledFontColor;
+    public IDrawable? background;
+    public ScrollPane.ScrollPaneStyle scrollStyle;
+    public ListStyle listStyle;
+    public IDrawable? backgroundOver, backgroundOpen, backgroundDisabled;
 
-		public SelectBoxStyle () {
-		}
+    public SelectBoxStyle()
+    {
+    }
 
-		public SelectBoxStyle (BitmapFont font, Color fontColor, IDrawable? background, ScrollPane.ScrollPaneStyle scrollStyle,
-			List<T>.ListStyle listStyle) {
-			this.font = font;
-			this.fontColor.set(fontColor);
-			this.background = background;
-			this.scrollStyle = scrollStyle;
-			this.listStyle = listStyle;
-		}
+    public SelectBoxStyle(BitmapFont font, Color fontColor, IDrawable? background, ScrollPane.ScrollPaneStyle scrollStyle,
+        ListStyle listStyle)
+    {
+        this.font = font;
+        this.fontColor.set(fontColor);
+        this.background = background;
+        this.scrollStyle = scrollStyle;
+        this.listStyle = listStyle;
+    }
 
-		public SelectBoxStyle (SelectBoxStyle style) {
-			font = style.font;
-			fontColor.set(style.fontColor);
+    public SelectBoxStyle(SelectBoxStyle style)
+    {
+        font = style.font;
+        fontColor.set(style.fontColor);
 
-			if (style.overFontColor != null) overFontColor = new Color(style.overFontColor);
-			if (style.disabledFontColor != null) disabledFontColor = new Color(style.disabledFontColor);
+        if (style.overFontColor != null) overFontColor = new Color(style.overFontColor);
+        if (style.disabledFontColor != null) disabledFontColor = new Color(style.disabledFontColor);
 
-			background = style.background;
-			scrollStyle = new ScrollPane.ScrollPaneStyle(style.scrollStyle);
-			listStyle = new List<T>.ListStyle(style.listStyle);
+        background = style.background;
+        scrollStyle = new ScrollPane.ScrollPaneStyle(style.scrollStyle);
+        listStyle = new ListStyle(style.listStyle);
 
-			backgroundOver = style.backgroundOver;
-			backgroundOpen = style.backgroundOpen;
-			backgroundDisabled = style.backgroundDisabled;
-		}
-	}
+        backgroundOver = style.backgroundOver;
+        backgroundOpen = style.backgroundOpen;
+        backgroundDisabled = style.backgroundDisabled;
+    }
 }

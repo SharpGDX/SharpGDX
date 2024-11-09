@@ -8,54 +8,53 @@ public sealed class HeadlessFiles : IFiles
 
 	public static string LocalPath => "";
 
-	public FileHandle absolute(string path)
+	public FileHandle Absolute(string path)
 	{
-		return new HeadlessFileHandle(path, IFiles.FileType.Absolute);
+		return new HeadlessFileHandle(path, FileType.Absolute);
 	}
 
-	public FileHandle classpath(string path)
+	public FileHandle Classpath(string path)
 	{
-		return new HeadlessFileHandle(path, IFiles.FileType.Classpath);
+		return new HeadlessFileHandle(path, FileType.Classpath);
 	}
 
-	public FileHandle external(string path)
+	public FileHandle External(string path)
 	{
-		return new HeadlessFileHandle(path, IFiles.FileType.External);
+		return new HeadlessFileHandle(path, FileType.External);
 	}
 
-	public string getExternalStoragePath()
+	public string GetExternalStoragePath()
 	{
 		return ExternalPath;
 	}
-
-
-	public FileHandle getFileHandle(string fileName, IFiles.FileType type)
+    
+	public FileHandle GetFileHandle(string fileName, FileType type)
 	{
 		return new HeadlessFileHandle(fileName, type);
 	}
 
-	public string getLocalStoragePath()
+	public string GetLocalStoragePath()
 	{
 		return LocalPath;
 	}
 
-	public FileHandle @internal(string path)
+	public FileHandle Internal(string path)
 	{
-		return new HeadlessFileHandle(path, IFiles.FileType.Internal);
+		return new HeadlessFileHandle(path, FileType.Internal);
 	}
 
-	public bool isExternalStorageAvailable()
+	public bool IsExternalStorageAvailable()
 	{
 		return true;
 	}
 
-	public bool isLocalStorageAvailable()
+	public bool IsLocalStorageAvailable()
 	{
 		return true;
 	}
 
-	public FileHandle local(string path)
+	public FileHandle Local(string path)
 	{
-		return new HeadlessFileHandle(path, IFiles.FileType.Local);
+		return new HeadlessFileHandle(path, FileType.Local);
 	}
 }

@@ -1,456 +1,359 @@
-﻿using System;
-using Fixed = SharpGDX.Scenes.Scene2D.UI.Value.Fixed;
 using SharpGDX.Shims;
-using SharpGDX.Mathematics;
+using Fixed = SharpGDX.Scenes.Scene2D.UI.Value.Fixed;
+using SharpGDX.Files;
 using SharpGDX.Utils;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SharpGDX.Scenes.Scene2D.Utils;
 
-namespace SharpGDX.Scenes.Scene2D.UI
-{
-	// TODO: Had to shim this to get things to work. -RP
-	// TODO: Why does this have a generic version?
-	public abstract class Cell
-	{
-        static private protected readonly float zerof = 0f, onef = 1f;
-        static private protected readonly int zeroi = 0, onei = 1;
-        static private protected readonly int centeri = onei, topi = SharpGDX.Utils.Align.top, bottomi = SharpGDX.Utils.Align.bottom, lefti = SharpGDX.Utils.Align.left,
-            righti = SharpGDX.Utils.Align.right;
+namespace SharpGDX.Scenes.Scene2D.UI;
 
-        internal Cell()
-		{
-
-		}
-
-        public Cell ExpandX()
-        {
-            expandX = onei;
-            return this;
-        }
-
-        /** Adds {@link Align#left} and clears {@link Align#right} for the alignment of the actor within the cell. */
-        public Cell Left()
-        {
-            if (align == null)
-                align = lefti;
-            else
-                align = (align | SharpGDX.Utils.Align.left) & ~SharpGDX.Utils.Align.right;
-            return this;
-        }
-
-        /** Sets expandX, expandY, fillX, and fillY to 1. */
-        public Cell Grow()
-        {
-            expandX = onei;
-            expandY = onei;
-            fillX = onef;
-            fillY = onef;
-            return this;
-        }
-
-        /** Sets the actor in this cell and adds the actor to the cell's table. If null, removes any current actor. */
-        // TODO: This was originally SetActor<A> where A : Actor. Why? -RP
-        public Cell<T> SetActor<T>(T? newActor)
-		where T: Actor
-		{
-			if (actor != newActor)
-			{
-				if (actor != null && actor.getParent() == table) actor.remove();
-				actor = newActor;
-				if (newActor != null) table.addActor(newActor);
-			}
-			return (Cell<T>)this;
-		}
-
-		protected Table table;
-
-		public void setTable(Table table)
-		{
-			this.table = table;
-		}
-
-		internal void Merge(Cell? cell)
-		{
-			if (cell == null) return;
-			if (cell.minWidth != null) minWidth = cell.minWidth;
-			if (cell.minHeight != null) minHeight = cell.minHeight;
-			if (cell.prefWidth != null) prefWidth = cell.prefWidth;
-			if (cell.prefHeight != null) prefHeight = cell.prefHeight;
-			if (cell.maxWidth != null) maxWidth = cell.maxWidth;
-			if (cell.maxHeight != null) maxHeight = cell.maxHeight;
-			if (cell.spaceTop != null) spaceTop = cell.spaceTop;
-			if (cell.spaceLeft != null) spaceLeft = cell.spaceLeft;
-			if (cell.spaceBottom != null) spaceBottom = cell.spaceBottom;
-			if (cell.spaceRight != null) spaceRight = cell.spaceRight;
-			if (cell.padTop != null) padTop = cell.padTop;
-			if (cell.padLeft != null) padLeft = cell.padLeft;
-			if (cell.padBottom != null) padBottom = cell.padBottom;
-			if (cell.padRight != null) padRight = cell.padRight;
-			if (cell.fillX != null) fillX = cell.fillX;
-			if (cell.fillY != null) fillY = cell.fillY;
-			if (cell.align != null) align = cell.align;
-			if (cell.expandX != null) expandX = cell.expandX;
-			if (cell.expandY != null) expandY = cell.expandY;
-			if (cell.colspan != null) colspan = cell.colspan;
-			if (cell.uniformX != null) uniformX = cell.uniformX;
-			if (cell.uniformY != null) uniformY = cell.uniformY;
-		}
-
-		internal void Set(Cell cell)
-		{
-			minWidth = cell.minWidth;
-			minHeight = cell.minHeight;
-			prefWidth = cell.prefWidth;
-			prefHeight = cell.prefHeight;
-			maxWidth = cell.maxWidth;
-			maxHeight = cell.maxHeight;
-			spaceTop = cell.spaceTop;
-			spaceLeft = cell.spaceLeft;
-			spaceBottom = cell.spaceBottom;
-			spaceRight = cell.spaceRight;
-			padTop = cell.padTop;
-			padLeft = cell.padLeft;
-			padBottom = cell.padBottom;
-			padRight = cell.padRight;
-			fillX = cell.fillX;
-			fillY = cell.fillY;
-			align = cell.align;
-			expandX = cell.expandX;
-			expandY = cell.expandY;
-			colspan = cell.colspan;
-			uniformX = cell.uniformX;
-			uniformY = cell.uniformY;
-		}
-
-		internal float actorX, actorY;
-		internal float computedPadTop, computedPadLeft, computedPadBottom, computedPadRight;
-		internal int? expandX, expandY;
-		internal Boolean? uniformX, uniformY;
-		internal float actorWidth, actorHeight;
-		internal float? fillX, fillY;
-		internal int? align;
-
-		public abstract void reset();
-		internal abstract void Clear();
-
-		internal int cellAboveIndex;
-		internal int? colspan;
-		internal int column, row;
-		internal Actor? actor;
-		internal bool endRow;
-		internal Value? minWidth, minHeight;
-		internal Value? prefWidth, prefHeight;
-		internal Value? maxWidth, maxHeight;
-		internal Value? spaceTop, spaceLeft, spaceBottom, spaceRight;
-		internal Value? padTop, padLeft, padBottom, padRight;
-
-/** Sets the spaceTop, spaceLeft, spaceBottom, and spaceRight to the specified value. The space cannot be < 0. */
-public virtual Cell Space(float space)
-{
-	if (space < 0) throw new IllegalArgumentException("space cannot be < 0: " + space);
-	Space(Fixed.valueOf(space));
-	return this;
-}
-
-		/** Sets the spaceTop, spaceLeft, spaceBottom, and spaceRight to the specified value. */
-		public Cell Space(Value space)
-		{
-			if (space == null) throw new IllegalArgumentException("space cannot be null.");
-			spaceTop = space;
-			spaceLeft = space;
-			spaceBottom = space;
-			spaceRight = space;
-			return this;
-		}
-	}
-
-	/** A cell for a {@link Table}.
+/** A cell for a {@link Table}.
  * @author Nathan Sweet */
-public class Cell<T> : Cell,IPoolable
-	where T: Actor{
-	
+public class Cell: IPoolable {
+	static private readonly float zerof = 0f, onef = 1f;
+	static private readonly int zeroi = 0, onei = 1;
+	static private readonly int centeri = onei, topi = Align.top, bottomi = Align.bottom, lefti = Align.left,
+		righti = Align.right;
+
 	static private IFiles files;
-	static private Cell<T> defaults;
+	static private Cell _defaults;
+
+	internal Value _minWidth, _minHeight;
+	internal Value _prefWidth, _prefHeight;
+	internal Value _maxWidth, _maxHeight;
+	internal Value _spaceTop, _spaceLeft, _spaceBottom, _spaceRight;
+	internal Value _padTop, _padLeft, _padBottom, _padRight;
+	internal float? _fillX, _fillY;
+	internal int? _align;
+	internal int? _expandX, _expandY;
+	internal int? _colspan;
+	internal bool? _uniformX, _uniformY;
+
+	internal Actor? actor;
+	internal float actorX, actorY;
+	internal float actorWidth, actorHeight;
+
+	private Table table;
+	internal bool endRow;
+	internal int _column, _row;
+	internal int cellAboveIndex;
+	internal float computedPadTop, computedPadLeft, computedPadBottom, computedPadRight;
 
 	public Cell () {
 		cellAboveIndex = -1;
-		Cell<T> defaults = Defaults();
+		Cell defaults = Cell.defaults();
 		if (defaults != null) Set(defaults);
 	}
 
-	
+	public void setTable (Table table) {
+		this.table = table;
+	}
 
-	
+	/** Sets the actor in this cell and adds the actor to the cell's table. If null, removes any current actor. */
+	public Cell SetActor(Actor? newActor){
+		if (actor != newActor) {
+			if (actor != null && actor.getParent() == table) actor.remove();
+			actor = newActor;
+			if (newActor != null) table.addActor(newActor);
+		}
+		return (Cell)this;
+	}
 
 	/** Removes the current actor for the cell, if any. */
-	public Cell<T> ClearActor () {
-		SetActor<T>(null);
+	public Cell clearActor<T> ()
+    where T: Actor{
+		SetActor(null);
 		return this;
 	}
 
 	/** Returns the actor for this cell, or null. */
-	public T? GetActor () {
+	public T? getActor<T> () 
+    where T: Actor{
 		return (T)actor;
 	}
 
 	/** Returns true if the cell's actor is not null. */
-	public bool HasActor () {
+	public bool hasActor () {
 		return actor != null;
 	}
 
 	/** Sets the minWidth, prefWidth, maxWidth, minHeight, prefHeight, and maxHeight to the specified value. */
-	public Cell<T> Size (Value size) {
-		minWidth = size ?? throw new IllegalArgumentException("size cannot be null.");
-		minHeight = size;
-		prefWidth = size;
-		prefHeight = size;
-		maxWidth = size;
-		maxHeight = size;
+	public Cell size (Value size) {
+		if (size == null) throw new IllegalArgumentException("size cannot be null.");
+		_minWidth = size;
+		_minHeight = size;
+		_prefWidth = size;
+		_prefHeight = size;
+		_maxWidth = size;
+		_maxHeight = size;
 		return this;
 	}
 
 	/** Sets the minWidth, prefWidth, maxWidth, minHeight, prefHeight, and maxHeight to the specified values. */
-	public Cell<T> Size (Value width, Value height) {
-		minWidth = width ?? throw new IllegalArgumentException("width cannot be null.");
-		minHeight = height ?? throw new IllegalArgumentException("height cannot be null.");
-		prefWidth = width;
-		prefHeight = height;
-		maxWidth = width;
-		maxHeight = height;
+	public Cell size (Value width, Value height) {
+		if (width == null) throw new IllegalArgumentException("width cannot be null.");
+		if (height == null) throw new IllegalArgumentException("height cannot be null.");
+		_minWidth = width;
+        _minHeight = height;
+        _prefWidth = width;
+        _prefHeight = height;
+        _maxWidth = width;
+		_maxHeight = height;
 		return this;
 	}
 
 	/** Sets the minWidth, prefWidth, maxWidth, minHeight, prefHeight, and maxHeight to the specified value. */
-	public Cell<T> Size (float size) {
-		Size(Fixed.valueOf(size));
+	public Cell size (float size) {
+		this.size(Fixed.valueOf(size));
 		return this;
 	}
 
 	/** Sets the minWidth, prefWidth, maxWidth, minHeight, prefHeight, and maxHeight to the specified values. */
-	public Cell<T> Size (float width, float height) {
-		Size(Fixed.valueOf(width), Fixed.valueOf(height));
+	public Cell size (float width, float height) {
+		size(Fixed.valueOf(width), Fixed.valueOf(height));
 		return this;
 	}
 
 	/** Sets the minWidth, prefWidth, and maxWidth to the specified value. */
-	public Cell<T> Width (Value width) {
-		minWidth = width ?? throw new IllegalArgumentException("width cannot be null.");
-		prefWidth = width;
-		maxWidth = width;
+	public Cell width (Value width) {
+		if (width == null) throw new IllegalArgumentException("width cannot be null.");
+        _minWidth = width;
+        _prefWidth = width;
+        _maxWidth = width;
 		return this;
 	}
 
 	/** Sets the minWidth, prefWidth, and maxWidth to the specified value. */
-	public Cell<T> Width (float width) {
-		Width(Fixed.valueOf(width));
+	public Cell width (float width) {
+		this.width(Fixed.valueOf(width));
 		return this;
 	}
 
 	/** Sets the minHeight, prefHeight, and maxHeight to the specified value. */
-	public Cell<T> Height (Value height) {
-		minHeight = height ?? throw new IllegalArgumentException("height cannot be null.");
-		prefHeight = height;
-		maxHeight = height;
+	public Cell height (Value height) {
+		if (height == null) throw new IllegalArgumentException("height cannot be null.");
+        _minHeight = height;
+        _prefHeight = height;
+        _maxHeight = height;
 		return this;
 	}
 
 	/** Sets the minHeight, prefHeight, and maxHeight to the specified value. */
-	public Cell<T> Height (float height) {
-		Height(Fixed.valueOf(height));
+	public Cell height (float height) {
+		this.height(Fixed.valueOf(height));
 		return this;
 	}
 
 	/** Sets the minWidth and minHeight to the specified value. */
-	public Cell<T> MinSize (Value size) {
-		minWidth = size ?? throw new IllegalArgumentException("size cannot be null.");
-		minHeight = size;
+	public Cell minSize (Value size) {
+		if (size == null) throw new IllegalArgumentException("size cannot be null.");
+        _minWidth = size;
+        _minHeight = size;
 		return this;
 	}
 
 	/** Sets the minWidth and minHeight to the specified values. */
-	public Cell<T> MinSize (Value width, Value height) {
-		minWidth = width ?? throw new IllegalArgumentException("width cannot be null.");
-		minHeight = height ?? throw new IllegalArgumentException("height cannot be null.");
+	public Cell minSize (Value width, Value height) {
+		if (width == null) throw new IllegalArgumentException("width cannot be null.");
+		if (height == null) throw new IllegalArgumentException("height cannot be null.");
+        _minWidth = width;
+        _minHeight = height;
 		return this;
 	}
 
-	public Cell<T> MinWidth (Value minWidth) {
-		this.minWidth = minWidth ?? throw new IllegalArgumentException("minWidth cannot be null.");
+	public Cell minWidth (Value minWidth) {
+		if (minWidth == null) throw new IllegalArgumentException("minWidth cannot be null.");
+		this._minWidth = minWidth;
 		return this;
 	}
 
-	public Cell<T> MinHeight (Value minHeight) {
-		this.minHeight = minHeight ?? throw new IllegalArgumentException("minHeight cannot be null.");
+	public Cell minHeight (Value minHeight) {
+		if (minHeight == null) throw new IllegalArgumentException("minHeight cannot be null.");
+		this._minHeight = minHeight;
 		return this;
 	}
 
 	/** Sets the minWidth and minHeight to the specified value. */
-	public Cell<T> MinSize (float size) {
-		MinSize(Fixed.valueOf(size));
+	public Cell minSize (float size) {
+		minSize(Fixed.valueOf(size));
 		return this;
 	}
 
 	/** Sets the minWidth and minHeight to the specified values. */
-	public Cell<T> MinSize (float width, float height) {
-		MinSize(Fixed.valueOf(width), Fixed.valueOf(height));
+	public Cell minSize (float width, float height) {
+		minSize(Fixed.valueOf(width), Fixed.valueOf(height));
 		return this;
 	}
 
-	public Cell<T> MinWidth (float minWidth) {
-		this.minWidth = Fixed.valueOf(minWidth);
+	public Cell MinWidth (float minWidth) {
+		this._minWidth = Fixed.valueOf(minWidth);
 		return this;
 	}
 
-	public Cell<T> MinHeight (float minHeight) {
-		this.minHeight = Fixed.valueOf(minHeight);
-		return this;
-	}
-
-	/** Sets the prefWidth and prefHeight to the specified value. */
-	public Cell<T> PrefSize (Value size) {
-		prefWidth = size ?? throw new IllegalArgumentException("size cannot be null.");
-		prefHeight = size;
-		return this;
-	}
-
-	/** Sets the prefWidth and prefHeight to the specified values. */
-	public Cell<T> PrefSize (Value width, Value height) {
-		prefWidth = width ?? throw new IllegalArgumentException("width cannot be null.");
-		prefHeight = height ?? throw new IllegalArgumentException("height cannot be null.");
-		return this;
-	}
-
-	public Cell<T> PrefWidth (Value prefWidth) {
-		this.prefWidth = prefWidth ?? throw new IllegalArgumentException("prefWidth cannot be null.");
-		return this;
-	}
-
-	public Cell<T> PrefHeight (Value prefHeight) {
-		this.prefHeight = prefHeight ?? throw new IllegalArgumentException("prefHeight cannot be null.");
+	public Cell MinHeight (float minHeight) {
+		this._minHeight = Fixed.valueOf(minHeight);
 		return this;
 	}
 
 	/** Sets the prefWidth and prefHeight to the specified value. */
-	public Cell<T> PrefSize (float width, float height) {
-		PrefSize(Fixed.valueOf(width), Fixed.valueOf(height));
+	public Cell prefSize (Value size) {
+		if (size == null) throw new IllegalArgumentException("size cannot be null.");
+        _prefWidth = size;
+        _prefHeight = size;
 		return this;
 	}
 
 	/** Sets the prefWidth and prefHeight to the specified values. */
-	public Cell<T> PrefSize (float size) {
-		PrefSize(Fixed.valueOf(size));
+	public Cell prefSize (Value width, Value height) {
+		if (width == null) throw new IllegalArgumentException("width cannot be null.");
+		if (height == null) throw new IllegalArgumentException("height cannot be null.");
+        _prefWidth = width;
+        _prefHeight = height;
 		return this;
 	}
 
-	public Cell<T> PrefWidth (float prefWidth) {
-		this.prefWidth = Fixed.valueOf(prefWidth);
+	public Cell prefWidth (Value prefWidth) {
+		if (prefWidth == null) throw new IllegalArgumentException("prefWidth cannot be null.");
+		this._prefWidth = prefWidth;
 		return this;
 	}
 
-	public Cell<T> PrefHeight (float prefHeight) {
-		this.prefHeight = Fixed.valueOf(prefHeight);
+	public Cell prefHeight (Value prefHeight) {
+		if (prefHeight == null) throw new IllegalArgumentException("prefHeight cannot be null.");
+		this._prefHeight = prefHeight;
+		return this;
+	}
+
+	/** Sets the prefWidth and prefHeight to the specified value. */
+	public Cell prefSize (float width, float height) {
+		prefSize(Fixed.valueOf(width), Fixed.valueOf(height));
+		return this;
+	}
+
+	/** Sets the prefWidth and prefHeight to the specified values. */
+	public Cell prefSize (float size) {
+		prefSize(Fixed.valueOf(size));
+		return this;
+	}
+
+	public Cell prefWidth (float prefWidth) {
+		this._prefWidth = Fixed.valueOf(prefWidth);
+		return this;
+	}
+
+	public Cell prefHeight (float prefHeight) {
+		this._prefHeight = Fixed.valueOf(prefHeight);
 		return this;
 	}
 
 	/** Sets the maxWidth and maxHeight to the specified value. If the max size is 0, no maximum size is used. */
-	public Cell<T> MaxSize (Value size) {
-		maxWidth = size ?? throw new IllegalArgumentException("size cannot be null.");
-		maxHeight = size;
+	public Cell maxSize (Value size) {
+		if (size == null) throw new IllegalArgumentException("size cannot be null.");
+        _maxWidth = size;
+        _maxHeight = size;
 		return this;
 	}
 
 	/** Sets the maxWidth and maxHeight to the specified values. If the max size is 0, no maximum size is used. */
-	public Cell<T> MaxSize (Value width, Value height) {
-		maxWidth = width ?? throw new IllegalArgumentException("width cannot be null.");
-		maxHeight = height ?? throw new IllegalArgumentException("height cannot be null.");
+	public Cell maxSize (Value width, Value height) {
+		if (width == null) throw new IllegalArgumentException("width cannot be null.");
+		if (height == null) throw new IllegalArgumentException("height cannot be null.");
+        _maxWidth = width;
+        _maxHeight = height;
 		return this;
 	}
 
 	/** If the maxWidth is 0, no maximum width is used. */
-	public Cell<T> MaxWidth (Value maxWidth) {
-		this.maxWidth = maxWidth ?? throw new IllegalArgumentException("maxWidth cannot be null.");
+	public Cell maxWidth (Value maxWidth) {
+		if (maxWidth == null) throw new IllegalArgumentException("maxWidth cannot be null.");
+		this._maxWidth = maxWidth;
 		return this;
 	}
 
 	/** If the maxHeight is 0, no maximum height is used. */
-	public Cell<T> MaxHeight (Value maxHeight) {
-		this.maxHeight = maxHeight ?? throw new IllegalArgumentException("maxHeight cannot be null.");
+	public Cell maxHeight (Value maxHeight) {
+		if (maxHeight == null) throw new IllegalArgumentException("maxHeight cannot be null.");
+		this._maxHeight = maxHeight;
 		return this;
 	}
 
 	/** Sets the maxWidth and maxHeight to the specified value. If the max size is 0, no maximum size is used. */
-	public Cell<T> MaxSize (float size) {
-		MaxSize(Fixed.valueOf(size));
+	public Cell maxSize (float size) {
+		maxSize(Fixed.valueOf(size));
 		return this;
 	}
 
 	/** Sets the maxWidth and maxHeight to the specified values. If the max size is 0, no maximum size is used. */
-	public Cell<T> MaxSize (float width, float height) {
-		MaxSize(Fixed.valueOf(width), Fixed.valueOf(height));
+	public Cell maxSize (float width, float height) {
+		maxSize(Fixed.valueOf(width), Fixed.valueOf(height));
 		return this;
 	}
 
 	/** If the maxWidth is 0, no maximum width is used. */
-	public Cell<T> MaxWidth (float maxWidth) {
-		this.maxWidth = Fixed.valueOf(maxWidth);
+	public Cell maxWidth (float maxWidth) {
+		this._maxWidth = Fixed.valueOf(maxWidth);
 		return this;
 	}
 
 	/** If the maxHeight is 0, no maximum height is used. */
-	public Cell<T> MaxHeight (float maxHeight) {
-		this.maxHeight = Fixed.valueOf(maxHeight);
+	public Cell maxHeight (float maxHeight) {
+		this._maxHeight = Fixed.valueOf(maxHeight);
 		return this;
 	}
 
 	/** Sets the spaceTop, spaceLeft, spaceBottom, and spaceRight to the specified value. */
-	public new Cell<T> Space (Value space) {
-		spaceTop = space ?? throw new IllegalArgumentException("space cannot be null.");
-		spaceLeft = space;
-		spaceBottom = space;
-		spaceRight = space;
+	public Cell Space (Value space) {
+		if (space == null) throw new IllegalArgumentException("space cannot be null.");
+        _spaceTop = space;
+        _spaceLeft = space;
+        _spaceBottom = space;
+        _spaceRight = space;
 		return this;
 	}
 
-	public Cell<T> Space (Value top, Value left, Value bottom, Value right) {
-		spaceTop = top ?? throw new IllegalArgumentException("top cannot be null.");
-		spaceLeft = left ?? throw new IllegalArgumentException("left cannot be null.");
-		spaceBottom = bottom ?? throw new IllegalArgumentException("bottom cannot be null.");
-		spaceRight = right ?? throw new IllegalArgumentException("right cannot be null.");
+	public Cell Space (Value top, Value left, Value bottom, Value right) {
+		if (top == null) throw new IllegalArgumentException("top cannot be null.");
+		if (left == null) throw new IllegalArgumentException("left cannot be null.");
+		if (bottom == null) throw new IllegalArgumentException("bottom cannot be null.");
+		if (right == null) throw new IllegalArgumentException("right cannot be null.");
+        _spaceTop = top;
+        _spaceLeft = left;
+        _spaceBottom = bottom;
+        _spaceRight = right;
 		return this;
 	}
 
-	public Cell<T> SpaceTop (Value spaceTop) {
-		this.spaceTop = spaceTop ?? throw new IllegalArgumentException("spaceTop cannot be null.");
+	public Cell spaceTop (Value spaceTop) {
+		if (spaceTop == null) throw new IllegalArgumentException("spaceTop cannot be null.");
+		this._spaceTop = spaceTop;
 		return this;
 	}
 
-	public Cell<T> SpaceLeft (Value spaceLeft) {
-		this.spaceLeft = spaceLeft ?? throw new IllegalArgumentException("spaceLeft cannot be null.");
+	public Cell spaceLeft (Value spaceLeft) {
+		if (spaceLeft == null) throw new IllegalArgumentException("spaceLeft cannot be null.");
+		this._spaceLeft = spaceLeft;
 		return this;
 	}
 
-	public Cell<T> SpaceBottom (Value spaceBottom) {
-		this.spaceBottom = spaceBottom ?? throw new IllegalArgumentException("spaceBottom cannot be null.");
+	public Cell spaceBottom (Value spaceBottom) {
+		if (spaceBottom == null) throw new IllegalArgumentException("spaceBottom cannot be null.");
+		this._spaceBottom = spaceBottom;
 		return this;
 	}
 
-	public Cell<T> SpaceRight (Value spaceRight) {
-		this.spaceRight = spaceRight ?? throw new IllegalArgumentException("spaceRight cannot be null.");
+	public Cell spaceRight (Value spaceRight) {
+		if (spaceRight == null) throw new IllegalArgumentException("spaceRight cannot be null.");
+		this._spaceRight = spaceRight;
 		return this;
 	}
 
-		/** Sets the spaceTop, spaceLeft, spaceBottom, and spaceRight to the specified value. The space cannot be < 0. */
-		public override Cell<T> Space (float space) {
+	/** Sets the spaceTop, spaceLeft, spaceBottom, and spaceRight to the specified value. The space cannot be < 0. */
+	public Cell Space (float space) {
 		if (space < 0) throw new IllegalArgumentException("space cannot be < 0: " + space);
-		Space(Fixed.valueOf(space));
+		this.Space(Fixed.valueOf(space));
 		return this;
 	}
 
 	/** The space cannot be < 0. */
-	public Cell<T> Space (float top, float left, float bottom, float right) {
+	public Cell space (float top, float left, float bottom, float right) {
 		if (top < 0) throw new IllegalArgumentException("top cannot be < 0: " + top);
 		if (left < 0) throw new IllegalArgumentException("left cannot be < 0: " + left);
 		if (bottom < 0) throw new IllegalArgumentException("bottom cannot be < 0: " + bottom);
@@ -460,517 +363,526 @@ public class Cell<T> : Cell,IPoolable
 	}
 
 	/** The space cannot be < 0. */
-	public Cell<T> SpaceTop (float spaceTop) {
+	public Cell spaceTop (float spaceTop) {
 		if (spaceTop < 0) throw new IllegalArgumentException("spaceTop cannot be < 0: " + spaceTop);
-		this.spaceTop = Fixed.valueOf(spaceTop);
+		this._spaceTop = Fixed.valueOf(spaceTop);
 		return this;
 	}
 
 	/** The space cannot be < 0. */
-	public Cell<T> SpaceLeft (float spaceLeft) {
+	public Cell spaceLeft (float spaceLeft) {
 		if (spaceLeft < 0) throw new IllegalArgumentException("spaceLeft cannot be < 0: " + spaceLeft);
-		this.spaceLeft = Fixed.valueOf(spaceLeft);
+		this._spaceLeft = Fixed.valueOf(spaceLeft);
 		return this;
 	}
 
 	/** The space cannot be < 0. */
-	public Cell<T> SpaceBottom (float spaceBottom) {
+	public Cell spaceBottom (float spaceBottom) {
 		if (spaceBottom < 0) throw new IllegalArgumentException("spaceBottom cannot be < 0: " + spaceBottom);
-		this.spaceBottom = Fixed.valueOf(spaceBottom);
+		this._spaceBottom = Fixed.valueOf(spaceBottom);
 		return this;
 	}
 
 	/** The space cannot be < 0. */
-	public Cell<T> SpaceRight (float spaceRight) {
+	public Cell spaceRight (float spaceRight) {
 		if (spaceRight < 0) throw new IllegalArgumentException("spaceRight cannot be < 0: " + spaceRight);
-		this.spaceRight = Fixed.valueOf(spaceRight);
+		this._spaceRight = Fixed.valueOf(spaceRight);
 		return this;
 	}
 
 	/** Sets the padTop, padLeft, padBottom, and padRight to the specified value. */
-	public Cell<T> Pad (Value pad) {
-		padTop = pad ?? throw new IllegalArgumentException("pad cannot be null.");
-		padLeft = pad;
-		padBottom = pad;
-		padRight = pad;
+	public Cell pad (Value pad) {
+		if (pad == null) throw new IllegalArgumentException("pad cannot be null.");
+        _padTop = pad;
+        _padLeft = pad;
+        _padBottom = pad;
+        _padRight = pad;
 		return this;
 	}
 
-	public Cell<T> Pad (Value top, Value left, Value bottom, Value right) {
-		padTop = top ?? throw new IllegalArgumentException("top cannot be null.");
-		padLeft = left ?? throw new IllegalArgumentException("left cannot be null.");
-		padBottom = bottom ?? throw new IllegalArgumentException("bottom cannot be null.");
-		padRight = right ?? throw new IllegalArgumentException("right cannot be null.");
+	public Cell pad (Value top, Value left, Value bottom, Value right) {
+		if (top == null) throw new IllegalArgumentException("top cannot be null.");
+		if (left == null) throw new IllegalArgumentException("left cannot be null.");
+		if (bottom == null) throw new IllegalArgumentException("bottom cannot be null.");
+		if (right == null) throw new IllegalArgumentException("right cannot be null.");
+        _padTop = top;
+        _padLeft = left;
+        _padBottom = bottom;
+        _padRight = right;
 		return this;
 	}
 
-	public Cell<T> PadTop (Value padTop) {
-		this.padTop = padTop ?? throw new IllegalArgumentException("padTop cannot be null.");
+	public Cell padTop (Value padTop) {
+		if (padTop == null) throw new IllegalArgumentException("padTop cannot be null.");
+		this._padTop = padTop;
 		return this;
 	}
 
-	public Cell<T> PadLeft (Value padLeft) {
-		this.padLeft = padLeft ?? throw new IllegalArgumentException("padLeft cannot be null.");
+	public Cell padLeft (Value padLeft) {
+		if (padLeft == null) throw new IllegalArgumentException("padLeft cannot be null.");
+		this._padLeft = padLeft;
 		return this;
 	}
 
-	public Cell<T> PadBottom (Value padBottom) {
-		this.padBottom = padBottom ?? throw new IllegalArgumentException("padBottom cannot be null.");
+	public Cell padBottom (Value padBottom) {
+		if (padBottom == null) throw new IllegalArgumentException("padBottom cannot be null.");
+		this._padBottom = padBottom;
 		return this;
 	}
 
-	public Cell<T> PadRight (Value padRight) {
-		this.padRight = padRight ?? throw new IllegalArgumentException("padRight cannot be null.");
+	public Cell padRight (Value padRight) {
+		if (padRight == null) throw new IllegalArgumentException("padRight cannot be null.");
+		this._padRight = padRight;
 		return this;
 	}
 
 	/** Sets the padTop, padLeft, padBottom, and padRight to the specified value. */
-	public Cell<T> Pad (float pad) {
-		Pad(Fixed.valueOf(pad));
+	public Cell pad (float pad) {
+		this.pad(Fixed.valueOf(pad));
 		return this;
 	}
 
-	public Cell<T> Pad (float top, float left, float bottom, float right) {
-		Pad(Fixed.valueOf(top), Fixed.valueOf(left), Fixed.valueOf(bottom), Fixed.valueOf(right));
+	public Cell pad (float top, float left, float bottom, float right) {
+		pad(Fixed.valueOf(top), Fixed.valueOf(left), Fixed.valueOf(bottom), Fixed.valueOf(right));
 		return this;
 	}
 
-	public Cell<T> PadTop (float padTop) {
-		this.padTop = Fixed.valueOf(padTop);
+	public Cell padTop (float padTop) {
+		this._padTop = Fixed.valueOf(padTop);
 		return this;
 	}
 
-	public Cell<T> PadLeft (float padLeft) {
-		this.padLeft = Fixed.valueOf(padLeft);
+	public Cell padLeft (float padLeft) {
+		this._padLeft = Fixed.valueOf(padLeft);
 		return this;
 	}
 
-	public Cell<T> PadBottom (float padBottom) {
-		this.padBottom = Fixed.valueOf(padBottom);
+	public Cell padBottom (float padBottom) {
+		this._padBottom = Fixed.valueOf(padBottom);
 		return this;
 	}
 
-	public Cell<T> PadRight (float padRight) {
-		this.padRight = Fixed.valueOf(padRight);
+	public Cell padRight (float padRight) {
+		this._padRight = Fixed.valueOf(padRight);
 		return this;
 	}
 
 	/** Sets fillX and fillY to 1. */
-	public Cell<T> Fill () {
-		fillX = onef;
-		fillY = onef;
+	public Cell Fill () {
+        _fillX = onef;
+        _fillY = onef;
 		return this;
 	}
 
 	/** Sets fillX to 1. */
-	public Cell<T> FillX () {
-		fillX = onef;
+	public Cell FillX () {
+        _fillX = onef;
 		return this;
 	}
 
 	/** Sets fillY to 1. */
-	public Cell<T> FillY () {
-		fillY = onef;
+	public Cell FillY () {
+        _fillY = onef;
 		return this;
 	}
 
-	public Cell<T> Fill (float x, float y) {
-		fillX = x;
-		fillY = y;
-		return this;
-	}
-
-	/** Sets fillX and fillY to 1 if true, 0 if false. */
-	public Cell<T> Fill (bool x, bool y) {
-		fillX = x ? onef : zerof;
-		fillY = y ? onef : zerof;
+	public Cell Fill (float x, float y) {
+        _fillX = x;
+        _fillY = y;
 		return this;
 	}
 
 	/** Sets fillX and fillY to 1 if true, 0 if false. */
-	public Cell<T> Fill (bool fill) {
-		fillX = fill ? onef : zerof;
-		fillY = fill ? onef : zerof;
+	public Cell Fill (bool x, bool y) {
+        _fillX = x ? onef : zerof;
+        _fillY = y ? onef : zerof;
+		return this;
+	}
+
+	/** Sets fillX and fillY to 1 if true, 0 if false. */
+	public Cell Fill (bool fill) {
+        _fillX = fill ? onef : zerof;
+        _fillY = fill ? onef : zerof;
 		return this;
 	}
 
 	/** Sets the alignment of the actor within the cell. Set to {@link Align#center}, {@link Align#top}, {@link Align#bottom},
 	 * {@link Align#left}, {@link Align#right}, or any combination of those. */
-	public Cell<T> Align (int align) {
-		this.align = align;
+	public Cell align (int align) {
+		this._align = align;
 		return this;
 	}
 
 	/** Sets the alignment of the actor within the cell to {@link Align#center}. This clears any other alignment. */
-	public Cell<T> Center () {
-		align = centeri;
+	public Cell Center () {
+        _align = centeri;
 		return this;
 	}
 
 	/** Adds {@link Align#top} and clears {@link Align#bottom} for the alignment of the actor within the cell. */
-	public Cell<T> Top () {
+	public Cell Top () {
 		if (align == null)
-			align = topi;
+            _align = topi;
 		else
-			align = (align | SharpGDX.Utils.Align.top) & ~SharpGDX.Utils.Align.bottom;
+            _align = (_align | Align.top) & ~Align.bottom;
 		return this;
 	}
 
 	/** Adds {@link Align#left} and clears {@link Align#right} for the alignment of the actor within the cell. */
-	public new Cell<T> Left () {
+	public Cell Left () {
 		if (align == null)
-			align = lefti;
+            _align = lefti;
 		else
-			align = (align | SharpGDX.Utils.Align.left) & ~SharpGDX.Utils.Align.right;
+            _align = (_align | Align.left) & ~Align.right;
 		return this;
 	}
 
 	/** Adds {@link Align#bottom} and clears {@link Align#top} for the alignment of the actor within the cell. */
-	public Cell<T> Bottom () {
-		if (align == null)
-			align = bottomi;
+	public Cell Bottom () {
+		if (_align == null)
+            _align = bottomi;
 		else
-			align = (align | SharpGDX.Utils.Align.bottom) & ~SharpGDX.Utils.Align.top;
+            _align = (_align | Align.bottom) & ~Align.top;
 		return this;
 	}
 
 	/** Adds {@link Align#right} and clears {@link Align#left} for the alignment of the actor within the cell. */
-	public Cell<T> Right () {
-		if (align == null)
-			align = righti;
+	public Cell Right () {
+		if (_align == null)
+            _align = righti;
 		else
-			align = (align | SharpGDX.Utils.Align.right) & ~SharpGDX.Utils.Align.left;
+            _align = (_align | Align.right) & ~Align.left;
 		return this;
 	}
 
 	/** Sets expandX, expandY, fillX, and fillY to 1. */
-	public new Cell<T> Grow () {
-		expandX = onei;
-		expandY = onei;
-		fillX = onef;
-		fillY = onef;
+	public Cell Grow () {
+        _expandX = onei;
+        _expandY = onei;
+        _fillX = onef;
+        _fillY = onef;
 		return this;
 	}
 
 	/** Sets expandX and fillX to 1. */
-	public Cell<T> GrowX () {
-		expandX = onei;
-		fillX = onef;
+	public Cell GrowX () {
+        _expandX = onei;
+        _fillX = onef;
 		return this;
 	}
 
 	/** Sets expandY and fillY to 1. */
-	public Cell<T> GrowY () {
-		expandY = onei;
-		fillY = onef;
+	public Cell GrowY () {
+        _expandY = onei;
+        _fillY = onef;
 		return this;
 	}
 
 	/** Sets expandX and expandY to 1. */
-	public Cell<T> Expand () {
-		expandX = onei;
-		expandY = onei;
+	public Cell Expand () {
+        _expandX = onei;
+        _expandY = onei;
 		return this;
 	}
 
 	/** Sets expandX to 1. */
-	public new Cell<T> ExpandX () {
-		expandX = onei;
+	public Cell ExpandX () {
+        _expandX = onei;
 		return this;
 	}
 
 	/** Sets expandY to 1. */
-	public Cell<T> ExpandY () {
-		expandY = onei;
+	public Cell ExpandY () {
+        _expandY = onei;
 		return this;
 	}
 
-	public Cell<T> Expand (int x, int y) {
-		expandX = x;
-		expandY = y;
+	public Cell Expand (int x, int y) {
+        _expandX = x;
+        _expandY = y;
 		return this;
 	}
 
 	/** Sets expandX and expandY to 1 if true, 0 if false. */
-	public Cell<T> Expand (bool x, bool y) {
-		expandX = x ? onei : zeroi;
-		expandY = y ? onei : zeroi;
+	public Cell expand (bool x, bool y) {
+        _expandX = x ? onei : zeroi;
+        _expandY = y ? onei : zeroi;
 		return this;
 	}
 
-	public Cell<T> Colspan (int colspan) {
-		this.colspan = colspan;
+	public Cell colspan (int colspan) {
+		this._colspan = colspan;
 		return this;
 	}
 
 	/** Sets uniformX and uniformY to true. */
-	public Cell<T> Uniform () {
-		uniformX = true;
-		uniformY = true;
+	public Cell uniform () {
+		_uniformX = true;
+        _uniformY = true;
 		return this;
 	}
 
 	/** Sets uniformX to true. */
-	public Cell<T> UniformX () {
-		uniformX = true;
+	public Cell uniformX () {
+        _uniformX = true;
 		return this;
 	}
 
 	/** Sets uniformY to true. */
-	public Cell<T> UniformY () {
-		uniformY = true;
+	public Cell uniformY () {
+        _uniformY = true;
 		return this;
 	}
 
-	public Cell<T> Uniform (bool uniform) {
-		uniformX = uniform;
-		uniformY = uniform;
+	public Cell uniform (bool uniform) {
+        _uniformX = uniform;
+        _uniformY = uniform;
 		return this;
 	}
 
-	public Cell<T> Uniform (bool x, bool y) {
-		uniformX = x;
-		uniformY = y;
+	public Cell uniform (bool x, bool y) {
+        _uniformX = x;
+        _uniformY = y;
 		return this;
 	}
 
-	public void SetActorBounds (float x, float y, float width, float height) {
+	public void setActorBounds (float x, float y, float width, float height) {
 		actorX = x;
 		actorY = y;
 		actorWidth = width;
 		actorHeight = height;
 	}
 
-	public float GetActorX () {
+	public float getActorX () {
 		return actorX;
 	}
 
-	public void SetActorX (float actorX) {
+	public void setActorX (float actorX) {
 		this.actorX = actorX;
 	}
 
-	public float GetActorY () {
+	public float getActorY () {
 		return actorY;
 	}
 
-	public void SetActorY (float actorY) {
+	public void setActorY (float actorY) {
 		this.actorY = actorY;
 	}
 
-	public float GetActorWidth () {
+	public float getActorWidth () {
 		return actorWidth;
 	}
 
-	public void SetActorWidth (float actorWidth) {
+	public void setActorWidth (float actorWidth) {
 		this.actorWidth = actorWidth;
 	}
 
-	public float GetActorHeight () {
+	public float getActorHeight () {
 		return actorHeight;
 	}
 
-	public void SetActorHeight (float actorHeight) {
+	public void setActorHeight (float actorHeight) {
 		this.actorHeight = actorHeight;
 	}
 
-	public int GetColumn () {
-		return column;
+	public int getColumn () {
+		return _column;
 	}
 
-	public int GetRow () {
-		return row;
-	}
-
-	/** @return May be null if this cell is row defaults. */
-	public Value? GetMinWidthValue () {
-		return minWidth;
-	}
-
-	public float? GetMinWidth () {
-		return minWidth?.get(actor);
+	public int getRow () {
+		return _row;
 	}
 
 	/** @return May be null if this cell is row defaults. */
-	public Value? GetMinHeightValue () {
-		return minHeight;
+	public Value? getMinWidthValue () {
+		return _minWidth;
 	}
 
-	public float? GetMinHeight () {
-		return minHeight?.get(actor);
-	}
-
-	/** @return May be null if this cell is row defaults. */
-	public Value? GetPrefWidthValue () {
-		return prefWidth;
-	}
-
-	public float? GetPrefWidth () {
-		return prefWidth?.get(actor);
+	public float getMinWidth () {
+		return _minWidth.get(actor);
 	}
 
 	/** @return May be null if this cell is row defaults. */
-	public Value? GetPrefHeightValue () {
-		return prefHeight;
+	public Value? getMinHeightValue () {
+		return _minHeight;
 	}
 
-	public float? GetPrefHeight () {
-		return prefHeight?.get(actor);
-	}
-
-	/** @return May be null if this cell is row defaults. */
-	public Value? GetMaxWidthValue () {
-		return maxWidth;
-	}
-
-	public float? GetMaxWidth () {
-		return maxWidth?.get(actor);
+	public float getMinHeight () {
+		return _minHeight.get(actor);
 	}
 
 	/** @return May be null if this cell is row defaults. */
-	public Value? GetMaxHeightValue () {
-		return maxHeight;
+	public  Value? getPrefWidthValue () {
+		return _prefWidth;
 	}
 
-	public float? GetMaxHeight () {
-		return maxHeight?.get(actor);
+	public float getPrefWidth () {
+		return _prefWidth.get(actor);
 	}
 
-	/** @return May be null if this value is not set. */
-	public Value? GetSpaceTopValue () {
-		return spaceTop;
+	/** @return May be null if this cell is row defaults. */
+	public Value? getPrefHeightValue () {
+		return _prefHeight;
 	}
 
-	public float? GetSpaceTop () {
-		return spaceTop?.get(actor);
+	public float getPrefHeight () {
+		return _prefHeight.get(actor);
 	}
 
-	/** @return May be null if this value is not set. */
-	public Value? GetSpaceLeftValue () {
-		return spaceLeft;
+	/** @return May be null if this cell is row defaults. */
+	public Value? getMaxWidthValue () {
+		return _maxWidth;
 	}
 
-	public float? GetSpaceLeft () {
-		return spaceLeft?.get(actor);
+	public float getMaxWidth () {
+		return _maxWidth.get(actor);
 	}
 
-	/** @return May be null if this value is not set. */
-	public Value? GetSpaceBottomValue () {
-		return spaceBottom;
+	/** @return May be null if this cell is row defaults. */
+	public Value? getMaxHeightValue () {
+		return _maxHeight;
 	}
 
-	public float? GetSpaceBottom () {
-		return spaceBottom?.get(actor);
-	}
-
-	/** @return May be null if this value is not set. */
-	public Value? GetSpaceRightValue () {
-		return spaceRight;
-	}
-
-	public float? GetSpaceRight () {
-		return spaceRight?.get(actor);
+	public float getMaxHeight () {
+		return _maxHeight.get(actor);
 	}
 
 	/** @return May be null if this value is not set. */
-	public Value? GetPadTopValue () {
-		return padTop;
+	public Value? getSpaceTopValue () {
+		return _spaceTop;
 	}
 
-	public float? GetPadTop () {
-		return padTop?.get(actor);
-	}
-
-	/** @return May be null if this value is not set. */
-	public Value? GetPadLeftValue () {
-		return padLeft;
-	}
-
-	public float? GetPadLeft () {
-		return padLeft?.get(actor);
+	public float getSpaceTop () {
+		return _spaceTop.get(actor);
 	}
 
 	/** @return May be null if this value is not set. */
-	public Value? GetPadBottomValue () {
-		return padBottom;
+	public Value? getSpaceLeftValue () {
+		return _spaceLeft;
 	}
 
-	public float? GetPadBottom () {
-		return padBottom?.get(actor);
+	public float getSpaceLeft () {
+		return _spaceLeft.get(actor);
 	}
 
 	/** @return May be null if this value is not set. */
-	public Value? GetPadRightValue () {
-		return padRight;
+	public Value? getSpaceBottomValue () {
+		return _spaceBottom;
 	}
 
-	public float ?GetPadRight () {
-		return padRight?.get(actor);
+	public float getSpaceBottom () {
+		return _spaceBottom.get(actor);
+	}
+
+	/** @return May be null if this value is not set. */
+	public Value? getSpaceRightValue () {
+		return _spaceRight;
+	}
+
+	public float getSpaceRight () {
+		return _spaceRight.get(actor);
+	}
+
+	/** @return May be null if this value is not set. */
+	public Value? getPadTopValue () {
+		return _padTop;
+	}
+
+	public float getPadTop () {
+		return _padTop.get(actor);
+	}
+
+	/** @return May be null if this value is not set. */
+	public Value? getPadLeftValue () {
+		return _padLeft;
+	}
+
+	public float getPadLeft () {
+		return _padLeft.get(actor);
+	}
+
+	/** @return May be null if this value is not set. */
+	public Value? getPadBottomValue () {
+		return _padBottom;
+	}
+
+	public float getPadBottom () {
+		return _padBottom.get(actor);
+	}
+
+	/** @return May be null if this value is not set. */
+	public Value? getPadRightValue () {
+		return _padRight;
+	}
+
+	public float getPadRight () {
+		return _padRight.get(actor);
 	}
 
 	/** Returns {@link #getPadLeft()} plus {@link #getPadRight()}. */
-	public float? GetPadX () {
-		return padLeft?.get(actor) + padRight?.get(actor);
+	public float getPadX () {
+		return _padLeft.get(actor) + _padRight.get(actor);
 	}
 
 	/** Returns {@link #getPadTop()} plus {@link #getPadBottom()}. */
-	public float? GetPadY () {
-		return padTop?.get(actor) + padBottom?.get(actor);
+	public float getPadY () {
+		return _padTop.get(actor) + _padBottom.get(actor);
 	}
 
-	public float? GetFillX () {
-		return fillX;
+	public float? getFillX () {
+		return _fillX;
 	}
 
-	public float? GetFillY () {
-		return fillY;
+	public float? getFillY () {
+		return _fillY;
 	}
 
-	public int? GetAlign () {
-		return align;
+	public int? getAlign () {
+		return _align;
 	}
 
-	public int? GetExpandX () {
-		return expandX;
+	public int? getExpandX () {
+		return _expandX;
 	}
 
-	public int? GetExpandY () {
-		return expandY;
+	public int? getExpandY () {
+		return _expandY;
 	}
 
-		public int? GetColspan () {
-		return colspan;
+	public int? getColspan () {
+		return _colspan;
 	}
 
-	public bool? GetUniformX () {
-		return uniformX;
+	public bool? getUniformX () {
+		return _uniformX;
 	}
 
-	public bool? GetUniformY () {
-		return uniformY;
+	public bool? getUniformY () {
+		return _uniformY;
 	}
 
 	/** Returns true if this cell is the last cell in the row. */
-	public bool IsEndRow () {
+	public bool isEndRow () {
 		return endRow;
 	}
 
 	/** The actual amount of combined padding and spacing from the last layout. */
-	public float GetComputedPadTop () {
+	public float getComputedPadTop () {
 		return computedPadTop;
 	}
 
 	/** The actual amount of combined padding and spacing from the last layout. */
-	public float GetComputedPadLeft () {
+	public float getComputedPadLeft () {
 		return computedPadLeft;
 	}
 
 	/** The actual amount of combined padding and spacing from the last layout. */
-	public float GetComputedPadBottom () {
+	public float getComputedPadBottom () {
 		return computedPadBottom;
 	}
 
 	/** The actual amount of combined padding and spacing from the last layout. */
-	public float GetComputedPadRight () {
+	public float getComputedPadRight () {
 		return computedPadRight;
 	}
 
@@ -978,79 +890,129 @@ public class Cell<T> : Cell,IPoolable
 		table.row();
 	}
 
-	public Table GetTable () {
+	public Table getTable () {
 		return table;
 	}
 
 	/** Sets all constraint fields to null. */
-	internal override void Clear () {
-		minWidth = null;
-		minHeight = null;
-		prefWidth = null;
-		prefHeight = null;
-		maxWidth = null;
-		maxHeight = null;
-		spaceTop = null;
-		spaceLeft = null;
-		spaceBottom = null;
-		spaceRight = null;
-		padTop = null;
-		padLeft = null;
-		padBottom = null;
-		padRight = null;
-		fillX = null;
-		fillY = null;
-		align = null;
-		expandX = null;
-		expandY = null;
-		colspan = null;
-		uniformX = null;
-		uniformY = null;
+	internal void Clear () {
+        _minWidth = null;
+        _minHeight = null;
+        _prefWidth = null;
+        _prefHeight = null;
+        _maxWidth = null;
+        _maxHeight = null;
+        _spaceTop = null;
+        _spaceLeft = null;
+        _spaceBottom = null;
+        _spaceRight = null;
+        _padTop = null;
+        _padLeft = null;
+        _padBottom = null;
+        _padRight = null;
+        _fillX = null;
+        _fillY = null;
+        _align = null;
+        _expandX = null;
+        _expandY = null;
+        _colspan = null;
+        _uniformX = null;
+        _uniformY = null;
 	}
 
 	/** Reset state so the cell can be reused, setting all constraints to their {@link #defaults() default} values. */
-	public override void reset () {
+	public void reset () {
 		actor = null;
 		table = null;
 		endRow = false;
 		cellAboveIndex = -1;
-		Set(Defaults());
+		Set(defaults());
 	}
-		
+
+	internal void Set (Cell cell) {
+        _minWidth = cell._minWidth;
+        _minHeight = cell._minHeight;
+        _prefWidth = cell._prefWidth;
+        _prefHeight = cell._prefHeight;
+        _maxWidth = cell._maxWidth;
+        _maxHeight = cell._maxHeight;
+        _spaceTop = cell._spaceTop;
+        _spaceLeft = cell._spaceLeft;
+        _spaceBottom = cell._spaceBottom;
+        _spaceRight = cell._spaceRight;
+        _padTop = cell._padTop;
+        _padLeft = cell._padLeft;
+        _padBottom = cell._padBottom;
+        _padRight = cell._padRight;
+        _fillX = cell._fillX;
+        _fillY = cell._fillY;
+        _align = cell._align;
+        _expandX = cell._expandX;
+        _expandY = cell._expandY;
+        _colspan = cell._colspan;
+        _uniformX = cell._uniformX;
+        _uniformY = cell._uniformY;
+	}
+
+	internal void Merge (Cell? cell) {
+		if (cell == null) return;
+		if (cell._minWidth != null) _minWidth = cell._minWidth;
+		if (cell._minHeight != null) _minHeight = cell._minHeight;
+		if (cell._prefWidth != null) _prefWidth = cell._prefWidth;
+		if (cell._prefHeight != null) _prefHeight = cell._prefHeight;
+		if (cell._maxWidth != null) _maxWidth = cell._maxWidth;
+		if (cell._maxHeight != null) _maxHeight = cell._maxHeight;
+		if (cell._spaceTop != null) _spaceTop = cell._spaceTop;
+		if (cell._spaceLeft != null) _spaceLeft = cell._spaceLeft;
+		if (cell._spaceBottom != null) _spaceBottom = cell._spaceBottom;
+		if (cell._spaceRight != null) _spaceRight = cell._spaceRight;
+		if (cell._padTop != null) _padTop = cell._padTop;
+		if (cell._padLeft != null) _padLeft = cell._padLeft;
+		if (cell._padBottom != null) _padBottom = cell._padBottom;
+		if (cell._padRight != null) _padRight = cell._padRight;
+		if (cell._fillX != null) _fillX = cell._fillX;
+		if (cell._fillY != null) _fillY = cell._fillY;
+		if (cell._align != null) _align = cell._align;
+		if (cell._expandX != null) _expandX = cell._expandX;
+		if (cell._expandY != null) _expandY = cell._expandY;
+		if (cell._colspan != null) _colspan = cell._colspan;
+		if (cell._uniformX != null) _uniformX = cell._uniformX;
+		if (cell._uniformY != null) _uniformY = cell._uniformY;
+	}
+
 	public override String ToString () {
 		return actor != null ? actor.ToString() : base.ToString();
 	}
 
 	/** Returns the defaults to use for all cells. This can be used to avoid needing to set the same defaults for every table (eg,
 	 * for spacing). */
-	static public Cell<T> Defaults () {
-		if (files == null || files != Gdx.files) {
-			files = Gdx.files;
-			defaults = new Cell<T>();
-			defaults.minWidth = Value.minWidth;
-			defaults.minHeight = Value.minHeight;
-			defaults.prefWidth = Value.prefWidth;
-			defaults.prefHeight = Value.prefHeight;
-			defaults.maxWidth = Value.maxWidth;
-			defaults.maxHeight = Value.maxHeight;
-			defaults.spaceTop = Value.zero;
-			defaults.spaceLeft = Value.zero;
-			defaults.spaceBottom = Value.zero;
-			defaults.spaceRight = Value.zero;
-			defaults.padTop = Value.zero;
-			defaults.padLeft = Value.zero;
-			defaults.padBottom = Value.zero;
-			defaults.padRight = Value.zero;
-			defaults.fillX = zerof;
-			defaults.fillY = zerof;
-			defaults.align = centeri;
-			defaults.expandX = zeroi;
-			defaults.expandY = zeroi;
-			defaults.colspan = onei;
-			defaults.uniformX = null;
-			defaults.uniformY = null;
+	static public Cell defaults () {
+		if (files == null || files != Gdx.Files) {
+			files = Gdx.Files;
+            _defaults = new Cell();
+            _defaults._minWidth = Value.minWidth;
+            _defaults._minHeight = Value.minHeight;
+            _defaults._prefWidth = Value.prefWidth;
+            _defaults._prefHeight = Value.prefHeight;
+            _defaults._maxWidth = Value.maxWidth;
+            _defaults._maxHeight = Value.maxHeight;
+            _defaults._spaceTop = Value.zero;
+            _defaults._spaceLeft = Value.zero;
+            _defaults._spaceBottom = Value.zero;
+            _defaults._spaceRight = Value.zero;
+            _defaults._padTop = Value.zero;
+            _defaults._padLeft = Value.zero;
+            _defaults._padBottom = Value.zero;
+            _defaults._padRight = Value.zero;
+            _defaults._fillX = zerof;
+            _defaults._fillY = zerof;
+            _defaults._align = centeri;
+            _defaults._expandX = zeroi;
+            _defaults._expandY = zeroi;
+            _defaults._colspan = onei;
+            _defaults._uniformX = null;
+            _defaults._uniformY = null;
 		}
-		return defaults;
+		return _defaults;
 	}
-}
 }

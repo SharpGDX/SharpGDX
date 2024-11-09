@@ -1,9 +1,9 @@
-//using SharpGDX.Mathematics;
-//using SharpGDX.Shims;
-//using SharpGDX.Scenes.Scene2D.Utils;
-//using SharpGDX.Utils;
+using SharpGDX.Mathematics;
+using SharpGDX.Shims;
+using SharpGDX.Scenes.Scene2D.Utils;
+using SharpGDX.Utils;
 
-//namespace SharpGDX.Scenes.Scene2D.UI;
+namespace SharpGDX.Scenes.Scene2D.UI;
 
 ///** A tree widget where each node has an icon, actor, and child nodes.
 // * <p>
@@ -31,13 +31,13 @@
 //	public Tree (Skin skin) 
 //	: this(skin.get<TreeStyle>(typeof(TreeStyle)))
 //	{
-		
+
 //	}
 
 //	public Tree (Skin skin, String styleName) 
 //	: this(skin.get<TreeStyle>(styleName, typeof(TreeStyle)))
 //	{
-		
+
 //	}
 
 //	public Tree (TreeStyle style) {
@@ -849,33 +849,37 @@
 //			return false;
 //		}
 //	}
-
-//	/** The style for a {@link Tree}.
-//	 * @author Nathan Sweet */
-//	public class TreeStyle {
-//		public Drawable plus, minus;
-//		public Drawable? plusOver, minusOver;
-//		public Drawable? over, selection, background;
-
-//		public TreeStyle () {
-//		}
-
-//		public TreeStyle (Drawable plus, Drawable minus, Drawable? selection) {
-//			this.plus = plus;
-//			this.minus = minus;
-//			this.selection = selection;
-//		}
-
-//		public TreeStyle (TreeStyle style) {
-//			plus = style.plus;
-//			minus = style.minus;
-
-//			plusOver = style.plusOver;
-//			minusOver = style.minusOver;
-
-//			over = style.over;
-//			selection = style.selection;
-//			background = style.background;
-//		}
-//	}
 //}
+
+/** The style for a {@link Tree}.
+ * @author Nathan Sweet */
+public class TreeStyle
+{
+	public IDrawable plus, minus;
+	public IDrawable? plusOver, minusOver;
+	public IDrawable? over, selection, background;
+
+	public TreeStyle()
+	{
+	}
+
+	public TreeStyle(IDrawable plus, IDrawable minus, IDrawable? selection)
+	{
+		this.plus = plus;
+		this.minus = minus;
+		this.selection = selection;
+	}
+
+	public TreeStyle(TreeStyle style)
+	{
+		plus = style.plus;
+		minus = style.minus;
+
+		plusOver = style.plusOver;
+		minusOver = style.minusOver;
+
+		over = style.over;
+		selection = style.selection;
+		background = style.background;
+	}
+}

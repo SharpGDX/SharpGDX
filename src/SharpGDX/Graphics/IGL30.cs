@@ -4,7 +4,7 @@ using Buffer = SharpGDX.Shims.Buffer;
 namespace SharpGDX.Graphics
 {
 	/** OpenGL ES 3.0 */
-	public interface GL30 : GL20
+	public interface IGL30 : IGL20
 	{
 		public static readonly int GL_READ_BUFFER = 0x0C02;
 		public static readonly int GL_UNPACK_ROW_LENGTH = 0x0CF2;

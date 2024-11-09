@@ -410,7 +410,7 @@ public class ScrollPane : WidgetGroup {
 
 		if (animating) {
 			Stage stage = getStage();
-			if (stage != null && stage.getActionsRequestRendering()) Gdx.graphics.requestRendering();
+			if (stage != null && stage.getActionsRequestRendering()) Gdx.Graphics.requestRendering();
 		}
 	}
 

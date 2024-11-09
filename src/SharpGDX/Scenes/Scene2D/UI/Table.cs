@@ -38,8 +38,7 @@ public class Table : WidgetGroup {
 	{
 		protected override Cell newObject()
 		{
-			throw new NotImplementedException();
-				// TODO: return new Cell();
+            return new Cell();
 		}
 	}
 	static private float[] columnWeightedWidth, rowWeightedHeight;
@@ -198,7 +197,7 @@ public class Table : WidgetGroup {
 	}
 
 	/** Adds a new cell to the table with the specified actor. */
-	public  Cell<T> add<T> ( T? actor)
+	public  Cell add<T> ( T? actor)
 	where T: Actor{
 		// TODO: No way this works for 'T' as obtainCell is not generic. -RP
 		var cell = obtainCell();
@@ -216,20 +215,20 @@ public class Table : WidgetGroup {
 			// Set cell column and row.
 			Cell lastCell = cells.peek();
 			if (!lastCell.endRow) {
-				cell.column = lastCell.column + lastCell.colspan ?? 0;
-				cell.row = lastCell.row;
+				cell._column = lastCell._column + lastCell._colspan ?? 0;
+				cell._row = lastCell._row;
 			} else {
-				cell.column = 0;
-				cell.row = lastCell.row + 1;
+				cell._column = 0;
+				cell._row = lastCell._row + 1;
 			}
 			// Set the index of the cell above.
-			if (cell.row > 0) {
+			if (cell._row > 0) {
 				Object[] cells = this.cells.items;
 				
 				for (int i = cellCount - 1; i >= 0; i--) {
 					Cell other = (Cell)cells[i];
-					for (int column = other.column, nn = column + other.colspan ?? 0; column < nn; column++) {
-						if (column == cell.column) {
+					for (int column = other._column, nn = column + other._colspan ?? 0; column < nn; column++) {
+						if (column == cell._column) {
 							cell.cellAboveIndex = i;
 							goto outer;
 						}
@@ -239,18 +238,18 @@ public class Table : WidgetGroup {
 				outer:{}
 			}
 		} else {
-			cell.column = 0;
-			cell.row = 0;
+			cell._column = 0;
+			cell._row = 0;
 		}
 		cells.add(cell);
 
 		cell.Set(cellDefaults);
-		if (cell.column < _columnDefaults.size) cell.Merge(_columnDefaults.get(cell.column));
+		if (cell._column < _columnDefaults.size) cell.Merge(_columnDefaults.get(cell._column));
 		cell.Merge(rowDefaults);
 
 		if (actor != null) addActor(actor);
 
-		return (Cell<T>)cell;
+		return (Cell)cell;
 	}
 
 	public Table add (Actor[] actors) {
@@ -261,28 +260,28 @@ public class Table : WidgetGroup {
 
 	/** Adds a new cell with a label. This may only be called if a skin has been set with {@link Table#Table(Skin)} or
 	 * {@link #setSkin(Skin)}. */
-	public Cell<Label> add (String? text) {
+	public Cell add (String? text) {
 		if (skin == null) throw new IllegalStateException("Table must have a skin set to use this method.");
 		return add(new Label(text, skin));
 	}
 
 	/** Adds a new cell with a label. This may only be called if a skin has been set with {@link Table#Table(Skin)} or
 	 * {@link #setSkin(Skin)}. */
-	public Cell<Label> add (String? text, String labelStyleName) {
+	public Cell add (String? text, String labelStyleName) {
 		if (skin == null) throw new IllegalStateException("Table must have a skin set to use this method.");
 		return add(new Label(text, skin.get<Label.LabelStyle>(labelStyleName, typeof(Label.LabelStyle))));
 	}
 
 	/** Adds a new cell with a label. This may only be called if a skin has been set with {@link Table#Table(Skin)} or
 	 * {@link #setSkin(Skin)}. */
-	public Cell<Label> add (String? text, String fontName,  Color? color) {
+	public Cell add (String? text, String fontName,  Color? color) {
 		if (skin == null) throw new IllegalStateException("Table must have a skin set to use this method.");
 		return add(new Label(text, new Label.LabelStyle(skin.getFont(fontName), color)));
 	}
 
 	/** Adds a new cell with a label. This may only be called if a skin has been set with {@link Table#Table(Skin)} or
 	 * {@link #setSkin(Skin)}. */
-	public Cell<Label> add (String? text, String fontName, String colorName) {
+	public Cell add (String? text, String fontName, String colorName) {
 		if (skin == null) throw new IllegalStateException("Table must have a skin set to use this method.");
 		return add(new Label(text, new Label.LabelStyle(skin.getFont(fontName), skin.getColor(colorName))));
 	}
@@ -294,7 +293,7 @@ public class Table : WidgetGroup {
 
 	/** Adds a new cell to the table with the specified actors in a {@link Stack}.
 	 * @param actors May be null or empty to add a stack without any actors. */
-	public Cell<Stack> stack(Actor[]? actors) {
+	public Cell stack(Actor[]? actors) {
 		Stack stack = new Stack();
 		if (actors != null) {
 			for (int i = 0, n = actors.Length; i < n; i++)
@@ -381,7 +380,7 @@ public class Table : WidgetGroup {
 		for (int i = this.cells.size - 1; i >= 0; i--) {
 			Cell cell = (Cell)cells[i];
 			if (cell.endRow) break;
-			rowColumns += cell.colspan ?? 0;
+			rowColumns += cell._colspan ?? 0;
 		}
 		columns = Math.Max(columns, rowColumns);
 		rows++;
@@ -406,13 +405,13 @@ public class Table : WidgetGroup {
 	}
 
 	/** Returns the cell for the specified actor in this table, or null. */
-	public  Cell<T>? getCell<T> (T actor) 
+	public  Cell? getCell<T> (T actor) 
 	where T: Actor{
 		if (actor == null) throw new IllegalArgumentException("actor cannot be null.");
 		var cells = this.cells.items;
 		for (int i = 0, n = this.cells.size; i < n; i++) {
 			Cell c = (Cell)cells[i];
-			if (c.actor == actor) return (Cell<T>?)c;
+			if (c.actor == actor) return (Cell?)c;
 		}
 		return null;
 	}
@@ -797,30 +796,30 @@ public class Table : WidgetGroup {
 		float spaceRightLast = 0;
 		for (int i = 0; i < cellCount; i++) {
 			Cell c = (Cell)cells[i];
-			int column = c.column, row = c.row, colspan = c.colspan ?? 0;
+			int column = c._column, row = c._row, colspan = c._colspan ?? 0;
 			Actor a = c.actor;
 
 			// Collect rows that expand and colspan=1 columns that expand.
-			if (c.expandY != 0 && expandHeight[row] == 0) expandHeight[row] = c.expandY ?? 0;
-			if (colspan == 1 && c.expandX != 0 && expandWidth[column] == 0) expandWidth[column] = c.expandX ?? 0;
+			if (c._expandY != 0 && expandHeight[row] == 0) expandHeight[row] = c._expandY ?? 0;
+			if (colspan == 1 && c._expandX != 0 && expandWidth[column] == 0) expandWidth[column] = c._expandX ?? 0;
 
 			// Compute combined padding/spacing for cells.
 			// Spacing between actors isn't additive, the larger is used. Also, no spacing around edges.
-			c.computedPadLeft = c.padLeft.get(a) + (column == 0 ? 0 : Math.Max(0, c.spaceLeft.get(a) - spaceRightLast));
-			c.computedPadTop = c.padTop.get(a);
+			c.computedPadLeft = c._padLeft.get(a) + (column == 0 ? 0 : Math.Max(0, c._spaceLeft.get(a) - spaceRightLast));
+			c.computedPadTop = c._padTop.get(a);
 			if (c.cellAboveIndex != -1) {
 				Cell above = (Cell)cells[c.cellAboveIndex];
-				c.computedPadTop += Math.Max(0, c.spaceTop.get(a) - above.spaceBottom.get(a));
+				c.computedPadTop += Math.Max(0, c._spaceTop.get(a) - above._spaceBottom.get(a));
 			}
-			float spaceRight = c.spaceRight.get(a);
-			c.computedPadRight = c.padRight.get(a) + ((column + colspan) == columns ? 0 : spaceRight);
-			c.computedPadBottom = c.padBottom.get(a) + (row == rows - 1 ? 0 : c.spaceBottom.get(a));
+			float spaceRight = c._spaceRight.get(a);
+			c.computedPadRight = c._padRight.get(a) + ((column + colspan) == columns ? 0 : spaceRight);
+			c.computedPadBottom = c._padBottom.get(a) + (row == rows - 1 ? 0 : c._spaceBottom.get(a));
 			spaceRightLast = spaceRight;
 
 			// Determine minimum and preferred cell sizes.
-			float prefWidth = c.prefWidth.get(a), prefHeight = c.prefHeight.get(a);
-			float minWidth = c.minWidth.get(a), minHeight = c.minHeight.get(a);
-			float maxWidth = c.maxWidth.get(a), maxHeight = c.maxHeight.get(a);
+			float prefWidth = c._prefWidth.get(a), prefHeight = c._prefHeight.get(a);
+			float minWidth = c._minWidth.get(a), minHeight = c._minHeight.get(a);
+			float maxWidth = c._maxWidth.get(a), maxHeight = c._maxHeight.get(a);
 			if (prefWidth < minWidth) prefWidth = minWidth;
 			if (prefHeight < minHeight) prefHeight = minHeight;
 			if (maxWidth > 0 && prefWidth > maxWidth) prefWidth = maxWidth;
@@ -846,12 +845,12 @@ public class Table : WidgetGroup {
 		float uniformPrefWidth = 0, uniformPrefHeight = 0;
 		for (int i = 0; i < cellCount; i++) {
 			Cell c = (Cell)cells[i];
-			int column = c.column;
+			int column = c._column;
 
 			// Colspan with expand will expand all spanned columns if none of the spanned columns have expand.
-			int expandX = c.expandX ?? 0;
+			int expandX = c._expandX ?? 0;
 			if (expandX != 0) {
-				int nn = column + c.colspan ?? 0;
+				int nn = column + c._colspan ?? 0;
 				for (int ii = column; ii < nn; ii++)
 					if (expandWidth[ii] != 0)
 						goto outer;
@@ -861,15 +860,15 @@ public class Table : WidgetGroup {
 			outer:
 
 			// Collect uniform sizes.
-			if (c.uniformX == true && c.colspan == 1) {
+			if (c._uniformX == true && c._colspan == 1) {
 				float hpadding = c.computedPadLeft + c.computedPadRight;
 				uniformMinWidth = Math.Max(uniformMinWidth, columnMinWidth[column] - hpadding);
 				uniformPrefWidth = Math.Max(uniformPrefWidth, columnPrefWidth[column] - hpadding);
 			}
-			if (c.uniformY == true) {
+			if (c._uniformY == true) {
 				float vpadding = c.computedPadTop + c.computedPadBottom;
-				uniformMinHeight = Math.Max(uniformMinHeight, rowMinHeight[c.row] - vpadding);
-				uniformPrefHeight = Math.Max(uniformPrefHeight, rowPrefHeight[c.row] - vpadding);
+				uniformMinHeight = Math.Max(uniformMinHeight, rowMinHeight[c._row] - vpadding);
+				uniformPrefHeight = Math.Max(uniformPrefHeight, rowPrefHeight[c._row] - vpadding);
 			}
 		}
 
@@ -877,15 +876,15 @@ public class Table : WidgetGroup {
 		if (uniformPrefWidth > 0 || uniformPrefHeight > 0) {
 			for (int i = 0; i < cellCount; i++) {
 				Cell c = (Cell)cells[i];
-				if (uniformPrefWidth > 0 && c.uniformX == true && c.colspan == 1) {
+				if (uniformPrefWidth > 0 && c._uniformX == true && c._colspan == 1) {
 					float hpadding = c.computedPadLeft + c.computedPadRight;
-					columnMinWidth[c.column] = uniformMinWidth + hpadding;
-					columnPrefWidth[c.column] = uniformPrefWidth + hpadding;
+					columnMinWidth[c._column] = uniformMinWidth + hpadding;
+					columnPrefWidth[c._column] = uniformPrefWidth + hpadding;
 				}
-				if (uniformPrefHeight > 0 && c.uniformY == true) {
+				if (uniformPrefHeight > 0 && c._uniformY == true) {
 					float vpadding = c.computedPadTop + c.computedPadBottom;
-					rowMinHeight[c.row] = uniformMinHeight + vpadding;
-					rowPrefHeight[c.row] = uniformPrefHeight + vpadding;
+					rowMinHeight[c._row] = uniformMinHeight + vpadding;
+					rowPrefHeight[c._row] = uniformPrefHeight + vpadding;
 				}
 			}
 		}
@@ -893,12 +892,12 @@ public class Table : WidgetGroup {
 		// Distribute any additional min and pref width added by colspanned cells to the columns spanned.
 		for (int i = 0; i < cellCount; i++) {
 			Cell c = (Cell)cells[i];
-			int colspan = c.colspan ?? 0;
+			int colspan = c._colspan ?? 0;
 			if (colspan == 1) continue;
-			int column = c.column;
+			int column = c._column;
 
 			Actor a = c.actor;
-			float minWidth = c.minWidth.get(a), prefWidth = c.prefWidth.get(a), maxWidth = c.maxWidth.get(a);
+			float minWidth = c._minWidth.get(a), prefWidth = c._prefWidth.get(a), maxWidth = c._maxWidth.get(a);
 			if (prefWidth < minWidth) prefWidth = minWidth;
 			if (maxWidth > 0 && prefWidth > maxWidth) prefWidth = maxWidth;
 			if (round) {
@@ -995,18 +994,18 @@ public class Table : WidgetGroup {
 		int cellCount = this.cells.size;
 		for (int i = 0; i < cellCount; i++) {
 			Cell c = (Cell)cells[i];
-			int column = c.column, row = c.row;
+			int column = c._column, row = c._row;
 			Actor a = c.actor;
 
 			float spannedWeightedWidth = 0;
-			int colspan = c.colspan ?? 0;
+			int colspan = c._colspan ?? 0;
 			for (int ii = column, nn = ii + colspan; ii < nn; ii++)
 				spannedWeightedWidth += columnWeightedWidth[ii];
 			float weightedHeight = rowWeightedHeight[row];
 
-			float prefWidth = c.prefWidth.get(a), prefHeight = c.prefHeight.get(a);
-			float minWidth = c.minWidth.get(a), minHeight = c.minHeight.get(a);
-			float maxWidth = c.maxWidth.get(a), maxHeight = c.maxHeight.get(a);
+			float prefWidth = c._prefWidth.get(a), prefHeight = c._prefHeight.get(a);
+			float minWidth = c._minWidth.get(a), minHeight = c._minHeight.get(a);
+			float maxWidth = c._maxWidth.get(a), maxHeight = c._maxHeight.get(a);
 			if (prefWidth < minWidth) prefWidth = minWidth;
 			if (prefHeight < minHeight) prefHeight = minHeight;
 			if (maxWidth > 0 && prefWidth > maxWidth) prefWidth = maxWidth;
@@ -1066,17 +1065,17 @@ public class Table : WidgetGroup {
 		// Distribute any additional width added by colspanned cells to the columns spanned.
 		for (int i = 0; i < cellCount; i++) {
 			Cell c = (Cell)cells[i];
-			int colspan = c.colspan ?? 0;
+			int colspan = c._colspan ?? 0;
 			if (colspan == 1) continue;
 
 			float extraWidth = 0;
-			for (int column = c.column, nn = column + colspan; column < nn; column++)
+			for (int column = c._column, nn = column + colspan; column < nn; column++)
 				extraWidth += columnWeightedWidth[column] - columnWidth[column];
 			extraWidth -= Math.Max(0, c.computedPadLeft + c.computedPadRight);
 
 			extraWidth /= colspan;
 			if (extraWidth > 0) {
-				for (int column = c.column, nn = column + colspan; column < nn; column++)
+				for (int column = c._column, nn = column + colspan; column < nn; column++)
 					columnWidth[column] += extraWidth;
 			}
 		}
@@ -1108,25 +1107,25 @@ public class Table : WidgetGroup {
 			Cell c = (Cell)cells[i];
 
 			float spannedCellWidth = 0;
-			for (int column = c.column, nn = column + c.colspan ?? 0; column < nn; column++)
+			for (int column = c._column, nn = column + c._colspan ?? 0; column < nn; column++)
 				spannedCellWidth += columnWidth[column];
 			spannedCellWidth -= c.computedPadLeft + c.computedPadRight;
 
 			currentX += c.computedPadLeft;
 
-			float fillX = c.fillX ?? 0, fillY = c.fillY ?? 0;
+			float fillX = c._fillX ?? 0, fillY = c._fillY ?? 0;
 			if (fillX > 0) {
-				c.actorWidth = Math.Max(spannedCellWidth * fillX, c.minWidth.get(c.actor));
-				float maxWidth = c.maxWidth.get(c.actor);
+				c.actorWidth = Math.Max(spannedCellWidth * fillX, c._minWidth.get(c.actor));
+				float maxWidth = c._maxWidth.get(c.actor);
 				if (maxWidth > 0) c.actorWidth = Math.Min(c.actorWidth, maxWidth);
 			}
 			if (fillY > 0) {
-				c.actorHeight = Math.Max(rowHeight[c.row] * fillY - c.computedPadTop - c.computedPadBottom, c.minHeight.get(c.actor));
-				float maxHeight = c.maxHeight.get(c.actor);
+				c.actorHeight = Math.Max(rowHeight[c._row] * fillY - c.computedPadTop - c.computedPadBottom, c._minHeight.get(c.actor));
+				float maxHeight = c._maxHeight.get(c.actor);
 				if (maxHeight > 0) c.actorHeight = Math.Min(c.actorHeight, maxHeight);
 			}
 
-			align = c.align ?? 0;
+			align = c._align ?? 0;
 			if ((align & Align.left) != 0)
 				c.actorX = currentX;
 			else if ((align & Align.right) != 0)
@@ -1137,9 +1136,9 @@ public class Table : WidgetGroup {
 			if ((align & Align.top) != 0)
 				c.actorY = c.computedPadTop;
 			else if ((align & Align.bottom) != 0)
-				c.actorY = rowHeight[c.row] - c.actorHeight - c.computedPadBottom;
+				c.actorY = rowHeight[c._row] - c.actorHeight - c.computedPadBottom;
 			else
-				c.actorY = (rowHeight[c.row] - c.actorHeight + c.computedPadTop - c.computedPadBottom) / 2;
+				c.actorY = (rowHeight[c._row] - c.actorHeight + c.computedPadTop - c.computedPadBottom) / 2;
 			c.actorY = layoutHeight - currentY - c.actorY - c.actorHeight;
 
 			if (round) {
@@ -1153,7 +1152,7 @@ public class Table : WidgetGroup {
 
 			if (c.endRow) {
 				currentX = x;
-				currentY += rowHeight[c.row];
+				currentY += rowHeight[c._row];
 			} else
 				currentX += spannedCellWidth + c.computedPadRight;
 		}
@@ -1188,19 +1187,19 @@ public class Table : WidgetGroup {
 
 			// Cell bounds.
 			float spannedCellWidth = 0;
-			for (int column = c.column, nn = column + c.colspan ?? 0; column < nn; column++)
+			for (int column = c._column, nn = column + c._colspan ?? 0; column < nn; column++)
 				spannedCellWidth += columnWidth[column];
 			spannedCellWidth -= c.computedPadLeft + c.computedPadRight;
 			currentX += c.computedPadLeft;
 			if (_debug == Debug.cell || _debug == Debug.all) {
-				float h = rowHeight[c.row] - c.computedPadTop - c.computedPadBottom;
+				float h = rowHeight[c._row] - c.computedPadTop - c.computedPadBottom;
 				float y = currentY + c.computedPadTop;
 				addDebugRect(currentX, getHeight() - y, spannedCellWidth, -h, debugCellColor);
 			}
 
 			if (c.endRow) {
 				currentX = x;
-				currentY += rowHeight[c.row];
+				currentY += rowHeight[c._row];
 			} else
 				currentX += spannedCellWidth + c.computedPadRight;
 		}

@@ -11,7 +11,7 @@ public sealed class Method {
 
 	private readonly MethodInfo method;
 
-	Method (MethodInfo method) {
+internal 	Method (MethodInfo method) {
 		this.method = method;
 	}
 
@@ -102,7 +102,7 @@ public sealed class Method {
 		}
 
 		/** Invokes the underlying method on the supplied object with the supplied parameters. */
-		public Object invoke (Object obj, Object[] args) // TODO: throws ReflectionException 
+		public Object invoke (Object obj, params Object[] args) // TODO: throws ReflectionException 
 	{
 		throw new NotImplementedException();
 		// TODO: try

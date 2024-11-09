@@ -29,7 +29,7 @@ public class FloatFrameBuffer : FrameBuffer {
 	public FloatFrameBuffer (int width, int height, bool hasDepth) {
 		checkExtensions();
 		FloatFrameBufferBuilder bufferBuilder = new FloatFrameBufferBuilder(width, height);
-		bufferBuilder.addFloatAttachment(GL30.GL_RGBA32F, GL30.GL_RGBA, GL30.GL_FLOAT, false);
+		bufferBuilder.addFloatAttachment(IGL30.GL_RGBA32F, IGL30.GL_RGBA, IGL30.GL_FLOAT, false);
 		if (hasDepth) bufferBuilder.addBasicDepthRenderBuffer();
 		this.bufferBuilder = bufferBuilder;
 
@@ -40,7 +40,7 @@ public class FloatFrameBuffer : FrameBuffer {
 		FloatTextureData data = new FloatTextureData(bufferBuilder.width, bufferBuilder.height, attachmentSpec.internalFormat,
 			attachmentSpec.format, attachmentSpec.type, attachmentSpec.isGpuOnly);
 		Texture result = new Texture(data);
-		if (Gdx.app.getType() == ApplicationType.Desktop || Gdx.app.getType() == ApplicationType.Applet)
+		if (Gdx.App.getType() == ApplicationType.Desktop || Gdx.App.getType() == ApplicationType.Applet)
 			result.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 		else
 			// no filtering for float textures in OpenGL ES
@@ -51,9 +51,9 @@ public class FloatFrameBuffer : FrameBuffer {
 
 	/** Check for support for any required extensions on the current platform. */
 	private void checkExtensions () {
-		if (Gdx.graphics.isGL30Available() && Gdx.app.getType() == ApplicationType.WebGL) {
+		if (Gdx.Graphics.isGL30Available() && Gdx.App.getType() == ApplicationType.WebGL) {
 			// For WebGL2, Rendering to a Floating Point Texture requires this extension
-			if (!Gdx.graphics.supportsExtension("EXT_color_buffer_float"))
+			if (!Gdx.Graphics.supportsExtension("EXT_color_buffer_float"))
 				throw new GdxRuntimeException("Extension EXT_color_buffer_float not supported!");
 		}
 	}

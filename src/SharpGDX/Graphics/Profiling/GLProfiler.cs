@@ -23,9 +23,9 @@ public class GLProfiler {
 		 *           DesktopWindow.getGraphics() */
 		public GLProfiler (IGraphics graphics) {
 		this.graphics = graphics;
-		GL32 gl32 = graphics.getGL32();
-		GL31 gl31 = graphics.getGL31();
-		GL30 gl30 = graphics.getGL30();
+		IGL32 gl32 = graphics.getGL32();
+		IGL31 gl31 = graphics.getGL31();
+		IGL30 gl30 = graphics.getGL30();
 		if (gl32 != null) {
 			glInterceptor = new GL32Interceptor(this, gl32);
 		} else if (gl31 != null) {
@@ -42,22 +42,22 @@ public class GLProfiler {
 	public void enable () {
 		if (enabled) return;
 
-		if (glInterceptor is GL32) {
-			graphics.setGL32((GL32)glInterceptor);
+		if (glInterceptor is IGL32) {
+			graphics.setGL32((IGL32)glInterceptor);
 		}
-		if (glInterceptor is GL31) {
-			graphics.setGL31((GL31)glInterceptor);
+		if (glInterceptor is IGL31) {
+			graphics.setGL31((IGL31)glInterceptor);
 		}
-		if (glInterceptor is GL30) {
-			graphics.setGL30((GL30)glInterceptor);
+		if (glInterceptor is IGL30) {
+			graphics.setGL30((IGL30)glInterceptor);
 		}
 		graphics.setGL20(glInterceptor);
 
-		Gdx.gl32 = graphics.getGL32();
-		Gdx.gl31 = graphics.getGL31();
-		Gdx.gl30 = graphics.getGL30();
-		Gdx.gl20 = graphics.getGL20();
-		Gdx.gl = graphics.getGL20();
+		Gdx.GL32 = graphics.getGL32();
+		Gdx.GL31 = graphics.getGL31();
+		Gdx.GL30 = graphics.getGL30();
+		Gdx.GL20 = graphics.getGL20();
+		Gdx.GL = graphics.getGL20();
 
 		enabled = true;
 	}
@@ -79,11 +79,11 @@ public class GLProfiler {
 			graphics.setGL20(((GL20Interceptor)graphics.getGL20()).gl20);
 		}
 
-		Gdx.gl32 = graphics.getGL32();
-		Gdx.gl31 = graphics.getGL31();
-		Gdx.gl30 = graphics.getGL30();
-		Gdx.gl20 = graphics.getGL20();
-		Gdx.gl = graphics.getGL20();
+		Gdx.GL32 = graphics.getGL32();
+		Gdx.GL31 = graphics.getGL31();
+		Gdx.GL30 = graphics.getGL30();
+		Gdx.GL20 = graphics.getGL20();
+		Gdx.GL = graphics.getGL20();
 
 		enabled = false;
 	}

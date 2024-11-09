@@ -57,7 +57,7 @@ public class Stage : InputAdapter , Disposable {
 	/** Creates a stage with a {@link ScalingViewport} set to {@link Scaling#stretch}. The stage will use its own {@link Batch}
 	 * which will be disposed when the stage is disposed. */
 	public Stage ()
-		: this(new ScalingViewport(Scaling.stretch, Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), new OrthographicCamera()),
+		: this(new ScalingViewport(Scaling.stretch, Gdx.Graphics.getWidth(), Gdx.Graphics.getHeight(), new OrthographicCamera()),
 		new SpriteBatch())
 	{
 		
@@ -85,7 +85,7 @@ public class Stage : InputAdapter , Disposable {
 		root = new Group();
 		root.setStage(this);
 
-		viewport.update(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), true);
+		viewport.update(Gdx.Graphics.getWidth(), Gdx.Graphics.getHeight(), true);
 	}
 
 	public void draw () {
@@ -110,7 +110,7 @@ public class Stage : InputAdapter , Disposable {
 		}
 
 		if (debugUnderMouse || debugParentUnderMouse || debugTableUnderMouse != Table.Debug.none) {
-			screenToStageCoordinates(tempCoords.set(Gdx.input.getX(), Gdx.input.getY()));
+			screenToStageCoordinates(tempCoords.set(Gdx.Input.getX(), Gdx.Input.getY()));
 			Actor actor = hit(tempCoords.x, tempCoords.y, true);
 			if (actor == null) return;
 
@@ -134,12 +134,12 @@ public class Stage : InputAdapter , Disposable {
 			if (debugAll) root.debugAll();
 		}
 
-		Gdx.gl.glEnable(GL20.GL_BLEND);
+		Gdx.GL.glEnable(IGL20.GL_BLEND);
 		debugShapes.setProjectionMatrix(viewport.getCamera().combined);
 		debugShapes.begin();
 		root.drawDebug(debugShapes);
 		debugShapes.end();
-		Gdx.gl.glDisable(GL20.GL_BLEND);
+		Gdx.GL.glDisable(IGL20.GL_BLEND);
 	}
 
 	/** Disables debug on all actors recursively except the specified actor and any children. */
@@ -155,7 +155,7 @@ public class Stage : InputAdapter , Disposable {
 
 	/** Calls {@link #act(float)} with {@link Graphics#getDeltaTime()}, limited to a minimum of 30fps. */
 	public void act () {
-		act(Math.Min(Gdx.graphics.getDeltaTime(), 1 / 30f));
+		act(Math.Min(Gdx.Graphics.getDeltaTime(), 1 / 30f));
 	}
 
 	/** Calls the {@link Actor#act(float)} method on each actor in the stage. Typically called each frame. This method also fires
@@ -176,7 +176,7 @@ public class Stage : InputAdapter , Disposable {
 		}
 
 		// Update over actor for the mouse on the desktop.
-		ApplicationType type = Gdx.app.getType();
+		ApplicationType type = Gdx.App.getType();
 		if (type == ApplicationType.Desktop || type == ApplicationType.Applet || type == ApplicationType.WebGL)
 			mouseOverActor = fireEnterAndExit(mouseOverActor, mouseScreenX, mouseScreenY, -1);
 
@@ -733,7 +733,7 @@ public class Stage : InputAdapter , Disposable {
 	 * @param stageCoords Input stage coordinates and output for resulting screen coordinates. */
 	public Vector2 stageToScreenCoordinates (Vector2 stageCoords) {
 		viewport.project(stageCoords);
-		stageCoords.y = Gdx.graphics.getHeight() - stageCoords.y;
+		stageCoords.y = Gdx.Graphics.getHeight() - stageCoords.y;
 		return stageCoords;
 	}
 
@@ -843,7 +843,7 @@ public class Stage : InputAdapter , Disposable {
 		int x1 = x0 + viewport.getScreenWidth();
 		int y0 = viewport.getScreenY();
 		int y1 = y0 + viewport.getScreenHeight();
-		screenY = Gdx.graphics.getHeight() - 1 - screenY;
+		screenY = Gdx.Graphics.getHeight() - 1 - screenY;
 		return screenX >= x0 && screenX < x1 && screenY >= y0 && screenY < y1;
 	}
 

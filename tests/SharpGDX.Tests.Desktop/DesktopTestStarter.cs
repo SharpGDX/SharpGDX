@@ -68,14 +68,14 @@ public class DesktopTestStarter {
 		TextButton lastClickedTestButton;
 
 		public override void Create () {
-			Console.WriteLine("OpenGL renderer: " + Gdx.graphics.getGLVersion().GetRendererString());
-			Console.WriteLine("OpenGL vendor: " + Gdx.graphics.getGLVersion().GetVendorString());
+			Console.WriteLine("OpenGL renderer: " + Gdx.Graphics.getGLVersion().GetRendererString());
+			Console.WriteLine("OpenGL vendor: " + Gdx.Graphics.getGLVersion().GetVendorString());
 
-			IPreferences prefs = Gdx.app.getPreferences("lwjgl3-tests");
+			IPreferences prefs = Gdx.App.getPreferences("lwjgl3-tests");
 
 			stage = new Stage(new ScreenViewport());
-			Gdx.input.setInputProcessor(stage);
-			skin = new Skin(Gdx.files.@internal("data/uiskin.json"));
+			Gdx.Input.setInputProcessor(stage);
+			skin = new Skin(Gdx.Files.Internal("data/uiskin.json"));
 
 			Table container = new Table();
 			stage.addActor(container);
@@ -139,10 +139,10 @@ public class DesktopTestStarter {
                 DesktopWindowConfiguration winConfig = new DesktopWindowConfiguration();
                 winConfig.setTitle(_testName);
                 winConfig.setWindowedMode(640, 480);
-                winConfig.setWindowPosition(((DesktopGraphics)Gdx.graphics).getWindow().getPositionX() + 40,
-                    ((DesktopGraphics)Gdx.graphics).getWindow().getPositionY() + 40);
+                winConfig.setWindowPosition(((DesktopGraphics)Gdx.Graphics).getWindow().getPositionX() + 40,
+                    ((DesktopGraphics)Gdx.Graphics).getWindow().getPositionY() + 40);
                 winConfig.useVsync(false);
-                ((DesktopApplication)Gdx.app).newWindow(new GdxTestWrapper(test, options.logGLErrors), winConfig);
+                ((DesktopApplication)Gdx.App).newWindow(new GdxTestWrapper(test, options.logGLErrors), winConfig);
                 Console.WriteLine("Started test: " + _testName);
                 _prefs.putString("LastTest", _testName);
                 _prefs.flush();

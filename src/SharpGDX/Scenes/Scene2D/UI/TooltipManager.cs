@@ -161,8 +161,8 @@ public class TooltipManager {
 	}
 
 	static public TooltipManager getInstance () {
-		if (files == null || files != Gdx.files) {
-			files = Gdx.files;
+		if (files == null || files != Gdx.Files) {
+			files = Gdx.Files;
 			instance = new TooltipManager();
 		}
 		return instance;

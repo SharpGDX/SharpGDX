@@ -61,7 +61,7 @@ public class FrameBuffer : GLFrameBuffer<Texture> {
 			attachmentSpec.format, attachmentSpec.type);
 		Texture result = new Texture(data);
 		// Filtering support for depth textures on WebGL is spotty https://github.com/KhronosGroup/OpenGL-API/issues/84
-		bool webGLDepth = attachmentSpec.isDepth && Gdx.app.getType() == ApplicationType.WebGL;
+		bool webGLDepth = attachmentSpec.isDepth && Gdx.App.getType() == ApplicationType.WebGL;
 		if (!webGLDepth) {
 			result.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 		}
@@ -74,7 +74,7 @@ public class FrameBuffer : GLFrameBuffer<Texture> {
 	}
 
     protected override void attachFrameBufferColorTexture (Texture texture) {
-		Gdx.gl20.glFramebufferTexture2D(GL20.GL_FRAMEBUFFER, GL20.GL_COLOR_ATTACHMENT0, GL20.GL_TEXTURE_2D,
+		Gdx.GL20.glFramebufferTexture2D(IGL20.GL_FRAMEBUFFER, IGL20.GL_COLOR_ATTACHMENT0, IGL20.GL_TEXTURE_2D,
 			texture.getTextureObjectHandle(), 0);
 	}
 

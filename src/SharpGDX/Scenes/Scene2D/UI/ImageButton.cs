@@ -105,7 +105,7 @@ public class ImageButton : Button {
 		return image;
 	}
 
-	public Cell<Image> getImageCell () {
+	public Cell getImageCell () {
 		return getCell<Image>(image);
 	}
 

@@ -125,28 +125,28 @@ namespace SharpGDX
 		bool isGL32Available();
 
 		/** @return the {@link GL20} instance */
-		GL20 getGL20();
+		IGL20 getGL20();
 
 		/** @return the {@link GL30} instance or null if not supported */
-		 GL30 getGL30();
+		 IGL30 getGL30();
 
 		/** @return the {@link GL31} instance or null if not supported */
-		GL31 getGL31();
+		IGL31 getGL31();
 
 		/** @return the {@link GL32} instance or null if not supported */
-		 GL32 getGL32();
+		 IGL32 getGL32();
 
 		/** Set the GL20 instance **/
-		 void setGL20(GL20 gl20);
+		 void setGL20(IGL20 gl20);
 
 		/** Set the GL30 instance **/
-		 void setGL30(GL30 gl30);
+		 void setGL30(IGL30 gl30);
 
 		/** Set the GL31 instance **/
-		 void setGL31(GL31 gl31);
+		 void setGL31(IGL31 gl31);
 
 		/** Set the GL32 instance **/
-		 void setGL32(GL32 gl32);
+		 void setGL32(IGL32 gl32);
 
 		/** @return the width of the client area in logical pixels. */
 		int getWidth();

@@ -36,7 +36,7 @@ namespace Drop
 
 			game.Batch.end();
 
-		if (Gdx.input.isTouched())
+		if (Gdx.Input.isTouched())
 		{
 			game.SetScreen(new GameScreen(game));
 			Dispose();

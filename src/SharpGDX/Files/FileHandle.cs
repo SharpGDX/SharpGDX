@@ -110,7 +110,7 @@ namespace SharpGDX.Files
 		 * {@link FileType#Absolute} and {@link FileType#External} file handles. */
 		public virtual File file()
 		{
-			if (_type == FileType.External) return new File(Gdx.files.getExternalStoragePath(), _file.getPath());
+			if (_type == FileType.External) return new File(Gdx.Files.GetExternalStoragePath(), _file.getPath());
 			return _file;
 		}
 

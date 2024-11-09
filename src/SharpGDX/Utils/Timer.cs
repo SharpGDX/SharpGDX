@@ -32,7 +32,7 @@ namespace SharpGDX.Utils
         {
             lock (threadLock)
             {
-                if (_thread == null || _thread.files != Gdx.files)
+                if (_thread == null || _thread.files != Gdx.Files)
                 {
                     if (_thread != null) _thread.Dispose();
                     _thread = new TimerThread();
@@ -264,7 +264,7 @@ namespace SharpGDX.Utils
 
             public Task()
             {
-                app = Gdx.app; // Store which app to postRunnable (eg for multiple LwjglAWTCanvas).
+                app = Gdx.App; // Store which app to postRunnable (eg for multiple LwjglAWTCanvas).
                 if (app == null) throw new IllegalStateException("Gdx.app not available.");
             }
 
@@ -344,8 +344,8 @@ namespace SharpGDX.Utils
             {
                 _runPostedTasks = runPostedTasks;
 
-                files = Gdx.files;
-                app = Gdx.app;
+                files = Gdx.Files;
+                app = Gdx.App;
                 app.addLifecycleListener(this);
                 Resume();
 
@@ -366,7 +366,7 @@ namespace SharpGDX.Utils
                     {
                         Monitor.Enter(threadLock);
                         
-                            if (_thread != this || files != Gdx.files) break;
+                            if (_thread != this || files != Gdx.Files) break;
 
                             long waitMillis = 5000;
                             if (pauseTimeMillis == 0)
@@ -386,7 +386,7 @@ namespace SharpGDX.Utils
                                 }
                             }
 
-                            if (_thread != this || files != Gdx.files) break;
+                            if (_thread != this || files != Gdx.Files) break;
 
                             try
                             {

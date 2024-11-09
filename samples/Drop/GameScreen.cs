@@ -31,13 +31,13 @@ namespace Drop
 		this.game = gam;
 
 		// load the images for the droplet and the bucket, 64x64 pixels each
-		dropImage = new Texture(Gdx.files.@internal("data/droplet.png"));
+		dropImage = new Texture(Gdx.Files.Internal("data/droplet.png"));
 
-		bucketImage = new Texture(Gdx.files.@internal("data/bucket.png"));
+		bucketImage = new Texture(Gdx.Files.Internal("data/bucket.png"));
 
 		// load the drop sound effect and the rain background "music"
-		dropSound = Gdx.audio.NewSound(Gdx.files.@internal("data/drop.wav"));
-		rainMusic = Gdx.audio.NewMusic(Gdx.files.@internal("data/rain.wav"));
+		dropSound = Gdx.Audio.NewSound(Gdx.Files.Internal("data/drop.wav"));
+		rainMusic = Gdx.Audio.NewMusic(Gdx.Files.Internal("data/rain.wav"));
 		rainMusic.SetLooping(true);
 		
 		// create the camera and the SpriteBatch
@@ -96,18 +96,18 @@ namespace Drop
 		game.Batch.end();
 
 		// process user input
-		if (Gdx.input.isTouched())
+		if (Gdx.Input.isTouched())
 		{
 			Vector3 touchPos = new Vector3();
-			touchPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
+			touchPos.set(Gdx.Input.getX(), Gdx.Input.getY(), 0);
 			camera.unproject(touchPos);
 			bucket.x = touchPos.x - 64 / 2;
 		}
 
-		if (Gdx.input.isKeyPressed(Keys.LEFT))
-			bucket.x -= 200 * Gdx.graphics.getDeltaTime();
-		if (Gdx.input.isKeyPressed(Keys.RIGHT))
-			bucket.x += 200 * Gdx.graphics.getDeltaTime();
+		if (Gdx.Input.isKeyPressed(Keys.LEFT))
+			bucket.x -= 200 * Gdx.Graphics.getDeltaTime();
+		if (Gdx.Input.isKeyPressed(Keys.RIGHT))
+			bucket.x += 200 * Gdx.Graphics.getDeltaTime();
 
 		// make sure the bucket stays within the screen bounds
 		if (bucket.x < 0)
@@ -125,7 +125,7 @@ namespace Drop
 		for (var i = raindrops.Count - 1; i >= 0; i--)
 		{
 			var raindrop = raindrops[i];
-			raindrop.y -= 200 * Gdx.graphics.getDeltaTime();
+			raindrop.y -= 200 * Gdx.Graphics.getDeltaTime();
 			if (raindrop.y + 64 < 0)
 				raindrops.RemoveAt(i);
 			if (raindrop.overlaps(bucket))

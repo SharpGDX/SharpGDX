@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 using SharpGDX.Shims;
 using System.Security;
+using SharpGDX.Graphics.G2D;
 using SharpGDX.Utils;
 using SharpGDX.Mathematics;
 using Buffer = SharpGDX.Shims.Buffer;
@@ -13,18 +14,28 @@ namespace SharpGDX.Utils.Reflect
 	{
 
 		//	/** Returns the Class object associated with the class or interface with the supplied string name. */
-		static public Type forName(String name)// throws ReflectionException
-		{
-				try {
-				return Type.GetType(name);
-				
-			} catch (Exception e) {
-                    // TODO: This exception is really too generic. -RP
-                throw new ReflectionException("Class not found: " + name, e);
-	}
-}
+        static public Type forName(String name) // throws ReflectionException
+        {
+            try
+            {
+                // TODO: Not really sure how Class.nameFor("string") works in Java, need to explore. -RP
+                // TODO: return Type.GetType(name);
 
-/** Returns the simple name of the underlying class as supplied in the source code. */
+				// TODO: This isn't really efficient, but for 'when' it is used, it probably doesn't really matter. -RP
+                var type = AppDomain.CurrentDomain.GetAssemblies()
+                    .Reverse()
+                    .SelectMany(assembly => assembly.GetTypes())
+                    .First(type => type.Name.EndsWith(name));
+                return type;
+            }
+            catch (Exception e)
+            {
+                // TODO: This exception is really too generic. -RP
+                throw new ReflectionException("Class not found: " + name, e);
+            }
+        }
+
+        /** Returns the simple name of the underlying class as supplied in the source code. */
 static public String getSimpleName(Type c)
 		{
 			return c.Name;
@@ -37,21 +48,24 @@ static public String getSimpleName(Type c)
 			return c.IsInstanceOfType(obj);
 		}
 
-		//	/** Determines if the class or interface represented by first Class parameter is either the same as, or is a superclass or
-		//	 * superinterface of, the class or interface represented by the second Class parameter. */
-		//	static public boolean isAssignableFrom (Class c1, Class c2) {
-		//		return c1.isAssignableFrom(c2);
-		//	}
+		/** Determines if the class or interface represented by first Class parameter is either the same as, or is a superclass or
+		 * superinterface of, the class or interface represented by the second Class parameter. */
+		static public bool isAssignableFrom(Type c1, Type c2)
+		{
+			return c1.IsAssignableFrom(c2);
+		}
 
 		//	/** Returns true if the class or interface represented by the supplied Class is a member class. */
-		//	static public boolean isMemberClass (Class c) {
-		//		return c.isMemberClass();
-		//	}
+		static public bool isMemberClass(Type c)
+		{
+			return c.IsNested;
+		}
 
 		//	/** Returns true if the class or interface represented by the supplied Class is a static class. */
-		//	static public boolean isStaticClass (Class c) {
-		//		return Modifier.isStatic(c.getModifiers());
-		//	}
+		static public bool isStaticClass(Type c)
+		{
+			return c is { IsAbstract: true, IsSealed: true };
+		}
 
 		//	/** Determines if the supplied Class object represents an array class. */
 		//	static public boolean isArray (Class c) {
@@ -83,10 +97,10 @@ static public String getSimpleName(Type c)
 		//		return Modifier.isAbstract(c.getModifiers());
 		//	}
 
-        /** Creates a new instance of the class represented by the supplied Class. */
+		/** Creates a new instance of the class represented by the supplied Class. */
 		// TODO: Does this really need 'Type c'? -RP
 		// TODO: Can it just use the generic type and call Activator.CreateInstance<T>()? -RP
-        static public T newInstance<T>(Type c) //throws ReflectionException
+		static public T newInstance<T>(Type c) //throws ReflectionException
         {
             try
             {
@@ -111,26 +125,54 @@ static public String getSimpleName(Type c)
             //}
         }
 
+        /** Creates a new instance of the class represented by the supplied Class. */
+        // TODO: Does this really need 'Type c'? -RP
+        // TODO: Can it just use the generic type and call Activator.CreateInstance<T>()? -RP
+        static public object newInstance(Type c) //throws ReflectionException
+        {
+            try
+            {
+                return Activator.CreateInstance(c);
+            }
+            catch (Exception e)
+            {
+                throw new ReflectionException("Could not instantiate instance of class: " + c.Name, e);
+            }
+            // TODO: Need to properly mimic. -RP
+            //try
+            //{
+            //    return c.newInstance();
+            //}
+            //catch (InstantiationException e)
+            //{
+            //    throw new ReflectionException("Could not instantiate instance of class: " + c.getName(), e);
+            //}
+            //catch (IllegalAccessException e)
+            //{
+            //    throw new ReflectionException("Could not instantiate instance of class: " + c.getName(), e);
+            //}
+        }
+
         //	/** Returns the Class representing the component type of an array. If this class does not represent an array class this method
-		//	 * returns null. */
-		//	static public Class getComponentType (Class c) {
-		//		return c.getComponentType();
-		//	}
+        //	 * returns null. */
+        //	static public Class getComponentType (Class c) {
+        //		return c.getComponentType();
+        //	}
 
-		//	/** Returns an array of {@link Constructor} containing the public constructors of the class represented by the supplied
-		//	 * Class. */
-		//	static public Constructor[] getConstructors (Class c) {
-		//		java.lang.reflect.Constructor[] constructors = c.getConstructors();
-		//		Constructor[] result = new Constructor[constructors.length];
-		//		for (int i = 0, j = constructors.length; i < j; i++) {
-		//			result[i] = new Constructor(constructors[i]);
-		//		}
-		//		return result;
-		//	}
+        //	/** Returns an array of {@link Constructor} containing the public constructors of the class represented by the supplied
+        //	 * Class. */
+        //	static public Constructor[] getConstructors (Class c) {
+        //		java.lang.reflect.Constructor[] constructors = c.getConstructors();
+        //		Constructor[] result = new Constructor[constructors.length];
+        //		for (int i = 0, j = constructors.length; i < j; i++) {
+        //			result[i] = new Constructor(constructors[i]);
+        //		}
+        //		return result;
+        //	}
 
-		/** Returns a {@link Constructor} that represents the public constructor for the supplied class which takes the supplied
+        /** Returns a {@link Constructor} that represents the public constructor for the supplied class which takes the supplied
 		 * parameter types. */
-		static public Constructor getConstructor(Type c, Type[] parameterTypes) // TODO: throws ReflectionException
+        static public Constructor getConstructor(Type c, Type[] parameterTypes) // TODO: throws ReflectionException
 		{
 			try
 			{
@@ -155,7 +197,7 @@ static public String getSimpleName(Type c)
 		/** Returns a {@link Constructor} that represents the constructor for the supplied class which takes the supplied parameter
 		 * types. */
 		static public Constructor
-			getDeclaredConstructor(Type c, Type[] parameterTypes) // TODO: throws ReflectionException
+			getDeclaredConstructor(Type c, params Type[] parameterTypes) // TODO: throws ReflectionException
 		{
 			try
 			{
@@ -179,14 +221,16 @@ static public String getSimpleName(Type c)
 		//	}
 
 		//	/** Returns an array of {@link Method} containing the public member methods of the class represented by the supplied Class. */
-		//	static public Method[] getMethods (Class c) {
-		//		java.lang.reflect.Method[] methods = c.getMethods();
-		//		Method[] result = new Method[methods.length];
-		//		for (int i = 0, j = methods.length; i < j; i++) {
-		//			result[i] = new Method(methods[i]);
-		//		}
-		//		return result;
-		//	}
+		static public Method[] getMethods(Type c)
+		{
+			var methods = c.GetMethods();
+            var result = new Method[methods.Length];
+			for (int i = 0, j = methods.Length; i < j; i++)
+			{
+				result[i] = new Method(methods[i]);
+			}
+			return result;
+		}
 
 		//	/** Returns a {@link Method} that represents the public member method for the supplied class which takes the supplied parameter
 		//	 * types. */
@@ -244,14 +288,17 @@ static public String getSimpleName(Type c)
 		//	}
 
 		//	/** Returns an array of {@link Field} objects reflecting all the fields declared by the supplied class. */
-		//	static public Field[] getDeclaredFields (Class c) {
-		//		java.lang.reflect.Field[] fields = c.getDeclaredFields();
-		//		Field[] result = new Field[fields.length];
-		//		for (int i = 0, j = fields.length; i < j; i++) {
-		//			result[i] = new Field(fields[i]);
-		//		}
-		//		return result;
-		//	}
+		static public Field[] getDeclaredFields(Type c)
+		{
+			// TODO: Not sure if this is equal to Java's c.getDeclaredFields(). -RP
+			var fields = c.GetFields(System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Public);
+			Field[] result = new Field[fields.Length];
+			for (int i = 0, j = fields.Length; i < j; i++)
+			{
+				result[i] = new Field(fields[i]);
+			}
+			return result;
+		}
 
 		//	/** Returns a {@link Field} that represents the specified declared field for the supplied class. */
 		//	static public Field getDeclaredField (Class c, String name) throws ReflectionException {

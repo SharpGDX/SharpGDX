@@ -57,12 +57,12 @@ namespace SharpGDX.Headless
 
 			this.preferencesdir = config.preferencesDirectory;
 
-			Gdx.app = this;
-			Gdx.files = files;
-			Gdx.net = net;
-			Gdx.audio = audio;
-			Gdx.graphics = graphics;
-			Gdx.input = input;
+			Gdx.App = this;
+			Gdx.Files = files;
+			Gdx.Net = net;
+			Gdx.Audio = audio;
+			Gdx.Graphics = graphics;
+			Gdx.Input = input;
 
 			initialize();
 		}

@@ -99,7 +99,7 @@ public class TextButton : Button {
 		return label;
 	}
 
-	public Cell<Label> getLabelCell () {
+	public Cell getLabelCell () {
 		return getCell(label);
 	}
 

@@ -12,10 +12,10 @@ namespace SharpGDX.Desktop
 	public class DesktopGraphics : AbstractGraphics, Disposable
 	{
 		readonly DesktopWindow window;
-		internal GL20 gl20;
-		private GL30 gl30;
-		private GL31 gl31;
-		private GL32 gl32;
+		internal IGL20 gl20;
+		private IGL30 gl30;
+		private IGL31 gl31;
+		private IGL32 gl32;
 		private GLVersion glVersion;
 		private volatile int backBufferWidth;
 		private volatile int backBufferHeight;
@@ -129,11 +129,11 @@ namespace SharpGDX.Desktop
 		{
 			if (enable)
 			{
-				gl20.glEnable(GL32.GL_TEXTURE_CUBE_MAP_SEAMLESS);
+				gl20.glEnable(IGL32.GL_TEXTURE_CUBE_MAP_SEAMLESS);
 			}
 			else
 			{
-				gl20.glDisable(GL32.GL_TEXTURE_CUBE_MAP_SEAMLESS);
+				gl20.glDisable(IGL32.GL_TEXTURE_CUBE_MAP_SEAMLESS);
 			}
 		}
 
@@ -192,42 +192,42 @@ namespace SharpGDX.Desktop
 			return gl32 != null;
 		}
 
-		public override GL20 getGL20()
+		public override IGL20 getGL20()
 		{
 			return gl20;
 		}
 
-		public override GL30 getGL30()
+		public override IGL30 getGL30()
 		{
 			return gl30;
 		}
 
-		public override GL31 getGL31()
+		public override IGL31 getGL31()
 		{
 			return gl31;
 		}
 
-		public override GL32 getGL32()
+		public override IGL32 getGL32()
 		{
 			return gl32;
 		}
 
-		public override void setGL20(GL20 gl20)
+		public override void setGL20(IGL20 gl20)
 		{
 			this.gl20 = gl20;
 		}
 
-		public override void setGL30(GL30 gl30)
+		public override void setGL30(IGL30 gl30)
 		{
 			this.gl30 = gl30;
 		}
 
-		public override void setGL31(GL31 gl31)
+		public override void setGL31(IGL31 gl31)
 		{
 			this.gl31 = gl31;
 		}
 
-		public override void setGL32(GL32 gl32)
+		public override void setGL32(IGL32 gl32)
 		{
 			this.gl32 = gl32;
 		}
