@@ -5,6 +5,7 @@ using SharpGDX.Audio;
 using SharpGDX.Shims;
 using SharpGDX.Utils;
 using static SharpGDX.Audio.IMusic;
+using SharpGDX.Scenes.Scene2D.UI;
 
 // TODO: Not fond of the creation of arrays just to pass queue and dequeue buffers.
 
@@ -47,7 +48,7 @@ namespace SharpGDX.Desktop.Audio
      * @param channels The number of channels for the music. Most commonly 1 (for mono) or 2 (for stereo).
      * @param bitDepth The number of bits in each sample. Normally 16. Can also be 8, 32, 64.
      * @param sampleRate The number of samples to be played each second. Commonly 44100; can be anything within reason. */
-        protected void setup(int channels, int bitDepth, int sampleRate)
+        protected void Setup(int channels, int bitDepth, int sampleRate)
         {
             this.format = OpenALUtils.determineFormat(channels, bitDepth);
             this.sampleRate = sampleRate;
@@ -127,11 +128,9 @@ namespace SharpGDX.Desktop.Audio
 			_isPlaying = false;
 		}
 
-		/// <inheritdoc cref="IMusic.IsPlaying" />
-		public bool IsPlaying
+		/// <inheritdoc cref="IMusic.IsPlaying()" />
+		public bool IsPlaying()
 		{
-			get
-			{
 				if (audio.noDevice)
 				{
 					return false;
@@ -143,43 +142,42 @@ namespace SharpGDX.Desktop.Audio
 				}
 
 				return _isPlaying;
-			}
 		}
 
-		public void SetLooping(bool isLooping)
+        public void SetLooping(bool isLooping)
+        {
+            _isLooping = isLooping;
+        }
+
+        public bool IsLooping()
+        {
+            return _isLooping;
+        }
+        
+		public float GetVolume()
 		{
-			this._isLooping = isLooping;
+			return this.volume;
 		}
 
-		public bool IsLooping()
-		{
-			return _isLooping;
-		}
+        public void SetVolume(float volume)
+        {
+            if (volume < 0)
+            {
+                throw new IllegalArgumentException("volume cannot be < 0: " + volume);
+            }
 
-		/// <inheritdoc cref="IMusic.Volume" />
-		public float Volume
-		{
-			get => this.volume;
-			set
-			{
-				if (value < 0)
-				{
-					throw new IllegalArgumentException("volume cannot be < 0: " + value);
-				}
+            this.volume = volume;
 
-				this.volume = value;
+            if (audio.noDevice)
+            {
+                return;
+            }
 
-				if (audio.noDevice)
-				{
-					return;
-				}
-
-				if (sourceID != -1)
-				{
-					AL.Source(sourceID, ALSourcef.Gain, volume);
-				}
-			}
-		}
+            if (sourceID != -1)
+            {
+                AL.Source(sourceID, ALSourcef.Gain, volume);
+            }
+        }
 
 		public void SetPan(float pan, float volume)
 		{
@@ -353,7 +351,7 @@ namespace SharpGDX.Desktop.Audio
 			onCompletionListener = null;
 		}
 
-		public void setOnCompletionListener(Action<IMusic> listener)
+		public void SetOnCompletionListener(Action<IMusic> listener)
 		{
 			onCompletionListener = listener;
 		}

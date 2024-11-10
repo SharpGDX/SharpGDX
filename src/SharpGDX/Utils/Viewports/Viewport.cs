@@ -1,225 +1,381 @@
-﻿using SharpGDX.Mathematics;
-using SharpGDX.Graphics;
+﻿using SharpGDX.Graphics;
 using SharpGDX.Graphics.GLUtils;
-using SharpGDX.Graphics.G2D;
+using SharpGDX.Mathematics;
 using SharpGDX.Mathematics.Collision;
 using SharpGDX.Scenes.Scene2D.Utils;
 
-namespace SharpGDX.Utils.Viewports
+namespace SharpGDX.Utils.Viewports;
+
+/// <summary>
+///     Manages a <see cref="Camera" /> and determines how world coordinates are mapped to and from the screen.
+/// </summary>
+public abstract class Viewport
 {
-	/** Manages a {@link Camera} and determines how world coordinates are mapped to and from the screen.
- * @author Daniel Holderbaum
- * @author Nathan Sweet */
-public abstract class Viewport {
-	private Camera camera;
-	private float worldWidth, worldHeight;
-	private int screenX, screenY, screenWidth, screenHeight;
+    private readonly Vector3 _tmp = new();
+    private Camera _camera = null!;
+    private int _screenX, _screenY, _screenWidth, _screenHeight;
+    private float _worldWidth, _worldHeight;
 
-	private readonly Vector3 tmp = new Vector3();
+    /// <summary>
+    ///     Calls <see cref="Apply(bool)" /> with false.
+    /// </summary>
+    public void Apply()
+    {
+        Apply(false);
+    }
 
-	/** Calls {@link #apply(boolean)} with false. */
-	public void apply () {
-		apply(false);
-	}
+    /// <summary>
+    ///     Applies the viewport to the camera and sets the glViewport.
+    /// </summary>
+    /// <param name="centerCamera">If true, the camera position is set to the center of the world.</param>
+    public void Apply(bool centerCamera)
+    {
+        HdpiUtils.glViewport(_screenX, _screenY, _screenWidth, _screenHeight);
+        _camera.viewportWidth = _worldWidth;
+        _camera.viewportHeight = _worldHeight;
+        if (centerCamera)
+        {
+            _camera.position.set(_worldWidth / 2, _worldHeight / 2, 0);
+        }
 
-	/** Applies the viewport to the camera and sets the glViewport.
-	 * @param centerCamera If true, the camera position is set to the center of the world. */
-	public void apply (bool centerCamera) {
-		HdpiUtils.glViewport(screenX, screenY, screenWidth, screenHeight);
-		camera.viewportWidth = worldWidth;
-		camera.viewportHeight = worldHeight;
-		if (centerCamera) camera.position.set(worldWidth / 2, worldHeight / 2, 0);
-		camera.update();
-	}
+        _camera.update();
+    }
 
-	/** Calls {@link #update(int, int, boolean)} with false. */
-	public void update (int screenWidth, int screenHeight) {
-		update(screenWidth, screenHeight, false);
-	}
+    /// <inheritdoc cref="ScissorStack.calculateScissors(Camera, float, float, float, float, Matrix4, Rectangle, Rectangle)" />
+    public void CalculateScissors(Matrix4 batchTransform, Rectangle area, Rectangle scissor)
+    {
+        ScissorStack.calculateScissors(_camera, _screenX, _screenY, _screenWidth, _screenHeight, batchTransform,
+            area, scissor);
+    }
 
-	/** Configures this viewport's screen bounds using the specified screen size and calls {@link #apply(boolean)}. Typically
-	 * called from {@link ApplicationListener#resize(int, int)} or {@link Screen#resize(int, int)}.
-	 * <p>
-	 * The default implementation only calls {@link #apply(boolean)}. */
-	public virtual void update (int screenWidth, int screenHeight, bool centerCamera) {
-		apply(centerCamera);
-	}
+    /// <summary>
+    ///     Returns the bottom gutter (black bar) height in screen coordinates.
+    /// </summary>
+    /// <returns></returns>
+    public int GetBottomGutterHeight()
+    {
+        return _screenY;
+    }
 
-	/** Transforms the specified screen coordinate to world coordinates.
-	 * @return The vector that was passed in, transformed to world coordinates.
-	 * @see Camera#unproject(Vector3) */
-	public Vector2 unproject (Vector2 screenCoords) {
-		tmp.set(screenCoords.x, screenCoords.y, 1);
-		camera.unproject(tmp, screenX, screenY, screenWidth, screenHeight);
-		screenCoords.set(tmp.x, tmp.y);
-		return screenCoords;
-	}
+    public Camera GetCamera()
+    {
+        return _camera;
+    }
 
-	/** Transforms the specified world coordinate to screen coordinates.
-	 * @return The vector that was passed in, transformed to screen coordinates.
-	 * @see Camera#project(Vector3) */
-	public Vector2 project (Vector2 worldCoords) {
-		tmp.set(worldCoords.x, worldCoords.y, 1);
-		camera.project(tmp, screenX, screenY, screenWidth, screenHeight);
-		worldCoords.set(tmp.x, tmp.y);
-		return worldCoords;
-	}
+    /// <summary>
+    ///     Returns the left gutter (black bar) width in screen coordinates.
+    /// </summary>
+    /// <returns></returns>
+    public int GetLeftGutterWidth()
+    {
+        return _screenX;
+    }
 
-	/** Transforms the specified screen coordinate to world coordinates.
-	 * @return The vector that was passed in, transformed to world coordinates.
-	 * @see Camera#unproject(Vector3) */
-	public Vector3 unproject (Vector3 screenCoords) {
-		camera.unproject(screenCoords, screenX, screenY, screenWidth, screenHeight);
-		return screenCoords;
-	}
+    // TODO: Should this inherit doc?
+    /// <inheritdoc cref="Camera.getPickRay(float, float, float, float, float, float)" />
+    public Ray GetPickRay(float screenX, float screenY)
+    {
+        return _camera.getPickRay(screenX, screenY, _screenX, _screenY, _screenWidth, _screenHeight);
+    }
 
-	/** Transforms the specified world coordinate to screen coordinates.
-	 * @return The vector that was passed in, transformed to screen coordinates.
-	 * @see Camera#project(Vector3) */
-	public Vector3 project (Vector3 worldCoords) {
-		camera.project(worldCoords, screenX, screenY, screenWidth, screenHeight);
-		return worldCoords;
-	}
+    /// <summary>
+    ///     Returns the right gutter (black bar) width in screen coordinates.
+    /// </summary>
+    /// <returns></returns>
+    public int GetRightGutterWidth()
+    {
+        return Gdx.Graphics.getWidth() - (_screenX + _screenWidth);
+    }
 
-	/** @see Camera#getPickRay(float, float, float, float, float, float) */
-	public Ray getPickRay (float screenX, float screenY) {
-		return camera.getPickRay(screenX, screenY, this.screenX, this.screenY, screenWidth, screenHeight);
-	}
+    /// <summary>
+    ///     Returns the right gutter (black bar) x in screen coordinates.
+    /// </summary>
+    /// <returns></returns>
+    public int GetRightGutterX()
+    {
+        return _screenX + _screenWidth;
+    }
 
-	/** @see ScissorStack#calculateScissors(Camera, float, float, float, float, Matrix4, Rectangle, Rectangle) */
-	public void calculateScissors (Matrix4 batchTransform, Rectangle area, Rectangle scissor) {
-		ScissorStack.calculateScissors(camera, screenX, screenY, screenWidth, screenHeight, batchTransform, area, scissor);
-	}
+    public int GetScreenHeight()
+    {
+        return _screenHeight;
+    }
 
-	/** Transforms a point to real screen coordinates (as opposed to OpenGL ES window coordinates), where the origin is in the top
-	 * left and the the y-axis is pointing downwards. */
-	public Vector2 toScreenCoordinates (Vector2 worldCoords, Matrix4 transformMatrix) {
-		tmp.set(worldCoords.x, worldCoords.y, 0);
-		tmp.mul(transformMatrix);
-		camera.project(tmp, screenX, screenY, screenWidth, screenHeight);
-		tmp.y = Gdx.Graphics.getHeight() - tmp.y;
-		worldCoords.x = tmp.x;
-		worldCoords.y = tmp.y;
-		return worldCoords;
-	}
+    public int GetScreenWidth()
+    {
+        return _screenWidth;
+    }
 
-	public Camera getCamera () {
-		return camera;
-	}
+    public int GetScreenX()
+    {
+        return _screenX;
+    }
 
-	public void setCamera (Camera camera) {
-		this.camera = camera;
-	}
+    public int GetScreenY()
+    {
+        return _screenY;
+    }
 
-	public float getWorldWidth () {
-		return worldWidth;
-	}
+    /// <summary>
+    ///     Returns the top gutter (black bar) height in screen coordinates.
+    /// </summary>
+    /// <returns></returns>
+    public int GetTopGutterHeight()
+    {
+        return Gdx.Graphics.getHeight() - (_screenY + _screenHeight);
+    }
 
-	/** The virtual width of this viewport in world coordinates. This width is scaled to the viewport's screen width. */
-	public void setWorldWidth (float worldWidth) {
-		this.worldWidth = worldWidth;
-	}
+    /// <summary>
+    ///     Returns the top gutter (black bar) y in screen coordinates.
+    /// </summary>
+    /// <returns></returns>
+    public int GetTopGutterY()
+    {
+        return _screenY + _screenHeight;
+    }
 
-	public float getWorldHeight () {
-		return worldHeight;
-	}
+    public float GetWorldHeight()
+    {
+        return _worldHeight;
+    }
 
-	/** The virtual height of this viewport in world coordinates. This height is scaled to the viewport's screen height. */
-	public void setWorldHeight (float worldHeight) {
-		this.worldHeight = worldHeight;
-	}
+    public float GetWorldWidth()
+    {
+        return _worldWidth;
+    }
 
-	public void setWorldSize (float worldWidth, float worldHeight) {
-		this.worldWidth = worldWidth;
-		this.worldHeight = worldHeight;
-	}
+    /// <summary>
+    ///     Transforms the specified world coordinate to screen coordinates.
+    /// </summary>
+    /// <remarks>
+    ///     <see cref="Camera.project(Vector3)" />
+    /// </remarks>
+    /// <param name="worldCoords"></param>
+    /// <returns>The vector that was passed in, transformed to screen coordinates.</returns>
+    public Vector2 Project(Vector2 worldCoords)
+    {
+        _tmp.set(worldCoords.x, worldCoords.y, 1);
+        _camera.project(_tmp, _screenX, _screenY, _screenWidth, _screenHeight);
+        worldCoords.set(_tmp.x, _tmp.y);
+        return worldCoords;
+    }
 
-	public int getScreenX () {
-		return screenX;
-	}
+    /// <summary>
+    ///     Transforms the specified world coordinate to screen coordinates.
+    /// </summary>
+    /// <see cref="Camera.project(Vector3)" />
+    /// <param name="worldCoords"></param>
+    /// <returns>The vector that was passed in, transformed to screen coordinates.</returns>
+    public Vector3 Project(Vector3 worldCoords)
+    {
+        _camera.project(worldCoords, _screenX, _screenY, _screenWidth, _screenHeight);
+        return worldCoords;
+    }
 
-	/** Sets the viewport's offset from the left edge of the screen. This is typically set by
-	 * {@link #update(int, int, boolean)}. */
-	public void setScreenX (int screenX) {
-		this.screenX = screenX;
-	}
+    public void SetCamera(Camera camera)
+    {
+        _camera = camera;
+    }
 
-	public int getScreenY () {
-		return screenY;
-	}
+    /// <summary>
+    ///     Sets the viewport's bounds in screen coordinates.
+    /// </summary>
+    /// <remarks>
+    ///     This is typically set by <see cref="Update(int, int, bool)" />.
+    /// </remarks>
+    /// <param name="screenX"></param>
+    /// <param name="screenY"></param>
+    /// <param name="screenWidth"></param>
+    /// <param name="screenHeight"></param>
+    public void SetScreenBounds(int screenX, int screenY, int screenWidth, int screenHeight)
+    {
+        _screenX = screenX;
+        _screenY = screenY;
+        _screenWidth = screenWidth;
+        _screenHeight = screenHeight;
+    }
 
-	/** Sets the viewport's offset from the bottom edge of the screen. This is typically set by
-	 * {@link #update(int, int, boolean)}. */
-	public void setScreenY (int screenY) {
-		this.screenY = screenY;
-	}
+    /// <summary>
+    ///     Sets the viewport's height in screen coordinates.
+    /// </summary>
+    /// <remarks>
+    ///     This is typically set by <see cref="Update(int, int, bool)" />.
+    /// </remarks>
+    /// <param name="screenHeight"></param>
+    public void SetScreenHeight(int screenHeight)
+    {
+        _screenHeight = screenHeight;
+    }
 
-	public int getScreenWidth () {
-		return screenWidth;
-	}
+    /// <summary>
+    ///     Sets the viewport's position in screen coordinates.
+    /// </summary>
+    /// <remarks>
+    ///     This is typically set by <see cref="Update(int, int, bool)" />.
+    /// </remarks>
+    /// <param name="screenX"></param>
+    /// <param name="screenY"></param>
+    public void SetScreenPosition(int screenX, int screenY)
+    {
+        _screenX = screenX;
+        _screenY = screenY;
+    }
 
-	/** Sets the viewport's width in screen coordinates. This is typically set by {@link #update(int, int, boolean)}. */
-	public void setScreenWidth (int screenWidth) {
-		this.screenWidth = screenWidth;
-	}
+    /// <summary>
+    ///     Sets the viewport's size in screen coordinates.
+    /// </summary>
+    /// <remarks>
+    ///     This is typically set by <see cref="Update(int, int, bool)" />.
+    /// </remarks>
+    /// <param name="screenWidth"></param>
+    /// <param name="screenHeight"></param>
+    public void SetScreenSize(int screenWidth, int screenHeight)
+    {
+        _screenWidth = screenWidth;
+        _screenHeight = screenHeight;
+    }
 
-	public int getScreenHeight () {
-		return screenHeight;
-	}
+    /// <summary>
+    ///     Sets the viewport's width in screen coordinates.
+    /// </summary>
+    /// <remarks>
+    ///     This is typically set by <see cref="Update(int, int, bool)" />.
+    /// </remarks>
+    /// <param name="screenWidth"></param>
+    public void SetScreenWidth(int screenWidth)
+    {
+        _screenWidth = screenWidth;
+    }
 
-	/** Sets the viewport's height in screen coordinates. This is typically set by {@link #update(int, int, boolean)}. */
-	public void setScreenHeight (int screenHeight) {
-		this.screenHeight = screenHeight;
-	}
+    /// <summary>
+    ///     Sets the viewport's offset from the left edge of the screen.
+    /// </summary>
+    /// <remarks>
+    ///     This is typically set by <see cref="Update(int, int, bool)" />.
+    /// </remarks>
+    /// <param name="screenX"></param>
+    public void SetScreenX(int screenX)
+    {
+        _screenX = screenX;
+    }
 
-	/** Sets the viewport's position in screen coordinates. This is typically set by {@link #update(int, int, boolean)}. */
-	public void setScreenPosition (int screenX, int screenY) {
-		this.screenX = screenX;
-		this.screenY = screenY;
-	}
+    /// <summary>
+    ///     Sets the viewport's offset from the bottom edge of the screen.
+    /// </summary>
+    /// <remarks>
+    ///     This is typically set by <see cref="Update(int, int, bool)" />.
+    /// </remarks>
+    /// <param name="screenY"></param>
+    public void SetScreenY(int screenY)
+    {
+        _screenY = screenY;
+    }
 
-	/** Sets the viewport's size in screen coordinates. This is typically set by {@link #update(int, int, boolean)}. */
-	public void setScreenSize (int screenWidth, int screenHeight) {
-		this.screenWidth = screenWidth;
-		this.screenHeight = screenHeight;
-	}
+    /// <summary>
+    ///     The virtual height of this viewport in world coordinates.
+    /// </summary>
+    /// <remarks>
+    ///     This height is scaled to the viewport's screen height.
+    /// </remarks>
+    /// <param name="worldHeight"></param>
+    public void SetWorldHeight(float worldHeight)
+    {
+        _worldHeight = worldHeight;
+    }
 
-	/** Sets the viewport's bounds in screen coordinates. This is typically set by {@link #update(int, int, boolean)}. */
-	public void setScreenBounds (int screenX, int screenY, int screenWidth, int screenHeight) {
-		this.screenX = screenX;
-		this.screenY = screenY;
-		this.screenWidth = screenWidth;
-		this.screenHeight = screenHeight;
-	}
+    public void SetWorldSize(float worldWidth, float worldHeight)
+    {
+        _worldWidth = worldWidth;
+        _worldHeight = worldHeight;
+    }
 
-	/** Returns the left gutter (black bar) width in screen coordinates. */
-	public int getLeftGutterWidth () {
-		return screenX;
-	}
+    /// <summary>
+    ///     The virtual width of this viewport in world coordinates.
+    /// </summary>
+    /// <remarks>
+    ///     This width is scaled to the viewport's screen width.
+    /// </remarks>
+    /// <param name="worldWidth"></param>
+    public void SetWorldWidth(float worldWidth)
+    {
+        _worldWidth = worldWidth;
+    }
 
-	/** Returns the right gutter (black bar) x in screen coordinates. */
-	public int getRightGutterX () {
-		return screenX + screenWidth;
-	}
+    /// <summary>
+    ///     Transforms a point to real screen coordinates (as opposed to OpenGL ES window coordinates), where the origin is in
+    ///     the top left and the y-axis is pointing downwards.
+    /// </summary>
+    /// <param name="worldCoords"></param>
+    /// <param name="transformMatrix"></param>
+    /// <returns></returns>
+    public Vector2 ToScreenCoordinates(Vector2 worldCoords, Matrix4 transformMatrix)
+    {
+        _tmp.set(worldCoords.x, worldCoords.y, 0);
+        _tmp.mul(transformMatrix);
+        _camera.project(_tmp, _screenX, _screenY, _screenWidth, _screenHeight);
+        _tmp.y = Gdx.Graphics.getHeight() - _tmp.y;
+        worldCoords.x = _tmp.x;
+        worldCoords.y = _tmp.y;
+        return worldCoords;
+    }
 
-	/** Returns the right gutter (black bar) width in screen coordinates. */
-	public int getRightGutterWidth () {
-		return Gdx.Graphics.getWidth() - (screenX + screenWidth);
-	}
+    /// <summary>
+    ///     Transforms the specified screen coordinate to world coordinates.
+    /// </summary>
+    /// <remarks>
+    ///     <see cref="Camera.unproject(Vector3)" />
+    /// </remarks>
+    /// <param name="screenCoords"></param>
+    /// <returns>The vector that was passed in, transformed to world coordinates.</returns>
+    public Vector2 Unproject(Vector2 screenCoords)
+    {
+        _tmp.set(screenCoords.x, screenCoords.y, 1);
+        _camera.unproject(_tmp, _screenX, _screenY, _screenWidth, _screenHeight);
+        screenCoords.set(_tmp.x, _tmp.y);
+        return screenCoords;
+    }
 
-	/** Returns the bottom gutter (black bar) height in screen coordinates. */
-	public int getBottomGutterHeight () {
-		return screenY;
-	}
+    /// <summary>
+    ///     Transforms the specified screen coordinate to world coordinates.
+    /// </summary>
+    /// <remarks>
+    ///     <see cref="Camera.unproject(Vector3)" />
+    /// </remarks>
+    /// <param name="screenCoords"></param>
+    /// <returns>The vector that was passed in, transformed to world coordinates.</returns>
+    public Vector3 Unproject(Vector3 screenCoords)
+    {
+        _camera.unproject(screenCoords, _screenX, _screenY, _screenWidth, _screenHeight);
+        return screenCoords;
+    }
 
-	/** Returns the top gutter (black bar) y in screen coordinates. */
-	public int getTopGutterY () {
-		return screenY + screenHeight;
-	}
+    /// <summary>
+    ///     Calls <see cref="Update(int, int, bool)" /> with false.
+    /// </summary>
+    /// <param name="screenWidth"></param>
+    /// <param name="screenHeight"></param>
+    public void Update(int screenWidth, int screenHeight)
+    {
+        Update(screenWidth, screenHeight, false);
+    }
 
-	/** Returns the top gutter (black bar) height in screen coordinates. */
-	public int getTopGutterHeight () {
-		return Gdx.Graphics.getHeight() - (screenY + screenHeight);
-	}
-}
+    /// <summary>
+    ///     Configures this viewport's screen bounds using the specified screen size and calls <see cref="Apply(bool)" />.
+    /// </summary>
+    /// <remarks>
+    ///     <para>
+    ///         Typically called from <see cref="IApplicationListener.Resize(int, int)" /> or
+    ///         <see cref="IScreen.Resize(int, int)" />.
+    ///     </para>
+    ///     <para>
+    ///         The default implementation only calls <see cref="Apply(bool)" />.
+    ///     </para>
+    /// </remarks>
+    /// <param name="screenWidth"></param>
+    /// <param name="screenHeight"></param>
+    /// <param name="centerCamera"></param>
+    public virtual void Update(int screenWidth, int screenHeight, bool centerCamera)
+    {
+        Apply(centerCamera);
+    }
 }

@@ -303,7 +303,7 @@ namespace SharpGDX.Desktop
 		setIcon(windowHandle, image);
 	}
 
-	private static unsafe void setIcon (Window* windowHandle, String[] imagePaths, FileType imageFileType) {
+	internal static unsafe void setIcon (Window* windowHandle, String[] imagePaths, FileType imageFileType) {
 		if (SharedLibraryLoader.isMac) return;
 
 		Pixmap[] pixmaps = new Pixmap[imagePaths.Length];

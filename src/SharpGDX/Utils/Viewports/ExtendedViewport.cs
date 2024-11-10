@@ -1,12 +1,5 @@
-﻿using System;
-using SharpGDX.Graphics;
-using SharpGDX.Graphics.GLUtils;
-using SharpGDX.Graphics.G2D;
+﻿using SharpGDX.Graphics;
 using SharpGDX.Mathematics;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SharpGDX.Utils.Viewports
 {
@@ -16,49 +9,70 @@ namespace SharpGDX.Utils.Viewports
  * how much the world is extended and black bars (letterboxing) are used for any remaining space.
  * @author Nathan Sweet */
 public class ExtendViewport : Viewport {
-	private float minWorldWidth, minWorldHeight;
-	private float maxWorldWidth, maxWorldHeight;
-	private Scaling scaling = Scaling.fit;
+	private float _minWorldWidth, _minWorldHeight;
+	private float _maxWorldWidth, _maxWorldHeight;
+	private Scaling _scaling = Scaling.fit;
 
-	/** Creates a new viewport using a new {@link OrthographicCamera} with no maximum world size. */
-
-	public ExtendViewport (float minWorldWidth, float minWorldHeight) 
+        /// <summary>
+        /// Creates a new viewport using a new <see cref="OrthographicCamera"/> with no maximum world size.
+        /// </summary>
+        /// <param name="minWorldWidth"></param>
+        /// <param name="minWorldHeight"></param>
+        public ExtendViewport (float minWorldWidth, float minWorldHeight) 
 	: this(minWorldWidth, minWorldHeight, 0, 0, new OrthographicCamera())
 	{
 		
 	}
 
-	/** Creates a new viewport with no maximum world size. */
-	public ExtendViewport (float minWorldWidth, float minWorldHeight, Camera camera) 
+        /// <summary>
+        /// Creates a new viewport with no maximum world size.
+        /// </summary>
+        /// <param name="minWorldWidth"></param>
+        /// <param name="minWorldHeight"></param>
+        /// <param name="camera"></param>
+        public ExtendViewport (float minWorldWidth, float minWorldHeight, Camera camera) 
 	: this(minWorldWidth, minWorldHeight, 0, 0, camera)
 	{
 		
 	}
 
-	/** Creates a new viewport using a new {@link OrthographicCamera} and a maximum world size.
-	 * @see ExtendViewport#ExtendViewport(float, float, float, float, Camera) */
-	public ExtendViewport (float minWorldWidth, float minWorldHeight, float maxWorldWidth, float maxWorldHeight) 
+        /// <summary>
+        /// Creates a new viewport using a new <see cref="OrthographicCamera"/> and a maximum world size.
+        /// </summary>
+        /// <remarks>
+        ///<see cref="ExtendViewport(float, float, float, float, Camera)"/>
+        /// </remarks>
+        /// <param name="minWorldWidth"></param>
+        /// <param name="minWorldHeight"></param>
+        /// <param name="maxWorldWidth"></param>
+        /// <param name="maxWorldHeight"></param>
+        public ExtendViewport (float minWorldWidth, float minWorldHeight, float maxWorldWidth, float maxWorldHeight) 
 	: this(minWorldWidth, minWorldHeight, maxWorldWidth, maxWorldHeight, new OrthographicCamera())
 	{
 		
 	}
 
-	/** Creates a new viewport with a maximum world size.
-	 * @param maxWorldWidth User 0 for no maximum width.
-	 * @param maxWorldHeight User 0 for no maximum height. */
-	public ExtendViewport (float minWorldWidth, float minWorldHeight, float maxWorldWidth, float maxWorldHeight, Camera camera) {
-		this.minWorldWidth = minWorldWidth;
-		this.minWorldHeight = minWorldHeight;
-		this.maxWorldWidth = maxWorldWidth;
-		this.maxWorldHeight = maxWorldHeight;
-		setCamera(camera);
+        /// <summary>
+        /// Creates a new viewport with a maximum world size.
+        /// </summary>
+        /// <param name="minWorldWidth"></param>
+        /// <param name="minWorldHeight"></param>
+        /// <param name="maxWorldWidth">User 0 for no maximum width.</param>
+        /// <param name="maxWorldHeight">User 0 for no maximum height.</param>
+        /// <param name="camera"></param>
+        public ExtendViewport (float minWorldWidth, float minWorldHeight, float maxWorldWidth, float maxWorldHeight, Camera camera) {
+		this._minWorldWidth = minWorldWidth;
+		this._minWorldHeight = minWorldHeight;
+		this._maxWorldWidth = maxWorldWidth;
+		this._maxWorldHeight = maxWorldHeight;
+		SetCamera(camera);
 	}
 
-		public override void update (int screenWidth, int screenHeight, bool centerCamera) {
+		public override void Update (int screenWidth, int screenHeight, bool centerCamera) {
 		// Fit min size to the screen.
-		float worldWidth = minWorldWidth;
-		float worldHeight = minWorldHeight;
-		Vector2 scaled = scaling.apply(worldWidth, worldHeight, screenWidth, screenHeight);
+		float worldWidth = _minWorldWidth;
+		float worldHeight = _minWorldHeight;
+		Vector2 scaled = _scaling.apply(worldWidth, worldHeight, screenWidth, screenHeight);
 
 		// Extend, possibly in both directions depending on the scaling.
 		int viewportWidth = (int)Math.Round(scaled.x);
@@ -67,7 +81,7 @@ public class ExtendViewport : Viewport {
 			float toViewportSpace = viewportHeight / worldHeight;
 			float toWorldSpace = worldHeight / viewportHeight;
 			float lengthen = (screenWidth - viewportWidth) * toWorldSpace;
-			if (maxWorldWidth > 0) lengthen = Math.Min(lengthen, maxWorldWidth - minWorldWidth);
+			if (_maxWorldWidth > 0) lengthen = Math.Min(lengthen, _maxWorldWidth - _minWorldWidth);
 			worldWidth += lengthen;
 			viewportWidth += (int)Math.Round(lengthen * toViewportSpace);
 		}
@@ -75,53 +89,53 @@ public class ExtendViewport : Viewport {
 			float toViewportSpace = viewportWidth / worldWidth;
 			float toWorldSpace = worldWidth / viewportWidth;
 			float lengthen = (screenHeight - viewportHeight) * toWorldSpace;
-			if (maxWorldHeight > 0) lengthen = Math.Min(lengthen, maxWorldHeight - minWorldHeight);
+			if (_maxWorldHeight > 0) lengthen = Math.Min(lengthen, _maxWorldHeight - _minWorldHeight);
 			worldHeight += lengthen;
 			viewportHeight += (int)Math.Round(lengthen * toViewportSpace);
 		}
 
-		setWorldSize(worldWidth, worldHeight);
+		SetWorldSize(worldWidth, worldHeight);
 
 		// Center.
-		setScreenBounds((screenWidth - viewportWidth) / 2, (screenHeight - viewportHeight) / 2, viewportWidth, viewportHeight);
+		SetScreenBounds((screenWidth - viewportWidth) / 2, (screenHeight - viewportHeight) / 2, viewportWidth, viewportHeight);
 
-		apply(centerCamera);
+		Apply(centerCamera);
 	}
 
-	public float getMinWorldWidth () {
-		return minWorldWidth;
+	public float GetMinWorldWidth () {
+		return _minWorldWidth;
 	}
 
-	public void setMinWorldWidth (float minWorldWidth) {
-		this.minWorldWidth = minWorldWidth;
+	public void SetMinWorldWidth (float minWorldWidth) {
+		this._minWorldWidth = minWorldWidth;
 	}
 
-	public float getMinWorldHeight () {
-		return minWorldHeight;
+	public float GetMinWorldHeight () {
+		return _minWorldHeight;
 	}
 
-	public void setMinWorldHeight (float minWorldHeight) {
-		this.minWorldHeight = minWorldHeight;
+	public void SetMinWorldHeight (float minWorldHeight) {
+		this._minWorldHeight = minWorldHeight;
 	}
 
-	public float getMaxWorldWidth () {
-		return maxWorldWidth;
+	public float GetMaxWorldWidth () {
+		return _maxWorldWidth;
 	}
 
-	public void setMaxWorldWidth (float maxWorldWidth) {
-		this.maxWorldWidth = maxWorldWidth;
+	public void SetMaxWorldWidth (float maxWorldWidth) {
+		this._maxWorldWidth = maxWorldWidth;
 	}
 
-	public float getMaxWorldHeight () {
-		return maxWorldHeight;
+	public float GetMaxWorldHeight () {
+		return _maxWorldHeight;
 	}
 
-	public void setMaxWorldHeight (float maxWorldHeight) {
-		this.maxWorldHeight = maxWorldHeight;
+	public void SetMaxWorldHeight (float maxWorldHeight) {
+		this._maxWorldHeight = maxWorldHeight;
 	}
 
-	public void setScaling (Scaling scaling) {
-		this.scaling = scaling;
+	public void SetScaling (Scaling scaling) {
+		this._scaling = scaling;
 	}
 }
 }

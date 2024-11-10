@@ -626,8 +626,7 @@ namespace SharpGDX.Desktop
 
 			if (config.windowIconPaths != null)
 			{
-				//DesktopWindow.setIcon(windowHandle, config.windowIconPaths, config.windowIconFileType);
-				throw new NotImplementedException();
+				DesktopWindow.setIcon(windowHandle, config.windowIconPaths, config.windowIconFileType);
 			}
 
 			GLFW.MakeContextCurrent(windowHandle);

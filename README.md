@@ -1,16 +1,19 @@
 ![SharpGDX Logo](.github/sharpgdx-h.png)
 
 ## Cross-platform Game Development Framework
-**[SharpGDX](https://sharpgdx.com) is a C# port of Java's cross-platform game development framework, libGDX, based on OpenGL (ES), designed for Windows, Linux, macOS.** It provides a robust and well-established environment for rapid prototyping and iterative development. Unlike other frameworks, ShrpGDX does not impose a specific design or coding style, allowing you the freedom to create games according to your preferences.
+**[SharpGDX](https://sharpgdx.com) is a C# port of Java's cross-platform game development framework, libGDX (1.13.0), based on OpenGL (ES), designed for Windows, Linux, macOS.** It provides a robust and well-established environment for rapid prototyping and iterative development. Unlike other frameworks, ShrpGDX does not impose a specific design or coding style, allowing you the freedom to create games according to your preferences.
 
 ## Status
 While this is considered to be in the earlier stages of development, and most features do work, I do expect bugs.
 
-I also plan to clean up all the code to make it more consistent with the best practices of C#. This will include changes such as moving get/set methods to properties, cleaning up the documentation and solidifying access (C# and Java differe on the inherit access level of objects that is unspecified).
+I also plan to clean up all the code to make it more consistent with the best practices of C#. This will include changes such as cleaning up the documentation and solidifying access (C# and Java differe on the inherit access level of objects that is unspecified).
 
-When I started this project, libGDX was at 1.12.1, over the next few weeks I plan to updgrade this to 1.13.0, though I may wait for 1.13.1.
+I have wrestled with the idea of converting get/set methods to properties; however, I have not made a decision yet. My concern here is that there is a lot of variety in the get/set methods throughout the library. It is easy for the get methods, but presents challenges with the set methods in some cases.
 
 I am also toying with the idea of making a 'backend' that uses SDL2 instead of GLFW and OpenTK to reduce dependencies on other 3rd party libraries.
+
+## Tests
+Tests is in a very infant state. It will compile and run, but it is not working properly. I am actively working to fix this and implement all of the tests.
 
 ## Demos
 This project itself has a 'Drop' demo, which is the older version of the libGDX 'Simple Game' from their tutorials.
@@ -18,6 +21,9 @@ This project itself has a 'Drop' demo, which is the older version of the libGDX 
 There is also a demo here: [Super Jumper](https://github.com/SharpGDX/SharpGDX-Demo-Super-Jumper)
 
 Other demos are almost complete, I am fixing bugs as I port them (Cuboc is down to 1 bug). I will also try and port some of the older libGDX demos that are not up to date for current version of libGDX.
+
+## Documentation
+You can find documentation [here](https://sharpgdx.com). This is a work in progress port of the libGDX documentation located [here](https://libgdx.com/dev/).
 
 ## NuGet
 You can find an alpha (pre-release) version on NuGet [here](https://www.nuget.org/packages/SharpGDX.Desktop/). This works on Windows and possibly works on Mac and Linux (I do not have a system running Mac or Linux, so cannot be sure, but I see no reason it won't work).

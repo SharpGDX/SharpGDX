@@ -85,11 +85,11 @@ public class Stage : InputAdapter , Disposable {
 		root = new Group();
 		root.setStage(this);
 
-		viewport.update(Gdx.Graphics.getWidth(), Gdx.Graphics.getHeight(), true);
+		viewport.Update(Gdx.Graphics.getWidth(), Gdx.Graphics.getHeight(), true);
 	}
 
 	public void draw () {
-		Camera camera = viewport.getCamera();
+		Camera camera = viewport.GetCamera();
 		camera.update();
 
 		if (!root.isVisible()) return;
@@ -135,7 +135,7 @@ public class Stage : InputAdapter , Disposable {
 		}
 
 		Gdx.GL.glEnable(IGL20.GL_BLEND);
-		debugShapes.setProjectionMatrix(viewport.getCamera().combined);
+		debugShapes.setProjectionMatrix(viewport.GetCamera().combined);
 		debugShapes.begin();
 		root.drawDebug(debugShapes);
 		debugShapes.end();
@@ -685,17 +685,17 @@ public class Stage : InputAdapter , Disposable {
 
 	/** The viewport's world width. */
 	public float getWidth () {
-		return viewport.getWorldWidth();
+		return viewport.GetWorldWidth();
 	}
 
 	/** The viewport's world height. */
 	public float getHeight () {
-		return viewport.getWorldHeight();
+		return viewport.GetWorldHeight();
 	}
 
 	/** The viewport's camera. */
 	public Camera getCamera () {
-		return viewport.getCamera();
+		return viewport.GetCamera();
 	}
 
 	/** Returns the root group which holds all actors in the stage. */
@@ -725,14 +725,14 @@ public class Stage : InputAdapter , Disposable {
 	/** Transforms the screen coordinates to stage coordinates.
 	 * @param screenCoords Input screen coordinates and output for resulting stage coordinates. */
 	public Vector2 screenToStageCoordinates (Vector2 screenCoords) {
-		viewport.unproject(screenCoords);
+		viewport.Unproject(screenCoords);
 		return screenCoords;
 	}
 
 	/** Transforms the stage coordinates to screen coordinates.
 	 * @param stageCoords Input stage coordinates and output for resulting screen coordinates. */
 	public Vector2 stageToScreenCoordinates (Vector2 stageCoords) {
-		viewport.project(stageCoords);
+		viewport.Project(stageCoords);
 		stageCoords.y = Gdx.Graphics.getHeight() - stageCoords.y;
 		return stageCoords;
 	}
@@ -742,7 +742,7 @@ public class Stage : InputAdapter , Disposable {
 	 * {@link Actor#draw(Batch, float)}.
 	 * @see Actor#localToStageCoordinates(Vector2) */
 	public Vector2 toScreenCoordinates (Vector2 coords, Matrix4 transformMatrix) {
-		return viewport.toScreenCoordinates(coords, transformMatrix);
+		return viewport.ToScreenCoordinates(coords, transformMatrix);
 	}
 
 	/** Calculates window scissor coordinates from local coordinates using the batch's current transformation matrix.
@@ -753,7 +753,7 @@ public class Stage : InputAdapter , Disposable {
 			transformMatrix = debugShapes.getTransformMatrix();
 		else
 			transformMatrix = batch.getTransformMatrix();
-		viewport.calculateScissors(transformMatrix, localRect, scissorRect);
+		viewport.CalculateScissors(transformMatrix, localRect, scissorRect);
 	}
 
 	/** If true, any actions executed during a call to {@link #act()}) will result in a call to
@@ -839,10 +839,10 @@ public class Stage : InputAdapter , Disposable {
 
 	/** Check if screen coordinates are inside the viewport's screen area. */
 	protected bool isInsideViewport (int screenX, int screenY) {
-		int x0 = viewport.getScreenX();
-		int x1 = x0 + viewport.getScreenWidth();
-		int y0 = viewport.getScreenY();
-		int y1 = y0 + viewport.getScreenHeight();
+		int x0 = viewport.GetScreenX();
+		int x1 = x0 + viewport.GetScreenWidth();
+		int y0 = viewport.GetScreenY();
+		int y1 = y0 + viewport.GetScreenHeight();
 		screenY = Gdx.Graphics.getHeight() - 1 - screenY;
 		return screenX >= x0 && screenX < x1 && screenY >= y0 && screenY < y1;
 	}

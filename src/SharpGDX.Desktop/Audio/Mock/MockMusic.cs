@@ -10,50 +10,60 @@ namespace SharpGDX.Desktop.Audio.Mock;
 /// </remarks>
 public class MockMusic : IMusic
 {
-	/// <inheritdoc cref="IMusic.Position" />
-	public float Position { get; set; }
+    public void Dispose()
+    {
+    }
+    
+    public float GetPosition()
+    {
+        return 0;
+    }
 
-	/// <inheritdoc cref="IMusic.Volume" />
-	public float Volume { get; set; }
+    public float GetVolume()
+    {
+        return 0;
+    }
 
-	/// <inheritdoc cref="IMusic.IsPlaying" />
-	public bool IsPlaying => false;
+    public bool IsLooping()
+    {
+        return false;
+    }
+    
+    public bool IsPlaying()
+    {
+        return false;
+    }
 
-	public void Dispose()
-	{
-	}
-	
-	public bool IsLooping()
-	{
-		return false;
-	}
+    public void Pause()
+    {
+    }
 
-	public bool isPlaying()
-	{
-		return false;
-	}
+    public void Play()
+    {
+    }
+    
+    public void SetLooping(bool isLooping)
+    {
+    }
 
-	public void Pause()
-	{
-	}
-
-	public void Play()
-	{
-	}
-
-	public void SetLooping(bool isLooping)
-	{
-	}
-
-	public void setOnCompletionListener(Action<IMusic> listener)
-	{
-	}
-
-	public void SetPan(float pan, float volume)
-	{
-	}
-	
-	public void Stop()
-	{
-	}
+    public void SetOnCompletionListener(Action<IMusic> listener)
+    {
+        throw new NotImplementedException();
+    }
+    
+    public void SetPan(float pan, float volume)
+    {
+    }
+    
+    public void SetPosition(float position)
+    {
+    }
+    
+    public void SetVolume(float volume)
+    {
+    }
+    
+    public void Stop()
+    {
+    }
 }

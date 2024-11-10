@@ -122,7 +122,7 @@ namespace SharpGDX.Desktop
 		/** Sets the icon that will be used in the window's title bar. Has no effect in macOS, which doesn't use window icons.
 		 * @param filePaths One or more {@linkplain FileType#Internal internal} image paths. Must be JPEG, PNG, or BMP format. The one
 		 *           closest to the system's desired size will be scaled. Good sizes include 16x16, 32x32 and 48x48. */
-		public void setWindowIcon(String[]filePaths)
+		public void setWindowIcon(params String[]filePaths)
 		{
 			setWindowIcon(FileType.Internal, filePaths);
 		}
@@ -131,7 +131,7 @@ namespace SharpGDX.Desktop
 		 * @param fileType The type of file handle the paths are relative to.
 		 * @param filePaths One or more image paths, relative to the given {@linkplain FileType}. Must be JPEG, PNG, or BMP format. The
 		 *           one closest to the system's desired size will be scaled. Good sizes include 16x16, 32x32 and 48x48. */
-		public void setWindowIcon(FileType fileType, String[]filePaths)
+		public void setWindowIcon(FileType fileType, params String[]filePaths)
 		{
 			windowIconFileType = fileType;
 			windowIconPaths = filePaths;

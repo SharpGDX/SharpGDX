@@ -338,7 +338,7 @@ root.add().Grow();
 
 	public override void Resize(int width, int height)
 {
-	stage.getViewport().update(width, height, true);
+	stage.getViewport().Update(width, height, true);
 }
 
 public override void Dispose()

@@ -16,7 +16,7 @@ namespace SharpGDX.Desktop.Audio
 
 				input = new WavInputStream(file);
 				if (audio.noDevice) return;
-                setup(input.channels, input.bitDepth, input.sampleRate);
+                Setup(input.channels, input.bitDepth, input.sampleRate);
             }
 
 			public override int read(byte[] buffer)
@@ -24,7 +24,7 @@ namespace SharpGDX.Desktop.Audio
 				if (input == null)
 				{
 					input = new WavInputStream(file);
-                    setup(input.channels, input.bitDepth, input.sampleRate);
+                    Setup(input.channels, input.bitDepth, input.sampleRate);
                 }
 
 				try
