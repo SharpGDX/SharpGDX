@@ -12,7 +12,7 @@ using static SharpGDX.Graphics.Pixmap;
 namespace SharpGDX.Graphics.G2D
 {
 	/** @author mzechner */
-	public class Gdx2DPixmap : Disposable
+	public class Gdx2DPixmap : IDisposable
 	{
 		public const int GDX2D_FORMAT_ALPHA = 1;
 		public const int GDX2D_FORMAT_LUMINANCE_ALPHA = 2;

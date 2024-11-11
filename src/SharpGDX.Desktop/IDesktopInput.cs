@@ -4,7 +4,7 @@ using SharpGDX.Utils;
 
 namespace SharpGDX.Desktop;
 
-public interface IDesktopInput : IInput, Disposable
+public interface IDesktopInput : IInput, IDisposable
 {
 	public void PrepareNext();
 

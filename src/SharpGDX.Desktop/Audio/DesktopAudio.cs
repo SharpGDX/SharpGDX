@@ -2,7 +2,7 @@
 
 namespace SharpGDX.Desktop.Audio;
 
-public interface IDesktopAudio : IAudio, Disposable
+public interface IDesktopAudio : IAudio, IDisposable
 {
 	void Update();
 }

@@ -9,7 +9,7 @@ using SharpGDX.Utils;
 
 namespace SharpGDX.Desktop
 {
-	public class DesktopWindow : Disposable {
+	public class DesktopWindow : IDisposable {
 	private unsafe Window* windowHandle;
 	readonly IApplicationListener listener;
     private readonly Array<ILifecycleListener> lifecycleListeners;

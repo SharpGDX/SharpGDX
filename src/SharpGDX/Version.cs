@@ -1,80 +1,71 @@
-﻿using SharpGDX.Shims;
-using SharpGDX.Utils;
+﻿namespace SharpGDX;
 
-namespace SharpGDX;
-
-/**
- * The version of libGDX
- * 
- * @author mzechner
- */
+/// <summary>
+///     The version of SharpGDX.
+/// </summary>
 public class Version
 {
-	/** The current major version of libGDX **/
-	public static readonly int MAJOR;
+    /// <summary>
+    ///     The current major version of SharpGDX.
+    /// </summary>
+    public static readonly int Major = 1;
 
-	/** The current minor version of libGDX **/
-	public static readonly int MINOR;
+    /// <summary>
+    ///     The current minor version of SharpGDX.
+    /// </summary>
+    public static readonly int Minor = 13;
 
-	/** The current revision version of libGDX **/
-	public static readonly int REVISION;
+    /// <summary>
+    ///     The current revision version of SharpGDX.
+    /// </summary>
+    public static readonly int Revision = 0;
 
-	/** The current version of libGDX as a String in the major.minor.revision format **/
-	public static readonly string VERSION = "1.13.0";
+    public static bool IsHigher(int major, int minor, int revision)
+    {
+        return IsHigherEqual(major, minor, revision + 1);
+    }
 
-	static Version()
-	{
-		try
-		{
-			var v = VERSION.Split("\\.");
-			MAJOR = v.Length < 1 ? 0 : Integer.ValueOf(v[0]);
-			MINOR = v.Length < 2 ? 0 : Integer.ValueOf(v[1]);
-			REVISION = v.Length < 3 ? 0 : Integer.ValueOf(v[2]);
-		}
-		catch (Exception t)
-		{
-			// Should never happen
-			throw new GdxRuntimeException("Invalid version " + VERSION, t);
-		}
-	}
+    public static bool IsHigherEqual(int major, int minor, int revision)
+    {
+        if (Major != major)
+        {
+            return Major > major;
+        }
 
-	public static bool isHigher(int major, int minor, int revision)
-	{
-		return isHigherEqual(major, minor, revision + 1);
-	}
+        if (Minor != minor)
+        {
+            return Minor > minor;
+        }
 
-	public static bool isHigherEqual(int major, int minor, int revision)
-	{
-		if (MAJOR != major)
-		{
-			return MAJOR > major;
-		}
+        return Revision >= revision;
+    }
 
-		if (MINOR != minor)
-		{
-			return MINOR > minor;
-		}
+    public static bool IsLower(int major, int minor, int revision)
+    {
+        return IsLowerEqual(major, minor, revision - 1);
+    }
 
-		return REVISION >= revision;
-	}
+    public static bool IsLowerEqual(int major, int minor, int revision)
+    {
+        if (Major != major)
+        {
+            return Major < major;
+        }
 
-	public static bool isLower(int major, int minor, int revision)
-	{
-		return isLowerEqual(major, minor, revision - 1);
-	}
+        if (Minor != minor)
+        {
+            return Minor < minor;
+        }
 
-	public static bool isLowerEqual(int major, int minor, int revision)
-	{
-		if (MAJOR != major)
-		{
-			return MAJOR < major;
-		}
+        return Revision <= revision;
+    }
 
-		if (MINOR != minor)
-		{
-			return MINOR < minor;
-		}
-
-		return REVISION <= revision;
-	}
+    /// <summary>
+    ///     The current version of SharpGDX as a string in the major.minor.revision format.
+    /// </summary>
+    /// <returns>The current version of SharpGDX as a string in the major.minor.revision format.</returns>
+    public override string ToString()
+    {
+        return $"{Major}.{Minor}.{Revision}";
+    }
 }

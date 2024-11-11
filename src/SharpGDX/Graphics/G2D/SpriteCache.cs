@@ -37,7 +37,7 @@ namespace SharpGDX.Graphics.G2D
  * <br>
  * SpriteCache must be disposed once it is no longer needed.
  * @author Nathan Sweet */
-public class SpriteCache : Disposable {
+public class SpriteCache : IDisposable {
 	static private readonly float[] tempVertices = new float[VERTEX_SIZE * 6];
 
 	private readonly Mesh mesh;

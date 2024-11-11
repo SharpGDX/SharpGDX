@@ -67,7 +67,7 @@ namespace SharpGDX.Graphics.G2D;
  * @author mzechner
  * @author Nathan Sweet
  * @author Rob Rendell */
-public class PixmapPacker : Disposable {
+public class PixmapPacker : IDisposable {
 	bool packToTexture;
 	bool disposed;
 	int pageWidth, pageHeight;

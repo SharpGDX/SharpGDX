@@ -8,31 +8,31 @@
 /// </remarks>
 public abstract class ScreenAdapter : IScreen
 {
-	public virtual void Dispose()
-	{
-	}
+    public virtual void Dispose()
+    {
+    }
 
-	public virtual void Hide()
-	{
-	}
+    public virtual void Hide()
+    {
+    }
 
-	public virtual void Pause()
-	{
-	}
+    public virtual void Pause()
+    {
+    }
 
-	public virtual void Render(float delta)
-	{
-	}
+    public virtual void Render(float delta)
+    {
+    }
 
-	public virtual void Resize(int width, int height)
-	{
-	}
+    public virtual void Resize(int width, int height)
+    {
+    }
 
-	public virtual void Resume()
-	{
-	}
+    public virtual void Resume()
+    {
+    }
 
-	public virtual void Show()
-	{
-	}
+    public virtual void Show()
+    {
+    }
 }

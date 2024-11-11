@@ -59,7 +59,7 @@ namespace SharpGDX.Graphics.GLUtils
  * @author mzechner
  * @author stbachmann
  * @author Nathan Sweet */
-public class ShapeRenderer : Disposable {
+public class ShapeRenderer : IDisposable {
 	/** Shape types to be used with {@link #begin(ShapeType)}.
 	 * @author mzechner, stbachmann */
 	public enum ShapeType {

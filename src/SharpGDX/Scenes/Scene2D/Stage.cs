@@ -31,7 +31,7 @@ namespace SharpGDX.Scenes.Scene2D
  * callbacks and handlers.
  * @author mzechner
  * @author Nathan Sweet */
-public class Stage : InputAdapter , Disposable {
+public class Stage : InputAdapter , IDisposable {
 	/** True if any actor has ever had debug enabled. */
 	internal static bool debug;
 

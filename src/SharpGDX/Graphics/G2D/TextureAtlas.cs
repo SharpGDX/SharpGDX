@@ -8,7 +8,7 @@ namespace SharpGDX.Graphics.G2D
  * <br>
  * A TextureAtlas must be disposed to free up the resources consumed by the backing textures.
  * @author Nathan Sweet */
-public class TextureAtlas : Disposable {
+public class TextureAtlas : IDisposable {
 	private readonly ObjectSet<Texture> textures = new (4);
 	private readonly Array<AtlasRegion> regions = new ();
 

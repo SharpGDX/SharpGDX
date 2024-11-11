@@ -11,7 +11,7 @@ namespace SharpGDX.Scenes.Scene2D.UI;
 
 /** ParticleEffectActor holds an {@link ParticleEffect} to use in Scene2d applications. The particle effect is positioned at 0, 0
  * in the ParticleEffectActor. Its bounding box is not limited to the size of this actor. */
-public class ParticleEffectActor : Actor , Disposable {
+public class ParticleEffectActor : Actor , IDisposable {
 	private readonly ParticleEffect particleEffect;
 	protected float lastDelta;
 	protected bool _isRunning;

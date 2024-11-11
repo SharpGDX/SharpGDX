@@ -15,7 +15,7 @@ namespace SharpGDX.Scenes.Scene2D.UI;
  * <p>
  * See the <a href="https://libgdx.com/wiki/graphics/2d/scene2d/skin">documentation</a> for more.
  * @author Nathan Sweet */
-public class Skin : Disposable {
+public class Skin : IDisposable {
 	ObjectMap<Type, ObjectMap<String, Object>> resources = new ();
 	TextureAtlas atlas;
 	float _scale = 1;
@@ -431,7 +431,7 @@ return typeResources.get(name);
 		if (atlas != null) atlas.Dispose();
 		foreach (ObjectMap<String, Object> entry in resources.values()) {
 			foreach (Object resource in entry.values())
-				if (resource is Disposable) ((Disposable)resource).Dispose();
+				if (resource is IDisposable) ((IDisposable)resource).Dispose();
 		}
 	}
 

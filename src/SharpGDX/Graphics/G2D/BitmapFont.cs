@@ -20,7 +20,7 @@ namespace SharpGDX.Graphics.G2D
  * The code was originally based on Matthias Mann's TWL BitmapFont class. Thanks for sharing, Matthias! :)
  * @author Nathan Sweet
  * @author Matthias Mann */
-public class BitmapFont : Disposable {
+public class BitmapFont : IDisposable {
 	static private readonly int LOG2_PAGE_SIZE = 9;
 	static private readonly int PAGE_SIZE = 1 << LOG2_PAGE_SIZE;
 	static private readonly int PAGES = 0x10000 / PAGE_SIZE;

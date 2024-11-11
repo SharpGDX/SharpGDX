@@ -6,7 +6,7 @@ namespace SharpGDX.Utils.Async
  * {@link #dispose()} when no longer used, in which case the executor waits for running tasks to finish. Scheduled but not yet
  * running tasks will not be executed.
  * @author badlogic */
-	public class AsyncExecutor : Disposable
+	public class AsyncExecutor : IDisposable
 	{
 		//private readonly ExecutorService executor;
 		private readonly TaskFactory executor;

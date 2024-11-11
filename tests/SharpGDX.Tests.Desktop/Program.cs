@@ -1,10 +1,9 @@
-﻿namespace SharpGDX.Tests.Desktop
+﻿namespace SharpGDX.Tests.Desktop;
+
+internal class Program
 {
-    internal class Program
+    private static void Main(string[] args)
     {
-        static void Main(string[] args)
-        {
-            DesktopTestStarter.main(args);
-        }
+        DesktopTestStarter.main(args);
     }
 }

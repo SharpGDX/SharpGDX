@@ -18,13 +18,13 @@ namespace SharpGDX.Audio;
 ///     </para>
 ///     <para>
 ///         When you are done with using the Music instance you have to dispose it via the
-///         <see cref="Disposable.Dispose()" /> method.
+///         <see cref="IDisposable.Dispose()" /> method.
 ///     </para>
 ///     <para>
 ///         <b>Note</b>: any values provided will not be clamped, it is the developer's responsibility to do so.
 ///     </para>
 /// </remarks>
-public interface IMusic : Disposable
+public interface IMusic : IDisposable
 {
     /// <summary>
     ///     The volume of this music stream.

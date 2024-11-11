@@ -9,7 +9,7 @@ using static SharpGDX.IGraphics;
 
 namespace SharpGDX.Desktop
 {
-	public class DesktopGraphics : AbstractGraphics, Disposable
+	public class DesktopGraphics : AbstractGraphics, IDisposable
 	{
 		readonly DesktopWindow window;
 		internal IGL20 gl20;

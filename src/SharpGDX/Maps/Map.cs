@@ -29,7 +29,7 @@ namespace SharpGDX.Maps;
  * </p>
  * 
  * Maps must be disposed through a call to {@link #dispose()} when no longer used. */
-public class Map : Disposable {
+public class Map : IDisposable {
 	private MapLayers layers = new MapLayers();
 	private MapProperties properties = new MapProperties();
 

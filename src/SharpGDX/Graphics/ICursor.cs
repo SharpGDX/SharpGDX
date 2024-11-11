@@ -16,7 +16,7 @@ namespace SharpGDX.Graphics;
 ///         To use one of the system cursors, call <see cref="IGraphics.setSystemCursor(SystemCursor)" />.
 ///     </para>
 /// </remarks>
-public interface ICursor : Disposable
+public interface ICursor : IDisposable
 {
 	public enum SystemCursor
 	{

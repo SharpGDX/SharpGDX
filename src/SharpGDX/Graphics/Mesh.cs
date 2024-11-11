@@ -34,7 +34,7 @@ namespace SharpGDX.Graphics
  * </p>
  *
  * @author mzechner, Dave Clayton <contact@redskyforge.com>, Xoppa */
-public class Mesh : Disposable {
+public class Mesh : IDisposable {
 	public enum VertexDataType {
 		VertexArray, VertexBufferObject, VertexBufferObjectSubData, VertexBufferObjectWithVAO
 	}

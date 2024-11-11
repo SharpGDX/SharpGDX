@@ -16,7 +16,7 @@ namespace SharpGDX.Maps.Tiled;
  * @see Map */
 public class TiledMap : Map {
 	private TiledMapTileSets tilesets;
-	private Array<Disposable> ownedResources;
+	private Array<IDisposable> ownedResources;
 
 	/** @return collection of tilesets for this map. */
 	public TiledMapTileSets getTileSets () {
@@ -31,13 +31,13 @@ public class TiledMap : Map {
 	/** Used by loaders to set resources when loading the map directly, without {@link AssetManager}. To be disposed in
 	 * {@link #dispose()}.
 	 * @param resources */
-	public void setOwnedResources (Array<Disposable> resources) {
+	public void setOwnedResources (Array<IDisposable> resources) {
 		this.ownedResources = resources;
 	}
 
 	public override void Dispose () {
 		if (ownedResources != null) {
-			foreach (Disposable resource in ownedResources) {
+			foreach (IDisposable resource in ownedResources) {
 				resource.Dispose();
 			}
 		}

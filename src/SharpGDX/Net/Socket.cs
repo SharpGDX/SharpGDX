@@ -15,7 +15,7 @@ namespace SharpGDX.Net;
  * A socket needs to be disposed if it is no longer used. Disposing also closes the connection.
  * 
  * @author mzechner */
-public interface Socket : Disposable {
+public interface Socket : IDisposable {
 	/** @return whether the socket is connected */
 	public bool isConnected ();
 

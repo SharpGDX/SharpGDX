@@ -16,18 +16,18 @@
 /// </remarks>
 public interface ILifecycleListener
 {
-	/// <summary>
-	///     Called when the <see cref="IApplication" /> is about to be disposed.
-	/// </summary>
-	public void Dispose();
+    /// <summary>
+    ///     Called when the <see cref="IApplication" /> is about to be disposed.
+    /// </summary>
+    public void Dispose();
 
-	/// <summary>
-	///     Called when the <see cref="IApplication" /> is about to pause.
-	/// </summary>
-	public void Pause();
+    /// <summary>
+    ///     Called when the <see cref="IApplication" /> is about to pause.
+    /// </summary>
+    public void Pause();
 
-	/// <summary>
-	///     Called when the <see cref="IApplication" /> is about to be resumed.
-	/// </summary>
-	public void Resume();
+    /// <summary>
+    ///     Called when the <see cref="IApplication" /> is about to be resumed.
+    /// </summary>
+    public void Resume();
 }

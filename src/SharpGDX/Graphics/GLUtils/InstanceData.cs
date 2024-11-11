@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SharpGDX.Shims;
-using SharpGDX.Utils;
-using SharpGDX.Mathematics;
-using Buffer = SharpGDX.Shims.Buffer;
+﻿using SharpGDX.Shims;
 
 namespace SharpGDX.Graphics.GLUtils
 {
@@ -14,7 +6,7 @@ namespace SharpGDX.Graphics.GLUtils
  * {@link InstanceBufferObject} or a {@link InstanceBufferObjectSubData}. Both require Open GL 3.3+.
  *
  * @author mrdlink */
-public interface InstanceData : Disposable {
+public interface InstanceData : IDisposable {
 
 	/** @return the number of vertices this InstanceData stores */
 	public int getNumInstances ();
@@ -84,9 +76,5 @@ public interface InstanceData : Disposable {
 
 	/** Invalidates the InstanceData if applicable. Use this in case of a context loss. */
 	public void invalidate ();
-
-        /** Disposes this InstanceData and all its associated OpenGL resources. */
-        /// TODO: Does this really need 'new' or can it just inherit Dispose() and this isn't needed?
-        public new void Dispose ();
 }
 }

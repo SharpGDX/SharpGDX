@@ -36,7 +36,7 @@ namespace SharpGDX.Graphics.GLUtils
  * </p>
  *
  * @author mzechner */
-public class ShaderProgram : Disposable {
+public class ShaderProgram : IDisposable {
 	/** default name for position attributes **/
 	public static readonly String POSITION_ATTRIBUTE = "a_position";
 	/** default name for normal attributes **/

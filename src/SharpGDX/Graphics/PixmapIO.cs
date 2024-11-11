@@ -158,7 +158,7 @@ public class PixmapIO {
 	 * 
 	 * @author Matthias Mann
 	 * @author Nathan Sweet */
-	public class PNG : Disposable {
+	public class PNG : IDisposable {
 		static private readonly byte[] SIGNATURE = {(byte)137, 80, 78, 71, 13, 10, 26, 10};
 		static private readonly int IHDR = 0x49484452, IDAT = 0x49444154, IEND = 0x49454E44;
 		static private readonly byte COLOR_ARGB = 6;

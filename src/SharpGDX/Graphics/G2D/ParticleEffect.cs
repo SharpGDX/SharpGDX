@@ -9,7 +9,7 @@ namespace SharpGDX.Graphics.G2D
 	/** See <a href=
  * "https://web.archive.org/web/20200427191041/http://www.badlogicgames.com/wordpress/?p=12555">http://www.badlogicgames.com/wordpress/?p=12555</a>
  * @author mzechner */
-	public class ParticleEffect : Disposable
+	public class ParticleEffect : IDisposable
 	{
 		private readonly Array<ParticleEmitter> emitters;
 		private BoundingBox bounds;

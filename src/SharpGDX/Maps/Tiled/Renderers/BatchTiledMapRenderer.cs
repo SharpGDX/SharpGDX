@@ -15,7 +15,7 @@ using SharpGDX.Mathematics;
 
 namespace SharpGDX.Maps.Tiled.Renderers;
 
-public abstract class BatchTiledMapRenderer : ITiledMapRenderer, Disposable {
+public abstract class BatchTiledMapRenderer : ITiledMapRenderer, IDisposable {
 	static protected readonly int NUM_VERTICES = 20;
 
 	protected TiledMap map;

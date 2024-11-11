@@ -9,7 +9,7 @@ namespace SharpGDX;
  * 
  * @author mzechner
  * @author noblemaster */
-public interface ServerSocket : Disposable {
+public interface ServerSocket : IDisposable {
 
 	/** @return the Protocol used by this socket */
 	public INet.Protocol getProtocol ();

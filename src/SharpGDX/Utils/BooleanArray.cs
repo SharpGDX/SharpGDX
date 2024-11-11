@@ -13,8 +13,7 @@ namespace SharpGDX.Utils
  * sizes or if BitSet functionality such as and, or, xor, etc are needed. If unordered, this class avoids a memory copy when
  * removing elements (the last element is moved to the removed element's position).
  * @author Nathan Sweet */
-	[Obsolete("Use List<bool> where applicable.")]
-public class BooleanArray {
+	public class BooleanArray {
 	public bool[] items;
 	public int size;
 	public bool ordered;

@@ -9,7 +9,7 @@ namespace SharpGDX.Graphics.GLUtils
  * {@link VertexBufferObject}. Only the later supports OpenGL ES 2.0.
  * 
  * @author mzechner */
-public interface IVertexData : Disposable {
+public interface IVertexData : IDisposable {
 	/** @return the number of vertices this VertexData stores */
 	public int getNumVertices ();
 

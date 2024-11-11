@@ -14,65 +14,65 @@
 /// </remarks>
 public abstract class Game : IApplicationListener
 {
-	protected IScreen? Screen;
+    protected IScreen? Screen;
 
-	/// <inheritdoc cref="IApplicationListener.Create()" />
-	public abstract void Create();
+    /// <inheritdoc cref="IApplicationListener.Create()" />
+    public abstract void Create();
 
-	/// <inheritdoc cref="IApplicationListener.Dispose()" />
-	public virtual void Dispose()
-	{
-		Screen?.Hide();
-	}
+    /// <inheritdoc cref="IApplicationListener.Dispose()" />
+    public virtual void Dispose()
+    {
+        Screen?.Hide();
+    }
 
-	/// <summary>
-	///     Returns the currently active <see cref="IScreen" />.
-	/// </summary>
-	/// <returns>The currently active <see cref="IScreen" /></returns>
-	public IScreen? GetScreen()
-	{
-		return Screen;
-	}
+    /// <summary>
+    ///     Returns the currently active <see cref="IScreen" />.
+    /// </summary>
+    /// <returns>The currently active <see cref="IScreen" /></returns>
+    public IScreen? GetScreen()
+    {
+        return Screen;
+    }
 
-	/// <inheritdoc cref="IApplicationListener.Pause()" />
-	public virtual void Pause()
+    /// <inheritdoc cref="IApplicationListener.Pause()" />
+    public virtual void Pause()
     {
         Screen?.Pause();
     }
 
-	/// <inheritdoc cref="IApplicationListener.Render()" />
-	public virtual void Render()
-	{
-		Screen?.Render(Gdx.Graphics.getDeltaTime());
-	}
+    /// <inheritdoc cref="IApplicationListener.Render()" />
+    public virtual void Render()
+    {
+        Screen?.Render(Gdx.Graphics.getDeltaTime());
+    }
 
-	/// <inheritdoc cref="IApplicationListener.Resize(int, int)" />
-	public virtual void Resize(int width, int height)
-	{
-		Screen?.Resize(width, height);
-	}
+    /// <inheritdoc cref="IApplicationListener.Resize(int, int)" />
+    public virtual void Resize(int width, int height)
+    {
+        Screen?.Resize(width, height);
+    }
 
-	/// <inheritdoc cref="IApplicationListener.Resume()" />
-	public virtual void Resume()
-	{
-		Screen?.Resume();
-	}
+    /// <inheritdoc cref="IApplicationListener.Resume()" />
+    public virtual void Resume()
+    {
+        Screen?.Resume();
+    }
 
-	/// <summary>
-	///     Sets the current screen.
-	/// </summary>
-	/// <remarks>
-	///     <see cref="IScreen.Hide()" /> is called on any old screen, and <see cref="IScreen.Show()" /> is called on the new
-	///     screen, if any.
-	/// </remarks>
-	/// <param name="screen">The screen.</param>
-	public void SetScreen(IScreen? screen)
-	{
-		Screen?.Hide();
+    /// <summary>
+    ///     Sets the current screen.
+    /// </summary>
+    /// <remarks>
+    ///     <see cref="IScreen.Hide()" /> is called on any old screen, and <see cref="IScreen.Show()" /> is called on the new
+    ///     screen, if any.
+    /// </remarks>
+    /// <param name="screen">The screen.</param>
+    public void SetScreen(IScreen? screen)
+    {
+        Screen?.Hide();
 
-		Screen = screen;
+        Screen = screen;
 
-		Screen?.Show();
-		Screen?.Resize(Gdx.Graphics.getWidth(), Gdx.Graphics.getHeight());
-	}
+        Screen?.Show();
+        Screen?.Resize(Gdx.Graphics.getWidth(), Gdx.Graphics.getHeight());
+    }
 }

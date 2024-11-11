@@ -24,7 +24,7 @@ namespace SharpGDX.Graphics
  * A Pixmap stores its data in native heap memory. It is mandatory to call {@link Pixmap#dispose()} when the pixmap is no longer
  * needed, otherwise memory leaks will result
  * @author badlogicgames@gmail.com */
-	public class Pixmap : Disposable
+	public class Pixmap : IDisposable
 	{
 	/** Different pixel formats.
 	 * 

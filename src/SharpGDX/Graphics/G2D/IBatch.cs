@@ -33,7 +33,7 @@ namespace SharpGDX.Graphics.G2D
  * A Batch has to be disposed if it is no longer used.
  * @author mzechner
  * @author Nathan Sweet */
-public interface IBatch : Disposable {
+public interface IBatch : IDisposable {
 	/** Sets up the Batch for drawing. This will disable depth buffer writing. It enables blending and texturing. If you have more
 	 * texture units enabled than the first one you have to disable them before calling this. Uses a screen coordinate system by
 	 * default where everything is given in pixels. You can specify your own projection and modelview matrices via

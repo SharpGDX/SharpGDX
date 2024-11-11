@@ -20,7 +20,7 @@ namespace SharpGDX.Maps.Tiled.Renderers;
  * change.
  * @author Justin Shapcott
  * @author Nathan Sweet */
-public class OrthoCachedTiledMapRenderer : ITiledMapRenderer, Disposable {
+public class OrthoCachedTiledMapRenderer : ITiledMapRenderer, IDisposable {
 	static private readonly float tolerance = 0.00001f;
 	static protected readonly int NUM_VERTICES = 20;
 

@@ -14,17 +14,11 @@ namespace SharpGDX.Audio;
 ///         right channel.
 ///     </para>
 ///     <para>
-///         The AudioRecorder has to be disposed if no longer needed via the <see cref="Dispose()" />.
+///         The AudioRecorder has to be disposed if no longer needed via the <see cref="IDisposable.Dispose()" />.
 ///     </para>
 /// </remarks>
-public interface IAudioRecorder : Disposable
+public interface IAudioRecorder : IDisposable
 {
-    /// <summary>
-    ///     Disposes the IAudioRecorder.
-    /// </summary>
-    /// TODO: Does this really need 'new' or can it just inherit Dispose() and this isn't needed?
-    public new void Dispose();
-
     /// <summary>
     ///     Reads in numSamples samples into the array samples starting at offset. If the recorder is in stereo you have to
     ///     multiply numSamples by 2.

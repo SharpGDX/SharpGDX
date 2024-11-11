@@ -11,7 +11,7 @@ namespace SharpGDX.Graphics
 /** Class representing an OpenGL texture by its target and handle. Keeps track of its state like the TextureFilter and
  * TextureWrap. Also provides some (protected) static methods to create TextureData and upload image data.
  * @author badlogic, Xoppa */
-public abstract class GLTexture : Disposable {
+public abstract class GLTexture : IDisposable {
 	/** The target of this texture, used when binding the texture, e.g. GL_TEXTURE_2D */
 	public readonly int glTarget;
 	protected int glHandle;

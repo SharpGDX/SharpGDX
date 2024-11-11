@@ -21,7 +21,7 @@ namespace SharpGDX.Graphics.GLUtils;
  * </p>
  *
  * @author mzechner, realitix */
-public abstract class GLFrameBuffer<T > : Disposable 
+public abstract class GLFrameBuffer<T > : IDisposable 
 where T : GLTexture
 {
 	/** the frame buffers **/

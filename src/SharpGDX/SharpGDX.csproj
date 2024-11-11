@@ -21,6 +21,10 @@
     <None Remove="lsans-15.png" />
   </ItemGroup>
 
+	<ItemGroup>
+        <Using Remove="System.IDisposable" />
+	</ItemGroup>
+
   <ItemGroup>
     <EmbeddedResource Include="lsans-15.fnt" />
     <EmbeddedResource Include="lsans-15.png" />

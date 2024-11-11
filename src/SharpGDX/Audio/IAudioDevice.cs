@@ -14,20 +14,11 @@ namespace SharpGDX.Audio;
 ///         Stereo samples are interleaved in the order left channel sample, right channel sample.
 ///     </para>
 ///     <para>
-///         The <see cref="Dispose()" /> method must be called when this AudioDevice is no longer needed.
+///         The <see cref="IDisposable.Dispose()" /> method must be called when this AudioDevice is no longer needed.
 ///     </para>
 /// </remarks>
-public interface IAudioDevice : Disposable
+public interface IAudioDevice : IDisposable
 {
-    /// <summary>
-    ///     Frees all resources associated with this AudioDevice.
-    /// </summary>
-    /// <remarks>
-    ///     Needs to be called when the device is no longer needed.
-    /// </remarks>
-    /// TODO: Does this really need 'new' or can it just inherit Dispose() and this isn't needed?
-    public new void Dispose();
-
     /// <summary>
     ///     Returns the latency in samples.
     /// </summary>

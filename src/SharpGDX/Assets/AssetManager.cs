@@ -21,7 +21,7 @@ namespace SharpGDX.Assets
 	/// <summary>
 	/// Loads and stores assets like textures, bitmap fonts, tile maps, sounds, music and so on.
 	/// </summary>
-	public class AssetManager : Disposable
+	public class AssetManager : IDisposable
 	{
 		readonly ObjectMap<Type, ObjectMap<String, RefCountedContainer>> assets = new();
 		readonly ObjectMap<String, Type> assetTypes = new();
@@ -287,7 +287,7 @@ namespace SharpGDX.Assets
 					log.info("Unload (dispose): " + fileName);
 
 					// if it is disposable dispose it
-					if (assetRef.@object is Disposable) ((Disposable)assetRef.@object).Dispose();
+					if (assetRef.@object is IDisposable) ((IDisposable)assetRef.@object).Dispose();
 
 					// remove the asset from the manager.
 					assetTypes.remove(fileName);
