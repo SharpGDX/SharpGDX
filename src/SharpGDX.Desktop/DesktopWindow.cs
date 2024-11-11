@@ -1,19 +1,11 @@
 ﻿using SharpGDX.Graphics;
-using SharpGDX.Graphics.GLUtils;
-using SharpGDX.Graphics.G2D;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using OpenTK.Windowing.GraphicsLibraryFramework;
 using static OpenTK.Windowing.GraphicsLibraryFramework.GLFWCallbacks;
-using SharpGDX;
-using SharpGDX.Desktop;
 using SharpGDX.Files;
 using SharpGDX.Shims;
 using SharpGDX.Utils;
+
 
 namespace SharpGDX.Desktop
 {
@@ -319,40 +311,48 @@ namespace SharpGDX.Desktop
 	}
 
 	private static unsafe void setIcon (Window* windowHandle, Pixmap[] images) {
-		//if (SharedLibraryLoader.isMac) return;
+			if (SharedLibraryLoader.isMac) return;
 
-		//GLFWImage.Buffer buffer = GLFWImage.malloc(images.Length);
-		//Pixmap[] tmpPixmaps = new Pixmap[images.length];
+            Span<GCHandle> handles = stackalloc GCHandle[images.Length];
+            Span<Image> glfwImages = stackalloc Image[images.Length];
 
-		//for (int i = 0; i < images.length; i++) {
-		//	Pixmap pixmap = images[i];
+            Pixmap?[] tmpPixmaps = new Pixmap[images.Length];
 
-		//	if (pixmap.getFormat() != Pixmap.Format.RGBA8888) {
-		//		Pixmap rgba = new Pixmap(pixmap.getWidth(), pixmap.getHeight(), Pixmap.Format.RGBA8888);
-		//		rgba.setBlending(Pixmap.Blending.None);
-		//		rgba.drawPixmap(pixmap, 0, 0);
-		//		tmpPixmaps[i] = rgba;
-		//		pixmap = rgba;
-		//	}
+			for (int i = 0; i < images.Length; i++)
+			{
+				Pixmap pixmap = images[i];
 
-		//	GLFWImage icon = GLFWImage.malloc();
-		//	icon.set(pixmap.getWidth(), pixmap.getHeight(), pixmap.getPixels());
-		//	buffer.put(icon);
+				if (pixmap.getFormat() != Pixmap.Format.RGBA8888)
+				{
+					Pixmap rgba = new Pixmap(pixmap.getWidth(), pixmap.getHeight(), Pixmap.Format.RGBA8888);
+					rgba.setBlending(Pixmap.Blending.None);
+					rgba.drawPixmap(pixmap, 0, 0);
+					tmpPixmaps[i] = rgba;
+					pixmap = rgba;
+				}
 
-		//	icon.free();
-		//}
+                handles[i] = GCHandle.Alloc(pixmap.getPixels().array(), GCHandleType.Pinned);
+                var addrOfPinnedObject = (byte*)handles[i].AddrOfPinnedObject();
 
-		//buffer.position(0);
-		//GLFW.glfwSetWindowIcon(windowHandle, buffer);
+                glfwImages[i] = new Image(pixmap.getWidth(), pixmap.getHeight(), addrOfPinnedObject);
+            }
 
-		//buffer.free();
-		//foreach (Pixmap pixmap in tmpPixmaps) {
-		//	if (pixmap != null) {
-		//		pixmap.dispose();
-		//	}
-		//}
+			GLFW.SetWindowIcon(windowHandle, glfwImages);
 
-	}
+            foreach (var handle in handles)
+            {
+                handle.Free();
+            }
+
+            foreach (Pixmap pixmap in tmpPixmaps)
+			{
+				if (pixmap != null)
+				{
+					pixmap.Dispose();
+				}
+			}
+
+		}
 
 	public unsafe void setTitle (string title) {
 		GLFW.SetWindowTitle(windowHandle, title);
