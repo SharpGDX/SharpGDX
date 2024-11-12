@@ -56,8 +56,8 @@ public class FloatTextureData : ITextureData {
 	}
 
 	public void consumeCustomData (int target) {
-		if (Gdx.App.getType() == ApplicationType.Android || Gdx.App.getType() == ApplicationType.iOS
-			|| (Gdx.App.getType() == ApplicationType.WebGL && !Gdx.Graphics.isGL30Available())) {
+		if (Gdx.App.GetType() == ApplicationType.Android || Gdx.App.GetType() == ApplicationType.iOS
+			|| (Gdx.App.GetType() == ApplicationType.WebGL && !Gdx.Graphics.isGL30Available())) {
 
 			if (!Gdx.Graphics.supportsExtension("OES_texture_float"))
 				throw new GdxRuntimeException("Extension OES_texture_float not supported!");

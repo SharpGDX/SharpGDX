@@ -42,101 +42,101 @@ namespace SharpGDX.Headless
 			//}
 		}
 
-		public IPreferences putBoolean(String key, bool val)
+		public IPreferences PutBoolean(String key, bool val)
 		{
 			properties.put(key, (val).ToString());
 			return this;
 		}
 
-		public IPreferences putInteger(String key, int val)
+		public IPreferences PutInteger(String key, int val)
 		{
 			properties.put(key, (val).ToString());
 			return this;
 		}
 
-		public IPreferences putLong(String key, long val)
+		public IPreferences PutLong(String key, long val)
 		{
 			properties.put(key, (val).ToString());
 			return this;
 		}
 
-		public IPreferences putFloat(String key, float val)
+		public IPreferences PutFloat(String key, float val)
 		{
 			properties.put(key, (val).ToString());
 			return this;
 		}
 
-		public IPreferences putString(String key, String val)
+		public IPreferences PutString(String key, String val)
 		{
 			properties.put(key, val);
 			return this;
 		}
 
-		public IPreferences put(Map<String, object> vals)
+		public IPreferences Put(Map<String, object> vals)
 		{
 			foreach (var val in vals.entrySet())
 			{
-				if (val.Value is Boolean) putBoolean(val.Key, (Boolean)val.Value);
-				if (val.Value is int) putInteger(val.Key, (int)val.Value);
-				if (val.Value is long) putLong(val.Key, (long)val.Value);
-				if (val.Value is String) putString(val.Key, (String)val.Value);
-				if (val.Value is float) putFloat(val.Key, (float)val.Value);
+				if (val.Value is Boolean) PutBoolean(val.Key, (Boolean)val.Value);
+				if (val.Value is int) PutInteger(val.Key, (int)val.Value);
+				if (val.Value is long) PutLong(val.Key, (long)val.Value);
+				if (val.Value is String) PutString(val.Key, (String)val.Value);
+				if (val.Value is float) PutFloat(val.Key, (float)val.Value);
 			}
 
 			return this;
 		}
 
-		public bool getBoolean(String key)
+		public bool GetBoolean(String key)
 		{
-			return getBoolean(key, false);
+			return GetBoolean(key, false);
 		}
 
-		public int getInteger(String key)
+		public int GetInteger(String key)
 		{
-			return getInteger(key, 0);
+			return GetInteger(key, 0);
 		}
 
-		public long getLong(String key)
+		public long GetLong(String key)
 		{
-			return getLong(key, 0);
+			return GetLong(key, 0);
 		}
 
-		public float getFloat(String key)
+		public float GetFloat(String key)
 		{
-			return getFloat(key, 0);
+			return GetFloat(key, 0);
 		}
 
-		public String getString(String key)
+		public String GetString(String key)
 		{
-			return getString(key, "");
+			return GetString(key, "");
 		}
 
-		public bool getBoolean(String key, bool defValue)
+		public bool GetBoolean(String key, bool defValue)
 		{
 			return bool.Parse(properties.get(key, defValue.ToString()));
 		}
 
-		public int getInteger(String key, int defValue)
+		public int GetInteger(String key, int defValue)
 		{
 			return int.Parse(properties.get(key, (defValue).ToString()));
 		}
 
-		public long getLong(String key, long defValue)
+		public long GetLong(String key, long defValue)
 		{
 			return long.Parse(properties.get(key, defValue.ToString()));
 		}
 
-		public float getFloat(String key, float defValue)
+		public float GetFloat(String key, float defValue)
 		{
 			return float.Parse(properties.get(key, (defValue).ToString()));
 		}
 
-		public String getString(String key, String defValue)
+		public String GetString(String key, String defValue)
 		{
 			return properties.get(key, defValue);
 		}
 
-		public Map<String, object> get()
+		public Map<String, object> Get()
 		{
 			Map<String, Object> map = new();
 			foreach (var val in properties.entrySet())
@@ -152,17 +152,17 @@ namespace SharpGDX.Headless
 			return map;
 		}
 
-		public bool contains(String key)
+		public bool Contains(String key)
 		{
 			return properties.containsKey(key);
 		}
 
-		public void clear()
+		public void Clear()
 		{
 			properties.clear();
 		}
 
-		public void flush()
+		public void Flush()
 		{
 			//OutputStream out = null;
 			//try
@@ -180,7 +180,7 @@ namespace SharpGDX.Headless
 			//}
 		}
 
-		public void remove(String key)
+		public void Remove(String key)
 		{
 			properties.remove(key);
 		}

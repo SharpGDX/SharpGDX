@@ -5,7 +5,7 @@
 /// </summary>
 /// <remarks>
 ///     A default implementations is provided for each backend. Custom implementations can be provided and set using
-///     <see cref="IApplication.setApplicationLogger(IApplicationLogger)" />.
+///     <see cref="IApplication.SetApplicationLogger" />.
 /// </remarks>
 public interface IApplicationLogger
 {

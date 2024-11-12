@@ -1,191 +1,217 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SharpGDX.Input;
+﻿using SharpGDX.Input;
 using SharpGDX.Shims;
 using SharpGDX.Utils;
 
-namespace SharpGDX
+namespace SharpGDX;
+
+/// <summary>
+///     An <see cref="IApplication" /> is the main entry point of a project, providing a set of modules for graphics,
+///     audio, input and file i/o, as well as functionality for logging.
+/// </summary>
+public interface IApplication
 {
-	/**
- * <p>
- * An <code>Application</code> is the main entry point of your project. It sets up a window and rendering surface and manages the
- * different aspects of your application, namely {@link Graphics}, {@link Audio}, {@link Input} and {@link Files}. Think of an
- * Application being equivalent to Swing's <code>JFrame</code> or Android's <code>Activity</code>.
- * </p>
- * 
- * <p>
- * An application can be an instance of any of the following:
- * <ul>
- * <li>a desktop application (see <code>JglfwApplication</code> found in gdx-backends-jglfw.jar)</li>
- * <li>an Android application (see <code>AndroidApplication</code> found in gdx-backends-android.jar)</li>
- * <li>a HTML5 application (see <code>GwtApplication</code> found in gdx-backends-gwt.jar)</li>
- * <li>an iOS application (see <code>IOSApplication</code> found in gdx-backends-robovm.jar)</li>
- * </ul>
- * Each application class has it's own startup and initialization methods. Please refer to their documentation for more
- * information.
- * </p>
- * 
- * <p>
- * While game programmers are used to having a main loop, libGDX employs a different concept to accommodate the event based nature
- * of Android applications a little more. You application logic must be implemented in a {@link ApplicationListener} which has
- * methods that get called by the Application when the application is created, resumed, paused, disposed or rendered. As a
- * developer you will simply implement the ApplicationListener interface and fill in the functionality accordingly. The
- * ApplicationListener is provided to a concrete Application instance as a parameter to the constructor or another initialization
- * method. Please refer to the documentation of the Application implementations for more information. Note that the
- * ApplicationListener can be provided to any Application implementation. This means that you only need to write your program
- * logic once and have it run on different platforms by passing it to a concrete Application implementation.
- * </p>
- * 
- * <p>
- * The Application interface provides you with a set of modules for graphics, audio, input and file i/o.
- * </p>
- * 
- * <p>
- * {@link Graphics} offers you various methods to output visuals to the screen. This is achieved via OpenGL ES 2.0 or 3.0
- * depending on what's available an the platform. On the desktop the features of OpenGL ES 2.0 and 3.0 are emulated via desktop
- * OpenGL. On Android the functionality of the Java OpenGL ES bindings is used.
- * </p>
- * 
- * <p>
- * {@link Audio} offers you various methods to output and record sound and music. This is achieved via the Java Sound API on the
- * desktop. On Android the Android media framework is used.
- * </p>
- * 
- * <p>
- * {@link Input} offers you various methods to poll user input from the keyboard, touch screen, mouse and accelerometer.
- * Additionally you can implement an {@link InputProcessor} and use it with {@link Input#setInputProcessor(InputProcessor)} to
- * receive input events.
- * </p>
- * 
- * <p>
- * {@link Files} offers you various methods to access internal and external files. An internal file is a file that is stored near
- * your application. On Android internal files are equivalent to assets. On the desktop the classpath is first scanned for the
- * specified file. If that fails then the root directory of your application is used for a look up. External files are resources
- * you create in your application and write to an external storage. On Android external files reside on the SD-card, on the
- * desktop external files are written to a users home directory. If you know what you are doing you can also specify absolute file
- * names. Absolute filenames are not portable, so take great care when using this feature.
- * </p>
- * 
- * <p>
- * {@link Net} offers you various methods to perform network operations, such as performing HTTP requests, or creating server and
- * client sockets for more elaborate network programming.
- * </p>
- * 
- * <p>
- * The <code>Application</code> also has a set of methods that you can use to query specific information such as the operating
- * system the application is currently running on and so forth. This allows you to have operating system dependent code paths. It
- * is however not recommended to use these facilities.
- * </p>
- * 
- * <p>
- * The <code>Application</code> also has a simple logging method which will print to standard out on the desktop and to logcat on
- * Android.
- * </p>
- * 
- * @author mzechner */
-	public interface IApplication
-	{
-		public static readonly int LOG_NONE = 0;
-		public static readonly int LOG_DEBUG = 3;
-		public static readonly int LOG_INFO = 2;
-		public static readonly int LOG_ERROR = 1;
+    public static readonly int LogDebug = 3;
+    public static readonly int LogError = 1;
+    public static readonly int LogInfo = 2;
+    public static readonly int LogNone = 0;
 
-		/** @return the {@link ApplicationListener} instance */
-		public IApplicationListener getApplicationListener();
+    /// <summary>
+    ///     Adds a new <see cref="ILifecycleListener" /> to the application.
+    /// </summary>
+    /// <remarks>
+    ///     <para>
+    ///         This can be used by extensions to hook into the lifecycle more easily.
+    ///     </para>
+    ///     <para>
+    ///         The <see cref="IApplicationListener" /> methods are sufficient for application level development.
+    ///     </para>
+    /// </remarks>
+    /// <param name="listener"></param>
+    public void AddLifecycleListener(ILifecycleListener listener);
 
-		/** @return the {@link Graphics} instance */
-		public IGraphics getGraphics();
+    /// <summary>
+    ///     Logs a debug message to the console or logcat.
+    /// </summary>
+    /// <param name="tag"></param>
+    /// <param name="message"></param>
+    public void Debug(string tag, string message);
 
-		/** @return the {@link Audio} instance */
-		public IAudio getAudio();
+    /// <summary>
+    ///     Logs a debug message to the console or logcat.
+    /// </summary>
+    /// <param name="tag"></param>
+    /// <param name="message"></param>
+    /// <param name="exception"></param>
+    public void Debug(string tag, string message, Exception exception);
 
-		/** @return the {@link Input} instance */
-		public IInput getInput();
+    /// <summary>
+    ///     Logs an error message to the console or logcat.
+    /// </summary>
+    /// <param name="tag"></param>
+    /// <param name="message"></param>
+    public void Error(string tag, string message);
 
-		/** @return the {@link Files} instance */
-		public IFiles getFiles();
+    /// <summary>
+    ///     Logs an error message to the console or logcat.
+    /// </summary>
+    /// <param name="tag"></param>
+    /// <param name="message"></param>
+    /// <param name="exception"></param>
+    public void Error(string tag, string message, Exception exception);
 
-		/** @return the {@link Net} instance */
-		public INet getNet();
+    /// <summary>
+    ///     Schedule an exit from the application.
+    /// </summary>
+    /// <remarks>
+    ///     <para>
+    ///         On android, this will cause a call to <see cref="IApplicationListener.Pause()" /> and
+    ///         <see cref="IApplicationListener.Dispose()" /> some time in the future, it will not immediately finish your
+    ///         application.
+    ///     </para>
+    ///     <para>
+    ///         On iOS this should be avoided in production as it breaks Apples guidelines.
+    ///     </para>
+    /// </remarks>
+    public void Exit();
 
-		/** Logs a message to the console or logcat */
-		public void log(String tag, String message);
+    /// <summary>
+    ///     Gets the <see cref="IApplicationListener" /> instance.
+    /// </summary>
+    /// <returns>The <see cref="IApplicationListener" /> instance.</returns>
+    public IApplicationListener GetApplicationListener();
 
-		/** Logs a message to the console or logcat */
-		public void log(String tag, String message, Exception exception);
+    /// <summary>
+    ///     Gets the current <see cref="IApplicationLogger" />.
+    /// </summary>
+    /// <returns>The current <see cref="IApplicationLogger" />.</returns>
+    public IApplicationLogger GetApplicationLogger();
 
-		/** Logs an error message to the console or logcat */
-		public void error(String tag, String message);
+    /// <summary>
+    ///     Gets the <see cref="IAudio" /> instance.
+    /// </summary>
+    /// <returns>The <see cref="IAudio" /> instance.</returns>
+    public IAudio GetAudio();
 
-		/** Logs an error message to the console or logcat */
-		public void error(String tag, String message, Exception exception);
+    public IClipboard GetClipboard();
 
-		/** Logs a debug message to the console or logcat */
-		public void debug(String tag, String message);
+    /// <summary>
+    ///     Gets the <see cref="IFiles" /> instance.
+    /// </summary>
+    /// <returns>The <see cref="IFiles" /> instance.</returns>
+    public IFiles GetFiles();
 
-		/** Logs a debug message to the console or logcat */
-		public void debug(String tag, String message, Exception exception);
+    /// <summary>
+    ///     Gets the <see cref="IGraphics" /> instance.
+    /// </summary>
+    /// <returns>The <see cref="IGraphics" /> instance.</returns>
+    public IGraphics GetGraphics();
 
-		/** Sets the log level. {@link #LOG_NONE} will mute all log output. {@link #LOG_ERROR} will only let error messages through.
-		 * {@link #LOG_INFO} will let all non-debug messages through, and {@link #LOG_DEBUG} will let all messages through.
-		 * @param logLevel {@link #LOG_NONE}, {@link #LOG_ERROR}, {@link #LOG_INFO}, {@link #LOG_DEBUG}. */
-		public void setLogLevel(int logLevel);
+    /// <summary>
+    ///     Gets the <see cref="IInput" /> instance.
+    /// </summary>
+    /// <returns>The <see cref="IInput" /> instance.</returns>
+    public IInput GetInput();
 
-		/** Gets the log level. */
-		public int getLogLevel();
+    /// <summary>
+    ///     Gets the Java heap memory use in bytes.
+    /// </summary>
+    /// <returns>The Java heap memory use in bytes.</returns>
+    public long GetJavaHeap();
 
-		/** Sets the current Application logger. Calls to {@link #log(String, String)} are delegated to this
-		 * {@link ApplicationLogger} */
-		public void setApplicationLogger(IApplicationLogger applicationLogger);
+    /// <summary>
+    ///     Gets the log level.
+    /// </summary>
+    /// <returns>The log level.</returns>
+    public int GetLogLevel();
 
-		/** @return the current {@link ApplicationLogger} */
-		public IApplicationLogger getApplicationLogger();
+    /// <summary>
+    ///     Gets the Native heap memory use in bytes.
+    /// </summary>
+    /// <returns>The Native heap memory use in bytes.</returns>
+    public long GetNativeHeap();
 
-		/** @return what {@link ApplicationType} this application has, e.g. Android or Desktop */
-		public ApplicationType getType();
+    /// <summary>
+    ///     Gets the <see cref="INet" /> instance.
+    /// </summary>
+    /// <returns>The <see cref="INet" /> instance</returns>
+    public INet GetNet();
 
-		/** @return the Android API level on Android, the major OS version on iOS (5, 6, 7, ..), or 0 on the desktop. */
-		public int getVersion();
+    /// <summary>
+    ///     Returns the <see cref="IPreferences" /> instance of this Application. It can be used to store application settings
+    ///     across runs.
+    /// </summary>
+    /// <param name="name">The name of the preferences, must be usable as a file name.</param>
+    /// <returns>The preferences.</returns>
+    public IPreferences GetPreferences(string name);
 
-		/** @return the Java heap memory use in bytes */
-		public long getJavaHeap();
+    /// <summary>
+    ///     Gets what <see cref="ApplicationType" /> this application has, e.g. Android or Desktop.
+    /// </summary>
+    /// <returns>What <see cref="ApplicationType" /> this application has, e.g. Android or Desktop.</returns>
+    public ApplicationType GetType();
 
-		/** @return the Native heap memory use in bytes */
-		public long getNativeHeap();
+    /// <summary>
+    ///     Gets the Android API level on Android, the major OS version on iOS (5, 6, 7, ...), or 0 on the desktop.
+    /// </summary>
+    /// <returns>The Android API level on Android, the major OS version on iOS (5, 6, 7, ...), or 0 on the desktop.</returns>
+    public int GetVersion();
 
-		/** Returns the {@link Preferences} instance of this Application. It can be used to store application settings across runs.
-		 * @param name the name of the preferences, must be useable as a file name.
-		 * @return the preferences. */
-		public IPreferences getPreferences(String name);
+    /// <summary>
+    ///     Logs a message to the console or logcat.
+    /// </summary>
+    /// <param name="tag"></param>
+    /// <param name="message"></param>
+    public void Log(string tag, string message);
 
-		public IClipboard getClipboard();
+    /// <summary>
+    ///     Logs a message to the console or logcat.
+    /// </summary>
+    /// <param name="tag"></param>
+    /// <param name="message"></param>
+    /// <param name="exception"></param>
+    public void Log(string tag, string message, Exception exception);
 
-		/** Posts a {@link Runnable} on the main loop thread.
-		 * 
-		 * In a multi-window application, the {@linkplain Gdx#graphics} and {@linkplain Gdx#input} values may be unpredictable at the
-		 * time the Runnable is executed. If graphics or input are needed, they can be copied to a variable to be used in the Runnable.
-		 * For example:
-		 * <p>
-		 * <code> final Graphics graphics = Gdx.graphics;
-		 * 
-		 * @param runnable the runnable. */
-		public void postRunnable(Runnable runnable);
+    /// <summary>
+    ///     Posts a <see cref="Runnable" /> on the main loop thread.
+    /// </summary>
+    /// <remarks>
+    ///     In a multi-window application, the <see cref="Gdx.Graphics"/> and <see cref="Gdx.Input"/> values may be unpredictable
+    ///     at the time the Runnable is executed. If graphics or input are needed, they can be copied to a variable to be used
+    ///     in the Runnable.
+    /// </remarks>
+    /// <param name="runnable">The runnable.</param>
+    public void PostRunnable(Runnable runnable);
 
-		/** Schedule an exit from the application. On android, this will cause a call to pause() and dispose() some time in the future,
-		 * it will not immediately finish your application. On iOS this should be avoided in production as it breaks Apples
-		 * guidelines */
-		public void exit();
+    /// <summary>
+    ///     Removes the <see cref="ILifecycleListener" />.
+    /// </summary>
+    /// <param name="listener"></param>
+    public void RemoveLifecycleListener(ILifecycleListener listener);
 
-		/** Adds a new {@link LifecycleListener} to the application. This can be used by extensions to hook into the lifecycle more
-		 * easily. The {@link ApplicationListener} methods are sufficient for application level development.
-		 * @param listener */
-		public void addLifecycleListener(ILifecycleListener listener);
+    /// <summary>
+    ///     Sets the current Application logger.
+    /// </summary>
+    /// <remarks>
+    ///     <para>
+    ///         Calls to <see cref="Log(string, string)" /> are delegated to this <see cref="IApplicationLogger" />.
+    ///     </para>
+    /// </remarks>
+    /// <param name="applicationLogger"></param>
+    public void SetApplicationLogger(IApplicationLogger applicationLogger);
 
-		/** Removes the {@link LifecycleListener}.
-		 * @param listener */
-		public void removeLifecycleListener(ILifecycleListener listener);
-	}
+    /// <summary>
+    ///     Sets the log level.
+    /// </summary>
+    /// <remarks>
+    ///     <para>
+    ///         <see cref="LogNone" /> will mute all log output. <see cref="LogError" /> will only let error messages through.
+    ///         <see cref="LogInfo" /> will let all non-debug messages through, and <see cref="LogDebug" /> will let all
+    ///         messages through.
+    ///     </para>
+    /// </remarks>
+    /// <param name="logLevel">
+    ///     <see cref="LogNone" />, <see cref="LogError" />, <see cref="LogInfo" />, <see cref="LogDebug" />
+    ///     .
+    /// </param>
+    public void SetLogLevel(int logLevel);
 }

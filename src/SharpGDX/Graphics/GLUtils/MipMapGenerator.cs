@@ -34,8 +34,8 @@ namespace SharpGDX.Graphics.GLUtils
 			return;
 		}
 
-		if (Gdx.App.getType() == ApplicationType.Android || Gdx.App.getType() == ApplicationType.WebGL
-		                                                             || Gdx.App.getType() == ApplicationType.iOS) {
+		if (Gdx.App.GetType() == ApplicationType.Android || Gdx.App.GetType() == ApplicationType.WebGL
+		                                                             || Gdx.App.GetType() == ApplicationType.iOS) {
 			generateMipMapGLES20(target, pixmap);
 		} else {
 			generateMipMapDesktop(target, pixmap, textureWidth, textureHeight);

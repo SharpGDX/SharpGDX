@@ -40,7 +40,7 @@ namespace SharpGDX.Assets
 
 		readonly IFileHandleResolver resolver;
 
-		internal Logger log = new Logger("AssetManager", IApplication.LOG_NONE);
+		internal Logger log = new Logger("AssetManager", IApplication.LogNone);
 
 		/// <summary>
 		/// Creates a new AssetManager with all default loaders.
@@ -523,7 +523,7 @@ namespace SharpGDX.Assets
 		 * @return true if all loading is finished. */
 		public bool update(int millis)
 		{
-			if (Gdx.App.getType() == ApplicationType.WebGL) return update();
+			if (Gdx.App.GetType() == ApplicationType.WebGL) return update();
 			long endTime = TimeUtils.millis() + millis;
 			while (true)
 			{

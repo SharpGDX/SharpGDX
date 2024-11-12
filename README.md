@@ -31,7 +31,7 @@ You can find an alpha (pre-release) version on NuGet [here](https://www.nuget.or
 This NuGet relies on OpenTK and the base SharpGDX library, which will be added for you.
 
 ## Community & Contribution
-For engaging discussions and support, join our official [SharpGDX Discord](https://discord.gg/CcqEzx2q)
+For engaging discussions and support, join the official [SharpGDX Discord](https://discord.gg/HSeEdfjvRz)
 
 ## Extensions
 - SharpGDX.Controllers

@@ -28,7 +28,7 @@ namespace SharpGDX.Desktop
 		private readonly INet net;
 		private readonly ObjectMap<String, IPreferences> preferences = new();
 		private readonly DesktopClipboard clipboard;
-		private int logLevel = IApplication.LOG_INFO;
+		private int logLevel = IApplication.LogInfo;
 		private IApplicationLogger applicationLogger;
 		private volatile bool running = true;
 		private readonly Array<Runnable> runnables = new();
@@ -105,7 +105,7 @@ namespace SharpGDX.Desktop
 		{
 			if (config.glEmulation == DesktopApplicationConfiguration.GLEmulation.ANGLE_GLES20) loadANGLE();
 			initializeGlfw();
-			setApplicationLogger(new DesktopApplicationLogger());
+			SetApplicationLogger(new DesktopApplicationLogger());
 
 			this.config = config = DesktopApplicationConfiguration.copy(config);
 			if (config.title == null) config.title = listener.GetType().Name;
@@ -120,7 +120,7 @@ namespace SharpGDX.Desktop
 				}
 				catch (Exception t)
 				{
-					log("DesktopApplication", "Couldn't initialize audio, disabling audio", t);
+					Log("DesktopApplication", "Couldn't initialize audio, disabling audio", t);
 					this.audio = new MockAudio();
 				}
 			}
@@ -293,107 +293,107 @@ namespace SharpGDX.Desktop
 			GLFW.Terminate();
 		}
 
-		public IApplicationListener getApplicationListener()
+		public IApplicationListener GetApplicationListener()
 		{
 			return currentWindow.getListener();
 		}
 
-		public IGraphics getGraphics()
+		public IGraphics GetGraphics()
 		{
 			return currentWindow.getGraphics();
 		}
 
-		public SharpGDX.IAudio getAudio()
+		public SharpGDX.IAudio GetAudio()
 		{
 			return audio;
 		}
 
-		public IInput getInput()
+		public IInput GetInput()
 		{
 			return currentWindow.getInput();
 		}
 
-		public IFiles getFiles()
+		public IFiles GetFiles()
 		{
 			return files;
 		}
 
-		public INet getNet()
+		public INet GetNet()
 		{
 			return net;
 		}
 
-		public void debug(String tag, String message)
+		public void Debug(String tag, String message)
 		{
-			if (logLevel >= IApplication.LOG_DEBUG) getApplicationLogger().Debug(tag, message);
+			if (logLevel >= IApplication.LogDebug) GetApplicationLogger().Debug(tag, message);
 		}
 
-		public void debug(String tag, String message, Exception exception)
+		public void Debug(String tag, String message, Exception exception)
 		{
-			if (logLevel >= IApplication.LOG_DEBUG) getApplicationLogger().Debug(tag, message, exception);
+			if (logLevel >= IApplication.LogDebug) GetApplicationLogger().Debug(tag, message, exception);
 		}
 
-		public void log(String tag, String message)
+		public void Log(String tag, String message)
 		{
-			if (logLevel >= IApplication.LOG_INFO) getApplicationLogger().Log(tag, message);
+			if (logLevel >= IApplication.LogInfo) GetApplicationLogger().Log(tag, message);
 		}
 
-		public void log(String tag, String message, Exception exception)
+		public void Log(String tag, String message, Exception exception)
 		{
-			if (logLevel >= IApplication.LOG_INFO) getApplicationLogger().Log(tag, message, exception);
+			if (logLevel >= IApplication.LogInfo) GetApplicationLogger().Log(tag, message, exception);
 		}
 
-		public void error(String tag, String message)
+		public void Error(String tag, String message)
 		{
-			if (logLevel >= IApplication.LOG_ERROR) getApplicationLogger().Error(tag, message);
+			if (logLevel >= IApplication.LogError) GetApplicationLogger().Error(tag, message);
 		}
 
-		public void error(String tag, String message, Exception exception)
+		public void Error(String tag, String message, Exception exception)
 		{
-			if (logLevel >= IApplication.LOG_ERROR) getApplicationLogger().Error(tag, message, exception);
+			if (logLevel >= IApplication.LogError) GetApplicationLogger().Error(tag, message, exception);
 		}
 
-		public void setLogLevel(int logLevel)
+		public void SetLogLevel(int logLevel)
 		{
 			this.logLevel = logLevel;
 		}
 
-		public int getLogLevel()
+		public int GetLogLevel()
 		{
 			return logLevel;
 		}
 
-		public void setApplicationLogger(IApplicationLogger applicationLogger)
+		public void SetApplicationLogger(IApplicationLogger applicationLogger)
 		{
 			this.applicationLogger = applicationLogger;
 		}
 
-		public IApplicationLogger getApplicationLogger()
+		public IApplicationLogger GetApplicationLogger()
 		{
 			return applicationLogger;
 		}
 
-		public ApplicationType getType()
+		public ApplicationType GetType()
 		{
 			return ApplicationType.Desktop;
 		}
 
-		public int getVersion()
+		public int GetVersion()
 		{
 			return 0;
 		}
 
-		public long getJavaHeap()
+		public long GetJavaHeap()
 		{
 			return GC.GetTotalMemory(false);
 		}
 
-		public long getNativeHeap()
+		public long GetNativeHeap()
 		{
-			return getJavaHeap();
+			return GetJavaHeap();
 		}
 
-		public IPreferences getPreferences(String name)
+		public IPreferences GetPreferences(String name)
 		{
 			if (preferences.containsKey(name))
 			{
@@ -409,12 +409,12 @@ namespace SharpGDX.Desktop
 			}
 		}
 
-		public IClipboard getClipboard()
+		public IClipboard GetClipboard()
 		{
 			return clipboard;
 		}
 
-		public void postRunnable(Runnable runnable)
+		public void PostRunnable(Runnable runnable)
 		{
 			lock (runnables)
 			{
@@ -422,12 +422,12 @@ namespace SharpGDX.Desktop
 			}
 		}
 
-		public void exit()
+		public void Exit()
 		{
 			running = false;
 		}
 
-		public void addLifecycleListener(ILifecycleListener listener)
+		public void AddLifecycleListener(ILifecycleListener listener)
 		{
 			lock (lifecycleListeners)
 			{
@@ -435,7 +435,7 @@ namespace SharpGDX.Desktop
 			}
 		}
 
-		public void removeLifecycleListener(ILifecycleListener listener)
+		public void RemoveLifecycleListener(ILifecycleListener listener)
 		{
 			lock (lifecycleListeners)
 			{
@@ -483,7 +483,7 @@ namespace SharpGDX.Desktop
 			else
 			{
 				// creation of additional windows is deferred to avoid GL context trouble
-				postRunnable(() =>
+				PostRunnable(() =>
 				{
 					createWindow(window, config, sharedContext);
 					windows.add(window);

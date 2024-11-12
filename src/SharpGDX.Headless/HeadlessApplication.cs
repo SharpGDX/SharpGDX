@@ -30,7 +30,7 @@ namespace SharpGDX.Headless
 		protected readonly Array<Runnable> runnables = new Array<Runnable>();
 		protected readonly Array<Runnable> executedRunnables = new Array<Runnable>();
 		protected readonly Array<ILifecycleListener> lifecycleListeners = new Array<ILifecycleListener>();
-		protected int logLevel = LOG_INFO;
+		protected int logLevel = LogInfo;
 		protected IApplicationLogger applicationLogger;
 		private String preferencesdir;
 
@@ -44,7 +44,7 @@ namespace SharpGDX.Headless
 			if (config == null) config = new HeadlessApplicationConfiguration();
 
 			HeadlessNativesLoader.Load();
-			setApplicationLogger(new HeadlessApplicationLogger());
+			SetApplicationLogger(new HeadlessApplicationLogger());
 			this.listener = listener;
 			this.files = new HeadlessFiles();
 			this.net = new HeadlessNet(config);
@@ -161,60 +161,60 @@ namespace SharpGDX.Headless
 			return true;
 		}
 
-		public IApplicationListener getApplicationListener()
+		public IApplicationListener GetApplicationListener()
 		{
 			return listener;
 		}
 
-		public IGraphics getGraphics()
+		public IGraphics GetGraphics()
 		{
 			return graphics;
 		}
 
-		public IAudio getAudio()
+		public IAudio GetAudio()
 		{
 			return audio;
 		}
 
-		public IInput getInput()
+		public IInput GetInput()
 		{
 			return input;
 		}
 
-		public IFiles getFiles()
+		public IFiles GetFiles()
 		{
 			return files;
 		}
 
-		public INet getNet()
+		public INet GetNet()
 		{
 			return net;
 		}
 
-		public ApplicationType getType()
+		public ApplicationType GetType()
 		{
 			return ApplicationType.HeadlessDesktop;
 		}
 
-		public int getVersion()
+		public int GetVersion()
 		{
 			return 0;
 		}
 
-		public long getJavaHeap()
+		public long GetJavaHeap()
 		{
 			// TODO: return Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
 			throw new NotImplementedException();
 		}
 
-		public long getNativeHeap()
+		public long GetNativeHeap()
 		{
-			return getJavaHeap();
+			return GetJavaHeap();
 		}
 
 		ObjectMap<String, IPreferences> preferences = new ObjectMap<String, IPreferences>();
 
-		public IPreferences getPreferences(String name)
+		public IPreferences GetPreferences(String name)
 		{
 			if (preferences.containsKey(name))
 			{
@@ -228,13 +228,13 @@ namespace SharpGDX.Headless
 			}
 		}
 
-		public IClipboard getClipboard()
+		public IClipboard GetClipboard()
 		{
 			// no clipboards for headless apps
 			return null;
 		}
 
-		public void postRunnable(Runnable runnable)
+		public void PostRunnable(Runnable runnable)
 		{
 			lock (runnables)
 			{
@@ -242,59 +242,59 @@ namespace SharpGDX.Headless
 			}
 		}
 
-		public void debug(String tag, String message)
+		public void Debug(String tag, String message)
 		{
-			if (logLevel >= LOG_DEBUG) getApplicationLogger().Debug(tag, message);
+			if (logLevel >= LogDebug) GetApplicationLogger().Debug(tag, message);
 		}
 
-		public void debug(String tag, String message, Exception exception)
+		public void Debug(String tag, String message, Exception exception)
 		{
-			if (logLevel >= LOG_DEBUG) getApplicationLogger().Debug(tag, message, exception);
+			if (logLevel >= LogDebug) GetApplicationLogger().Debug(tag, message, exception);
 		}
 
-		public void log(String tag, String message)
+		public void Log(String tag, String message)
 		{
-			if (logLevel >= LOG_INFO) getApplicationLogger().Log(tag, message);
+			if (logLevel >= LogInfo) GetApplicationLogger().Log(tag, message);
 		}
 
-		public void log(String tag, String message, Exception exception)
+		public void Log(String tag, String message, Exception exception)
 		{
-			if (logLevel >= LOG_INFO) getApplicationLogger().Log(tag, message, exception);
+			if (logLevel >= LogInfo) GetApplicationLogger().Log(tag, message, exception);
 		}
 
-		public void error(String tag, String message)
+		public void Error(String tag, String message)
 		{
-			if (logLevel >= LOG_ERROR) getApplicationLogger().Error(tag, message);
+			if (logLevel >= LogError) GetApplicationLogger().Error(tag, message);
 		}
 
-		public void error(String tag, String message, Exception exception)
+		public void Error(String tag, String message, Exception exception)
 		{
-			if (logLevel >= LOG_ERROR) getApplicationLogger().Error(tag, message, exception);
+			if (logLevel >= LogError) GetApplicationLogger().Error(tag, message, exception);
 		}
 
-		public void setLogLevel(int logLevel)
+		public void SetLogLevel(int logLevel)
 		{
 			this.logLevel = logLevel;
 		}
 
-		public int getLogLevel()
+		public int GetLogLevel()
 		{
 			return logLevel;
 		}
 
-		public void setApplicationLogger(IApplicationLogger applicationLogger)
+		public void SetApplicationLogger(IApplicationLogger applicationLogger)
 		{
 			this.applicationLogger = applicationLogger;
 		}
 
-		public IApplicationLogger getApplicationLogger()
+		public IApplicationLogger GetApplicationLogger()
 		{
 			return applicationLogger;
 		}
 
-		public void exit()
+		public void Exit()
 		{
-			postRunnable(() =>
+			PostRunnable(() =>
 			{
 
 				running = false;
@@ -302,7 +302,7 @@ namespace SharpGDX.Headless
 			});
 		}
 
-		public void addLifecycleListener(ILifecycleListener listener)
+		public void AddLifecycleListener(ILifecycleListener listener)
 		{
 			lock (lifecycleListeners)
 			{
@@ -310,7 +310,7 @@ namespace SharpGDX.Headless
 			}
 		}
 
-		public void removeLifecycleListener(ILifecycleListener listener)
+		public void RemoveLifecycleListener(ILifecycleListener listener)
 		{
 			lock (lifecycleListeners)
 			{

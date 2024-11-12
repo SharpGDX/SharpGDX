@@ -71,7 +71,7 @@ public class DesktopTestStarter {
 			Console.WriteLine("OpenGL renderer: " + Gdx.Graphics.getGLVersion().GetRendererString());
 			Console.WriteLine("OpenGL vendor: " + Gdx.Graphics.getGLVersion().GetVendorString());
 
-			IPreferences prefs = Gdx.App.getPreferences("lwjgl3-tests");
+			IPreferences prefs = Gdx.App.GetPreferences("lwjgl3-tests");
 
 			stage = new Stage(new ScreenViewport());
 			Gdx.Input.setInputProcessor(stage);
@@ -104,7 +104,7 @@ public class DesktopTestStarter {
 			container.add(scroll).Expand().Fill();
 			container.row();
 
-			lastClickedTestButton = (TextButton)table.findActor<TextButton>(prefs.getString("LastTest"));
+			lastClickedTestButton = (TextButton)table.findActor<TextButton>(prefs.GetString("LastTest"));
 			if (lastClickedTestButton != null) {
 				lastClickedTestButton.setColor(Color.CYAN);
 				scroll.layout();
@@ -144,8 +144,8 @@ public class DesktopTestStarter {
                 winConfig.useVsync(false);
                 ((DesktopApplication)Gdx.App).newWindow(new GdxTestWrapper(test, options.logGLErrors), winConfig);
                 Console.WriteLine("Started test: " + _testName);
-                _prefs.putString("LastTest", _testName);
-                _prefs.flush();
+                _prefs.PutString("LastTest", _testName);
+                _prefs.Flush();
                 if (_testButton != _testChooser.lastClickedTestButton)
                 {
                     _testButton.setColor(Color.CYAN);

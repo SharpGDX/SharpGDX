@@ -27,7 +27,7 @@ public class GdxTestWrapper : IApplicationListener
 	{
 		if (logGLErrors)
 		{
-			Gdx.App.log("GLProfiler", "profiler enabled");
+			Gdx.App.Log("GLProfiler", "profiler enabled");
 			GLProfiler profiler = new GLProfiler(Gdx.Graphics);
 			profiler.setListener(new GLErrorListener());
 		profiler.enable();
@@ -39,7 +39,7 @@ public class GdxTestWrapper : IApplicationListener
     {
         public void onError(int error)
         {
-            Gdx.App.error("GLProfiler", "error " + error);
+            Gdx.App.Error("GLProfiler", "error " + error);
         }
     }
 

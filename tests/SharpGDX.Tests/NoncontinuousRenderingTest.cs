@@ -118,9 +118,9 @@ public class NoncontinuousRenderingTest : GdxTest
             {
             }
             _test.nextColor();
-            Gdx.App.postRunnable(() =>
+            Gdx.App.PostRunnable(() =>
             {
-                Gdx.App.log(_str, "Posted runnable to Gdx.app");
+                Gdx.App.Log(_str, "Posted runnable to Gdx.app");
 
 
             });
@@ -154,7 +154,7 @@ public class NoncontinuousRenderingTest : GdxTest
             }
             _test.nextColor();
             graphics.requestRendering();
-            Gdx.App.log(_str2, "Called Gdx.graphics.requestRendering()");
+            Gdx.App.Log(_str2, "Called Gdx.graphics.requestRendering()");
             
             }).Start();
 
@@ -191,10 +191,10 @@ public class NoncontinuousRenderingTest : GdxTest
             public override void run()
             {
                 _test.nextColor();
-                Gdx.App.postRunnable(() =>
+                Gdx.App.PostRunnable(() =>
                 {
 
-                    Gdx.App.log(_str3, "Posted runnable to Gdx.app");
+                    Gdx.App.Log(_str3, "Posted runnable to Gdx.app");
 
                 });
             }
@@ -220,7 +220,7 @@ public class NoncontinuousRenderingTest : GdxTest
 
                 
                 _test.nextColor();
-                Gdx.App.log(_str4, "RunnableAction executed");
+                Gdx.App.Log(_str4, "RunnableAction executed");
             
             })));
         }
@@ -256,7 +256,7 @@ public class NoncontinuousRenderingTest : GdxTest
             _test.nextColor();
             bool continuous = graphics.isContinuousRendering();
             graphics.setContinuousRendering(!continuous);
-            Gdx.App.log(_str5, "Toggled continuous");
+            Gdx.App.Log(_str5, "Toggled continuous");
             }
             
             }).Start();

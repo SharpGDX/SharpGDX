@@ -120,7 +120,7 @@ public class TextField : Widget , IDisableable {
 		keyRepeatTask = new KeyRepeatTask(this);
 		blinkTask = new BlinkTask(this);
 		setStyle(style);
-		clipboard = Gdx.App.getClipboard();
+		clipboard = Gdx.App.GetClipboard();
 		initialize();
 		setText(text);
 		setSize(getPrefWidth(), getPrefHeight());

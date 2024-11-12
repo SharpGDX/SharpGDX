@@ -432,7 +432,7 @@ public void Dispose()
 {
     if (disposed)
     {
-        Gdx.App.error("Pixmap", "Pixmap already disposed!");
+        Gdx.App.Error("Pixmap", "Pixmap already disposed!");
         return;
     }
 

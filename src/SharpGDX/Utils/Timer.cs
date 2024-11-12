@@ -346,7 +346,7 @@ namespace SharpGDX.Utils
 
                 files = Gdx.Files;
                 app = Gdx.App;
-                app.addLifecycleListener(this);
+                app.AddLifecycleListener(this);
                 Resume();
 
                 Thread _thread = new Thread(run)
@@ -424,7 +424,7 @@ namespace SharpGDX.Utils
             {
                 lock (postedTasks)
                 {
-                    if (postedTasks.isEmpty()) task.app.postRunnable(_runPostedTasks);
+                    if (postedTasks.isEmpty()) task.app.PostRunnable(_runPostedTasks);
                     postedTasks.add(task);
                 }
             }
@@ -491,7 +491,7 @@ namespace SharpGDX.Utils
                     Monitor.Exit(threadLock);
                 }
 
-                app.removeLifecycleListener(this);
+                app.RemoveLifecycleListener(this);
             }
         }
     }

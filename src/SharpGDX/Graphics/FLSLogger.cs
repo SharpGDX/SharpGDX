@@ -38,7 +38,7 @@ namespace SharpGDX.Graphics
 				 int fps = Gdx.Graphics.getFramesPerSecond();
 				if (fps < bound)
 				{
-					Gdx.App.log("FPSLogger", "fps: " + fps);
+					Gdx.App.Log("FPSLogger", "fps: " + fps);
 					startTime = nanoTime;
 				}
 			}
