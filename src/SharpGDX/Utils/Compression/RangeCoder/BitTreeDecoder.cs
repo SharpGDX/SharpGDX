@@ -1,51 +1,55 @@
-﻿namespace SharpGDX.Utils.Compression.RangeCoder
+﻿namespace SharpGDX.Utils.Compression.RangeCoder;
+
+public class BitTreeDecoder(int numBitLevels)
 {
-	public class BitTreeDecoder {
-	short[] Models;
-	int NumBitLevels;
+    private readonly short[] _models = new short[1 << numBitLevels];
 
-	public BitTreeDecoder (int numBitLevels) {
-		NumBitLevels = numBitLevels;
-		Models = new short[1 << numBitLevels];
-	}
+    public static int ReverseDecode(short[] models, int startIndex, Decoder rangeDecoder, int numBitLevels)
+    {
+        var m = 1;
+        var symbol = 0;
 
-	public void Init () {
-		Decoder.InitBitModels(Models);
-	}
+        for (var bitIndex = 0; bitIndex < numBitLevels; bitIndex++)
+        {
+            var bit = rangeDecoder.DecodeBit(models, startIndex + m);
+            m <<= 1;
+            m += bit;
+            symbol |= bit << bitIndex;
+        }
 
-	public int Decode (Decoder rangeDecoder) // TODO: throws java.io.IOException 
-		{
-		int m = 1;
-		for (int bitIndex = NumBitLevels; bitIndex != 0; bitIndex--)
-			m = (m << 1) + rangeDecoder.DecodeBit(Models, m);
-		return m - (1 << NumBitLevels);
-	}
+        return symbol;
+    }
 
-	public int ReverseDecode (Decoder rangeDecoder) // TODO: throws java.io.IOException 
-		{
-		int m = 1;
-		int symbol = 0;
-		for (int bitIndex = 0; bitIndex < NumBitLevels; bitIndex++) {
-			int bit = rangeDecoder.DecodeBit(Models, m);
-			m <<= 1;
-			m += bit;
-			symbol |= (bit << bitIndex);
-		}
-		return symbol;
-	}
+    public int Decode(Decoder rangeDecoder)
+    {
+        var m = 1;
 
-	public static int ReverseDecode (short[] Models, int startIndex, Decoder rangeDecoder, int NumBitLevels)
-		// TODO:		throws java.io.IOException
-		{
-			int m = 1;
-		int symbol = 0;
-		for (int bitIndex = 0; bitIndex < NumBitLevels; bitIndex++) {
-			int bit = rangeDecoder.DecodeBit(Models, startIndex + m);
-			m <<= 1;
-			m += bit;
-			symbol |= (bit << bitIndex);
-		}
-		return symbol;
-	}
-}
+        for (var bitIndex = numBitLevels; bitIndex != 0; bitIndex--)
+        {
+            m = (m << 1) + rangeDecoder.DecodeBit(_models, m);
+        }
+
+        return m - (1 << numBitLevels);
+    }
+
+    public void Init()
+    {
+        Decoder.InitBitModels(_models);
+    }
+
+    public int ReverseDecode(Decoder rangeDecoder)
+    {
+        var m = 1;
+        var symbol = 0;
+
+        for (var bitIndex = 0; bitIndex < numBitLevels; bitIndex++)
+        {
+            var bit = rangeDecoder.DecodeBit(_models, m);
+            m <<= 1;
+            m += bit;
+            symbol |= bit << bitIndex;
+        }
+
+        return symbol;
+    }
 }

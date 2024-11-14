@@ -6,19 +6,16 @@
 ## Status
 While this is considered to be in the earlier stages of development, and most features do work, I do expect bugs.
 
-I also plan to clean up all the code to make it more consistent with the best practices of C#. This will include changes such as cleaning up the documentation and solidifying access (C# and Java differe on the inherit access level of objects that is unspecified).
+I also plan to clean up all the code to make it more consistent with the best practices of C#. This will include changes such as cleaning up the documentation and solidifying access (C# and Java differ on the inherit access level of objects when it is unspecified).
 
-I have wrestled with the idea of converting get/set methods to properties; however, I have not made a decision yet. My concern here is that there is a lot of variety in the get/set methods throughout the library. It is easy for the get methods, but presents challenges with the set methods in some cases.
-
-I am also toying with the idea of making a 'backend' that uses SDL2 instead of GLFW and OpenTK to reduce dependencies on other 3rd party libraries.
+As this is a port, there will be a concentrated effort to clean up the code, but to also stay true to the original types and intents; at rare times breaking C# best practices, or keeping classes that served a purpose in Java but aren't as useful in C# (i.e. `Array<T>`).
 
 ## Tests
 Tests is in a very infant state. It will compile and run, but it is not working properly. I am actively working to fix this and implement all of the tests.
 
 ## Demos
-This project itself has a 'Drop' demo, which is the older version of the libGDX 'Simple Game' from their tutorials.
+There is a port of a demo here: [Super Jumper](https://github.com/SharpGDX/SharpGDX-Demo-Super-Jumper)
 
-There is also a demo here: [Super Jumper](https://github.com/SharpGDX/SharpGDX-Demo-Super-Jumper)
 
 Other demos are almost complete, I am fixing bugs as I port them (Cuboc is down to 1 bug). I will also try and port some of the older libGDX demos that are not up to date for current version of libGDX.
 
@@ -40,7 +37,7 @@ For engaging discussions and support, join the official [SharpGDX Discord](https
     - This is complete, though I do plan to clean it up since generics have some subtle differences in C# and Java (lots of unnecessary 'Type' passing in the C# version.
 - SharpGDX.Box2D
     - The Java to C# portion is complete. But I have to create all the externs and a DLL for the C++ portion (I don't have all the nice tools that are used for JNI).
-SharpGDX.AI
+- SharpGDX.AI
     - I have not started this yet.
 
 --- 

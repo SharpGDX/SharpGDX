@@ -1,5 +1,4 @@
-﻿using SharpGDX.Input;
-using SharpGDX.Shims;
+﻿using SharpGDX.Shims;
 using SharpGDX.Utils;
 
 namespace SharpGDX;

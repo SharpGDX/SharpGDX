@@ -1,5 +1,5 @@
-using SharpGDX.Input;
 using SharpGDX.Shims;
+using Keys = SharpGDX.IInput.Keys;
 using SharpGDX.Scenes.Scene2D.Utils;
 using SharpGDX.Mathematics;
 using SharpGDX.Utils;

@@ -1,10 +1,10 @@
 ﻿using SharpGDX.Graphics.GLUtils;
 using SharpGDX.Utils;
-using static SharpGDX.Input.IInput;
+using static SharpGDX.IInput;
 using OpenTK.Windowing.GraphicsLibraryFramework;
 using SharpGDX.Input;
 using static OpenTK.Windowing.GraphicsLibraryFramework.GLFWCallbacks;
-using Keys = SharpGDX.Input.Keys;
+using Keys = SharpGDX.IInput.Keys;
 
 namespace SharpGDX.Desktop
 {

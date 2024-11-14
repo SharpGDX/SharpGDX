@@ -8,7 +8,7 @@ namespace SharpGDX;
 ///     An <see cref="IApplication" /> is the main entry point of a project, providing a set of modules for graphics,
 ///     audio, input and file i/o, as well as functionality for logging.
 /// </summary>
-public interface IApplication
+public partial interface IApplication
 {
     public static readonly int LogDebug = 3;
     public static readonly int LogError = 1;
@@ -175,7 +175,8 @@ public interface IApplication
     ///     Posts a <see cref="Runnable" /> on the main loop thread.
     /// </summary>
     /// <remarks>
-    ///     In a multi-window application, the <see cref="Gdx.Graphics"/> and <see cref="Gdx.Input"/> values may be unpredictable
+    ///     In a multi-window application, the <see cref="Gdx.Graphics" /> and <see cref="Gdx.Input" /> values may be
+    ///     unpredictable
     ///     at the time the Runnable is executed. If graphics or input are needed, they can be copied to a variable to be used
     ///     in the Runnable.
     /// </remarks>
@@ -210,8 +211,7 @@ public interface IApplication
     ///     </para>
     /// </remarks>
     /// <param name="logLevel">
-    ///     <see cref="LogNone" />, <see cref="LogError" />, <see cref="LogInfo" />, <see cref="LogDebug" />
-    ///     .
+    ///     <see cref="LogNone" />, <see cref="LogError" />, <see cref="LogInfo" />, <see cref="LogDebug" />.
     /// </param>
     public void SetLogLevel(int logLevel);
 }

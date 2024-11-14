@@ -93,7 +93,7 @@ where T : GLTexture
 		// iOS uses a different framebuffer handle! (not necessarily 0)
 		if (!defaultFramebufferHandleInitialized) {
 			defaultFramebufferHandleInitialized = true;
-			if (Gdx.App.GetType() == ApplicationType.iOS) {
+			if (Gdx.App.GetType() == IApplication.ApplicationType.IOS) {
 				IntBuffer intbuf = ByteBuffer.allocateDirect(16 * sizeof(int) / 8).order(ByteOrder.nativeOrder()).asIntBuffer();
 				gl.glGetIntegerv(IGL20.GL_FRAMEBUFFER_BINDING, intbuf);
 				defaultFramebufferHandle = intbuf.get(0);

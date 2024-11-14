@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SharpGDX.Input;
-using static SharpGDX.Input.IInput;
+using static SharpGDX.IInput;
 
 namespace SharpGDX.Headless.Mock.Input
 {
-	/** The headless backend does its best to mock elements. This is intended to make code-sharing between server and client as simple
+    /** The headless backend does its best to mock elements. This is intended to make code-sharing between server and client as simple
  * as possible. */
-	public class MockInput : IInput
+    public class MockInput : IInput
 	{
 
 		public float getAccelerometerX()

@@ -17,7 +17,7 @@ namespace SharpGDX.Headless.Mock.Graphics
 	int fps;
 	long lastTime = TimeUtils.nanoTime();
 	long targetRenderInterval;
-		GLVersion glVersion = new GLVersion(ApplicationType.HeadlessDesktop, "", "", "");
+		GLVersion glVersion = new GLVersion(IApplication.ApplicationType.HeadlessDesktop, "", "", "");
 
 		public override bool isGL30Available()
 	{

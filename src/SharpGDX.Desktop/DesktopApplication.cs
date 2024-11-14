@@ -373,9 +373,9 @@ namespace SharpGDX.Desktop
 			return applicationLogger;
 		}
 
-		public ApplicationType GetType()
+		public IApplication.ApplicationType GetType()
 		{
-			return ApplicationType.Desktop;
+			return IApplication.ApplicationType.Desktop;
 		}
 
 		public int GetVersion()
@@ -697,7 +697,7 @@ namespace SharpGDX.Desktop
 				String versionString = GL.GetString(StringName.Version);
 				String vendorString = GL.GetString(StringName.Vendor);
 				String rendererString = GL.GetString(StringName.Renderer);
-				glVersion = new GLVersion(ApplicationType.Desktop, versionString, vendorString,
+				glVersion = new GLVersion(IApplication.ApplicationType.Desktop, versionString, vendorString,
 					rendererString);
 			}
 			else

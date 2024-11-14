@@ -1,6 +1,4 @@
-﻿using SharpGDX.Input;
-
-namespace SharpGDX;
+﻿namespace SharpGDX;
 
 /// <summary>
 ///     An adapter class for <see cref="IInputProcessor" />.

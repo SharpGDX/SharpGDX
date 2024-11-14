@@ -9,7 +9,7 @@ namespace SharpGDX.Input
 {
     public class NativeInputConfiguration {
 
-	private Input.OnscreenKeyboardType type = Input.OnscreenKeyboardType.Default;
+	private IInput.OnscreenKeyboardType type = IInput.OnscreenKeyboardType.Default;
 	private bool preventCorrection = false;
 
 	private TextInputWrapper textInputWrapper;
@@ -20,12 +20,12 @@ namespace SharpGDX.Input
 	private bool showPasswordButton = false;
 	private String[] autoComplete = null;
 
-	public Input.OnscreenKeyboardType getType () {
+	public IInput.OnscreenKeyboardType getType () {
 		return type;
 	}
 
 	/** @param type which type of keyboard we wish to display. */
-	public NativeInputConfiguration setType (Input.OnscreenKeyboardType type) {
+	public NativeInputConfiguration setType (IInput.OnscreenKeyboardType type) {
 		this.type = type;
 		return this;
 	}
@@ -113,10 +113,10 @@ namespace SharpGDX.Input
 		String message = null;
 		if (type == null) message = "OnscreenKeyboardType needs to be non null";
 		if (textInputWrapper == null) message = "TextInputWrapper needs to be non null";
-		if (showPasswordButton && type != Input.OnscreenKeyboardType.Password)
+		if (showPasswordButton && type != IInput.OnscreenKeyboardType.Password)
 			message = "ShowPasswordButton only works with OnscreenKeyboardType.Password";
 		if (placeholder == null) message = "Placeholder needs to be non null";
-		if (autoComplete != null && type != Input.OnscreenKeyboardType.Default)
+		if (autoComplete != null && type != IInput.OnscreenKeyboardType.Default)
 			message = "AutoComplete should only be used with OnscreenKeyboardType.Default";
 		if (autoComplete != null && _isMultiLine) message = "AutoComplete shouldn't be used with multiline";
 

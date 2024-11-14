@@ -1,8 +1,8 @@
 using SharpGDX.Shims;
+using Keys = SharpGDX.IInput.Keys;
 using SharpGDX.Graphics;
 using SharpGDX.Graphics.GLUtils;
 using SharpGDX.Graphics.G2D;
-using SharpGDX.Input;
 using SharpGDX.Scenes.Scene2D.Utils;
 using SharpGDX.Mathematics;
 using SharpGDX.Utils;

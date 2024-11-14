@@ -1,10 +1,10 @@
+using Keys = SharpGDX.IInput.Keys;
 using SharpGDX.Shims;
 using SharpGDX.Graphics;
 using SharpGDX.Graphics.G2D;
 using Timer = SharpGDX.Utils.Timer;
 using Task = SharpGDX.Utils.Timer.Task;
 using System.Text;
-using SharpGDX.Input;
 using SharpGDX.Scenes.Scene2D.Utils;
 using SharpGDX.Mathematics;
 using SharpGDX.Utils;

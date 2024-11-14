@@ -1,6 +1,8 @@
-﻿using SharpGDX.Utils;
+﻿using SharpGDX.Input;
+using SharpGDX.Utils;
+using Keys = SharpGDX.IInput.Keys;
 
-namespace SharpGDX.Input;
+namespace SharpGDX;
 
 public abstract class AbstractInput : IInput
 {
@@ -39,7 +41,7 @@ public abstract class AbstractInput : IInput
 
     public abstract int getMaxPointers();
 
-    public abstract Orientation getNativeOrientation();
+    public abstract IInput.Orientation getNativeOrientation();
 
     public abstract float getPitch();
 
@@ -61,7 +63,7 @@ public abstract class AbstractInput : IInput
         string title,
         string text,
         string hint,
-        OnscreenKeyboardType type
+        IInput.OnscreenKeyboardType type
     );
 
     public abstract int getX();
@@ -76,11 +78,11 @@ public abstract class AbstractInput : IInput
 
     public abstract bool isButtonPressed(int button);
 
-   public bool isCatchKey(int keycode)
+    public bool isCatchKey(int keycode)
     {
         return keysToCatch.contains(keycode);
     }
-    
+
     public abstract bool isCursorCatched();
 
     public bool isKeyJustPressed(int key)
@@ -113,7 +115,7 @@ public abstract class AbstractInput : IInput
         return pressedKeys[key];
     }
 
-    public abstract bool isPeripheralAvailable(Peripheral peripheral);
+    public abstract bool isPeripheralAvailable(IInput.Peripheral peripheral);
     public abstract bool isTouched();
     public abstract bool isTouched(int pointer);
     public abstract bool justTouched();
@@ -129,7 +131,7 @@ public abstract class AbstractInput : IInput
             keysToCatch.add(keycode);
         }
     }
-    
+
     public abstract void setCursorCatched(bool catched);
 
     public abstract void setCursorPosition(int x, int y);
@@ -138,7 +140,7 @@ public abstract class AbstractInput : IInput
 
     public abstract void setOnscreenKeyboardVisible(bool visible);
 
-    public abstract void setOnscreenKeyboardVisible(bool visible, OnscreenKeyboardType type);
+    public abstract void setOnscreenKeyboardVisible(bool visible, IInput.OnscreenKeyboardType type);
 
     public abstract void vibrate(int milliseconds);
 
@@ -146,7 +148,7 @@ public abstract class AbstractInput : IInput
 
     public abstract void vibrate(int milliseconds, int amplitude, bool fallback);
 
-    public abstract void vibrate(VibrationType vibrationType);
+    public abstract void vibrate(IInput.VibrationType vibrationType);
     public abstract void openTextInputField(NativeInputConfiguration configuration);
     public abstract void closeTextInputField(bool sendReturn);
     public abstract void setKeyboardHeightObserver(IInput.KeyboardHeightObserver observer);

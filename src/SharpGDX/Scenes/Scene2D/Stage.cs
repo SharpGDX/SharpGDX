@@ -176,8 +176,8 @@ public class Stage : InputAdapter , IDisposable {
 		}
 
 		// Update over actor for the mouse on the desktop.
-		ApplicationType type = Gdx.App.GetType();
-		if (type == ApplicationType.Desktop || type == ApplicationType.Applet || type == ApplicationType.WebGL)
+		IApplication.ApplicationType type = Gdx.App.GetType();
+		if (type == IApplication.ApplicationType.Desktop || type == IApplication.ApplicationType.Applet || type == IApplication.ApplicationType.WebGL)
 			mouseOverActor = fireEnterAndExit(mouseOverActor, mouseScreenX, mouseScreenY, -1);
 
 		root.act(delta);

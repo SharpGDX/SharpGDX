@@ -1,10 +1,9 @@
+using Keys = SharpGDX.IInput.Keys;
 using SharpGDX.Shims;
 using SharpGDX.Graphics;
 using SharpGDX.Graphics.GLUtils;
 using SharpGDX.Graphics.G2D;
 using static SharpGDX.Scenes.Scene2D.Actions.Actions;
-using SharpGDX;
-using SharpGDX.Input;
 using SharpGDX.Scenes.Scene2D;
 using SharpGDX.Scenes.Scene2D.UI;
 using SharpGDX.Scenes.Scene2D.Utils;

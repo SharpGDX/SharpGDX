@@ -1,4 +1,6 @@
-﻿namespace SharpGDX.Input
+﻿using SharpGDX.Input;
+
+namespace SharpGDX
 {
     /**
  * <p>
@@ -24,14 +26,14 @@
  * </p>
  *
  * @author mzechner */
-    public interface IInput
+    public partial interface IInput
     {
         /** Callback interface for {@link Input#getTextInput(TextInputListener, String, String, String)}
          *
          * @author mzechner */
         public interface TextInputListener
         {
-            public void input(String text);
+            public void input(string text);
 
             public void canceled();
         }
@@ -154,7 +156,7 @@
          * @param listener The TextInputListener.
          * @param title The title of the text input dialog.
          * @param text The message presented to the user. */
-        public void getTextInput(TextInputListener listener, String title, String text, String hint);
+        public void getTextInput(TextInputListener listener, string title, string text, string hint);
 
         /** System dependent method to input a string of text. A dialog box will be created with the given title and the given text as
          * a message for the user. Once the dialog has been closed the provided {@link TextInputListener} will be called on the
@@ -164,7 +166,7 @@
          * @param title The title of the text input dialog.
          * @param text The message presented to the user.
          * @param type which type of keyboard we wish to display */
-        public void getTextInput(TextInputListener listener, String title, String text, String hint,
+        public void getTextInput(TextInputListener listener, string title, string text, string hint,
             OnscreenKeyboardType type);
 
         /** Sets the on-screen keyboard visible if available. Will use the Default keyboard type.
@@ -172,11 +174,11 @@
          * @param visible visible or not */
         public void setOnscreenKeyboardVisible(bool visible);
 
-         interface InputStringValidator
+        interface InputStringValidator
         {
             /** @param toCheck The string that should be validated
              * @return true, if the string is acceptable, false if not. */
-            bool validate(String toCheck);
+            bool validate(string toCheck);
         }
 
         /** Sets the on-screen keyboard visible if available.

@@ -27,14 +27,19 @@ namespace SharpGDX.Utils
     [NonSerialized]
         private IPredicate<T>.PredicateIterable<T> predicateIterable;
 
-        /** Creates an ordered array with a capacity of 16. */
+        /// <summary>
+		/// Creates an ordered array with a capacity of 16.
+		/// </summary>
         public Array()
 	: this(true, 16)
 		{
 	}
 
-	/** Creates an ordered array with the specified capacity. */
-	public Array(int capacity)
+        /// <summary>
+        /// Creates an ordered array with the specified capacity.
+        /// </summary>
+        /// <param name="capacity"></param>
+        public Array(int capacity)
 	: this(true, capacity)
 		{
 	}

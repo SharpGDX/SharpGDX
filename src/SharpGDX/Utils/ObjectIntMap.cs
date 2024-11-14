@@ -8,7 +8,7 @@ using System.Numerics;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
-using static SharpGDX.Input.IInput;
+using static SharpGDX.IInput;
 
 
 namespace SharpGDX.Utils

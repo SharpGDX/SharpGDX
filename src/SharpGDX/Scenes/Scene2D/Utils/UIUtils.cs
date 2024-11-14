@@ -1,11 +1,9 @@
-﻿using SharpGDX;
-using SharpGDX.Input;
-using SharpGDX.Shims;
+﻿using SharpGDX.Shims;
 using SharpGDX.Utils;
 
 namespace SharpGDX.Scenes.Scene2D.Utils
 {
-	public sealed class UIUtils {
+    public sealed class UIUtils {
 	private UIUtils () {
 	}
 
@@ -16,57 +14,57 @@ namespace SharpGDX.Scenes.Scene2D.Utils
 	static public bool isIos = SharedLibraryLoader.isIos;
 
 	static public bool left () {
-		return Gdx.Input.isButtonPressed(Buttons.Left);
+		return Gdx.Input.isButtonPressed(IInput.Buttons.Left);
 	}
 
 	static public bool left (int button) {
-		return button == Buttons.Left;
+		return button == IInput.Buttons.Left;
 	}
 
 	static public bool right () {
-		return Gdx.Input.isButtonPressed(Buttons.Right);
+		return Gdx.Input.isButtonPressed(IInput.Buttons.Right);
 	}
 
 	static public bool right (int button) {
-		return button == Buttons.Right;
+		return button == IInput.Buttons.Right;
 	}
 
 	static public bool middle () {
-		return Gdx.Input.isButtonPressed(Buttons.Middle);
+		return Gdx.Input.isButtonPressed(IInput.Buttons.Middle);
 	}
 
 	static public bool middle (int button) {
-		return button == Buttons.Middle;
+		return button == IInput.Buttons.Middle;
 	}
 
 	static public bool shift () {
-		return Gdx.Input.isKeyPressed(Keys.SHIFT_LEFT) || Gdx.Input.isKeyPressed(Keys.SHIFT_RIGHT);
+		return Gdx.Input.isKeyPressed(IInput.Keys.SHIFT_LEFT) || Gdx.Input.isKeyPressed(IInput.Keys.SHIFT_RIGHT);
 	}
 
 	static public bool shift (int keycode) {
-		return keycode == Keys.SHIFT_LEFT || keycode == Keys.SHIFT_RIGHT;
+		return keycode == IInput.Keys.SHIFT_LEFT || keycode == IInput.Keys.SHIFT_RIGHT;
 	}
 
 	static public bool ctrl () {
 		if (isMac)
-			return Gdx.Input.isKeyPressed(Keys.SYM);
+			return Gdx.Input.isKeyPressed(IInput.Keys.SYM);
 		else
-			return Gdx.Input.isKeyPressed(Keys.CONTROL_LEFT) || Gdx.Input.isKeyPressed(Keys.CONTROL_RIGHT);
+			return Gdx.Input.isKeyPressed(IInput.Keys.CONTROL_LEFT) || Gdx.Input.isKeyPressed(IInput.Keys.CONTROL_RIGHT);
 	}
 
 	static public bool ctrl (int keycode) {
 		if (isMac)
-			return keycode == Keys.SYM;
+			return keycode == IInput.Keys.SYM;
 		else
-			return keycode == Keys.CONTROL_LEFT || keycode == Keys.CONTROL_RIGHT;
+			return keycode == IInput.Keys.CONTROL_LEFT || keycode == IInput.Keys.CONTROL_RIGHT;
 	}
 
 	static public bool alt () {
-		return Gdx.Input.isKeyPressed(Keys.ALT_LEFT) || Gdx.Input.isKeyPressed(Keys.ALT_RIGHT);
+		return Gdx.Input.isKeyPressed(IInput.Keys.ALT_LEFT) || Gdx.Input.isKeyPressed(IInput.Keys.ALT_RIGHT);
 	}
 
 	static public bool alt (int keycode) {
-		return keycode == Keys.ALT_LEFT || keycode == Keys.ALT_RIGHT;
+		return keycode == IInput.Keys.ALT_LEFT || keycode == IInput.Keys.ALT_RIGHT;
 	}
 }
 }
