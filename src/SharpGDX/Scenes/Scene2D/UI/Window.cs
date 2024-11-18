@@ -274,8 +274,8 @@ public class Window : Table {
 			keepWithinStage();
 
 			if (style.stageBackground != null) {
-				stageToLocalCoordinates(tmpPosition.set(0, 0));
-				stageToLocalCoordinates(tmpSize.set(stage.getWidth(), stage.getHeight()));
+				stageToLocalCoordinates(tmpPosition.Set(0, 0));
+				stageToLocalCoordinates(tmpSize.Set(stage.getWidth(), stage.getHeight()));
 				drawStageBackground(batch, parentAlpha, getX() + tmpPosition.x, getY() + tmpPosition.y, getX() + tmpSize.x,
 					getY() + tmpSize.y);
 			}
@@ -285,7 +285,7 @@ public class Window : Table {
 
 	protected void drawStageBackground (IBatch batch, float parentAlpha, float x, float y, float width, float height) {
 		Color color = getColor();
-		batch.setColor(color.r, color.g, color.b, color.a * parentAlpha);
+		batch.SetColor(color.R, color.G, color.B, color.A * parentAlpha);
 		style.stageBackground.draw(batch, x, y, width, height);
 	}
 
@@ -293,7 +293,7 @@ public class Window : Table {
 		base.drawBackground(batch, parentAlpha, x, y);
 
 		// Manually draw the title table before clipping is done.
-		titleTable.getColor().a = getColor().a;
+		titleTable.getColor().A = getColor().A;
 		float padTop = getPadTop(), padLeft = getPadLeft();
 		titleTable.setSize(getWidth() - padLeft - getPadRight(), padTop);
 		titleTable.setPosition(padLeft, getHeight() - padTop);
@@ -379,7 +379,7 @@ public class Window : Table {
 
 		public WindowStyle (BitmapFont titleFont, Color titleFontColor, IDrawable? background) {
 			this.titleFont = titleFont;
-			this.titleFontColor.set(titleFontColor);
+			this.titleFontColor.Set(titleFontColor);
 			this.background = background;
 		}
 

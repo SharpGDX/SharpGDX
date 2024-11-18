@@ -24,7 +24,7 @@ public class TiledMapTileSets : IEnumerable<TiledMapTileSet> {
 	/** @param index index to get the desired {@link TiledMapTileSet} at.
 	 * @return tileset at index */
 	public TiledMapTileSet getTileSet (int index) {
-		return tilesets.get(index);
+		return tilesets.Get(index);
 	}
 
 	/** @param name Name of the {@link TiledMapTileSet} to retrieve.
@@ -40,19 +40,19 @@ public class TiledMapTileSets : IEnumerable<TiledMapTileSet> {
 
 	/** @param tileset set to be added to the collection */
 	public void addTileSet (TiledMapTileSet tileset) {
-		tilesets.add(tileset);
+		tilesets.Add(tileset);
 	}
 
 	/** Removes tileset at index
 	 * 
 	 * @param index index at which to remove a tileset. */
 	public void removeTileSet (int index) {
-		tilesets.removeIndex(index);
+		tilesets.RemoveIndex(index);
 	}
 
 	/** @param tileset set to be removed */
 	public void removeTileSet (TiledMapTileSet tileset) {
-		tilesets.removeValue(tileset, true);
+		tilesets.RemoveValue(tileset, true);
 	}
 
 	/** @param id id of the {@link TiledMapTile} to get.
@@ -65,7 +65,7 @@ public class TiledMapTileSets : IEnumerable<TiledMapTileSet> {
 		// which are likely to be the earlier version of any given gid.
 		// See TiledMapModifiedExternalTilesetTest for example of this issue.
 		for (int i = tilesets.size - 1; i >= 0; i--) {
-			TiledMapTileSet tileset = tilesets.get(i);
+			TiledMapTileSet tileset = tilesets.Get(i);
 			ITiledMapTile tile = tileset.getTile(id);
 			if (tile != null) {
 				return tile;

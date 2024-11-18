@@ -90,7 +90,7 @@ public class Texture3D : GLTexture {
 	private static void addManagedTexture (IApplication app, Texture3D texture) {
 		Array<Texture3D> managedTextureArray = managedTexture3Ds.get(app);
 		if (managedTextureArray == null) managedTextureArray = new Array<Texture3D>();
-		managedTextureArray.add(texture);
+		managedTextureArray.Add(texture);
 		managedTexture3Ds.put(app, managedTextureArray);
 	}
 
@@ -105,7 +105,7 @@ public class Texture3D : GLTexture {
 		if (managedTextureArray == null) return;
 
 		for (int i = 0; i < managedTextureArray.size; i++) {
-			Texture3D textureArray = managedTextureArray.get(i);
+			Texture3D textureArray = managedTextureArray.Get(i);
 			textureArray.reload();
 		}
 	}

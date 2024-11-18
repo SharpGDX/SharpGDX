@@ -137,10 +137,10 @@ class AssetLoadingTask : IAsyncTask<object> {
 		bool ordered = array.ordered;
 		array.ordered = true;
 		for (int i = 0; i < array.size; ++i) {
-			 String fn = array.get(i).FileName;
-			 Type type = array.get(i).Type;
+			 String fn = array.Get(i).FileName;
+			 Type type = array.Get(i).Type;
 			for (int j = array.size - 1; j > i; --j)
-				if (type == array.get(j).Type && fn.Equals(array.get(j).FileName)) array.removeIndex(j);
+				if (type == array.Get(j).Type && fn.Equals(array.Get(j).FileName)) array.RemoveIndex(j);
 		}
 		array.ordered = ordered;
 	}

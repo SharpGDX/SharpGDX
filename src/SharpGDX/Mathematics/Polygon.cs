@@ -178,7 +178,7 @@ public class Polygon : IShape2D {
 		if (vertexNum < 0 || vertexNum > getVertexCount())
 			throw new IllegalArgumentException("the vertex " + vertexNum + " doesn't exist");
 		float[] vertices = this.getTransformedVertices();
-		return pos.set(vertices[2 * vertexNum], vertices[2 * vertexNum + 1]);
+		return pos.Set(vertices[2 * vertexNum], vertices[2 * vertexNum + 1]);
 	}
 
 	public Vector2 getCentroid (Vector2 centroid) {

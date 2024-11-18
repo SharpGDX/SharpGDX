@@ -49,7 +49,7 @@ public class Group : Actor , ICullable {
 	 * these methods don't need to be called, children positions are temporarily offset by the group position when drawn. This
 	 * method avoids drawing children completely outside the {@link #setCullingArea(Rectangle) culling area}, if set. */
 	protected void drawChildren (IBatch batch, float parentAlpha) {
-		parentAlpha *= this.color.a;
+		parentAlpha *= this.color.A;
 		SnapshotArray<Actor> children = this.children;
 		Actor[] actors = children.begin();
 		Rectangle cullingArea = this.cullingArea;
@@ -186,14 +186,14 @@ public class Group : Actor , ICullable {
 	/** Set the batch's transformation matrix, often with the result of {@link #computeTransform()}. Note this causes the batch to
 	 * be flushed. {@link #resetTransform(Batch)} will restore the transform to what it was before this call. */
 	protected void applyTransform (IBatch batch, Matrix4 transform) {
-		oldTransform.set(batch.getTransformMatrix());
-		batch.setTransformMatrix(transform);
+		oldTransform.set(batch.GetTransformMatrix());
+		batch.SetTransformMatrix(transform);
 	}
 
 	/** Restores the batch transform to what it was before {@link #applyTransform(Batch, Matrix4)}. Note this causes the batch to
 	 * be flushed. */
 	protected void resetTransform (IBatch batch) {
-		batch.setTransformMatrix(oldTransform);
+		batch.SetTransformMatrix(oldTransform);
 	}
 
 	/** Set the shape renderer transformation matrix, often with the result of {@link #computeTransform()}. Note this causes the
@@ -231,7 +231,7 @@ public class Group : Actor , ICullable {
 		Actor[] childrenArray = children.items;
 		for (int i = children.size - 1; i >= 0; i--) {
 			Actor child = childrenArray[i];
-			child.parentToLocalCoordinates(point.set(x, y));
+			child.parentToLocalCoordinates(point.Set(x, y));
 			Actor hit = child.hit(point.x, point.y, touchable);
 			if (hit != null) return hit;
 		}
@@ -249,7 +249,7 @@ public class Group : Actor , ICullable {
 			if (actor.parent == this) return;
 			actor.parent.removeActor(actor, false);
 		}
-		children.add(actor);
+		children.Add(actor);
 		actor.setParent(this);
 		actor.setStage(getStage());
 		childrenChanged();
@@ -264,7 +264,7 @@ public class Group : Actor , ICullable {
 			actor.parent.removeActor(actor, false);
 		}
 		if (index >= children.size)
-			children.add(actor);
+			children.Add(actor);
 		else
 			children.insert(index, actor);
 		actor.setParent(this);
@@ -296,7 +296,7 @@ public class Group : Actor , ICullable {
 		}
 		int index = children.indexOf(actorAfter, true);
 		if (index == children.size || index == -1)
-			children.add(actor);
+			children.Add(actor);
 		else
 			children.insert(index + 1, actor);
 		actor.setParent(this);
@@ -323,7 +323,7 @@ public class Group : Actor , ICullable {
 	 * @param unfocus If true, {@link Stage#unfocus(Actor)} is called.
 	 * @return the actor removed from this group. */
 	public virtual Actor removeActorAt (int index, bool unfocus) {
-		Actor actor = children.removeIndex(index);
+		Actor actor = children.RemoveIndex(index);
 		Stage stage = getStage();
 		if (stage != null) {
 			if (unfocus) stage.unfocus(actor);
@@ -375,9 +375,9 @@ public class Group : Actor , ICullable {
 	where T: Actor{
 		Array<Actor> children = this.children;
 		for (int i = 0, n = children.size; i < n; i++)
-			if (name.Equals(children.get(i).getName())) return (T)children.get(i);
+			if (name.Equals(children.Get(i).getName())) return (T)children.Get(i);
 		for (int i = 0, n = children.size; i < n; i++) {
-			Actor child = children.get(i);
+			Actor child = children.Get(i);
 			if (child is Group) {
 				Actor? actor = ((Group)child).findActor<T>(name);
 				if (actor != null) return (T)actor;
@@ -413,7 +413,7 @@ public class Group : Actor , ICullable {
 
 	/** Returns the child at the specified index. */
 	public Actor getChild (int index) {
-		return children.get(index);
+		return children.Get(index);
 	}
 
 	/** Returns an ordered list of child actors in this group. */

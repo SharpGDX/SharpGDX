@@ -44,48 +44,48 @@ public sealed class Colors {
 	/** Resets the color map to the predefined colors. */
 	public static void reset () {
 		map.clear();
-		map.put("CLEAR", Color.CLEAR);
-        map.put("CLEAR_WHITE", Color.CLEAR_WHITE);
-            map.put("BLACK", Color.BLACK);
+		map.put("CLEAR", Color.Clear);
+        map.put("CLEAR_WHITE", Color.ClearWhite);
+            map.put("BLACK", Color.Black);
 
-		map.put("WHITE", Color.WHITE);
-		map.put("LIGHT_GRAY", Color.LIGHT_GRAY);
-		map.put("GRAY", Color.GRAY);
-		map.put("DARK_GRAY", Color.DARK_GRAY);
+		map.put("WHITE", Color.White);
+		map.put("LIGHT_GRAY", Color.LightGray);
+		map.put("GRAY", Color.Gray);
+		map.put("DARK_GRAY", Color.DarkGray);
 
-		map.put("BLUE", Color.BLUE);
-		map.put("NAVY", Color.NAVY);
-		map.put("ROYAL", Color.ROYAL);
-		map.put("SLATE", Color.SLATE);
-		map.put("SKY", Color.SKY);
-		map.put("CYAN", Color.CYAN);
-		map.put("TEAL", Color.TEAL);
+		map.put("BLUE", Color.Blue);
+		map.put("NAVY", Color.Navy);
+		map.put("ROYAL", Color.Royal);
+		map.put("SLATE", Color.Slate);
+		map.put("SKY", Color.Sky);
+		map.put("CYAN", Color.Cyan);
+		map.put("TEAL", Color.Teal);
 
-		map.put("GREEN", Color.GREEN);
-		map.put("CHARTREUSE", Color.CHARTREUSE);
-		map.put("LIME", Color.LIME);
-		map.put("FOREST", Color.FOREST);
-		map.put("OLIVE", Color.OLIVE);
+		map.put("GREEN", Color.Green);
+		map.put("CHARTREUSE", Color.Chartreuse);
+		map.put("LIME", Color.Lime);
+		map.put("FOREST", Color.Forest);
+		map.put("OLIVE", Color.Olive);
 
-		map.put("YELLOW", Color.YELLOW);
-		map.put("GOLD", Color.GOLD);
-		map.put("GOLDENROD", Color.GOLDENROD);
-		map.put("ORANGE", Color.ORANGE);
+		map.put("YELLOW", Color.Yellow);
+		map.put("GOLD", Color.Gold);
+		map.put("GOLDENROD", Color.Goldenrod);
+		map.put("ORANGE", Color.Orange);
 
-		map.put("BROWN", Color.BROWN);
-		map.put("TAN", Color.TAN);
-		map.put("FIREBRICK", Color.FIREBRICK);
+		map.put("BROWN", Color.Brown);
+		map.put("TAN", Color.Tan);
+		map.put("FIREBRICK", Color.Firebrick);
 
-		map.put("RED", Color.RED);
-		map.put("SCARLET", Color.SCARLET);
-		map.put("CORAL", Color.CORAL);
-		map.put("SALMON", Color.SALMON);
-		map.put("PINK", Color.PINK);
-		map.put("MAGENTA", Color.MAGENTA);
+		map.put("RED", Color.Red);
+		map.put("SCARLET", Color.Scarlet);
+		map.put("CORAL", Color.Coral);
+		map.put("SALMON", Color.Salmon);
+		map.put("PINK", Color.Pink);
+		map.put("MAGENTA", Color.Magenta);
 
-		map.put("PURPLE", Color.PURPLE);
-		map.put("VIOLET", Color.VIOLET);
-		map.put("MAROON", Color.MAROON);
+		map.put("PURPLE", Color.Purple);
+		map.put("VIOLET", Color.Violet);
+		map.put("MAROON", Color.Maroon);
 	}
 
 	private Colors () {

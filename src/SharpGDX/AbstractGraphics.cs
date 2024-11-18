@@ -66,7 +66,7 @@ namespace SharpGDX
 		public abstract int getSafeInsetBottom();
 		public abstract int getSafeInsetRight();
 		public abstract long getFrameId();
-		public abstract float getDeltaTime();
+		public abstract float GetDeltaTime();
 		public abstract int getFramesPerSecond();
 		public abstract IGraphics.GraphicsType getType();
 		public abstract GLVersion getGLVersion();

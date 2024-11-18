@@ -82,7 +82,7 @@ public class TextureAtlas : IDisposable {
 			atlasRegion.names = region.names;
 			atlasRegion.values = region.values;
 			if (region.flip) atlasRegion.flip(false, true);
-			regions.add(atlasRegion);
+			regions.Add(atlasRegion);
 		}
 	}
 
@@ -91,7 +91,7 @@ public class TextureAtlas : IDisposable {
 		textures.add(texture);
 		AtlasRegion region = new AtlasRegion(texture, x, y, width, height);
 		region.name = name;
-		regions.add(region);
+		regions.Add(region);
 		return region;
 	}
 
@@ -100,7 +100,7 @@ public class TextureAtlas : IDisposable {
 		textures.add(textureRegion.texture);
 		AtlasRegion region = new AtlasRegion(textureRegion);
 		region.name = name;
-		regions.add(region);
+		regions.Add(region);
 		return region;
 	}
 
@@ -113,7 +113,7 @@ public class TextureAtlas : IDisposable {
 	 * result should be cached rather than calling this method multiple times. */
 	public AtlasRegion? findRegion (String name) {
 		for (int i = 0, n = regions.size; i < n; i++)
-			if (regions.get(i).name.Equals(name)) return regions.get(i);
+			if (regions.Get(i).name.Equals(name)) return regions.Get(i);
 		return null;
 	}
 
@@ -121,7 +121,7 @@ public class TextureAtlas : IDisposable {
 	 * the result should be cached rather than calling this method multiple times. */
 	public AtlasRegion? findRegion (String name, int index) {
 		for (int i = 0, n = regions.size; i < n; i++) {
-			AtlasRegion region = regions.get(i);
+			AtlasRegion region = regions.Get(i);
 			if (!region.name.Equals(name)) continue;
 			if (region.index != index) continue;
 			return region;
@@ -135,8 +135,8 @@ public class TextureAtlas : IDisposable {
 	public Array<AtlasRegion> findRegions (String name) {
 		Array<AtlasRegion> matched = new (typeof(AtlasRegion));
 		for (int i = 0, n = regions.size; i < n; i++) {
-			AtlasRegion region = regions.get(i);
-			if (region.name.Equals(name)) matched.add(new AtlasRegion(region));
+			AtlasRegion region = regions.Get(i);
+			if (region.name.Equals(name)) matched.Add(new AtlasRegion(region));
 		}
 		return matched;
 	}
@@ -147,7 +147,7 @@ public class TextureAtlas : IDisposable {
 	public Array<Sprite> createSprites () {
 		var sprites = new Array<Sprite>(true, regions.size, typeof(Sprite));
 		for (int i = 0, n = regions.size; i < n; i++)
-			sprites.add(newSprite(regions.get(i)));
+			sprites.Add(newSprite(regions.Get(i)));
 		return sprites;
 	}
 
@@ -157,7 +157,7 @@ public class TextureAtlas : IDisposable {
 	 * times. */
 	public  Sprite? createSprite (String name) {
 		for (int i = 0, n = regions.size; i < n; i++)
-			if (regions.get(i).name.Equals(name)) return newSprite(regions.get(i));
+			if (regions.Get(i).name.Equals(name)) return newSprite(regions.Get(i));
 		return null;
 	}
 
@@ -166,10 +166,10 @@ public class TextureAtlas : IDisposable {
 	 * @see #createSprite(String) */
 	public Sprite? createSprite (String name, int index) {
 		for (int i = 0, n = regions.size; i < n; i++) {
-			AtlasRegion region = regions.get(i);
+			AtlasRegion region = regions.Get(i);
 			if (region.index != index) continue;
 			if (!region.name.Equals(name)) continue;
-			return newSprite(regions.get(i));
+			return newSprite(regions.Get(i));
 		}
 		return null;
 	}
@@ -181,8 +181,8 @@ public class TextureAtlas : IDisposable {
 	public Array<Sprite> createSprites (String name) {
 		Array<Sprite> matched = new (typeof(Sprite));
 		for (int i = 0, n = regions.size; i < n; i++) {
-			AtlasRegion region = regions.get(i);
-			if (region.name.Equals(name)) matched.add(newSprite(region));
+			AtlasRegion region = regions.Get(i);
+			if (region.name.Equals(name)) matched.Add(newSprite(region));
 		}
 		return matched;
 	}
@@ -191,8 +191,8 @@ public class TextureAtlas : IDisposable {
 		if (region.packedWidth == region.originalWidth && region.packedHeight == region.originalHeight) {
 			if (region.rotate) {
 				Sprite sprite = new Sprite(region);
-				sprite.setBounds(0, 0, region.getRegionHeight(), region.getRegionWidth());
-				sprite.rotate90(true);
+				sprite.SetBounds(0, 0, region.getRegionHeight(), region.getRegionWidth());
+				sprite.Rotate90(true);
 				return sprite;
 			}
 			return new Sprite(region);
@@ -205,7 +205,7 @@ public class TextureAtlas : IDisposable {
 	 * be cached rather than calling this method multiple times. */
 	public NinePatch? createPatch (String name) {
 		for (int i = 0, n = regions.size; i < n; i++) {
-			AtlasRegion region = regions.get(i);
+			AtlasRegion region = regions.Get(i);
 			if (region.name.Equals(name)) {
 				int[] splits = region.findValue("split");
 				if (splits == null) throw new IllegalArgumentException("Region does not have ninepatch splits: " + name);
@@ -341,7 +341,7 @@ public class TextureAtlas : IDisposable {
 							var field = pageFields.get(entry[0]);
 							if (field != null) field.parse(page); // Silently ignore unknown page fields.
 						}
-						pages.add(page);
+						pages.Add(page);
 					} else {
 						Region region = new Region();
 						region.page = page;
@@ -358,7 +358,7 @@ public class TextureAtlas : IDisposable {
 									names = new (8);
 									values = new (8);
 								}
-								names.add(entry[0]);
+								names.Add(entry[0]);
 								int[] entryValues = new int[count];
 								for (int i = 0; i < count; i++) {
 									try {
@@ -366,7 +366,7 @@ public class TextureAtlas : IDisposable {
 									} catch (FormatException ignored) { // Silently ignore non-integer values.
 									}
 								}
-								values.add(entryValues);
+								values.Add(entryValues);
 							}
 						}
 						if (region.originalWidth == 0 && region.originalHeight == 0) {
@@ -379,7 +379,7 @@ public class TextureAtlas : IDisposable {
 							names.clear();
 							values.clear();
 						}
-						regions.add(region);
+						regions.Add(region);
 					}
 				}
 			} catch (Exception ex) {
@@ -608,56 +608,56 @@ public class TextureAtlas : IDisposable {
 			originalOffsetX = region.offsetX;
 			originalOffsetY = region.offsetY;
 			setRegion(region);
-			setOrigin(region.originalWidth / 2f, region.originalHeight / 2f);
+			SetOrigin(region.originalWidth / 2f, region.originalHeight / 2f);
 			int width = region.getRegionWidth();
 			int height = region.getRegionHeight();
 			if (region.rotate) {
-				base.rotate90(true);
-				base.setBounds(region.offsetX, region.offsetY, height, width);
+				base.Rotate90(true);
+				base.SetBounds(region.offsetX, region.offsetY, height, width);
 			} else
-				base.setBounds(region.offsetX, region.offsetY, width, height);
-			setColor(1, 1, 1, 1);
+				base.SetBounds(region.offsetX, region.offsetY, width, height);
+			SetColor(1, 1, 1, 1);
 		}
 
 		public AtlasSprite (AtlasSprite sprite) {
 			region = sprite.region;
 			this.originalOffsetX = sprite.originalOffsetX;
 			this.originalOffsetY = sprite.originalOffsetY;
-			set(sprite);
+			Set(sprite);
 		}
 
-		public override void setPosition (float x, float y) {
-			base.setPosition(x + region.offsetX, y + region.offsetY);
+		public override void SetPosition (float x, float y) {
+			base.SetPosition(x + region.offsetX, y + region.offsetY);
 		}
 
-		public override void setX (float x) {
-			base.setX(x + region.offsetX);
+		public override void SetX (float x) {
+			base.SetX(x + region.offsetX);
 		}
 
-		public override void setY (float y) {
-			base.setY(y + region.offsetY);
+		public override void SetY (float y) {
+			base.SetY(y + region.offsetY);
 		}
 
-		public override void setBounds (float x, float y, float width, float height) {
+		public override void SetBounds (float x, float y, float width, float height) {
 			float widthRatio = width / region.originalWidth;
 			float heightRatio = height / region.originalHeight;
 			region.offsetX = originalOffsetX * widthRatio;
 			region.offsetY = originalOffsetY * heightRatio;
 			int packedWidth = region.rotate ? region.packedHeight : region.packedWidth;
 			int packedHeight = region.rotate ? region.packedWidth : region.packedHeight;
-			base.setBounds(x + region.offsetX, y + region.offsetY, packedWidth * widthRatio, packedHeight * heightRatio);
+			base.SetBounds(x + region.offsetX, y + region.offsetY, packedWidth * widthRatio, packedHeight * heightRatio);
 		}
 
-		public override void setSize (float width, float height) {
-			setBounds(getX(), getY(), width, height);
+		public override void SetSize (float width, float height) {
+			SetBounds(GetX(), GetY(), width, height);
 		}
 
-		public override void setOrigin (float originX, float originY) {
-			base.setOrigin(originX - region.offsetX, originY - region.offsetY);
+		public override void SetOrigin (float originX, float originY) {
+			base.SetOrigin(originX - region.offsetX, originY - region.offsetY);
 		}
 
-		public override void setOriginCenter () {
-			base.setOrigin(width / 2 - region.offsetX, height / 2 - region.offsetY);
+		public override void SetOriginCenter () {
+			base.SetOrigin(width / 2 - region.offsetX, height / 2 - region.offsetY);
 		}
 
 		public override void flip (bool x, bool y) {
@@ -667,8 +667,8 @@ public class TextureAtlas : IDisposable {
 			else
 				base.flip(x, y);
 
-			float oldOriginX = getOriginX();
-			float oldOriginY = getOriginY();
+			float oldOriginX = GetOriginX();
+			float oldOriginY = GetOriginY();
 			float oldOffsetX = region.offsetX;
 			float oldOffsetY = region.offsetY;
 
@@ -684,16 +684,16 @@ public class TextureAtlas : IDisposable {
 			region.offsetY *= heightRatio;
 
 			// Update position and origin with new offsets.
-			translate(region.offsetX - oldOffsetX, region.offsetY - oldOffsetY);
-			setOrigin(oldOriginX, oldOriginY);
+			Translate(region.offsetX - oldOffsetX, region.offsetY - oldOffsetY);
+			SetOrigin(oldOriginX, oldOriginY);
 		}
 		
-		public override void rotate90 (bool clockwise) {
+		public override void Rotate90 (bool clockwise) {
 			// Rotate texture.
-			base.rotate90(clockwise);
+			base.Rotate90(clockwise);
 
-			float oldOriginX = getOriginX();
-			float oldOriginY = getOriginY();
+			float oldOriginX = GetOriginX();
+			float oldOriginY = GetOriginY();
 			float oldOffsetX = region.offsetX;
 			float oldOffsetY = region.offsetY;
 
@@ -709,40 +709,40 @@ public class TextureAtlas : IDisposable {
 			}
 
 			// Update position and origin with new offsets.
-			translate(region.offsetX - oldOffsetX, region.offsetY - oldOffsetY);
-			setOrigin(oldOriginX, oldOriginY);
+			Translate(region.offsetX - oldOffsetX, region.offsetY - oldOffsetY);
+			SetOrigin(oldOriginX, oldOriginY);
 		}
 
-		public override float getX () {
-			return base.getX() - region.offsetX;
+		public override float GetX () {
+			return base.GetX() - region.offsetX;
 		}
 
-		public override float getY () {
-			return base.getY() - region.offsetY;
+		public override float GetY () {
+			return base.GetY() - region.offsetY;
 		}
 
-		public override float getOriginX () {
-			return base.getOriginX() + region.offsetX;
+		public override float GetOriginX () {
+			return base.GetOriginX() + region.offsetX;
 		}
 
-		public override float getOriginY () {
-			return base.getOriginY() + region.offsetY;
+		public override float GetOriginY () {
+			return base.GetOriginY() + region.offsetY;
 		}
 
-		public override float getWidth () {
-			return base.getWidth() / region.getRotatedPackedWidth() * region.originalWidth;
+		public override float GetWidth () {
+			return base.GetWidth() / region.getRotatedPackedWidth() * region.originalWidth;
 		}
 
-		public override float getHeight () {
-			return base.getHeight() / region.getRotatedPackedHeight() * region.originalHeight;
+		public override float GetHeight () {
+			return base.GetHeight() / region.getRotatedPackedHeight() * region.originalHeight;
 		}
 
 		public float getWidthRatio () {
-			return base.getWidth() / region.getRotatedPackedWidth();
+			return base.GetWidth() / region.getRotatedPackedWidth();
 		}
 
 		public float getHeightRatio () {
-			return base.getHeight() / region.getRotatedPackedHeight();
+			return base.GetHeight() / region.getRotatedPackedHeight();
 		}
 
 		public AtlasRegion getAtlasRegion () {

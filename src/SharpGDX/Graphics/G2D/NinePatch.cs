@@ -33,7 +33,7 @@ public class NinePatch {
 	private float leftWidth, rightWidth, middleWidth, middleHeight, topHeight, bottomHeight;
 	private float[] vertices = new float[9 * 4 * 5];
 	private int idx;
-	private readonly Color color = new Color(Color.WHITE);
+	private readonly Color color = new Color(Color.White);
 	private float padLeft = -1, padRight = -1, padTop = -1, padBottom = -1;
 
 	/** Create a ninepatch by cutting up the given texture into nine patches. The subsequent parameters define the 4 lines that
@@ -195,7 +195,7 @@ public class NinePatch {
 		vertices = new float[ninePatch.vertices.Length];
 		Array.Copy(ninePatch.vertices, 0, vertices, 0, ninePatch.vertices.Length);
 		idx = ninePatch.idx;
-		this.color.set(color);
+		this.color.Set(color);
 	}
 
 	private void load (TextureRegion[] patches) {
@@ -330,7 +330,7 @@ public class NinePatch {
 		 float centerHeight = height - topHeight - bottomHeight;
 		 float rightX = x + width - rightWidth;
 		 float topY = y + height - topHeight;
-		 float c = tmpDrawColor.set(color).mul(batch.getColor()).toFloatBits();
+		 float c = tmpDrawColor.Set(color).Mul(batch.GetColor()).ToFloatBits();
 		if (bottomLeft != -1) set(bottomLeft, x, y, leftWidth, bottomHeight, c);
 		if (bottomCenter != -1) set(bottomCenter, centerX, y, centerWidth, bottomHeight, c);
 		if (bottomRight != -1) set(bottomRight, rightX, y, rightWidth, bottomHeight, c);
@@ -344,7 +344,7 @@ public class NinePatch {
 
 	public void draw (IBatch batch, float x, float y, float width, float height) {
 		prepareVertices(batch, x, y, width, height);
-		batch.draw(texture, vertices, 0, idx);
+		batch.Draw(texture, vertices, 0, idx);
 	}
 
 	public void draw (IBatch batch, float x, float y, float originX, float originY, float width, float height, float scaleX,
@@ -366,13 +366,13 @@ public class NinePatch {
 				vertices[i + 1] = (vertices[i + 1] - worldOriginY) * scaleY + worldOriginY;
 			}
 		}
-		batch.draw(texture, vertices, 0, n);
+		batch.Draw(texture, vertices, 0, n);
 	}
 
 	/** Copy given color. The color will be blended with the batch color, then combined with the texture colors at
 	 * {@link NinePatch#draw(Batch, float, float, float, float) draw} time. Default is {@link Color#WHITE}. */
 	public void setColor (Color color) {
-		this.color.set(color);
+		this.color.Set(color);
 	}
 
 	public Color getColor () {

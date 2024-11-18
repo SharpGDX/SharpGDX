@@ -151,13 +151,13 @@ namespace SharpGDX.Headless
 			lock (runnables)
 			{
 				for (int i = runnables.size - 1; i >= 0; i--)
-					executedRunnables.add(runnables.get(i));
+					executedRunnables.Add(runnables.Get(i));
 				runnables.clear();
 			}
 
 			if (executedRunnables.size == 0) return false;
 			for (int i = executedRunnables.size - 1; i >= 0; i--)
-				executedRunnables.removeIndex(i).Invoke();
+				executedRunnables.RemoveIndex(i).Invoke();
 			return true;
 		}
 
@@ -238,7 +238,7 @@ namespace SharpGDX.Headless
 		{
 			lock (runnables)
 			{
-				runnables.add(runnable);
+				runnables.Add(runnable);
 			}
 		}
 
@@ -306,7 +306,7 @@ namespace SharpGDX.Headless
 		{
 			lock (lifecycleListeners)
 			{
-				lifecycleListeners.add(listener);
+				lifecycleListeners.Add(listener);
 			}
 		}
 
@@ -314,7 +314,7 @@ namespace SharpGDX.Headless
 		{
 			lock (lifecycleListeners)
 			{
-				lifecycleListeners.removeValue(listener, true);
+				lifecycleListeners.RemoveValue(listener, true);
 			}
 		}
 	}

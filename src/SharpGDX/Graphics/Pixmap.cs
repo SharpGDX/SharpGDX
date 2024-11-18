@@ -271,14 +271,14 @@ public static void downloadFromUrl(String url, DownloadPixmapResponseListener re
  * @param a The alpha component. */
 public void setColor(float r, float g, float b, float a)
 {
-	color = Color.rgba8888(r, g, b, a);
+	color = Color.RGBA8888(r, g, b, a);
 }
 
 /** Sets the color for the following drawing operations.
  * @param color The color. */
 public void setColor(Color color)
 {
-	this.color = Color.rgba8888(color.r, color.g, color.b, color.a);
+	this.color = Color.RGBA8888(color.R, color.G, color.B, color.A);
 }
 
 /** Fills the complete bitmap with the currently set color. */

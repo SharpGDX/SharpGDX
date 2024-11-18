@@ -98,7 +98,7 @@ public class List<T> : Widget , ICullable {
 			prefix += Char.ToLower(character);
 			for (int i = 0, n = _list.items.size; i < n; i++)
 			{
-				if (_list.toString(_list.items.get(i)).ToLower().StartsWith(prefix)) {
+				if (_list.toString(_list.items.Get(i)).ToLower().StartsWith(prefix)) {
 					_list.setSelectedIndex(i);
 					break;
 				}
@@ -124,7 +124,7 @@ public class List<T> : Widget , ICullable {
 			if (_list.items.size == 0) return true;
 			int index = _list.getItemIndexAt(y);
 			if (index == -1) return true;
-			_list.selection.choose(_list.items.get(index));
+			_list.selection.choose(_list.items.Get(index));
 			_list.pressedIndex = index;
 			return true;
 		}
@@ -190,7 +190,7 @@ public List (ListStyle style)
 		Pool<GlyphLayout> layoutPool = Pools.get<GlyphLayout>(typeof(GlyphLayout));
 		GlyphLayout layout = layoutPool.obtain();
 		for (int i = 0; i < items.size; i++) {
-			layout.setText(font, toString(items.get(i)));
+			layout.setText(font, toString(items.Get(i)));
 			prefWidth = Math.Max(layout.width, prefWidth);
 		}
 		layoutPool.free(layout);
@@ -215,7 +215,7 @@ public List (ListStyle style)
 		Color fontColorUnselected = style.fontColorUnselected;
 
 		Color color = getColor();
-		batch.setColor(color.r, color.g, color.b, color.a * parentAlpha);
+		batch.SetColor(color.R, color.G, color.B, color.A * parentAlpha);
 
 		float x = getX(), y = getY(), width = getWidth(), height = getHeight();
 		float itemY = height;
@@ -231,24 +231,24 @@ public List (ListStyle style)
 		float textOffsetX = selectedDrawable.getLeftWidth(), textWidth = width - textOffsetX - selectedDrawable.getRightWidth();
 		float textOffsetY = selectedDrawable.getTopHeight() - font.getDescent();
 
-		font.setColor(fontColorUnselected.r, fontColorUnselected.g, fontColorUnselected.b, fontColorUnselected.a * parentAlpha);
+		font.setColor(fontColorUnselected.R, fontColorUnselected.G, fontColorUnselected.B, fontColorUnselected.A * parentAlpha);
 		for (int i = 0; i < items.size; i++) {
 			if (cullingArea == null || (itemY - itemHeight <= cullingArea.y + cullingArea.height && itemY >= cullingArea.y)) {
-				T item = items.get(i);
+				T item = items.Get(i);
 				bool selected = selection.contains(item);
 				IDrawable drawable = null;
 				if (pressedIndex == i && style.down != null)
 					drawable = style.down;
 				else if (selected) {
 					drawable = selectedDrawable;
-					font.setColor(fontColorSelected.r, fontColorSelected.g, fontColorSelected.b, fontColorSelected.a * parentAlpha);
+					font.setColor(fontColorSelected.R, fontColorSelected.G, fontColorSelected.B, fontColorSelected.A * parentAlpha);
 				} else if (overIndex == i && style.over != null) //
 					drawable = style.over;
 				drawSelection(batch, drawable, x, y + itemY - itemHeight, width, itemHeight);
 				drawItem(batch, font, i, item, x + textOffsetX, y + itemY - textOffsetY, textWidth);
 				if (selected) {
-					font.setColor(fontColorUnselected.r, fontColorUnselected.g, fontColorUnselected.b,
-						fontColorUnselected.a * parentAlpha);
+					font.setColor(fontColorUnselected.R, fontColorUnselected.G, fontColorUnselected.B,
+						fontColorUnselected.A * parentAlpha);
 				}
 			} else if (itemY < cullingArea.y) {
 				break;
@@ -265,7 +265,7 @@ public List (ListStyle style)
 	protected void drawBackground (IBatch batch, float parentAlpha) {
 		if (style.background != null) {
 			Color color = getColor();
-			batch.setColor(color.r, color.g, color.b, color.a * parentAlpha);
+			batch.SetColor(color.R, color.G, color.B, color.A * parentAlpha);
 			style.background.draw(batch, getX(), getY(), getWidth(), getHeight());
 		}
 	}
@@ -313,25 +313,25 @@ public List (ListStyle style)
 		if (index == -1) {
 			selection.clear();
 		} else {
-			selection.set(items.get(index));
+			selection.set(items.Get(index));
 		}
 	}
 
 	/** @return May be null. */
 	public T? getOverItem () {
-		return overIndex == -1 ? default : items.get(overIndex);
+		return overIndex == -1 ? default : items.Get(overIndex);
 	}
 
 	/** @return May be null. */
 	public T? getPressedItem () {
-		return pressedIndex == -1 ? default : items.get(pressedIndex);
+		return pressedIndex == -1 ? default : items.Get(pressedIndex);
 	}
 
 	/** @return null if not over an item. */
 	public T? getItemAt (float y) {
 		int index = getItemIndexAt(y);
 		if (index == -1) return default;
-		return items.get(index);
+		return items.Get(index);
 	}
 
 	/** @return -1 if not over an item. */
@@ -459,16 +459,16 @@ public class ListStyle
     public ListStyle(BitmapFont font, Color fontColorSelected, Color fontColorUnselected, IDrawable selection)
     {
         this.font = font;
-        this.fontColorSelected.set(fontColorSelected);
-        this.fontColorUnselected.set(fontColorUnselected);
+        this.fontColorSelected.Set(fontColorSelected);
+        this.fontColorUnselected.Set(fontColorUnselected);
         this.selection = selection;
     }
 
     public ListStyle(ListStyle style)
     {
         font = style.font;
-        fontColorSelected.set(style.fontColorSelected);
-        fontColorUnselected.set(style.fontColorUnselected);
+        fontColorSelected.Set(style.fontColorSelected);
+        fontColorUnselected.Set(style.fontColorUnselected);
         selection = style.selection;
 
         down = style.down;

@@ -707,7 +707,7 @@ public class JsonReader : BaseJsonReader {
 				last._next = child;
 				child._prev = last;
 			}
-			lastChild.add(child);
+			lastChild.Add(child);
 			current._size++;
 		} else
 			root = current;
@@ -717,7 +717,7 @@ public class JsonReader : BaseJsonReader {
 	protected void startObject (String? name) {
 		JsonValue value = new JsonValue(JsonValue.ValueType.@object);
 		if (current != null) addChild(name, value);
-		elements.add(value);
+		elements.Add(value);
 		current = value;
 	}
 
@@ -725,7 +725,7 @@ public class JsonReader : BaseJsonReader {
 	protected void startArray (String? name) {
 		JsonValue value = new JsonValue(JsonValue.ValueType.array);
 		if (current != null) addChild(name, value);
-		elements.add(value);
+		elements.Add(value);
 		current = value;
 	}
 

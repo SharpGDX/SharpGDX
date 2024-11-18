@@ -98,12 +98,12 @@ public class Table : WidgetGroup {
 			applyTransform(batch, computeTransform());
 			drawBackground(batch, parentAlpha, 0, 0);
 			if (_clip) {
-				batch.flush();
+				batch.Flush();
 				float padLeft = this._padLeft.get(this), padBottom = this._padBottom.get(this);
 				if (clipBegin(padLeft, padBottom, getWidth() - padLeft - _padRight.get(this),
 					getHeight() - padBottom - _padTop.get(this))) {
 					drawChildren(batch, parentAlpha);
-					batch.flush();
+					batch.Flush();
 					clipEnd();
 				}
 			} else
@@ -120,7 +120,7 @@ public class Table : WidgetGroup {
 		protected virtual void drawBackground (IBatch batch, float parentAlpha, float x, float y) {
 		if (_background == null) return;
 		Color color = getColor();
-		batch.setColor(color.r, color.g, color.b, color.a * parentAlpha);
+		batch.SetColor(color.R, color.G, color.B, color.A * parentAlpha);
 		_background.draw(batch, x, y, getWidth(), getHeight());
 	}
 
@@ -241,10 +241,10 @@ public class Table : WidgetGroup {
 			cell._column = 0;
 			cell._row = 0;
 		}
-		cells.add(cell);
+		cells.Add(cell);
 
 		cell.Set(cellDefaults);
-		if (cell._column < _columnDefaults.size) cell.Merge(_columnDefaults.get(cell._column));
+		if (cell._column < _columnDefaults.size) cell.Merge(_columnDefaults.Get(cell._column));
 		cell.Merge(rowDefaults);
 
 		if (actor != null) addActor(actor);
@@ -351,7 +351,7 @@ public class Table : WidgetGroup {
 		debug(Debug.none);
 		cellDefaults.reset();
 		for (int i = 0, n = _columnDefaults.size; i < n; i++) {
-			Cell columnCell = _columnDefaults.get(i);
+			Cell columnCell = _columnDefaults.Get(i);
 			if (columnCell != null) cellPool.free(columnCell);
 		}
 		_columnDefaults.clear();
@@ -390,14 +390,14 @@ public class Table : WidgetGroup {
 	/** Gets the cell values that will be used as the defaults for all cells in the specified column. Columns are indexed starting
 	 * at 0. */
 	public Cell columnDefaults (int column) {
-		Cell cell = _columnDefaults.size > column ? _columnDefaults.get(column) : null;
+		Cell cell = _columnDefaults.size > column ? _columnDefaults.Get(column) : null;
 		if (cell == null) {
 			cell = obtainCell();
 			cell.Clear();
 			if (column >= _columnDefaults.size) {
 				for (int i = _columnDefaults.size; i < column; i++)
-					_columnDefaults.add(null);
-				_columnDefaults.add(cell);
+					_columnDefaults.Add(null);
+				_columnDefaults.Add(cell);
 			} else
 				_columnDefaults.set(column, cell);
 		}
@@ -1179,7 +1179,7 @@ public class Table : WidgetGroup {
 		}
 		float x = currentX;
 		for (int i = 0, n = cells.size; i < n; i++) {
-			Cell c = cells.get(i);
+			Cell c = cells.Get(i);
 
 			// Cell actor bounds.
 			if (_debug == Debug.actor || _debug == Debug.all)
@@ -1214,8 +1214,8 @@ public class Table : WidgetGroup {
 	private void addDebugRect (float x, float y, float w, float h, Color color) {
 		DebugRect rect = DebugRect.pool.obtain();
 		rect.color = color;
-		rect.set(x, y, w, h);
-		debugRects.add(rect);
+		rect.Set(x, y, w, h);
+		debugRects.Add(rect);
 	}
 
 		public override void drawDebug (ShapeRenderer shapes) {
@@ -1257,7 +1257,7 @@ public class Table : WidgetGroup {
 			y = getY();
 		}
 		for (int i = 0, n = debugRects.size; i < n; i++) {
-			DebugRect debugRect = debugRects.get(i);
+			DebugRect debugRect = debugRects.Get(i);
 			shapes.setColor(debugRect.color);
 			shapes.rect(x + debugRect.x, y + debugRect.y, debugRect.width, debugRect.height);
 		}

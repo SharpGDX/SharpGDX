@@ -148,7 +148,7 @@ namespace SharpGDX.Scenes.Scene2D.Utils
 		/** The distance from drag start to the current drag position. */
 		public float getDragDistance()
 		{
-			return Vector2.len(dragX - dragStartX, dragY - dragStartY);
+			return Vector2.Len(dragX - dragStartX, dragY - dragStartY);
 		}
 
 		/** Returns the amount on the x axis that the touch has been dragged since the last drag event. */

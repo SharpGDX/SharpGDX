@@ -183,7 +183,7 @@ namespace SharpGDX
 		long getFrameId();
 
 		/** @return the time span between the current frame and the last frame in seconds. */
-		float getDeltaTime();
+		float GetDeltaTime();
 		
 		/** @return the average number of frames per second */
 		int getFramesPerSecond();

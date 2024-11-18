@@ -229,7 +229,7 @@ public class Octree<T> {
 						child.add(geometry);
 					}
 				} else {
-					geometries.add(geometry);
+					geometries.Add(geometry);
 				}
 			}
 		}
@@ -248,7 +248,7 @@ public class Octree<T> {
 					}
 					if (geometrySet.size <= _octree.maxItemsPerNode) {
 						foreach (T geometry in geometrySet) {
-							geometries.add(geometry);
+							geometries.Add(geometry);
 						}
 						merge();
 					}
@@ -256,7 +256,7 @@ public class Octree<T> {
 
 				return removed;
 			}
-			return geometries.removeValue(obj, true);
+			return geometries.RemoveValue(obj, true);
 		}
 
 		protected bool isLeaf () {

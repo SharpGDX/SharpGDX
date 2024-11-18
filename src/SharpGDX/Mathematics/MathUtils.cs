@@ -572,7 +572,7 @@ namespace SharpGDX.Mathematics
 		return value;
 	}
 
-	static public float clamp(float value, float min, float max)
+	static public float Clamp(float value, float min, float max)
 	{
 		if (value < min) return min;
 		if (value > max) return max;

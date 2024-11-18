@@ -234,21 +234,21 @@ namespace SharpGDX.Graphics.G2D
 
 	public void draw (IBatch batch) {
 		if (premultipliedAlpha) {
-			batch.setBlendFunction(IGL20.GL_ONE, IGL20.GL_ONE_MINUS_SRC_ALPHA);
+			batch.SetBlendFunction(IGL20.GL_ONE, IGL20.GL_ONE_MINUS_SRC_ALPHA);
 		} else if (additive) {
-			batch.setBlendFunction(IGL20.GL_SRC_ALPHA, IGL20.GL_ONE);
+			batch.SetBlendFunction(IGL20.GL_SRC_ALPHA, IGL20.GL_ONE);
 		} else {
-			batch.setBlendFunction(IGL20.GL_SRC_ALPHA, IGL20.GL_ONE_MINUS_SRC_ALPHA);
+			batch.SetBlendFunction(IGL20.GL_SRC_ALPHA, IGL20.GL_ONE_MINUS_SRC_ALPHA);
 		}
 		Particle[] particles = this.particles;
 		bool[] active = this.active;
 
 		for (int i = 0, n = active.Length; i < n; i++) {
-			if (active[i]) particles[i].draw(batch);
+			if (active[i]) particles[i].Draw(batch);
 		}
 
 		if (_cleansUpBlendFunction && (additive || premultipliedAlpha))
-			batch.setBlendFunction(IGL20.GL_SRC_ALPHA, IGL20.GL_ONE_MINUS_SRC_ALPHA);
+			batch.SetBlendFunction(IGL20.GL_SRC_ALPHA, IGL20.GL_ONE_MINUS_SRC_ALPHA);
 
 	}
 
@@ -264,11 +264,11 @@ namespace SharpGDX.Graphics.G2D
 		accumulator -= deltaMillis;
 
 		if (premultipliedAlpha) {
-			batch.setBlendFunction(IGL20.GL_ONE, IGL20.GL_ONE_MINUS_SRC_ALPHA);
+			batch.SetBlendFunction(IGL20.GL_ONE, IGL20.GL_ONE_MINUS_SRC_ALPHA);
 		} else if (additive) {
-			batch.setBlendFunction(IGL20.GL_SRC_ALPHA, IGL20.GL_ONE);
+			batch.SetBlendFunction(IGL20.GL_SRC_ALPHA, IGL20.GL_ONE);
 		} else {
-			batch.setBlendFunction(IGL20.GL_SRC_ALPHA, IGL20.GL_ONE_MINUS_SRC_ALPHA);
+			batch.SetBlendFunction(IGL20.GL_SRC_ALPHA, IGL20.GL_ONE_MINUS_SRC_ALPHA);
 		}
 
 		Particle[] particles = this.particles;
@@ -278,7 +278,7 @@ namespace SharpGDX.Graphics.G2D
 			if (active[i]) {
 				Particle particle = particles[i];
 				if (updateParticle(particle, delta, deltaMillis))
-					particle.draw(batch);
+					particle.Draw(batch);
 				else {
 					active[i] = false;
 					activeCount--;
@@ -288,7 +288,7 @@ namespace SharpGDX.Graphics.G2D
 		this.activeCount = activeCount;
 
 		if (_cleansUpBlendFunction && (additive || premultipliedAlpha))
-			batch.setBlendFunction(IGL20.GL_SRC_ALPHA, IGL20.GL_ONE_MINUS_SRC_ALPHA);
+			batch.SetBlendFunction(IGL20.GL_SRC_ALPHA, IGL20.GL_ONE_MINUS_SRC_ALPHA);
 
 		if (delayTimer < delay) {
 			delayTimer += deltaMillis;
@@ -404,7 +404,7 @@ namespace SharpGDX.Graphics.G2D
 			particles[index] = particle = newParticle(sprite);
 			particle.flip(flipX, _flipY);
 		} else {
-			particle.set(sprite);
+			particle.Set(sprite);
 		}
 
 		float percent = durationTimer / (float)duration;
@@ -433,8 +433,8 @@ namespace SharpGDX.Graphics.G2D
 			particle.angleSin = MathUtils.sinDeg(angle);
 		}
 
-		float spriteWidth = sprite.getWidth();
-		float spriteHeight = sprite.getHeight();
+		float spriteWidth = sprite.GetWidth();
+		float spriteHeight = sprite.GetHeight();
 
 		particle.xScale = xScaleValue.newLowValue() / spriteWidth;
 		particle.xScaleDiff = xScaleValue.newHighValue() / spriteWidth;
@@ -444,10 +444,10 @@ namespace SharpGDX.Graphics.G2D
 			particle.yScale = yScaleValue.newLowValue() / spriteHeight;
 			particle.yScaleDiff = yScaleValue.newHighValue() / spriteHeight;
             if (!yScaleValue.relative) particle.yScaleDiff -= particle.yScale;
-                particle.setScale(particle.xScale + particle.xScaleDiff * xScaleValue.getScale(0),
+                particle.SetScale(particle.xScale + particle.xScaleDiff * xScaleValue.getScale(0),
 				particle.yScale + particle.yScaleDiff * yScaleValue.getScale(0));
 		} else {
-			particle.setScale(particle.xScale + particle.xScaleDiff * xScaleValue.getScale(0));
+			particle.SetScale(particle.xScale + particle.xScaleDiff * xScaleValue.getScale(0));
 		}
 
 		if (rotationValue.active) {
@@ -456,7 +456,7 @@ namespace SharpGDX.Graphics.G2D
             if (!rotationValue.relative) particle.rotationDiff -= particle.rotation;
                 float rotation = particle.rotation + particle.rotationDiff * rotationValue.getScale(0);
 			if (aligned) rotation += angle;
-			particle.setRotation(rotation);
+			particle.SetRotation(rotation);
 		}
 
 		if (windValue.active) {
@@ -550,7 +550,7 @@ namespace SharpGDX.Graphics.G2D
 		}
 		}
 
-        particle.setBounds(x - spriteWidth * 0.5f, y - spriteHeight * 0.5f, spriteWidth, spriteHeight);
+        particle.SetBounds(x - spriteWidth * 0.5f, y - spriteHeight * 0.5f, spriteWidth, spriteHeight);
 
             int offsetTime = (int)(lifeOffset + lifeOffsetDiff * lifeOffsetValue.getScale(percent));
 		if (offsetTime > 0) {
@@ -569,10 +569,10 @@ namespace SharpGDX.Graphics.G2D
 
 		if ((updateFlags & UPDATE_SCALE) != 0) {
 			if (yScaleValue.active) {
-				particle.setScale(particle.xScale + particle.xScaleDiff * xScaleValue.getScale(percent),
+				particle.SetScale(particle.xScale + particle.xScaleDiff * xScaleValue.getScale(percent),
 					particle.yScale + particle.yScaleDiff * yScaleValue.getScale(percent));
 			} else {
-				particle.setScale(particle.xScale + particle.xScaleDiff * xScaleValue.getScale(percent));
+				particle.SetScale(particle.xScale + particle.xScaleDiff * xScaleValue.getScale(percent));
 			}
 		}
 
@@ -587,7 +587,7 @@ namespace SharpGDX.Graphics.G2D
 				if ((updateFlags & UPDATE_ROTATION) != 0) {
 					float rotation = particle.rotation + particle.rotationDiff * rotationValue.getScale(percent);
 					if (aligned) rotation += angle;
-					particle.setRotation(rotation);
+					particle.SetRotation(rotation);
 				}
 			} else {
 				velocityX = velocity * particle.angleCos;
@@ -595,7 +595,7 @@ namespace SharpGDX.Graphics.G2D
 				if (aligned || (updateFlags & UPDATE_ROTATION) != 0) {
 					float rotation = particle.rotation + particle.rotationDiff * rotationValue.getScale(percent);
 					if (aligned) rotation += particle.angle;
-					particle.setRotation(rotation);
+					particle.SetRotation(rotation);
 				}
 			}
 
@@ -605,10 +605,10 @@ namespace SharpGDX.Graphics.G2D
 			if ((updateFlags & UPDATE_GRAVITY) != 0)
 				velocityY += (particle.gravity + particle.gravityDiff * gravityValue.getScale(percent)) * delta;
 
-			particle.translate(velocityX, velocityY);
+			particle.Translate(velocityX, velocityY);
 		} else {
 			if ((updateFlags & UPDATE_ROTATION) != 0)
-				particle.setRotation(particle.rotation + particle.rotationDiff * rotationValue.getScale(percent));
+				particle.SetRotation(particle.rotation + particle.rotationDiff * rotationValue.getScale(percent));
 		}
 
 		float[] color;
@@ -620,22 +620,22 @@ namespace SharpGDX.Graphics.G2D
 		if (premultipliedAlpha) {
 			float alphaMultiplier = additive ? 0 : 1;
 			float a = particle.transparency + particle.transparencyDiff * transparencyValue.getScale(percent);
-			particle.setColor(color[0] * a, color[1] * a, color[2] * a, a * alphaMultiplier);
+			particle.SetColor(color[0] * a, color[1] * a, color[2] * a, a * alphaMultiplier);
 		} else {
-			particle.setColor(color[0], color[1], color[2],
+			particle.SetColor(color[0], color[1], color[2],
 				particle.transparency + particle.transparencyDiff * transparencyValue.getScale(percent));
 		}
 
 		if ((updateFlags & UPDATE_SPRITE) != 0) {
 			int frame = Math.Min((int)(percent * sprites.size), sprites.size - 1);
 			if (particle.frame != frame) {
-				Sprite sprite = sprites.get(frame);
-				float prevSpriteWidth = particle.getWidth();
-				float prevSpriteHeight = particle.getHeight();
+				Sprite sprite = sprites.Get(frame);
+				float prevSpriteWidth = particle.GetWidth();
+				float prevSpriteHeight = particle.GetHeight();
 				particle.setRegion(sprite);
-				particle.setSize(sprite.getWidth(), sprite.getHeight());
-				particle.setOrigin(sprite.getOriginX(), sprite.getOriginY());
-                particle.translate((prevSpriteWidth - sprite.getWidth()) * 0.5f, (prevSpriteHeight - sprite.getHeight()) * 0.5f);
+				particle.SetSize(sprite.GetWidth(), sprite.GetHeight());
+				particle.SetOrigin(sprite.GetOriginX(), sprite.GetOriginY());
+                particle.Translate((prevSpriteWidth - sprite.GetWidth()) * 0.5f, (prevSpriteHeight - sprite.GetHeight()) * 0.5f);
                     particle.frame = frame;
 			}
 		}
@@ -661,7 +661,7 @@ namespace SharpGDX.Graphics.G2D
 			float yAmount = y - this.y;
 			bool[] active = this.active;
 			for (int i = 0, n = active.Length; i < n; i++)
-				if (active[i]) particles[i].translate(xAmount, yAmount);
+				if (active[i]) particles[i].Translate(xAmount, yAmount);
 		}
 		this.x = x;
 		this.y = y;
@@ -684,11 +684,11 @@ namespace SharpGDX.Graphics.G2D
 			case SpriteMode.animated:
 				float percent = 1 - particle.currentLife / (float)particle.life;
 				particle.frame = Math.Min((int)(percent * sprites.size), sprites.size - 1);
-				sprite = sprites.get(particle.frame);
+				sprite = sprites.Get(particle.frame);
 				break;
 			}
 			particle.setRegion(sprite);
-			particle.setOrigin(sprite.getOriginX(), sprite.getOriginY());
+			particle.SetOrigin(sprite.GetOriginX(), sprite.GetOriginY());
 		}
 	}
 
@@ -960,7 +960,7 @@ namespace SharpGDX.Graphics.G2D
 		bounds.inf();
 		for (int i = 0, n = active.Length; i < n; i++)
 			if (active[i]) {
-				Rectangle r = particles[i].getBoundingRectangle();
+				Rectangle r = particles[i].GetBoundingRectangle();
 				bounds.ext(r.x, r.y, 0);
 				bounds.ext(r.x + r.width, r.y + r.height, 0);
 			}
@@ -1182,7 +1182,7 @@ namespace SharpGDX.Graphics.G2D
 
 			Array<String> imagePaths = new Array<String>();
 			while ((line = reader.readLine()) != null && !string.IsNullOrEmpty(line)) {
-				imagePaths.add(line);
+				imagePaths.Add(line);
 			}
 			setImagePaths(imagePaths);
 		} catch (RuntimeException ex) {

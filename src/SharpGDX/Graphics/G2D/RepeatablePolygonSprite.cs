@@ -25,7 +25,7 @@ public class RepeatablePolygonSprite {
 
 	public float x = 0;
 	public float y = 0;
-	private Color color = Color.WHITE;
+	private Color color = Color.White;
 	private Vector2 _offset = new Vector2();
 
 	/** Sets polygon with repeating texture region, the size of repeating grid is equal to region size
@@ -79,13 +79,13 @@ public class RepeatablePolygonSprite {
 				Intersector.intersectPolygons(polygon, tmpPoly, intersectionPoly);
 				verts = intersectionPoly.getVertices();
 				if (verts.Length > 0) {
-					parts.add(snapToGrid(verts));
+					parts.Add(snapToGrid(verts));
 					ShortArray arr = triangulator.computeTriangles(verts);
-					indices.add(arr.toArray());
+					indices.Add(arr.toArray());
 				} else {
 					// adding null for key consistancy, needed to get col/row from key
 					// the other alternative is to make parts - IntMap<FloatArray>
-					parts.add(null);
+					parts.Add(null);
 				}
 			}
 		}
@@ -115,7 +115,7 @@ public class RepeatablePolygonSprite {
 	 * @param vertices
 	 * @return offsetted vertices */
 	private float[] offset (float[] vertices) {
-		_offset.set(vertices[0], vertices[1]);
+		_offset.Set(vertices[0], vertices[1]);
 		for (int i = 0; i < vertices.Length - 1; i += 2) {
 			if (_offset.x > vertices[i]) {
 				_offset.x = vertices[i];
@@ -136,7 +136,7 @@ public class RepeatablePolygonSprite {
 	private void buildVertices () {
 		vertices.clear();
 		for (int i = 0; i < parts.size; i++) {
-			float[] verts = parts.get(i);
+			float[] verts = parts.Get(i);
 			if (verts == null) continue;
 
 			float[] fullVerts = new float[5 * verts.Length / 2];
@@ -149,7 +149,7 @@ public class RepeatablePolygonSprite {
 				fullVerts[idx++] = verts[j] + _offset.x + x;
 				fullVerts[idx++] = verts[j + 1] + _offset.y + y;
 
-				fullVerts[idx++] = color.toFloatBits();
+				fullVerts[idx++] = color.ToFloatBits();
 
 				float u = (verts[j] % gridWidth) / gridWidth;
 				float v = (verts[j + 1] % gridHeight) / gridHeight;
@@ -162,7 +162,7 @@ public class RepeatablePolygonSprite {
 				fullVerts[idx++] = u;
 				fullVerts[idx++] = v;
 			}
-			vertices.add(fullVerts);
+			vertices.Add(fullVerts);
 		}
 		dirty = false;
 	}
@@ -172,7 +172,7 @@ public class RepeatablePolygonSprite {
 			buildVertices();
 		}
 		for (int i = 0; i < vertices.size; i++) {
-			batch.draw(region.getTexture(), vertices.get(i), 0, vertices.get(i).Length, indices.get(i), 0, indices.get(i).Length);
+			batch.draw(region.getTexture(), vertices.Get(i), 0, vertices.Get(i).Length, indices.Get(i), 0, indices.Get(i).Length);
 		}
 	}
 

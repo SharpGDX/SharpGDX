@@ -540,7 +540,7 @@ namespace SharpGDX.Shims
 		{
 			int size = buffer.capacity();
 			lock(unsafeBuffers) {
-				if (!unsafeBuffers.removeValue(buffer, true))
+				if (!unsafeBuffers.RemoveValue(buffer, true))
 					throw new IllegalArgumentException("buffer not allocated with newUnsafeByteBuffer or already disposed");
 			}
 			allocatedUnsafe -= size;
@@ -566,7 +566,7 @@ namespace SharpGDX.Shims
 			buffer.order(ByteOrder.nativeOrder());
 			allocatedUnsafe += numBytes;
 			lock(unsafeBuffers) {
-				unsafeBuffers.add(buffer);
+				unsafeBuffers.Add(buffer);
 			}
 			return buffer;
 		}
@@ -587,7 +587,7 @@ namespace SharpGDX.Shims
 		{
 			allocatedUnsafe += buffer.capacity();
 			lock(unsafeBuffers) {
-				unsafeBuffers.add(buffer);
+				unsafeBuffers.Add(buffer);
 			}
 			return buffer;
 		}

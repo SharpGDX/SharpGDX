@@ -63,7 +63,7 @@ namespace SharpGDX.Desktop.Audio
 				sourceID = audio.obtainSource(true);
 				if (sourceID == -1) return;
 
-				audio.music.add(this);
+				audio.music.Add(this);
 
 				if (buffers == null)
 				{
@@ -112,7 +112,7 @@ namespace SharpGDX.Desktop.Audio
 		{
 			if (audio.noDevice) return;
 			if (sourceID == -1) return;
-			audio.music.removeValue(this, true);
+			audio.music.RemoveValue(this, true);
 			reset();
 			audio.freeSource(sourceID);
 			sourceID = -1;

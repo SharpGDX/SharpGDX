@@ -64,7 +64,7 @@ public class OrderedSet<T> : ObjectSet<T> {
 
 		public override bool add (T key) {
 		if (!base.add(key)) return false;
-		items.add(key);
+		items.Add(key);
 		return true;
 	}
 
@@ -73,7 +73,7 @@ public class OrderedSet<T> : ObjectSet<T> {
 	public bool add (T key, int index) {
 		if (!base.add(key)) {
 			int oldIndex = items.indexOf(key, true);
-			if (oldIndex != index) items.insert(index, items.removeIndex(oldIndex));
+			if (oldIndex != index) items.insert(index, items.RemoveIndex(oldIndex));
 			return false;
 		}
 		items.insert(index, key);
@@ -89,12 +89,12 @@ public class OrderedSet<T> : ObjectSet<T> {
 
 		public override bool remove (T key) {
 		if (!base.remove(key)) return false;
-		items.removeValue(key, false);
+		items.RemoveValue(key, false);
 		return true;
 	}
 
 	public T removeIndex (int index) {
-		T key = items.removeIndex(index);
+		T key = items.RemoveIndex(index);
 		base.remove(key);
 		return key;
 	}
@@ -122,7 +122,7 @@ public class OrderedSet<T> : ObjectSet<T> {
 	 * @return true if {@code after} successfully replaced the contents at {@code index}, false otherwise */
 	public bool alterIndex (int index, T after) {
 		if (index < 0 || index >= size || contains(after)) return false;
-		base.remove(items.get(index));
+		base.remove(items.Get(index));
 		base.add(after);
 		items.set(index, after);
 		return true;
@@ -197,7 +197,7 @@ public class OrderedSet<T> : ObjectSet<T> {
 		public T next () {
 			if (!_hasNext) throw new NoSuchElementException();
 			if (!valid) throw new GdxRuntimeException("#iterator() cannot be used nested.");
-			T key = items.get(nextIndex);
+			T key = items.Get(nextIndex);
 			nextIndex++;
 			_hasNext = nextIndex < set.size;
 			return key;

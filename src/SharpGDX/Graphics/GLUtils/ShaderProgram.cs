@@ -615,11 +615,11 @@ public class ShaderProgram : IDisposable {
 	 * @param name the name of the uniform
 	 * @param values r, g, b and a as the first through fourth values respectively */
 	public void setUniformf (String name, Color values) {
-		setUniformf(name, values.r, values.g, values.b, values.a);
+		setUniformf(name, values.R, values.G, values.B, values.A);
 	}
 
 	public void setUniformf (int location, Color values) {
-		setUniformf(location, values.r, values.g, values.b, values.a);
+		setUniformf(location, values.R, values.G, values.B, values.A);
 	}
 
 	/** Sets the vertex attribute with the given name. The {@link ShaderProgram} must be bound for this to work.
@@ -695,7 +695,7 @@ public class ShaderProgram : IDisposable {
 		gl.glDeleteShader(vertexShaderHandle);
 		gl.glDeleteShader(fragmentShaderHandle);
 		gl.glDeleteProgram(program);
-		if (shaders.get(Gdx.App) != null) shaders.get(Gdx.App).removeValue(this, true);
+		if (shaders.get(Gdx.App) != null) shaders.get(Gdx.App).RemoveValue(this, true);
 	}
 
 	/** Disables the vertex attribute with the given name
@@ -742,7 +742,7 @@ public class ShaderProgram : IDisposable {
 	private void addManagedShader (IApplication app, ShaderProgram shaderProgram) {
 		Array<ShaderProgram> managedResources = shaders.get(app);
 		if (managedResources == null) managedResources = new Array<ShaderProgram>();
-		managedResources.add(shaderProgram);
+		managedResources.Add(shaderProgram);
 		shaders.put(app, managedResources);
 	}
 
@@ -755,8 +755,8 @@ public class ShaderProgram : IDisposable {
 		if (shaderArray == null) return;
 
 		for (int i = 0; i < shaderArray.size; i++) {
-			shaderArray.get(i).invalidated = true;
-			shaderArray.get(i).checkManaged();
+			shaderArray.Get(i).invalidated = true;
+			shaderArray.Get(i).checkManaged();
 		}
 	}
 

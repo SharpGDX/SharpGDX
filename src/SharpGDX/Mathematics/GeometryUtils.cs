@@ -117,7 +117,7 @@ public sealed class GeometryUtils {
 			throw new IllegalArgumentException("Triangle points must not be colinear.");
 		det *= 2;
 		float sqr1 = x1 * x1 + y1 * y1, sqr2 = x2 * x2 + y2 * y2, sqr3 = x3 * x3 + y3 * y3;
-		circumcenter.set((sqr1 * dy32 + sqr2 * dy13 + sqr3 * dy21) / det, -(sqr1 * dx32 + sqr2 * dx13 + sqr3 * dx21) / det);
+		circumcenter.Set((sqr1 * dy32 + sqr2 * dy13 + sqr3 * dy21) / det, -(sqr1 * dx32 + sqr2 * dx13 + sqr3 * dx21) / det);
 		return circumcenter;
 	}
 

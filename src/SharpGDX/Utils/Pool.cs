@@ -66,7 +66,7 @@ namespace SharpGDX.Utils
 			if (obj == null) throw new IllegalArgumentException("object cannot be null.");
 			if (freeObjects.size < max)
 			{
-				freeObjects.add(obj);
+				freeObjects.Add(obj);
 				peak = Math.Max(peak, freeObjects.size);
 				reset(obj);
 			}
@@ -81,7 +81,7 @@ namespace SharpGDX.Utils
 		public void fill(int size)
 		{
 			for (int i = 0; i < size; i++)
-				if (freeObjects.size < max) freeObjects.add(newObject());
+				if (freeObjects.size < max) freeObjects.Add(newObject());
 			peak = Math.Max(peak, freeObjects.size);
 		}
 
@@ -110,11 +110,11 @@ namespace SharpGDX.Utils
 			int max = this.max;
 			for (int i = 0, n = objects.size; i < n; i++)
 			{
-				T obj = objects.get(i);
+				T obj = objects.Get(i);
 				if (obj == null) continue;
 				if (freeObjects.size < max)
 				{
-					freeObjects.add(obj);
+					freeObjects.Add(obj);
 					reset(obj);
 				}
 				else
@@ -130,7 +130,7 @@ namespace SharpGDX.Utils
 		{
 			Array<T> freeObjects = this.freeObjects;
 			for (int i = 0, n = freeObjects.size; i < n; i++)
-				discard(freeObjects.get(i));
+				discard(freeObjects.Get(i));
 			freeObjects.clear();
 		}
 

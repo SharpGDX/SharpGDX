@@ -81,7 +81,7 @@ public class TooltipManager {
 			if (stage == null) return;
 			stage.addActor(_tooltipManager.showTooltip.container);
 			_tooltipManager.showTooltip.container.toFront();
-			_tooltipManager.shown.add(_tooltipManager.showTooltip);
+			_tooltipManager.shown.Add(_tooltipManager.showTooltip);
 
 			_tooltipManager.showTooltip.container.clearActions();
 			_tooltipManager.showAction(_tooltipManager.showTooltip);
@@ -119,7 +119,7 @@ public class TooltipManager {
 		showTooltip = null;
 		showTask.cancel();
 		if (tooltip.container.hasParent()) {
-			shown.removeValue(tooltip, true);
+			shown.RemoveValue(tooltip, true);
 			hideAction(tooltip);
 			resetTask.cancel();
 			Timer.schedule(resetTask, resetTime);
@@ -130,7 +130,7 @@ public class TooltipManager {
 	protected void showAction (Tooltip tooltip) {
 		float actionTime = animations ? (time > 0 ? 0.5f : 0.15f) : 0.1f;
 		tooltip.container.setTransform(true);
-		tooltip.container.getColor().a = 0.2f;
+		tooltip.container.getColor().A = 0.2f;
 		tooltip.container.setScale(0.05f);
 		tooltip.container.addAction(parallel(fadeIn(actionTime, Interpolation.fade), scaleTo(1, 1, actionTime, Interpolation.fade)));
 	}

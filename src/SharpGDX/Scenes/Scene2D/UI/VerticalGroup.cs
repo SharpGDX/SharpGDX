@@ -59,7 +59,7 @@ public class VerticalGroup : WidgetGroup {
 				incr = -1;
 			}
 			for (; i != n; i += incr) {
-				Actor child = children.get(i);
+				Actor child = children.Get(i);
 
 				float width, height;
 				if (child is ILayout) {
@@ -94,7 +94,7 @@ public class VerticalGroup : WidgetGroup {
 		} else {
 			prefHeight = _padTop + _padBottom + _space * (n - 1);
 			for (int i = 0; i < n; i++) {
-				Actor child = children.get(i);
+				Actor child = children.Get(i);
 				if (child is ILayout) {
 					ILayout layout = (ILayout)child;
 					prefWidth = Math.Max(prefWidth, layout.getPrefWidth());
@@ -148,7 +148,7 @@ public class VerticalGroup : WidgetGroup {
 			incr = -1;
 		}
 		for (int r = 0; i != n; i += incr) {
-			Actor child = children.get(i);
+			Actor child = children.Get(i);
 
 			float width, height;
 			ILayout layout = null;
@@ -221,7 +221,7 @@ public class VerticalGroup : WidgetGroup {
 			incr = -1;
 		}
 		for (int r = 0; i != n; i += incr) {
-			Actor child = children.get(i);
+			Actor child = children.Get(i);
 
 			float width, height;
 			ILayout layout = null;

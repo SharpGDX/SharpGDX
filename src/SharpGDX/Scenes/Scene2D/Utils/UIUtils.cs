@@ -14,7 +14,7 @@ namespace SharpGDX.Scenes.Scene2D.Utils
 	static public bool isIos = SharedLibraryLoader.isIos;
 
 	static public bool left () {
-		return Gdx.Input.isButtonPressed(IInput.Buttons.Left);
+		return Gdx.Input.IsButtonPressed(IInput.Buttons.Left);
 	}
 
 	static public bool left (int button) {
@@ -22,7 +22,7 @@ namespace SharpGDX.Scenes.Scene2D.Utils
 	}
 
 	static public bool right () {
-		return Gdx.Input.isButtonPressed(IInput.Buttons.Right);
+		return Gdx.Input.IsButtonPressed(IInput.Buttons.Right);
 	}
 
 	static public bool right (int button) {
@@ -30,7 +30,7 @@ namespace SharpGDX.Scenes.Scene2D.Utils
 	}
 
 	static public bool middle () {
-		return Gdx.Input.isButtonPressed(IInput.Buttons.Middle);
+		return Gdx.Input.IsButtonPressed(IInput.Buttons.Middle);
 	}
 
 	static public bool middle (int button) {
@@ -38,7 +38,7 @@ namespace SharpGDX.Scenes.Scene2D.Utils
 	}
 
 	static public bool shift () {
-		return Gdx.Input.isKeyPressed(IInput.Keys.SHIFT_LEFT) || Gdx.Input.isKeyPressed(IInput.Keys.SHIFT_RIGHT);
+		return Gdx.Input.IsKeyPressed(IInput.Keys.SHIFT_LEFT) || Gdx.Input.IsKeyPressed(IInput.Keys.SHIFT_RIGHT);
 	}
 
 	static public bool shift (int keycode) {
@@ -47,9 +47,9 @@ namespace SharpGDX.Scenes.Scene2D.Utils
 
 	static public bool ctrl () {
 		if (isMac)
-			return Gdx.Input.isKeyPressed(IInput.Keys.SYM);
+			return Gdx.Input.IsKeyPressed(IInput.Keys.SYM);
 		else
-			return Gdx.Input.isKeyPressed(IInput.Keys.CONTROL_LEFT) || Gdx.Input.isKeyPressed(IInput.Keys.CONTROL_RIGHT);
+			return Gdx.Input.IsKeyPressed(IInput.Keys.CONTROL_LEFT) || Gdx.Input.IsKeyPressed(IInput.Keys.CONTROL_RIGHT);
 	}
 
 	static public bool ctrl (int keycode) {
@@ -60,7 +60,7 @@ namespace SharpGDX.Scenes.Scene2D.Utils
 	}
 
 	static public bool alt () {
-		return Gdx.Input.isKeyPressed(IInput.Keys.ALT_LEFT) || Gdx.Input.isKeyPressed(IInput.Keys.ALT_RIGHT);
+		return Gdx.Input.IsKeyPressed(IInput.Keys.ALT_LEFT) || Gdx.Input.IsKeyPressed(IInput.Keys.ALT_RIGHT);
 	}
 
 	static public bool alt (int keycode) {

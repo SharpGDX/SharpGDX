@@ -55,7 +55,7 @@ public class ParallelAction : Action {
 		try {
 			Array<Action> actions = this.actions;
 			for (int i = 0, n = actions.size; i < n && actor != null; i++) {
-				Action currentAction = actions.get(i);
+				Action currentAction = actions.Get(i);
 				if (currentAction.getActor() != null && !currentAction.act(delta)) complete = false;
 				if (actor == null) return true; // This action was removed.
 			}
@@ -69,7 +69,7 @@ public class ParallelAction : Action {
 		complete = false;
 		Array<Action> actions = this.actions;
 		for (int i = 0, n = actions.size; i < n; i++)
-			actions.get(i).restart();
+			actions.Get(i).restart();
 	}
 
 	public override void reset () {
@@ -78,14 +78,14 @@ public class ParallelAction : Action {
 	}
 
 	public void addAction (Action action) {
-		actions.add(action);
+		actions.Add(action);
 		if (actor != null) action.setActor(actor);
 	}
 
 	public override void setActor (Actor actor) {
 		Array<Action> actions = this.actions;
 		for (int i = 0, n = actions.size; i < n; i++)
-			actions.get(i).setActor(actor);
+			actions.Get(i).setActor(actor);
 		base.setActor(actor);
 	}
 
@@ -100,7 +100,7 @@ public class ParallelAction : Action {
 		Array<Action> actions = this.actions;
 		for (int i = 0, n = actions.size; i < n; i++) {
 			if (i > 0) buffer.Append(", ");
-			buffer.Append(actions.get(i));
+			buffer.Append(actions.Get(i));
 		}
 		buffer.Append(')');
 		return buffer.ToString();

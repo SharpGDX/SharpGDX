@@ -54,14 +54,14 @@ namespace SharpGDX.Utils
 	public JsonWriter @object ()// TODO: throws IOException 
 	{
 		requireCommaOrName();
-		stack.add(current = new JsonObject(this,false));
+		stack.Add(current = new JsonObject(this,false));
 		return this;
 	}
 
 	public JsonWriter array ()// TODO: throws IOException 
 	{
 		requireCommaOrName();
-		stack.add(current = new JsonObject(this,true));
+		stack.Add(current = new JsonObject(this,true));
 		return this;
 	}
 

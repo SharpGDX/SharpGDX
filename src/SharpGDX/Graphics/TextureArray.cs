@@ -107,7 +107,7 @@ public class TextureArray : GLTexture {
 	private static void addManagedTexture (IApplication app, TextureArray texture) {
 		Array<TextureArray> managedTextureArray = managedTextureArrays.get(app);
 		if (managedTextureArray == null) managedTextureArray = new Array<TextureArray>();
-		managedTextureArray.add(texture);
+		managedTextureArray.Add(texture);
 		managedTextureArrays.put(app, managedTextureArray);
 	}
 
@@ -122,7 +122,7 @@ public class TextureArray : GLTexture {
 		if (managedTextureArray == null) return;
 
 		for (int i = 0; i < managedTextureArray.size; i++) {
-			TextureArray textureArray = managedTextureArray.get(i);
+			TextureArray textureArray = managedTextureArray.Get(i);
 			textureArray.reload();
 		}
 	}

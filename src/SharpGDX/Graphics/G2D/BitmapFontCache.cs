@@ -103,7 +103,7 @@ namespace SharpGDX.Graphics.G2D
 		/** Tints all text currently in the cache. Does not affect subsequently added text. */
 		public void tint(Color tint)
 		{
-			float newTint = tint.toFloatBits();
+			float newTint = tint.ToFloatBits();
 			if (_currentTint == newTint) return;
 			_currentTint = newTint;
 
@@ -114,20 +114,20 @@ namespace SharpGDX.Graphics.G2D
 
 			for (int i = 0, n = _layouts.size; i < n; i++)
 			{
-				GlyphLayout layout = _layouts.get(i);
+				GlyphLayout layout = _layouts.Get(i);
 				IntArray colors = layout.colors;
 				int colorsIndex = 0, nextColorGlyphIndex = 0, glyphIndex = 0;
 				float lastColorFloatBits = 0;
 				for (int ii = 0, nn = layout.runs.size; ii < nn; ii++)
 				{
-					GlyphLayout.GlyphRun run = layout.runs.get(ii);
+					GlyphLayout.GlyphRun run = layout.runs.Get(ii);
 					Object[] glyphs = run.glyphs.items;
 					for (int iii = 0, nnn = run.glyphs.size; iii < nnn; iii++)
 					{
 						if (glyphIndex++ == nextColorGlyphIndex)
 						{
-							Color.abgr8888ToColor(tempColor, colors.get(++colorsIndex));
-							lastColorFloatBits = tempColor.mul(tint).toFloatBits();
+							Color.ABGR8888ToColor(tempColor, colors.get(++colorsIndex));
+							lastColorFloatBits = tempColor.Mul(tint).ToFloatBits();
 							nextColorGlyphIndex = ++colorsIndex < colors.size ? colors.get(colorsIndex) : -1;
 						}
 
@@ -185,7 +185,7 @@ namespace SharpGDX.Graphics.G2D
 		/** Sets the color of all text currently in the cache. Does not affect subsequently added text. */
 		public void setColors(Color tint)
 		{
-			setColors(tint.toFloatBits());
+			setColors(tint.ToFloatBits());
 		}
 
 		/** Sets the color of all text currently in the cache. Does not affect subsequently added text. */
@@ -199,7 +199,7 @@ namespace SharpGDX.Graphics.G2D
 		 * is reset every time setText is called. */
 		public void setColors(Color tint, int start, int end)
 		{
-			setColors(tint.toFloatBits(), start, end);
+			setColors(tint.ToFloatBits(), start, end);
 		}
 
 		/** Sets the color of the specified characters. This may only be called after {@link #setText(CharSequence, float, float)} and
@@ -252,13 +252,13 @@ namespace SharpGDX.Graphics.G2D
 		/** A convenience method for setting the cache color. The color can also be set by modifying {@link #getColor()}. */
 		public void setColor(Color color)
 		{
-			this._color.set(color);
+			this._color.Set(color);
 		}
 
 		/** A convenience method for setting the cache color. The color can also be set by modifying {@link #getColor()}. */
 		public void setColor(float r, float g, float b, float a)
 		{
-			_color.set(r, g, b, a);
+			_color.Set(r, g, b, a);
 		}
 
 		public virtual void draw(IBatch spriteBatch)
@@ -270,7 +270,7 @@ namespace SharpGDX.Graphics.G2D
 				{
 					// ignore if this texture has no glyphs
 					float[] vertices = _pageVertices[j];
-					spriteBatch.draw(regions.get(j).getTexture(), vertices, 0, _idx[j]);
+					spriteBatch.Draw(regions.Get(j).getTexture(), vertices, 0, _idx[j]);
 				}
 			}
 		}
@@ -280,7 +280,7 @@ namespace SharpGDX.Graphics.G2D
 			if (_pageVertices.Length == 1)
 			{
 				// 1 page.
-				spriteBatch.draw(_font.getRegion().getTexture(), _pageVertices[0], start * 20, (end - start) * 20);
+				spriteBatch.Draw(_font.getRegion().getTexture(), _pageVertices[0], start * 20, (end - start) * 20);
 				return;
 			}
 
@@ -310,7 +310,7 @@ namespace SharpGDX.Graphics.G2D
 				if (offset == -1 || count == 0) continue;
 
 				// Render the page vertex data with the offset and count.
-				spriteBatch.draw(regions.get(i).getTexture(), _pageVertices[i], offset * 20, count * 20);
+				spriteBatch.Draw(regions.Get(i).getTexture(), _pageVertices[i], offset * 20, count * 20);
 			}
 		}
 
@@ -323,11 +323,11 @@ namespace SharpGDX.Graphics.G2D
 			}
 
 			Color color = getColor();
-			float oldAlpha = color.a;
-			color.a *= alphaModulation;
+			float oldAlpha = color.A;
+			color.A *= alphaModulation;
 			setColors(color);
 			draw(spriteBatch);
-			color.a = oldAlpha;
+			color.A = oldAlpha;
 			setColors(color);
 		}
 
@@ -360,7 +360,7 @@ namespace SharpGDX.Graphics.G2D
 				// Determine # of glyphs in each page.
 				for (int i = 0, n = layout.runs.size; i < n; i++)
 				{
-					Array<BitmapFont.Glyph> glyphs = layout.runs.get(i).glyphs;
+					Array<BitmapFont.Glyph> glyphs = layout.runs.Get(i).glyphs;
 					Object[] glyphItems = glyphs.items;
 					for (int ii = 0, nn = glyphs.size; ii < nn; ii++)
 						tempGlyphCount[((BitmapFont.Glyph)glyphItems[ii]).page]++;
@@ -427,7 +427,7 @@ namespace SharpGDX.Graphics.G2D
 			// Check if the number of font pages has changed.
 			if (_pageVertices.Length < _font.regions.size) setPageCount(_font.regions.size);
 
-			_layouts.add(layout);
+			_layouts.Add(layout);
 			requireGlyphs(layout);
 
 			IntArray colors = layout.colors;
@@ -435,7 +435,7 @@ namespace SharpGDX.Graphics.G2D
 			float lastColorFloatBits = 0;
 			for (int i = 0; i < runCount; i++)
 			{
-				GlyphLayout.GlyphRun run = layout.runs.get(i);
+				GlyphLayout.GlyphRun run = layout.runs.Get(i);
 				Object[] glyphs = run.glyphs.items;
 				float[] xAdvances = run.xAdvances.items;
 				float gx = x + run.x, gy = y + run.y;
@@ -452,7 +452,7 @@ namespace SharpGDX.Graphics.G2D
 				}
 			}
 
-			_currentTint = Color.WHITE_FLOAT_BITS; // Cached glyphs have changed, reset the current tint.
+			_currentTint = Color.WhiteFloatBits; // Cached glyphs have changed, reset the current tint.
 		}
 
 		private void addGlyph(BitmapFont.Glyph glyph, float x, float y, float color)
@@ -584,7 +584,7 @@ namespace SharpGDX.Graphics.G2D
 			bool wrap, String truncate)
 		{
 			GlyphLayout layout = Pools.obtain<GlyphLayout>(typeof(GlyphLayout));
-			_pooledLayouts.add(layout);
+			_pooledLayouts.Add(layout);
 			layout.setText(_font, str, start, end, _color, targetWidth, halign, wrap, truncate);
 			addText(layout, x, y);
 			return layout;

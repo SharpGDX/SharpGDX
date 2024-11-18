@@ -146,7 +146,7 @@ public class AtlasTmxMapLoader : BaseTmxMapLoader<AtlasTmxMapLoader.AtlasTiledMa
 		String regionsName = name;
 
 		foreach (Texture texture in atlas.getTextures()) {
-			trackedTextures.add(texture);
+			trackedTextures.Add(texture);
 		}
 
 		MapProperties props = tileSet.getProperties();

@@ -5,7 +5,7 @@
 /// </summary>
 /// <remarks>
 ///     <para>
-///         Must be registered with the <see cref="IInput.setInputProcessor(IInputProcessor)" /> method.
+///         Must be registered with the <see cref="IInput.SetInputProcessor(IInputProcessor)" /> method.
 ///     </para>
 ///     <para>
 ///         It will be called each frame before the call to <see cref="IApplicationListener.Render" />.

@@ -44,7 +44,7 @@ public class Vector2 : IVector<Vector2> {
 		return new Vector2(this);
 	}
 
-	public static float len (float x, float y) {
+	public static float Len (float x, float y) {
 		return (float)Math.Sqrt(x * x + y * y);
 	}
 
@@ -52,7 +52,7 @@ public class Vector2 : IVector<Vector2> {
 		return (float)Math.Sqrt(x * x + y * y);
 	}
 
-	public static float len2 (float x, float y) {
+	public static float Len2 (float x, float y) {
 		return x * x + y * y;
 	}
 
@@ -70,7 +70,7 @@ public class Vector2 : IVector<Vector2> {
 	 * @param x The x-component
 	 * @param y The y-component
 	 * @return This vector for chaining */
-	public Vector2 set (float x, float y) {
+	public Vector2 Set (float x, float y) {
 		this.x = x;
 		this.y = y;
 		return this;
@@ -86,7 +86,7 @@ public class Vector2 : IVector<Vector2> {
 	 * @param x The x-component of the other vector
 	 * @param y The y-component of the other vector
 	 * @return This vector for chaining */
-	public Vector2 sub (float x, float y) {
+	public Vector2 Sub (float x, float y) {
 		this.x -= x;
 		this.y -= y;
 		return this;
@@ -256,7 +256,7 @@ public class Vector2 : IVector<Vector2> {
 			try {
 				float x = float.Parse(v.Substring(1, s));
 				float y = float.Parse(v.Substring(s + 1, v.Length - 1));
-				return this.set(x, y);
+				return this.Set(x, y);
 			} catch (FormatException ex) {
 				// Throw a GdxRuntimeException
 			}
@@ -343,7 +343,7 @@ public class Vector2 : IVector<Vector2> {
 	/** Sets the angle of the vector in radians relative to the x-axis, towards the positive y-axis (typically counter-clockwise).
 	 * @param radians The angle in radians to set. */
 	public Vector2 setAngleRad (float radians) {
-		this.set(len(), 0f);
+		this.Set(len(), 0f);
 		this.rotateRad(radians);
 
 		return this;
@@ -410,7 +410,7 @@ public class Vector2 : IVector<Vector2> {
 
 	public Vector2 setToRandomDirection () {
 		float theta = MathUtils.random(0f, MathUtils.PI2);
-		return this.set(MathUtils.cos(theta), MathUtils.sin(theta));
+		return this.Set(MathUtils.cos(theta), MathUtils.sin(theta));
 	}
 
 	public override int GetHashCode () {

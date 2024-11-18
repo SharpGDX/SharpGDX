@@ -17,16 +17,16 @@ public class AlphaAction : TemporalAction {
 
 	protected override void begin () {
 		if (color == null) color = target.getColor();
-		_start = color.a;
+		_start = color.A;
 	}
 
 	protected override void update (float percent) {
 		if (percent == 0)
-			color.a = _start;
+			color.A = _start;
 		else if (percent == 1)
-			color.a = _end;
+			color.A = _end;
 		else
-			color.a = _start + (_end - _start) * percent;
+			color.A = _start + (_end - _start) * percent;
 	}
 
 	public override void reset () {

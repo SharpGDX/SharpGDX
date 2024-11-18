@@ -198,7 +198,7 @@ namespace SharpGDX.Mathematics
 			knots.ensureCapacity(spanCount);
 		}
 		for (int i = 0; i < spanCount; i++)
-			knots.add(calculate(controlPoints[0].cpy(), continuous ? i : (int)(i + 0.5f * degree), 0f, controlPoints, degree,
+			knots.Add(calculate(controlPoints[0].cpy(), continuous ? i : (int)(i + 0.5f * degree), 0f, controlPoints, degree,
 				continuous, tmp));
 		return this;
 	}
@@ -245,11 +245,11 @@ namespace SharpGDX.Mathematics
 		while (start < 0)
 			start += spanCount;
 		int result = start % spanCount;
-		float dst = @in.dst2(knots.get(result));
+		float dst = @in.dst2(knots.Get(result));
 		for (int i = 1; i < count; i++)
 		{
 			 int idx = (start + i) % spanCount;
-			 float d = @in.dst2(knots.get(idx));
+			 float d = @in.dst2(knots.Get(idx));
 			if (d < dst)
 			{
 				dst = d;
@@ -272,9 +272,9 @@ namespace SharpGDX.Mathematics
 	public float approximate( T @in,  int near)
 	{
 		int n = near;
-		 T nearest = knots.get(n);
-		 T previous = knots.get(n > 0 ? n - 1 : spanCount - 1);
-		 T next = knots.get((n + 1) % spanCount);
+		 T nearest = knots.Get(n);
+		 T previous = knots.Get(n > 0 ? n - 1 : spanCount - 1);
+		 T next = knots.Get((n + 1) % spanCount);
 		 float dstPrev2 = @in.dst2(previous);
 		 float dstNext2 = @in.dst2(next);
 		T P1, P2, P3;
@@ -296,7 +296,7 @@ namespace SharpGDX.Mathematics
 		float L3Sqr = P3.dst2(P1);
 		float L1 = (float)Math.Sqrt(L1Sqr);
 		float s = (L2Sqr + L1Sqr - L3Sqr) / (2 * L1);
-		float u = MathUtils.clamp((L1 - s) / L1, 0f, 1f);
+		float u = MathUtils.Clamp((L1 - s) / L1, 0f, 1f);
 		return (n + u) / spanCount;
 	}
 

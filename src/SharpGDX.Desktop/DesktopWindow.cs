@@ -218,7 +218,7 @@ namespace SharpGDX.Desktop
 	 * runnable instead of {@link Application#postRunnable(Runnable)}. */
 	public void postRunnable (Runnable runnable) {
 		lock (runnables) {
-			runnables.add(runnable);
+			runnables.Add(runnable);
 		}
 	}
 

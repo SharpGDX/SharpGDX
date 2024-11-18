@@ -85,8 +85,8 @@ public class SplitPane : WidgetGroup {
 				if (_splitPane.handleBounds.contains(x, y))
 				{
 					draggingPointer = pointer;
-					_splitPane.lastPoint.set(x, y);
-					_splitPane.handlePosition.set(_splitPane.handleBounds.x, _splitPane.handleBounds.y);
+					_splitPane.lastPoint.Set(x, y);
+					_splitPane.handlePosition.Set(_splitPane.handleBounds.x, _splitPane.handleBounds.y);
 					return true;
 				}
 				return false;
@@ -111,7 +111,7 @@ public class SplitPane : WidgetGroup {
 					dragX = Math.Max(0, dragX);
 					dragX = Math.Min(availWidth, dragX);
 					_splitPane.splitAmount = dragX / availWidth;
-					_splitPane.lastPoint.set(x, y);
+					_splitPane.lastPoint.Set(x, y);
 				}
 				else
 				{
@@ -122,7 +122,7 @@ public class SplitPane : WidgetGroup {
 					dragY = Math.Max(0, dragY);
 					dragY = Math.Min(availHeight, dragY);
 					_splitPane.splitAmount = 1 - (dragY / availHeight);
-					_splitPane.lastPoint.set(x, y);
+					_splitPane.lastPoint.Set(x, y);
 				}
 				_splitPane.invalidate();
 			}
@@ -218,9 +218,9 @@ public class SplitPane : WidgetGroup {
 		float rightAreaWidth = availWidth - leftAreaWidth;
 		float handleWidth = handle.getMinWidth();
 
-		firstWidgetBounds.set(0, 0, leftAreaWidth, height);
-		secondWidgetBounds.set(leftAreaWidth + handleWidth, 0, rightAreaWidth, height);
-		handleBounds.set(leftAreaWidth, 0, handleWidth, height);
+		firstWidgetBounds.Set(0, 0, leftAreaWidth, height);
+		secondWidgetBounds.Set(leftAreaWidth + handleWidth, 0, rightAreaWidth, height);
+		handleBounds.Set(leftAreaWidth, 0, handleWidth, height);
 	}
 
 	private void calculateVertBoundsAndPositions () {
@@ -234,9 +234,9 @@ public class SplitPane : WidgetGroup {
 		float bottomAreaHeight = availHeight - topAreaHeight;
 		float handleHeight = handle.getMinHeight();
 
-		firstWidgetBounds.set(0, height - topAreaHeight, width, topAreaHeight);
-		secondWidgetBounds.set(0, 0, width, bottomAreaHeight);
-		handleBounds.set(0, bottomAreaHeight, width, handleHeight);
+		firstWidgetBounds.Set(0, height - topAreaHeight, width, topAreaHeight);
+		secondWidgetBounds.Set(0, 0, width, bottomAreaHeight);
+		handleBounds.Set(0, bottomAreaHeight, width, handleHeight);
 	}
 
 	public override void draw (IBatch batch, float parentAlpha) {
@@ -246,28 +246,28 @@ public class SplitPane : WidgetGroup {
 		validate();
 
 		Color color = getColor();
-		float alpha = color.a * parentAlpha;
+		float alpha = color.A * parentAlpha;
 
 		applyTransform(batch, computeTransform());
 		if (firstWidget != null && firstWidget.isVisible()) {
-			batch.flush();
+			batch.Flush();
 			stage.calculateScissors(firstWidgetBounds, tempScissors);
 			if (ScissorStack.pushScissors(tempScissors)) {
 				firstWidget.draw(batch, alpha);
-				batch.flush();
+				batch.Flush();
 				ScissorStack.popScissors();
 			}
 		}
 		if (secondWidget != null && secondWidget.isVisible()) {
-			batch.flush();
+			batch.Flush();
 			stage.calculateScissors(secondWidgetBounds, tempScissors);
 			if (ScissorStack.pushScissors(tempScissors)) {
 				secondWidget.draw(batch, alpha);
-				batch.flush();
+				batch.Flush();
 				ScissorStack.popScissors();
 			}
 		}
-		batch.setColor(color.r, color.g, color.b, alpha);
+		batch.SetColor(color.R, color.G, color.B, alpha);
 		style.handle.draw(batch, handleBounds.x, handleBounds.y, handleBounds.width, handleBounds.height);
 		resetTransform(batch);
 	}

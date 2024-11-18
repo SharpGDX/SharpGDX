@@ -70,15 +70,15 @@ public class ImmediateModeRenderer20 : ImmediateModeRenderer {
 
 	private VertexAttribute[] buildVertexAttributes (bool hasNormals, bool hasColor, int numTexCoords) {
 		Array<VertexAttribute> attribs = new Array<VertexAttribute>();
-		attribs.add(new VertexAttribute(VertexAttributes.Usage.Position, 3, ShaderProgram.POSITION_ATTRIBUTE));
-		if (hasNormals) attribs.add(new VertexAttribute(VertexAttributes.Usage.Normal, 3, ShaderProgram.NORMAL_ATTRIBUTE));
-		if (hasColor) attribs.add(new VertexAttribute(VertexAttributes.Usage.ColorPacked, 4, ShaderProgram.COLOR_ATTRIBUTE));
+		attribs.Add(new VertexAttribute(VertexAttributes.Usage.Position, 3, ShaderProgram.POSITION_ATTRIBUTE));
+		if (hasNormals) attribs.Add(new VertexAttribute(VertexAttributes.Usage.Normal, 3, ShaderProgram.NORMAL_ATTRIBUTE));
+		if (hasColor) attribs.Add(new VertexAttribute(VertexAttributes.Usage.ColorPacked, 4, ShaderProgram.COLOR_ATTRIBUTE));
 		for (int i = 0; i < numTexCoords; i++) {
-			attribs.add(new VertexAttribute(VertexAttributes.Usage.TextureCoordinates, 2, ShaderProgram.TEXCOORD_ATTRIBUTE + i));
+			attribs.Add(new VertexAttribute(VertexAttributes.Usage.TextureCoordinates, 2, ShaderProgram.TEXCOORD_ATTRIBUTE + i));
 		}
 		VertexAttribute[] array = new VertexAttribute[attribs.size];
 		for (int i = 0; i < attribs.size; i++)
-			array[i] = attribs.get(i);
+			array[i] = attribs.Get(i);
 		return array;
 	}
 
@@ -98,11 +98,11 @@ public class ImmediateModeRenderer20 : ImmediateModeRenderer {
 	}
 
 	public void color (Color color) {
-		vertices[vertexIdx + colorOffset] = color.toFloatBits();
+		vertices[vertexIdx + colorOffset] = color.ToFloatBits();
 	}
 
 	public void color (float r, float g, float b, float a) {
-		vertices[vertexIdx + colorOffset] = Color.toFloatBits(r, g, b, a);
+		vertices[vertexIdx + colorOffset] = Color.ToFloatBits(r, g, b, a);
 	}
 
 	public void color (float colorBits) {

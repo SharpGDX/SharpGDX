@@ -421,7 +421,7 @@ public class XmlReader {
 		Element child = new Element(name, current);
 		Element parent = current;
 		if (parent != null) parent.addChild(child);
-		elements.add(child);
+		elements.Add(child);
 		current = child;
 	}
 
@@ -502,12 +502,12 @@ public class XmlReader {
 		/** @throws GdxRuntimeException if the element has no children. */
 		public Element getChild (int index) {
 			if (children == null) throw new GdxRuntimeException("Element has no children: " + _name);
-			return children.get(index);
+			return children.Get(index);
 		}
 
 		public void addChild (Element element) {
 			if (children == null) children = new (8);
-			children.add(element);
+			children.Add(element);
 		}
 
 		public String getText () {
@@ -519,11 +519,11 @@ public class XmlReader {
 		}
 
 		public void removeChild (int index) {
-			if (children != null) children.removeIndex(index);
+			if (children != null) children.RemoveIndex(index);
 		}
 
 		public void removeChild (Element child) {
-			if (children != null) children.removeValue(child, true);
+			if (children != null) children.RemoveValue(child, true);
 		}
 
 		public void remove () {
@@ -581,7 +581,7 @@ public class XmlReader {
 		public Element? getChildByName (String name) {
 			if (children == null) return null;
 			for (int i = 0; i < children.size; i++) {
-				Element element = children.get(i);
+				Element element = children.Get(i);
 				if (element._name.Equals(name)) return element;
 			}
 			return null;
@@ -597,7 +597,7 @@ public class XmlReader {
 		public Element? getChildByNameRecursive (String name) {
 			if (children == null) return null;
 			for (int i = 0; i < children.size; i++) {
-				Element element = children.get(i);
+				Element element = children.Get(i);
 				if (element._name.Equals(name)) return element;
 				Element found = element.getChildByNameRecursive(name);
 				if (found != null) return found;
@@ -616,8 +616,8 @@ public class XmlReader {
 			Array<Element> result = new Array<Element>();
 			if (children == null) return result;
 			for (int i = 0; i < children.size; i++) {
-				Element child = children.get(i);
-				if (child._name.Equals(name)) result.add(child);
+				Element child = children.Get(i);
+				if (child._name.Equals(name)) result.Add(child);
 			}
 			return result;
 		}
@@ -633,8 +633,8 @@ public class XmlReader {
 		private void getChildrenByNameRecursively (String name, Array<Element> result) {
 			if (children == null) return;
 			for (int i = 0; i < children.size; i++) {
-				Element child = children.get(i);
-				if (child._name.Equals(name)) result.add(child);
+				Element child = children.Get(i);
+				if (child._name.Equals(name)) result.Add(child);
 				child.getChildrenByNameRecursively(name, result);
 			}
 		}

@@ -694,7 +694,7 @@ public class IntMap<V> : IEnumerable<IntMap<V>.Entry> {
 		public Array<V> toArray () {
 			Array<V> array = new Array<V>(true, map.size);
 			while (hasNext)
-				array.add(Current);
+				array.Add(Current);
 			return array;
 		}
 	}

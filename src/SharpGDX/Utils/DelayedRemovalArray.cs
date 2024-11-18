@@ -82,10 +82,10 @@ public class DelayedRemovalArray<T> : Array<T> {
 			} else {
 				for (int i = 0, n = _remove.size; i < n; i++) {
 					int index = _remove.pop();
-					if (index >= _clear) removeIndex(index);
+					if (index >= _clear) RemoveIndex(index);
 				}
 				for (int i = _clear - 1; i >= 0; i--)
-					removeIndex(i);
+					RemoveIndex(i);
 			}
 			_clear = 0;
 		}
@@ -104,30 +104,30 @@ public class DelayedRemovalArray<T> : Array<T> {
 		_remove.add(index);
 	}
 
-		public override bool removeValue (T value, bool identity) {
+		public override bool RemoveValue (T value, bool identity) {
 		if (iterating > 0) {
 			int index = indexOf(value, identity);
 			if (index == -1) return false;
 			remove(index);
 			return true;
 		}
-		return base.removeValue(value, identity);
+		return base.RemoveValue(value, identity);
 	}
 
-		public override T removeIndex (int index) {
+		public override T RemoveIndex (int index) {
 		if (iterating > 0) {
 			remove(index);
-			return get(index);
+			return Get(index);
 		}
-		return base.removeIndex(index);
+		return base.RemoveIndex(index);
 	}
 
-	public override void removeRange (int start, int end) {
+	public override void RemoveRange (int start, int end) {
 		if (iterating > 0) {
 			for (int i = end; i >= start; i--)
 				remove(i);
 		} else
-			base.removeRange(start, end);
+			base.RemoveRange(start, end);
 	}
 
 		public override void clear () {

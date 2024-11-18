@@ -70,7 +70,7 @@ public class Skin : IDisposable {
 	public void addRegions (TextureAtlas atlas) {
 		Array<TextureAtlas.AtlasRegion> regions = atlas.getRegions();
 		for (int i = 0, n = regions.size; i < n; i++) {
-            TextureAtlas.AtlasRegion region = regions.get(i);
+            TextureAtlas.AtlasRegion region = regions.Get(i);
 			String name = region.name;
 			if (region.index != -1) {
 				name += "_" + region.index;
@@ -194,7 +194,7 @@ return typeResources.get(name);
 		if (region != null) {
 			regions = new Array<TextureRegion>();
 			while (region != null) {
-				regions.add(region);
+				regions.Add(region);
 				region = (TextureRegion?)optional(regionName + "_" + (i++), typeof(TextureRegion));
 			}
 		}
@@ -258,7 +258,7 @@ return typeResources.get(name);
 					sprite = new TextureAtlas.AtlasSprite(region);
 			}
 			if (sprite == null) sprite = new Sprite(textureRegion);
-			if (_scale != 1) sprite.setSize(sprite.getWidth() * _scale, sprite.getHeight() * _scale);
+			if (_scale != 1) sprite.SetSize(sprite.GetWidth() * _scale, sprite.GetHeight() * _scale);
 			add(name, sprite, typeof(Sprite));
 			return sprite;
 		} catch (GdxRuntimeException ex) {
@@ -598,7 +598,7 @@ return typeResources.get(name);
         {
             if (jsonData.isString()) return (Color)_skin.get(jsonData.asString(), typeof(Color));
             String hex = (string)json.readValue("hex", typeof(string), (String)null, jsonData);
-            if (hex != null) return Color.valueOf(hex);
+            if (hex != null) return Color.ValueOf(hex);
             float r = (float)json.readValue("r", typeof(float), 0f, jsonData);
             float g = (float)json.readValue("g", typeof(float), 0f, jsonData);
             float b = (float)json.readValue("b", typeof(float), 0f, jsonData);

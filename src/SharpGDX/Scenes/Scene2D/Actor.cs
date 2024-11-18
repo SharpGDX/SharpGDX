@@ -76,12 +76,12 @@ public class Actor {
 		if (stage != null && stage.getActionsRequestRendering()) Gdx.Graphics.requestRendering();
 		try {
 			for (int i = 0; i < actions.size; i++) {
-				Action action = actions.get(i);
+				Action action = actions.Get(i);
 				if (action.act(delta) && i < actions.size) {
-					Action current = actions.get(i);
+					Action current = actions.Get(i);
 					int actionIndex = current == action ? i : actions.indexOf(action, true);
 					if (actionIndex != -1) {
-						actions.removeIndex(actionIndex);
+						actions.RemoveIndex(actionIndex);
 						action.setActor(null);
 						i--;
 					}
@@ -113,7 +113,7 @@ public class Actor {
 		Array<Group> ascendants = Pools.obtain<Array<Group>>(typeof(Array<Group>));
 		Group parent = this.parent;
 		while (parent != null) {
-			ascendants.add(parent);
+			ascendants.Add(parent);
 			parent = parent.parent;
 		}
 
@@ -167,7 +167,7 @@ public class Actor {
 		try {
 			listeners.begin();
 			for (int i = 0, n = listeners.size; i < n; i++)
-				if (listeners.get(i).handle(@event)) @event.handle();
+				if (listeners.Get(i).handle(@event)) @event.handle();
 			listeners.end();
 		} catch (RuntimeException ex) {
 			String context = ToString();
@@ -206,7 +206,7 @@ public class Actor {
 	public bool addListener (IEventListener listener) {
 		if (listener == null) throw new IllegalArgumentException("listener cannot be null.");
 		if (!listeners.contains(listener, true)) {
-			listeners.add(listener);
+			listeners.Add(listener);
 			return true;
 		}
 		return false;
@@ -214,7 +214,7 @@ public class Actor {
 
 	public bool removeListener (IEventListener listener) {
 		if (listener == null) throw new IllegalArgumentException("listener cannot be null.");
-		return listeners.removeValue(listener, true);
+		return listeners.RemoveValue(listener, true);
 	}
 
 	public DelayedRemovalArray<IEventListener> getListeners () {
@@ -225,13 +225,13 @@ public class Actor {
 	 * @see #fire(Event) */
 	public bool addCaptureListener (IEventListener listener) {
 		if (listener == null) throw new IllegalArgumentException("listener cannot be null.");
-		if (!captureListeners.contains(listener, true)) captureListeners.add(listener);
+		if (!captureListeners.contains(listener, true)) captureListeners.Add(listener);
 		return true;
 	}
 
 	public bool removeCaptureListener (IEventListener listener) {
 		if (listener == null) throw new IllegalArgumentException("listener cannot be null.");
-		return captureListeners.removeValue(listener, true);
+		return captureListeners.RemoveValue(listener, true);
 	}
 
 	public DelayedRemovalArray<IEventListener> getCaptureListeners () {
@@ -240,14 +240,14 @@ public class Actor {
 
 	public void addAction (Action action) {
 		action.setActor(this);
-		actions.add(action);
+		actions.Add(action);
 
 		if (stage != null && stage.getActionsRequestRendering()) Gdx.Graphics.requestRendering();
 	}
 
 	/** @param action May be null, in which case nothing is done. */
 	public void removeAction ( Action? action) {
-		if (action != null && actions.removeValue(action, true)) action.setActor(null);
+		if (action != null && actions.RemoveValue(action, true)) action.setActor(null);
 	}
 
 	public Array<Action> getActions () {
@@ -262,7 +262,7 @@ public class Actor {
 	/** Removes all actions on this actor. */
 	public void clearActions () {
 		for (int i = actions.size - 1; i >= 0; i--)
-			actions.get(i).setActor(null);
+			actions.Get(i).setActor(null);
 		actions.clear();
 	}
 
@@ -390,7 +390,7 @@ public class Actor {
 		Stage stage = getStage();
 		if (stage == null) return false;
 		for (int i = 0, n = stage.touchFocuses.size; i < n; i++)
-			if (stage.touchFocuses.get(i).target == this) return true;
+			if (stage.touchFocuses.Get(i).target == this) return true;
 		return false;
 	}
 
@@ -400,7 +400,7 @@ public class Actor {
 		Stage stage = getStage();
 		if (stage == null) return false;
 		for (int i = 0, n = stage.touchFocuses.size; i < n; i++)
-			if (stage.touchFocuses.get(i).listenerActor == this) return true;
+			if (stage.touchFocuses.Get(i).listenerActor == this) return true;
 		return false;
 	}
 
@@ -732,11 +732,11 @@ public class Actor {
 	}
 
 	public void setColor (Color color) {
-		this.color.set(color);
+		this.color.Set(color);
 	}
 
 	public void setColor (float r, float g, float b, float a) {
-		color.set(r, g, b, a);
+		color.Set(r, g, b, a);
 	}
 
 	/** Returns the color the actor will be tinted when drawn. The returned instance can be modified to change the color. */
@@ -778,8 +778,8 @@ public class Actor {
 		Array<Actor> children = parent.children;
 		if (children.size <= 1) return false;
 		index = Math.Min(index, children.size - 1);
-		if (children.get(index) == this) return false;
-		if (!children.removeValue(this, true)) return false;
+		if (children.Get(index) == this) return false;
+		if (!children.RemoveValue(this, true)) return false;
 		children.insert(index, this);
 		return true;
 	}

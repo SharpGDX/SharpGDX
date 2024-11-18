@@ -45,37 +45,37 @@ public class ActorGestureListener : IEventListener {
 
 			public override bool tap(float stageX, float stageY, int count, int button)
 			{
-				_actorGestureListener.actor.stageToLocalCoordinates(tmpCoords.set(stageX, stageY));
+				_actorGestureListener.actor.stageToLocalCoordinates(tmpCoords.Set(stageX, stageY));
 				_actorGestureListener.tap(_actorGestureListener.@event, tmpCoords.x, tmpCoords.y, count, button);
 				return true;
 			}
 
 			public override bool longPress(float stageX, float stageY)
 			{
-				_actorGestureListener.actor.stageToLocalCoordinates(tmpCoords.set(stageX, stageY));
+				_actorGestureListener.actor.stageToLocalCoordinates(tmpCoords.Set(stageX, stageY));
 				return _actorGestureListener.longPress(_actorGestureListener.actor, tmpCoords.x, tmpCoords.y);
 			}
 
 			public override bool fling(float velocityX, float velocityY, int button)
 			{
-				stageToLocalAmount(tmpCoords.set(velocityX, velocityY));
+				stageToLocalAmount(tmpCoords.Set(velocityX, velocityY));
 				_actorGestureListener.fling(_actorGestureListener.@event, tmpCoords.x, tmpCoords.y, button);
 				return true;
 			}
 
 			public override bool pan(float stageX, float stageY, float deltaX, float deltaY)
 			{
-				stageToLocalAmount(tmpCoords.set(deltaX, deltaY));
+				stageToLocalAmount(tmpCoords.Set(deltaX, deltaY));
 				deltaX = tmpCoords.x;
 				deltaY = tmpCoords.y;
-				_actorGestureListener.actor.stageToLocalCoordinates(tmpCoords.set(stageX, stageY));
+				_actorGestureListener.actor.stageToLocalCoordinates(tmpCoords.Set(stageX, stageY));
 				_actorGestureListener.pan(_actorGestureListener.@event, tmpCoords.x, tmpCoords.y, deltaX, deltaY);
 				return true;
 			}
 
 			public override bool panStop(float stageX, float stageY, int pointer, int button)
 			{
-				_actorGestureListener.actor.stageToLocalCoordinates(tmpCoords.set(stageX, stageY));
+				_actorGestureListener.actor.stageToLocalCoordinates(tmpCoords.Set(stageX, stageY));
 				_actorGestureListener.panStop(_actorGestureListener.@event, tmpCoords.x, tmpCoords.y, pointer, button);
 				return true;
 			}
@@ -100,7 +100,7 @@ public class ActorGestureListener : IEventListener {
 			private void stageToLocalAmount(Vector2 amount)
 			{
 				_actorGestureListener.actor.stageToLocalCoordinates(amount);
-				amount.sub(_actorGestureListener.actor.stageToLocalCoordinates(tmpCoords2.set(0, 0)));
+				amount.sub(_actorGestureListener.actor.stageToLocalCoordinates(tmpCoords2.Set(0, 0)));
 			}
 		}
 
@@ -113,7 +113,7 @@ public class ActorGestureListener : IEventListener {
 			actor = @event.getListenerActor();
 			touchDownTarget = @event.getTarget();
 			detector.touchDown(@event.getStageX(), @event.getStageY(), @event.getPointer(), @event.getButton());
-			actor.stageToLocalCoordinates(tmpCoords.set(@event.getStageX(), @event.getStageY()));
+			actor.stageToLocalCoordinates(tmpCoords.Set(@event.getStageX(), @event.getStageY()));
 			touchDown(@event, tmpCoords.x, tmpCoords.y, @event.getPointer(), @event.getButton());
 			if (@event.getTouchFocus()) @event.getStage().addTouchFocus(this, @event.getListenerActor(), @event.getTarget(),
 				@event.getPointer(), @event.getButton());
@@ -126,7 +126,7 @@ public class ActorGestureListener : IEventListener {
                 this.@event = @event;
                 actor = e.getListenerActor();
                 detector.touchUp(@event.getStageX(), @event.getStageY(), @event.getPointer(), @event.getButton());
-                actor.stageToLocalCoordinates(tmpCoords.set(@event.getStageX(), @event.getStageY()));
+                actor.stageToLocalCoordinates(tmpCoords.Set(@event.getStageX(), @event.getStageY()));
                 touchUp(@event, tmpCoords.x, tmpCoords.y, @event.getPointer(), @event.getButton());
 			}
 

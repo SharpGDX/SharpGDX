@@ -43,12 +43,12 @@ where T: Actor{
 			applyTransform(batch, computeTransform());
 			drawBackground(batch, parentAlpha, 0, 0);
 			if (_clip) {
-				batch.flush();
+				batch.Flush();
 				float padLeft = this._padLeft.get(this), padBottom = this._padBottom.get(this);
 				if (clipBegin(padLeft, padBottom, getWidth() - padLeft - _padRight.get(this),
 					getHeight() - padBottom - _padTop.get(this))) {
 					drawChildren(batch, parentAlpha);
-					batch.flush();
+					batch.Flush();
 					clipEnd();
 				}
 			} else
@@ -65,7 +65,7 @@ where T: Actor{
 	protected void drawBackground (IBatch batch, float parentAlpha, float x, float y) {
 		if (background == null) return;
 		Color color = getColor();
-		batch.setColor(color.r, color.g, color.b, color.a * parentAlpha);
+		batch.SetColor(color.R, color.G, color.B, color.A * parentAlpha);
 		_background.draw(batch, x, y, getWidth(), getHeight());
 	}
 

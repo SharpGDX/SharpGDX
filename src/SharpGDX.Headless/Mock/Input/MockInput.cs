@@ -13,209 +13,209 @@ namespace SharpGDX.Headless.Mock.Input
     public class MockInput : IInput
 	{
 
-		public float getAccelerometerX()
+		public float GetAccelerometerX()
 	{
 		return 0;
 	}
 
-	public float getAccelerometerY()
+	public float GetAccelerometerY()
 	{
 		return 0;
 	}
 
-	public float getAccelerometerZ()
+	public float GetAccelerometerZ()
 	{
 		return 0;
 	}
 
-	public float getGyroscopeX()
+	public float GetGyroscopeX()
 	{
 		return 0;
 	}
 
-	public float getGyroscopeY()
+	public float GetGyroscopeY()
 	{
 		return 0;
 	}
 
-	public float getGyroscopeZ()
+	public float GetGyroscopeZ()
 	{
 		return 0;
 	}
 
-	public int getMaxPointers()
+	public int GetMaxPointers()
 	{
 		return 0;
 	}
 
-	public int getX()
+	public int GetX()
 	{
 		return 0;
 	}
 
-	public int getX(int pointer)
+	public int GetX(int pointer)
 	{
 		return 0;
 	}
 
-	public int getDeltaX()
+	public int GetDeltaX()
 	{
 		return 0;
 	}
 
-	public int getDeltaX(int pointer)
+	public int GetDeltaX(int pointer)
 	{
 		return 0;
 	}
 
-	public int getY()
+	public int GetY()
 	{
 		return 0;
 	}
 
-	public int getY(int pointer)
+	public int GetY(int pointer)
 	{
 		return 0;
 	}
 
-	public int getDeltaY()
+	public int GetDeltaY()
 	{
 		return 0;
 	}
 
-	public int getDeltaY(int pointer)
+	public int GetDeltaY(int pointer)
 	{
 		return 0;
 	}
 
-	public bool isTouched()
+	public bool IsTouched()
 	{
 		return false;
 	}
 
-	public bool justTouched()
+	public bool JustTouched()
 	{
 		return false;
 	}
 
-	public bool isTouched(int pointer)
+	public bool IsTouched(int pointer)
 	{
 		return false;
 	}
 
-	public float getPressure()
+	public float GetPressure()
 	{
 		return 0;
 	}
 
-	public float getPressure(int pointer)
+	public float GetPressure(int pointer)
 	{
 		return 0;
 	}
 
-	public bool isButtonPressed(int button)
+	public bool IsButtonPressed(int button)
 	{
 		return false;
 	}
 
-	public bool isButtonJustPressed(int button)
+	public bool IsButtonJustPressed(int button)
 	{
 		return false;
 	}
 
-	public bool isKeyPressed(int key)
+	public bool IsKeyPressed(int key)
 	{
 		return false;
 	}
 
-	public bool isKeyJustPressed(int key)
+	public bool IsKeyJustPressed(int key)
 	{
 		return false;
 	}
 
-	public void getTextInput(TextInputListener listener, String title, String text, String hint)
+	public void GetTextInput(ITextInputListener listener, String title, String text, String hint)
 	{
 
 	}
 
-	public void getTextInput(TextInputListener listener, String title, String text, String hint, OnscreenKeyboardType type)
+	public void GetTextInput(ITextInputListener listener, String title, String text, String hint, OnscreenKeyboardType type)
 	{
 
 	}
 	
-	public void setOnscreenKeyboardVisible(bool visible)
+	public void SetOnscreenKeyboardVisible(bool visible)
 	{
 	}
 
-	public void setOnscreenKeyboardVisible(bool visible, OnscreenKeyboardType type)
+	public void SetOnscreenKeyboardVisible(bool visible, OnscreenKeyboardType? type)
 	{
 	}
 
-	public void vibrate(int milliseconds)
+	public void Vibrate(int milliseconds)
 	{
 
 	}
 
-	public void vibrate(int milliseconds, bool fallback)
+	public void Vibrate(int milliseconds, bool fallback)
 	{
 	}
 
-	public void vibrate(int milliseconds, int amplitude, bool fallback)
+	public void Vibrate(int milliseconds, int amplitude, bool fallback)
 	{
 	}
 
-	public void vibrate(VibrationType vibrationType)
+	public void Vibrate(VibrationType vibrationType)
 	{
 	}
 
-	public float getAzimuth()
-	{
-		return 0;
-	}
-
-	public float getPitch()
+	public float GetAzimuth()
 	{
 		return 0;
 	}
 
-	public float getRoll()
+	public float GetPitch()
 	{
 		return 0;
 	}
 
-	public void getRotationMatrix(float[] matrix)
+	public float GetRoll()
+	{
+		return 0;
+	}
+
+	public void GetRotationMatrix(float[] matrix)
 	{
 
 	}
 
-	public long getCurrentEventTime()
+	public long GetCurrentEventTime()
 	{
 		return 0;
 	}
         
-	public bool isCatchMenuKey()
+	public bool IsCatchMenuKey()
 	{
 		return false;
 	}
 
-	public void setCatchKey(int keycode, bool catchKey)
+	public void SetCatchKey(int keycode, bool catchKey)
 	{
 
 	}
 
-	public bool isCatchKey(int keycode)
+	public bool IsCatchKey(int keycode)
 	{
 		return false;
 	}
 
-	public void setInputProcessor(IInputProcessor processor)
+	public void SetInputProcessor(IInputProcessor processor)
 	{
 
 	}
 
 	private IInputProcessor mockInputProcessor;
 
-	public IInputProcessor getInputProcessor()
+	public IInputProcessor GetInputProcessor()
 	{
 		if (mockInputProcessor == null)
 		{
@@ -224,47 +224,47 @@ namespace SharpGDX.Headless.Mock.Input
 		return mockInputProcessor;
 	}
 
-	public bool isPeripheralAvailable(Peripheral peripheral)
+	public bool IsPeripheralAvailable(Peripheral peripheral)
 	{
 		return false;
 	}
 
-	public int getRotation()
+	public int GetRotation()
 	{
 		return 0;
 	}
 
-	public Orientation getNativeOrientation()
+	public Orientation GetNativeOrientation()
 	{
 		return Orientation.Landscape;
 	}
 
-	public void setCursorCatched(bool catched)
+	public void SetCursorCatched(bool catched)
 	{
 
 	}
 
-	public bool isCursorCatched()
+	public bool IsCursorCatched()
 	{
 		return false;
 	}
 
-	public void setCursorPosition(int x, int y)
+	public void SetCursorPosition(int x, int y)
 	{
 
 	}
 
-    public void openTextInputField(NativeInputConfiguration configuration)
+    public void OpenTextInputField(NativeInputConfiguration configuration)
     {
 
     }
 
-    public void closeTextInputField(bool sendReturn)
+    public void CloseTextInputField(bool sendReturn)
     {
 
     }
 
-    public void setKeyboardHeightObserver(KeyboardHeightObserver observer)
+    public void SetKeyboardHeightObserver(IKeyboardHeightObserver observer)
     {
 
     }

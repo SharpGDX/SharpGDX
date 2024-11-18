@@ -54,7 +54,7 @@ public class SpriteCache : IDisposable {
 	private readonly IntArray counts = new IntArray(8);
 
 	private readonly Color color = new Color(1, 1, 1, 1);
-	private float colorPacked = Color.WHITE_FLOAT_BITS;
+	private float colorPacked = Color.WhiteFloatBits;
 
 	private ShaderProgram customShader = null;
 
@@ -117,14 +117,14 @@ public class SpriteCache : IDisposable {
 
 	/** Sets the color used to tint images when they are added to the SpriteCache. Default is {@link Color#WHITE}. */
 	public void setColor (Color tint) {
-		color.set(tint);
-		colorPacked = tint.toFloatBits();
+		color.Set(tint);
+		colorPacked = tint.ToFloatBits();
 	}
 
 	/** @see #setColor(Color) */
 	public void setColor (float r, float g, float b, float a) {
-		color.set(r, g, b, a);
-		colorPacked = color.toFloatBits();
+		color.Set(r, g, b, a);
+		colorPacked = color.ToFloatBits();
 	}
 
 	public Color getColor () {
@@ -134,7 +134,7 @@ public class SpriteCache : IDisposable {
 	/** Sets the color of this sprite cache, expanding the alpha from 0-254 to 0-255.
 	 * @see Color#toFloatBits() */
 	public void setPackedColor (float packedColor) {
-		Color.abgr8888ToColor(color, packedColor);
+		Color.ABGR8888ToColor(color, packedColor);
 		colorPacked = packedColor;
 	}
 
@@ -149,7 +149,7 @@ public class SpriteCache : IDisposable {
 		int verticesPerImage = mesh.getNumIndices() > 0 ? 4 : 6;
 		FloatBuffer verticesBuffer = mesh.getVerticesBuffer(true);
 		currentCache = new Cache(caches.size, verticesBuffer.limit());
-		caches.add(currentCache);
+		caches.Add(currentCache);
 		verticesBuffer.compact();
 	}
 
@@ -161,12 +161,12 @@ public class SpriteCache : IDisposable {
 		if (currentCache != null) throw new IllegalStateException("endCache must be called before begin.");
 		Buffer verticesBuffer = (Buffer)mesh.getVerticesBuffer(true);
 		if (cacheID == caches.size - 1) {
-			Cache oldCache = caches.removeIndex(cacheID);
+			Cache oldCache = caches.RemoveIndex(cacheID);
 			verticesBuffer.limit(oldCache.offset);
 			beginCache();
 			return;
 		}
-		currentCache = caches.get(cacheID);
+		currentCache = caches.Get(cacheID);
 		verticesBuffer.position(currentCache.offset);
 	}
 
@@ -197,7 +197,7 @@ public class SpriteCache : IDisposable {
 
 			if (cache.textures.Length < cache.textureCount) cache.textures = new Texture[cache.textureCount];
 			for (int i = 0, n = cache.textureCount; i < n; i++)
-				cache.textures[i] = textures.get(i);
+				cache.textures[i] = textures.Get(i);
 
 			if (cache.counts.Length < cache.textureCount) cache.counts = new int[cache.textureCount];
 			for (int i = 0, n = cache.textureCount; i < n; i++)
@@ -205,7 +205,7 @@ public class SpriteCache : IDisposable {
 
 			FloatBuffer vertices = mesh.getVerticesBuffer(true);
 			((Buffer)vertices).position(0);
-			Cache lastCache = caches.get(caches.size - 1);
+			Cache lastCache = caches.Get(caches.size - 1);
 			((Buffer)vertices).limit(lastCache.offset + lastCache.maxCount);
 		}
 
@@ -231,8 +231,8 @@ public class SpriteCache : IDisposable {
 		int verticesPerImage = mesh.getNumIndices() > 0 ? 4 : 6;
 		int count = length / (verticesPerImage * VERTEX_SIZE) * 6;
 		int lastIndex = textures.size - 1;
-		if (lastIndex < 0 || textures.get(lastIndex) != texture) {
-			textures.add(texture);
+		if (lastIndex < 0 || textures.Get(lastIndex) != texture) {
+			textures.Add(texture);
 			counts.add(count);
 		} else
 			counts.incr(lastIndex, count);
@@ -812,11 +812,11 @@ public class SpriteCache : IDisposable {
 	/** Adds the specified sprite to the cache. */
 	public void add (Sprite sprite) {
 		if (mesh.getNumIndices() > 0) {
-			add(sprite.getTexture(), sprite.getVertices(), 0, SPRITE_SIZE);
+			add(sprite.getTexture(), sprite.GetVertices(), 0, SPRITE_SIZE);
 			return;
 		}
 
-		float[] spriteVertices = sprite.getVertices();
+		float[] spriteVertices = sprite.GetVertices();
 		Array.Copy(spriteVertices, 0, tempVertices, 0, 3 * VERTEX_SIZE); // temp0,1,2=sprite0,1,2
 		Array.Copy(spriteVertices, 2 * VERTEX_SIZE, tempVertices, 3 * VERTEX_SIZE, VERTEX_SIZE); // temp3=sprite2
 		Array.Copy(spriteVertices, 3 * VERTEX_SIZE, tempVertices, 4 * VERTEX_SIZE, VERTEX_SIZE); // temp4=sprite3
@@ -866,7 +866,7 @@ public class SpriteCache : IDisposable {
 	public void draw (int cacheID) {
 		if (!drawing) throw new IllegalStateException("SpriteCache.begin must be called before draw.");
 
-		Cache cache = caches.get(cacheID);
+		Cache cache = caches.Get(cacheID);
 		int verticesPerImage = mesh.getNumIndices() > 0 ? 4 : 6;
 		int offset = cache.offset / (verticesPerImage * VERTEX_SIZE) * 6;
 		Texture[] textures = cache.textures;
@@ -891,7 +891,7 @@ public class SpriteCache : IDisposable {
 	public void draw (int cacheID, int offset, int length) {
 		if (!drawing) throw new IllegalStateException("SpriteCache.begin must be called before draw.");
 
-		Cache cache = caches.get(cacheID);
+		Cache cache = caches.Get(cacheID);
 		int verticesPerImage = mesh.getNumIndices() > 0 ? 4 : 6;
 		offset = cache.offset / (verticesPerImage * VERTEX_SIZE) * 6 + offset * 6;
 		length *= 6;

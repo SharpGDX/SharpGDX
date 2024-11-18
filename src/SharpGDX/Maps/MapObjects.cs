@@ -23,14 +23,14 @@ public class MapObjects : IEnumerable<MapObject> {
 	/** @param index
 	 * @return the MapObject at the specified index */
 	public MapObject get (int index) {
-		return objects.get(index);
+		return objects.Get(index);
 	}
 
 	/** @param name
 	 * @return the first object having the specified name, if one exists, otherwise null */
 	public MapObject get (String name) {
 		for (int i = 0, n = objects.size; i < n; i++) {
-			MapObject obj = objects.get(i);
+			MapObject obj = objects.Get(i);
 			if (name.Equals(obj.getName())) {
 				return obj;
 			}
@@ -55,17 +55,17 @@ public class MapObjects : IEnumerable<MapObject> {
 
 	/** @param object instance to be added to the collection */
 	public void add (MapObject obj) {
-		this.objects.add(obj);
+		this.objects.Add(obj);
 	}
 
 	/** @param index removes MapObject instance at index */
 	public void remove (int index) {
-		objects.removeIndex(index);
+		objects.RemoveIndex(index);
 	}
 
 	/** @param object instance to be removed */
 	public void remove (MapObject obj) {
-		objects.removeValue(obj, true);
+		objects.RemoveValue(obj, true);
 	}
 
 	/** @param type class of the objects we want to retrieve
@@ -83,9 +83,9 @@ public class MapObjects : IEnumerable<MapObject> {
 	{
 		fill.clear();
 		for (int i = 0, n = objects.size; i < n; i++) {
-			MapObject obj = objects.get(i);
+			MapObject obj = objects.Get(i);
 			if (ClassReflection.isInstance(type, obj)) {
-				fill.add((T)obj);
+				fill.Add((T)obj);
 			}
 		}
 		return fill;

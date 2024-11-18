@@ -119,7 +119,7 @@ public class TideMapLoader : SynchronousAssetLoader<TiledMap, TideMapLoader.Para
 		foreach (Element tileset in tilesheets.getChildrenByName("TileSheet")) {
 			Element imageSource = tileset.getChildByName("ImageSource");
 			FileHandle image = getRelativeFileHandle(tideFile, imageSource.getText());
-			images.add(image);
+			images.Add(image);
 		}
 		return images;
 	}

@@ -141,21 +141,21 @@ namespace SharpGDX.Utils
 		base.swap(first, second);
 	}
 
-		public override bool removeValue(T value, bool identity)
+		public override bool RemoveValue(T value, bool identity)
 	{
 		modified();
-		return base.removeValue(value, identity);
+		return base.RemoveValue(value, identity);
 	}
 
-		public override T removeIndex(int index)
+		public override T RemoveIndex(int index)
 	{
 		modified();
-		return base.removeIndex(index);
+		return base.RemoveIndex(index);
 	}
-		public override void removeRange(int start, int end)
+		public override void RemoveRange(int start, int end)
 	{
 		modified();
-		base.removeRange(start, end);
+		base.RemoveRange(start, end);
 	}
 
 		public override bool removeAll(Array< T> array, bool identity)

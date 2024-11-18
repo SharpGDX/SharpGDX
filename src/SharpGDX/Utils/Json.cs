@@ -159,14 +159,14 @@ public class Json {
 		Array<Type> classHierarchy = new ();
 		Type nextClass = type;
 		while (nextClass != typeof(object)) {
-			classHierarchy.add(nextClass);
+			classHierarchy.Add(nextClass);
 			nextClass = nextClass.BaseType;
 		}
 
         System.Collections.Generic.List<Field> allFields = new ();
         for (int i = classHierarchy.size - 1; i >= 0; i--)
         {
-			allFields.AddRange(ClassReflection.getDeclaredFields(classHierarchy.get(i)));
+			allFields.AddRange(ClassReflection.getDeclaredFields(classHierarchy.Get(i)));
         }
 
 		OrderedMap<String, FieldMetadata> nameToField = new (allFields.Count());
@@ -274,7 +274,7 @@ public class Json {
 		int defaultIndex = 0;
 		Array<String> fieldNames = fields.orderedKeys();
 		for (int i = 0, n = fieldNames.size; i < n; i++) {
-			FieldMetadata metadata = fields.get(fieldNames.get(i));
+			FieldMetadata metadata = fields.get(fieldNames.Get(i));
 			if (ignoreDeprecated && metadata.deprecated) continue;
 			Field field = metadata.field;
 			try {
@@ -327,7 +327,7 @@ public class Json {
 		int defaultIndex = 0;
 		Array<String> fieldNames = fields.orderedKeys();
 		for (int i = 0, n = fieldNames.size; i < n; i++) {
-			FieldMetadata metadata = fields.get(fieldNames.get(i));
+			FieldMetadata metadata = fields.get(fieldNames.Get(i));
 			if (ignoreDeprecated && metadata.deprecated) continue;
 			Field field = metadata.field;
 			try {

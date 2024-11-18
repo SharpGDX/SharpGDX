@@ -104,7 +104,7 @@ public class GlyphLayout : IPoolable {
 		
 		bool wrapOrTruncate = wrap || truncate != null;
 
-		int currentColor = color.toIntBits(), nextColor = currentColor;
+		int currentColor = color.ToIntBits(), nextColor = currentColor;
 		colors.add(0, currentColor);
 		bool markupEnabled = fontData.markupEnabled;
 		if (markupEnabled) colorStack.add(currentColor);
@@ -174,7 +174,7 @@ public class GlyphLayout : IPoolable {
 					if (lineRun == null) goto runEnded; // Otherwise wrap and truncate must still be processed for lineRun.
 				} else if (lineRun == null) {
 					lineRun = run;
-					runs.add(lineRun);
+					runs.Add(lineRun);
 				} else {
 					lineRun.appendRun(run);
 					glyphRunPool.free(run);
@@ -192,7 +192,7 @@ public class GlyphLayout : IPoolable {
 					// Wrap or truncate. First xadvance is the first glyph's X offset relative to the drawing position.
 					float runWidth = lineRun.xAdvances.first() + lineRun.xAdvances.get(1); // At least the first glyph will fit.
 					for (int i = 2; i < lineRun.xAdvances.size; i++) {
-						BitmapFont.Glyph glyph = lineRun.glyphs.get(i - 1);
+						BitmapFont.Glyph glyph = lineRun.glyphs.Get(i - 1);
 						float glyphWidth = getGlyphWidth(glyph, fontData);
 						if (runWidth + glyphWidth - epsilon <= targetWidth) {
 							// Glyph fits.
@@ -214,7 +214,7 @@ public class GlyphLayout : IPoolable {
 						}
 						lineRun = this.wrap(fontData, lineRun, wrapIndex);
 						if (lineRun == null) goto runEnded; // All wrapped glyphs were whitespace.
-						runs.add(lineRun);
+						runs.Add(lineRun);
 
 						y += down;
 						lineRun.x = 0;
@@ -364,12 +364,12 @@ public class GlyphLayout : IPoolable {
 		// Skip whitespace before the wrap index.
 		int firstEnd = wrapIndex;
 		for (; firstEnd > 0; firstEnd--)
-			if (!fontData.isWhitespace((char)glyphs2.get(firstEnd - 1).id)) break;
+			if (!fontData.isWhitespace((char)glyphs2.Get(firstEnd - 1).id)) break;
 
 		// Skip whitespace after the wrap index.
 		int secondStart = wrapIndex;
 		for (; secondStart < glyphCount; secondStart++)
-			if (!fontData.isWhitespace((char)glyphs2.get(secondStart).id)) break;
+			if (!fontData.isWhitespace((char)glyphs2.Get(secondStart).id)) break;
 
 		// Copy wrapped glyphs and xadvances to second run.
 		// The second run will contain the remaining glyph data, so swap instances rather than copying.
@@ -379,7 +379,7 @@ public class GlyphLayout : IPoolable {
 
 			Array<BitmapFont.Glyph> glyphs1 = second.glyphs; // Starts empty.
 			glyphs1.addAll(glyphs2, 0, firstEnd);
-			glyphs2.removeRange(0, secondStart - 1);
+			glyphs2.RemoveRange(0, secondStart - 1);
 			first.glyphs = glyphs1;
 			second.glyphs = glyphs2;
 
@@ -490,7 +490,7 @@ public class GlyphLayout : IPoolable {
 			if (ch != ']') continue;
 			Color color = Colors.get(str.Substring(start, i).ToString());
 			if (color == null) return -1; // Unknown color name.
-			colorStack.add(color.toIntBits());
+			colorStack.add(color.ToIntBits());
 			return i - start;
 		}
 		return -1; // Unclosed color tag.
@@ -513,7 +513,7 @@ public class GlyphLayout : IPoolable {
 		buffer.Append(height);
 		buffer.Append('\n');
 		for (int i = 0, n = runs.size; i < n; i++) {
-			buffer.Append(runs.get(i).ToString());
+			buffer.Append(runs.Get(i).ToString());
 			buffer.Append('\n');
 		}
 		buffer.Length=(buffer.Length - 1);
@@ -549,7 +549,7 @@ public class GlyphLayout : IPoolable {
 			StringBuilder buffer = new StringBuilder(this.glyphs.size + 32);
 			Array<BitmapFont.Glyph> glyphs = this.glyphs;
 			for (int i = 0, n = glyphs.size; i < n; i++) {
-				BitmapFont.Glyph g = glyphs.get(i);
+				BitmapFont.Glyph g = glyphs.Get(i);
 				buffer.Append((char)g.id);
 			}
 			buffer.Append(", ");

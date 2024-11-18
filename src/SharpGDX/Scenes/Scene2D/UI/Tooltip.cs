@@ -122,21 +122,21 @@ where T: Actor{
 		container.pack();
 
 		float offsetX = manager.offsetX, offsetY = manager.offsetY, dist = manager.edgeDistance;
-		Vector2 point = actor.localToStageCoordinates(tmp.set(x + offsetX, y - offsetY - container.getHeight()));
-		if (point.y < dist) point = actor.localToStageCoordinates(tmp.set(x + offsetX, y + offsetY));
+		Vector2 point = actor.localToStageCoordinates(tmp.Set(x + offsetX, y - offsetY - container.getHeight()));
+		if (point.y < dist) point = actor.localToStageCoordinates(tmp.Set(x + offsetX, y + offsetY));
 		if (point.x < dist) point.x = dist;
 		if (point.x + container.getWidth() > stage.getWidth() - dist) point.x = stage.getWidth() - dist - container.getWidth();
 		if (point.y + container.getHeight() > stage.getHeight() - dist) point.y = stage.getHeight() - dist - container.getHeight();
 		container.setPosition(point.x, point.y);
 
-		point = actor.localToStageCoordinates(tmp.set(actor.getWidth() / 2, actor.getHeight() / 2));
-		point.sub(container.getX(), container.getY());
+		point = actor.localToStageCoordinates(tmp.Set(actor.getWidth() / 2, actor.getHeight() / 2));
+		point.Sub(container.getX(), container.getY());
 		container.setOrigin(point.x, point.y);
 	}
 
 	public override void enter (InputEvent @event, float x, float y, int pointer, Actor? fromActor) {
 		if (pointer != -1) return;
-		if (touchIndependent && Gdx.Input.isTouched()) return;
+		if (touchIndependent && Gdx.Input.IsTouched()) return;
 		Actor actor = @event.getListenerActor();
 		if (fromActor != null && fromActor.isDescendantOf(actor)) return;
 		setContainerPosition(actor, x, y);

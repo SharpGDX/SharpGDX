@@ -74,8 +74,8 @@ public class IsometricTiledMapRenderer : BatchTiledMapRenderer {
 	}
 
 	public override void renderTileLayer (TiledMapTileLayer layer) {
-		 Color batchColor = batch.getColor();
-		 float color = Color.toFloatBits(batchColor.r, batchColor.g, batchColor.b, batchColor.a * layer.getOpacity());
+		 Color batchColor = batch.GetColor();
+		 float color = Color.ToFloatBits(batchColor.R, batchColor.G, batchColor.B, batchColor.A * layer.getOpacity());
 
 		float tileWidth = layer.getTileWidth() * unitScale;
 		float tileHeight = layer.getTileHeight() * unitScale;
@@ -89,13 +89,13 @@ public class IsometricTiledMapRenderer : BatchTiledMapRenderer {
 
 		// setting up the screen points
 		// COL1
-		topRight.set(viewBounds.x + viewBounds.width - layerOffsetX, viewBounds.y - layerOffsetY);
+		topRight.Set(viewBounds.x + viewBounds.width - layerOffsetX, viewBounds.y - layerOffsetY);
 		// COL2
-		bottomLeft.set(viewBounds.x - layerOffsetX, viewBounds.y + viewBounds.height - layerOffsetY);
+		bottomLeft.Set(viewBounds.x - layerOffsetX, viewBounds.y + viewBounds.height - layerOffsetY);
 		// ROW1
-		topLeft.set(viewBounds.x - layerOffsetX, viewBounds.y - layerOffsetY);
+		topLeft.Set(viewBounds.x - layerOffsetX, viewBounds.y - layerOffsetY);
 		// ROW2
-		bottomRight.set(viewBounds.x + viewBounds.width - layerOffsetX, viewBounds.y + viewBounds.height - layerOffsetY);
+		bottomRight.Set(viewBounds.x + viewBounds.width - layerOffsetX, viewBounds.y + viewBounds.height - layerOffsetY);
 
 		// transforming screen coordinates to iso coordinates
 		int row1 = (int)(translateScreenToIso(topLeft).y / tileWidth) - 2;
@@ -217,7 +217,7 @@ public class IsometricTiledMapRenderer : BatchTiledMapRenderer {
 						}
 						}
 					}
-					batch.draw(region.getTexture(), vertices, 0, NUM_VERTICES);
+					batch.Draw(region.getTexture(), vertices, 0, NUM_VERTICES);
 				}
 			}
 		}

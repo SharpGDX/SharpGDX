@@ -61,7 +61,7 @@ public class XmlWriter : Writer {
 	{
 		if (currentElement == null) return false;
 		_indent++;
-		stack.add(currentElement);
+		stack.Add(currentElement);
 		currentElement = null;
 		writer.write(">");
 		return true;

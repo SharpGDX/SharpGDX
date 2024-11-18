@@ -80,17 +80,17 @@ public abstract class BatchTiledMapRenderer : ITiledMapRenderer, IDisposable {
 	}
 
 	public void setView (OrthographicCamera camera) {
-		batch.setProjectionMatrix(camera.combined);
+		batch.SetProjectionMatrix(camera.Combined);
 		float width = camera.viewportWidth * camera.zoom;
 		float height = camera.viewportHeight * camera.zoom;
 		float w = width * Math.Abs(camera.up.y) + height * Math.Abs(camera.up.x);
 		float h = height * Math.Abs(camera.up.y) + width * Math.Abs(camera.up.x);
-		viewBounds.set(camera.position.x - w / 2, camera.position.y - h / 2, w, h);
+		viewBounds.Set(camera.position.x - w / 2, camera.position.y - h / 2, w, h);
 	}
 
 	public void setView (Matrix4 projection, float x, float y, float width, float height) {
-		batch.setProjectionMatrix(projection);
-		viewBounds.set(x, y, width, height);
+		batch.SetProjectionMatrix(projection);
+		viewBounds.Set(x, y, width, height);
 	}
 
 	public void render () {
@@ -143,8 +143,8 @@ public abstract class BatchTiledMapRenderer : ITiledMapRenderer, IDisposable {
 	public abstract void renderTileLayer(TiledMapTileLayer layer);
 
 	public void renderImageLayer (TiledMapImageLayer layer) {
-		 Color batchColor = batch.getColor();
-		 float color = Color.toFloatBits(batchColor.r, batchColor.g, batchColor.b, batchColor.a * layer.getOpacity());
+		 Color batchColor = batch.GetColor();
+		 float color = Color.ToFloatBits(batchColor.R, batchColor.G, batchColor.B, batchColor.A * layer.getOpacity());
 
 		 float[] vertices = this.vertices;
 
@@ -161,9 +161,9 @@ public abstract class BatchTiledMapRenderer : ITiledMapRenderer, IDisposable {
 		 float x2 = x1 + region.getRegionWidth() * unitScale;
 		 float y2 = y1 + region.getRegionHeight() * unitScale;
 
-		imageBounds.set(x1, y1, x2 - x1, y2 - y1);
+		imageBounds.Set(x1, y1, x2 - x1, y2 - y1);
 
-		if (viewBounds.contains(imageBounds) || viewBounds.overlaps(imageBounds)) {
+		if (viewBounds.contains(imageBounds) || viewBounds.Overlaps(imageBounds)) {
 			 float u1 = region.getU();
 			 float v1 = region.getV2();
 			 float u2 = region.getU2();
@@ -193,19 +193,19 @@ public abstract class BatchTiledMapRenderer : ITiledMapRenderer, IDisposable {
 			vertices[U4] = u2;
 			vertices[V4] = v1;
 
-			batch.draw(region.getTexture(), vertices, 0, NUM_VERTICES);
+			batch.Draw(region.getTexture(), vertices, 0, NUM_VERTICES);
 		}
 	}
 
 	/** Called before the rendering of all layers starts. */
 	protected void beginRender () {
 		AnimatedTiledMapTile.updateAnimationBaseTime();
-		batch.begin();
+		batch.Begin();
 	}
 
 	/** Called after the rendering of all layers ended. */
 	protected void endRender () {
-		batch.end();
+		batch.End();
 	}
 
 	public void Dispose () {

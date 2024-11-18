@@ -90,7 +90,7 @@ namespace SharpGDX.Utils
                         task.executeTimeMillis = executeTimeMillis;
                         task.intervalMillis = (long)(intervalSeconds * 1000);
                         task.repeatCount = repeatCount;
-                        tasks.add(task);
+                        tasks.Add(task);
                     }
                 }
 
@@ -109,7 +109,7 @@ namespace SharpGDX.Utils
         {
             lock (threadLock)
             {
-                if (thread().instances.removeValue(this, true)) stopTimeMillis = TimeUtils.nanoTime() / 1000000;
+                if (thread().instances.RemoveValue(this, true)) stopTimeMillis = TimeUtils.nanoTime() / 1000000;
             }
         }
 
@@ -122,7 +122,7 @@ namespace SharpGDX.Utils
                 TimerThread _thread = thread();
                 Array<Timer> instances = _thread.instances;
                 if (instances.contains(this, true)) return;
-                instances.add(this);
+                instances.Add(this);
                 if (stopTimeMillis > 0)
                 {
                     delay(TimeUtils.nanoTime() / 1000000 - stopTimeMillis);
@@ -150,7 +150,7 @@ namespace SharpGDX.Utils
                     {
                         for (int i = 0, n = tasks.size; i < n; i++)
                         {
-                            Task task = tasks.get(i);
+                            Task task = tasks.Get(i);
                             _thread.removePostedTask(task);
                             task.reset();
                         }
@@ -177,7 +177,7 @@ namespace SharpGDX.Utils
             {
                 for (int i = 0, n = tasks.size; i < n; i++)
                 {
-                    Task task = tasks.get(i);
+                    Task task = tasks.Get(i);
                     lock (task)
                     {
                         if (task.executeTimeMillis > timeMillis)
@@ -189,7 +189,7 @@ namespace SharpGDX.Utils
                         if (task.repeatCount == 0)
                         {
                             task.timer = null;
-                            tasks.removeIndex(i);
+                            tasks.RemoveIndex(i);
                             i--;
                             n--;
                         }
@@ -215,7 +215,7 @@ namespace SharpGDX.Utils
             {
                 for (int i = 0, n = tasks.size; i < n; i++)
                 {
-                    Task task = tasks.get(i);
+                    Task task = tasks.Get(i);
                     lock (task)
                     {
                         task.executeTimeMillis += delayMillis;
@@ -283,7 +283,7 @@ namespace SharpGDX.Utils
                     {
                         lock (timer)
                         {
-                            timer.tasks.removeValue(this, true);
+                            timer.tasks.RemoveValue(this, true);
                             reset();
                         }
                     }
@@ -376,12 +376,12 @@ namespace SharpGDX.Utils
                                 {
                                     try
                                     {
-                                        waitMillis = instances.get(i).update(this, timeMillis, waitMillis);
+                                        waitMillis = instances.Get(i).update(this, timeMillis, waitMillis);
                                     }
                                     catch (Exception ex)
                                     {
                                         throw new GdxRuntimeException(
-                                            "Task failed: " + instances.get(i).GetType().Name, ex);
+                                            "Task failed: " + instances.Get(i).GetType().Name, ex);
                                     }
                                 }
                             }
@@ -425,7 +425,7 @@ namespace SharpGDX.Utils
                 lock (postedTasks)
                 {
                     if (postedTasks.isEmpty()) task.app.PostRunnable(_runPostedTasks);
-                    postedTasks.add(task);
+                    postedTasks.Add(task);
                 }
             }
 
@@ -436,7 +436,7 @@ namespace SharpGDX.Utils
                     Object[] items = postedTasks.items;
                     for (int i = postedTasks.size - 1; i >= 0; i--)
                         if (items[i] == task)
-                            postedTasks.removeIndex(i);
+                            postedTasks.RemoveIndex(i);
                 }
             }
 
@@ -447,7 +447,7 @@ namespace SharpGDX.Utils
                     Monitor.Enter(threadLock);
                     long delayMillis = TimeUtils.nanoTime() / 1000000 - pauseTimeMillis;
                     for (int i = 0, n = instances.size; i < n; i++)
-                        instances.get(i).delay(delayMillis);
+                        instances.Get(i).delay(delayMillis);
                     pauseTimeMillis = 0;
                     Monitor.PulseAll(threadLock);
                 }

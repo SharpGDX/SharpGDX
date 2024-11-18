@@ -281,7 +281,7 @@ namespace SharpGDX.Desktop
 			return frameId;
 		}
 
-		public override float getDeltaTime()
+		public override float GetDeltaTime()
 		{
 			return deltaTime;
 		}

@@ -150,7 +150,7 @@ public class BitmapFont : IDisposable {
 					file = Gdx.Files.Internal(data.imagePaths[i]);
 				else
 					file = Gdx.Files.GetFileHandle(data.imagePaths[i], data.fontFile.type());
-				regions.add(new TextureRegion(new Texture(file, false)));
+				regions.Add(new TextureRegion(new Texture(file, false)));
 			}
 			_ownsTexture = true;
 		} else {
@@ -169,10 +169,10 @@ public class BitmapFont : IDisposable {
 			foreach (Glyph glyph in page)
 				if (glyph != null)
 				{
-					data.setGlyphRegion(glyph, regions.get(glyph.page));
+					data.setGlyphRegion(glyph, regions.Get(glyph.page));
 				}
 		}
-		if (data.missingGlyph != null) data.setGlyphRegion(data.missingGlyph, regions.get(data.missingGlyph.page));
+		if (data.missingGlyph != null) data.setGlyphRegion(data.missingGlyph, regions.Get(data.missingGlyph.page));
 	}
 
 	/** Draws text at the specified position.
@@ -228,12 +228,12 @@ public class BitmapFont : IDisposable {
 
 	/** A convenience method for setting the font color. The color can also be set by modifying {@link #getColor()}. */
 	public void setColor (Color color) {
-		cache.getColor().set(color);
+		cache.getColor().Set(color);
 	}
 
 	/** A convenience method for setting the font color. The color can also be set by modifying {@link #getColor()}. */
 	public void setColor (float r, float g, float b, float a) {
-		cache.getColor().set(r, g, b, a);
+		cache.getColor().Set(r, g, b, a);
 	}
 
 	public float getScaleX () {
@@ -260,7 +260,7 @@ public class BitmapFont : IDisposable {
 	/** Returns the texture page at the given index.
 	 * @return the texture page at the given index */
 	public TextureRegion getRegion (int index) {
-		return regions.get(index);
+		return regions.Get(index);
 	}
 
 	/** Returns the line height, which is the distance from one line of text to the next. */
@@ -304,7 +304,7 @@ public class BitmapFont : IDisposable {
 	public void Dispose () {
 		if (_ownsTexture) {
 			for (int i = 0; i < regions.size; i++)
-				regions.get(i).getTexture().Dispose();
+				regions.Get(i).getTexture().Dispose();
 		}
 	}
 
@@ -890,7 +890,7 @@ public class BitmapFont : IDisposable {
 					if (missingGlyph == null) continue;
 					glyph = missingGlyph;
 				}
-				glyphs.add(glyph);
+				glyphs.Add(glyph);
 				xAdvances.add(lastGlyph == null // First glyph on line, adjust the position so it isn't drawn left of 0.
 					? (glyph.fixedWidth ? 0 : -glyph.xoffset * scaleX - padLeft)
 					: (lastGlyph.xadvance + lastGlyph.getKerning(ch)) * scaleX);

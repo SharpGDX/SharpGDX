@@ -151,8 +151,8 @@ public class DistanceFieldFont : BitmapFont {
 		}
 
 		private void setSmoothingUniform (IBatch spriteBatch, float smoothing) {
-			spriteBatch.flush();
-			spriteBatch.getShader().setUniformf("u_smoothing", smoothing);
+			spriteBatch.Flush();
+			spriteBatch.GetShader().setUniformf("u_smoothing", smoothing);
 		}
 
 		public override void draw (IBatch spriteBatch) {

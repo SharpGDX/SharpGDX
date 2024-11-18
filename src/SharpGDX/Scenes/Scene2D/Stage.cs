@@ -95,10 +95,10 @@ public class Stage : InputAdapter , IDisposable {
 		if (!root.isVisible()) return;
 
 		IBatch batch = this.batch;
-		batch.setProjectionMatrix(camera.combined);
-		batch.begin();
+		batch.SetProjectionMatrix(camera.Combined);
+		batch.Begin();
 		root.draw(batch, 1);
-		batch.end();
+		batch.End();
 
 		if (debug) drawDebug();
 	}
@@ -110,7 +110,7 @@ public class Stage : InputAdapter , IDisposable {
 		}
 
 		if (debugUnderMouse || debugParentUnderMouse || debugTableUnderMouse != Table.Debug.none) {
-			screenToStageCoordinates(tempCoords.set(Gdx.Input.getX(), Gdx.Input.getY()));
+			screenToStageCoordinates(tempCoords.Set(Gdx.Input.GetX(), Gdx.Input.GetY()));
 			Actor actor = hit(tempCoords.x, tempCoords.y, true);
 			if (actor == null) return;
 
@@ -135,7 +135,7 @@ public class Stage : InputAdapter , IDisposable {
 		}
 
 		Gdx.GL.glEnable(IGL20.GL_BLEND);
-		debugShapes.setProjectionMatrix(viewport.GetCamera().combined);
+		debugShapes.setProjectionMatrix(viewport.GetCamera().Combined);
 		debugShapes.begin();
 		root.drawDebug(debugShapes);
 		debugShapes.end();
@@ -149,13 +149,13 @@ public class Stage : InputAdapter , IDisposable {
 		if (actor is Group) {
 			SnapshotArray<Actor> children = ((Group)actor).children;
 			for (int i = 0, n = children.size; i < n; i++)
-				disableDebug(children.get(i), except);
+				disableDebug(children.Get(i), except);
 		}
 	}
 
 	/** Calls {@link #act(float)} with {@link Graphics#getDeltaTime()}, limited to a minimum of 30fps. */
 	public void act () {
-		act(Math.Min(Gdx.Graphics.getDeltaTime(), 1 / 30f));
+		act(Math.Min(Gdx.Graphics.GetDeltaTime(), 1 / 30f));
 	}
 
 	/** Calls the {@link Actor#act(float)} method on each actor in the stage. Typically called each frame. This method also fires
@@ -185,7 +185,7 @@ public class Stage : InputAdapter , IDisposable {
 
 	private Actor? fireEnterAndExit (Actor? overLast, int screenX, int screenY, int pointer) {
 		// Find the actor under the point.
-		screenToStageCoordinates(tempCoords.set(screenX, screenY));
+		screenToStageCoordinates(tempCoords.Set(screenX, screenY));
 		Actor over = hit(tempCoords.x, tempCoords.y, true);
 		if (over == overLast) return overLast;
 
@@ -218,7 +218,7 @@ public class Stage : InputAdapter , IDisposable {
 	}
 
 	private void fireExit (Actor actor, int screenX, int screenY, int pointer) {
-		screenToStageCoordinates(tempCoords.set(screenX, screenY));
+		screenToStageCoordinates(tempCoords.Set(screenX, screenY));
 		InputEvent @event = Pools.obtain<InputEvent>(typeof(InputEvent));
 		@event.setType(InputEvent.Type.exit);
 		@event.setStage(this);
@@ -239,7 +239,7 @@ public class Stage : InputAdapter , IDisposable {
 		pointerScreenX[pointer] = screenX;
 		pointerScreenY[pointer] = screenY;
 
-		screenToStageCoordinates(tempCoords.set(screenX, screenY));
+		screenToStageCoordinates(tempCoords.Set(screenX, screenY));
 
 		InputEvent @event = Pools.obtain<InputEvent>(typeof(InputEvent));
 		@event.setType(InputEvent.Type.touchDown);
@@ -270,7 +270,7 @@ public class Stage : InputAdapter , IDisposable {
 
 		if (this.touchFocuses.size == 0) return false;
 
-		screenToStageCoordinates(tempCoords.set(screenX, screenY));
+		screenToStageCoordinates(tempCoords.Set(screenX, screenY));
 
 		InputEvent @event = Pools.obtain<Scene2D.InputEvent>(typeof(InputEvent));
 		@event.setType(InputEvent.Type.touchDragged);
@@ -305,7 +305,7 @@ public class Stage : InputAdapter , IDisposable {
 
 		if (this.touchFocuses.size == 0) return false;
 
-		screenToStageCoordinates(tempCoords.set(screenX, screenY));
+		screenToStageCoordinates(tempCoords.Set(screenX, screenY));
 
 		InputEvent @event = Pools.obtain<InputEvent>(typeof(InputEvent));
 		@event.setType(InputEvent.Type.touchUp);
@@ -320,7 +320,7 @@ public class Stage : InputAdapter , IDisposable {
 		for (int i = 0, n = touchFocuses.size; i < n; i++) {
 			TouchFocus focus = focuses[i];
 			if (focus.pointer != pointer || focus.button != button) continue;
-			if (!touchFocuses.removeValue(focus, true)) continue; // Touch focus already gone.
+			if (!touchFocuses.RemoveValue(focus, true)) continue; // Touch focus already gone.
 			@event.setTarget(focus.target);
 			@event.setListenerActor(focus.listenerActor);
 			if (focus.listener.handle(@event)) @event.handle();
@@ -346,7 +346,7 @@ public class Stage : InputAdapter , IDisposable {
 
 		if (!isInsideViewport(screenX, screenY)) return false;
 
-		screenToStageCoordinates(tempCoords.set(screenX, screenY));
+		screenToStageCoordinates(tempCoords.Set(screenX, screenY));
 
 		InputEvent @event = Pools.obtain<InputEvent>(typeof(InputEvent));
 		@event.setType(InputEvent.Type.mouseMoved);
@@ -368,7 +368,7 @@ public class Stage : InputAdapter , IDisposable {
 	public bool scrolled (float amountX, float amountY) {
 		Actor target = scrollFocus == null ? root : scrollFocus;
 
-		screenToStageCoordinates(tempCoords.set(mouseScreenX, mouseScreenY));
+		screenToStageCoordinates(tempCoords.Set(mouseScreenX, mouseScreenY));
 
 		InputEvent @event = Pools.obtain<InputEvent>(typeof(InputEvent));
 		@event.setType(InputEvent.Type.scrolled);
@@ -436,7 +436,7 @@ public class Stage : InputAdapter , IDisposable {
 		focus.listener = listener;
 		focus.pointer = pointer;
 		focus.button = button;
-		touchFocuses.add(focus);
+		touchFocuses.Add(focus);
 	}
 
 	/** Removes touch focus for the specified listener, pointer, and button. Note the listener will not receive a touchUp event
@@ -444,10 +444,10 @@ public class Stage : InputAdapter , IDisposable {
 	public void removeTouchFocus (IEventListener listener, Actor listenerActor, Actor target, int pointer, int button) {
 		SnapshotArray<TouchFocus> touchFocuses = this.touchFocuses;
 		for (int i = touchFocuses.size - 1; i >= 0; i--) {
-			TouchFocus focus = touchFocuses.get(i);
+			TouchFocus focus = touchFocuses.Get(i);
 			if (focus.listener == listener && focus.listenerActor == listenerActor && focus.target == target
 				&& focus.pointer == pointer && focus.button == button) {
-				touchFocuses.removeIndex(i);
+				touchFocuses.RemoveIndex(i);
 				Pools.free(focus);
 			}
 		}
@@ -464,7 +464,7 @@ public class Stage : InputAdapter , IDisposable {
 		for (int i = 0, n = touchFocuses.size; i < n; i++) {
 			TouchFocus focus = items[i];
 			if (focus.listenerActor != listenerActor) continue;
-			if (!touchFocuses.removeValue(focus, true)) continue; // Touch focus already gone.
+			if (!touchFocuses.RemoveValue(focus, true)) continue; // Touch focus already gone.
 
 			if (@event == null) {
 				@event = Pools.obtain<InputEvent>(typeof(InputEvent));
@@ -509,7 +509,7 @@ public class Stage : InputAdapter , IDisposable {
 		for (int i = 0, n = touchFocuses.size; i < n; i++) {
 			TouchFocus focus = items[i];
 			if (focus.listener == exceptListener && focus.listenerActor == exceptActor) continue;
-			if (!touchFocuses.removeValue(focus, true)) continue; // Touch focus already gone.
+			if (!touchFocuses.RemoveValue(focus, true)) continue; // Touch focus already gone.
 			@event.setTarget(focus.target);
 			@event.setListenerActor(focus.listenerActor);
 			@event.setPointer(focus.pointer);
@@ -718,7 +718,7 @@ public class Stage : InputAdapter , IDisposable {
 	 * @param touchable If true, the hit detection will respect the {@link Actor#setTouchable(Touchable) touchability}.
 	 * @return May be null if no actor was hit. */
 	public Actor? hit (float stageX, float stageY, bool touchable) {
-		root.parentToLocalCoordinates(tempCoords.set(stageX, stageY));
+		root.parentToLocalCoordinates(tempCoords.Set(stageX, stageY));
 		return root.hit(tempCoords.x, tempCoords.y, touchable);
 	}
 
@@ -752,7 +752,7 @@ public class Stage : InputAdapter , IDisposable {
 		if (debugShapes != null && debugShapes.isDrawing())
 			transformMatrix = debugShapes.getTransformMatrix();
 		else
-			transformMatrix = batch.getTransformMatrix();
+			transformMatrix = batch.GetTransformMatrix();
 		viewport.CalculateScissors(transformMatrix, localRect, scissorRect);
 	}
 

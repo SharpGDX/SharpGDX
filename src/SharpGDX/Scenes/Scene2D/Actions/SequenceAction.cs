@@ -50,7 +50,7 @@ public class SequenceAction : ParallelAction {
 		var pool = getPool();
 		setPool((Pool<Action>?)null); // Ensure this action can't be returned to the pool while executings.
 		try {
-			if (actions.get(index).act(delta)) {
+			if (actions.Get(index).act(delta)) {
 				if (actor == null) return true; // This action was removed.
 				index++;
 				if (index >= actions.size) return true;

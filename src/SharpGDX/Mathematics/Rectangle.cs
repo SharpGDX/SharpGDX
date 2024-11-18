@@ -50,7 +50,7 @@ namespace SharpGDX.Mathematics
 	 * @param width width
 	 * @param height height
 	 * @return this rectangle for chaining */
-	public Rectangle set(float x, float y, float width, float height)
+	public Rectangle Set(float x, float y, float width, float height)
 	{
 		this.x = x;
 		this.y = y;
@@ -128,7 +128,7 @@ namespace SharpGDX.Mathematics
 	 * @param position The Vector2 */
 	public Vector2 getPosition(Vector2 position)
 	{
-		return position.set(x, y);
+		return position.Set(x, y);
 	}
 
 	/** Sets the x and y-coordinates of the bottom left corner from vector
@@ -181,7 +181,7 @@ namespace SharpGDX.Mathematics
 	 * @param size The Vector2 */
 	public Vector2 getSize(Vector2 size)
 	{
-		return size.set(width, height);
+		return size.Set(width, height);
 	}
 
 	/** @param x point x coordinate
@@ -223,7 +223,7 @@ namespace SharpGDX.Mathematics
 
 	/** @param r the other {@link Rectangle}
 	 * @return whether this rectangle overlaps the other rectangle. */
-	public bool overlaps(Rectangle r)
+	public bool Overlaps(Rectangle r)
 	{
 		return x < r.x + r.width && x + width > r.x && y < r.y + r.height && y + height > r.y;
 	}
@@ -231,7 +231,7 @@ namespace SharpGDX.Mathematics
 	/** Sets the values of the given rectangle to this rectangle.
 	 * @param rect the other rectangle
 	 * @return this rectangle for chaining */
-	public Rectangle set(Rectangle rect)
+	public Rectangle Set(Rectangle rect)
 	{
 		this.x = rect.x;
 		this.y = rect.y;
@@ -418,7 +418,7 @@ namespace SharpGDX.Mathematics
 				float y = float.Parse(v.Substring(s0 + 1, s1));
 				float width = float.Parse(v.Substring(s1 + 1, s2));
 				float height = float.Parse(v.Substring(s2 + 1, v.Length - 1));
-				return this.set(x, y, width, height);
+				return this.Set(x, y, width, height);
 			}
 			catch (FormatException ex)
 			{

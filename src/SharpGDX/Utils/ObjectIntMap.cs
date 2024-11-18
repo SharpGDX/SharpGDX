@@ -715,7 +715,7 @@ public Array<K> toArray()
 public Array<K> toArray(Array<K> array)
 {
 	while (_hasNext)
-		array.add(Current);
+		array.Add(Current);
 	return array;
 }
 

@@ -156,7 +156,7 @@ public abstract class Viewport
     {
         _tmp.set(worldCoords.x, worldCoords.y, 1);
         _camera.project(_tmp, _screenX, _screenY, _screenWidth, _screenHeight);
-        worldCoords.set(_tmp.x, _tmp.y);
+        worldCoords.Set(_tmp.x, _tmp.y);
         return worldCoords;
     }
 
@@ -331,7 +331,7 @@ public abstract class Viewport
     {
         _tmp.set(screenCoords.x, screenCoords.y, 1);
         _camera.unproject(_tmp, _screenX, _screenY, _screenWidth, _screenHeight);
-        screenCoords.set(_tmp.x, _tmp.y);
+        screenCoords.Set(_tmp.x, _tmp.y);
         return screenCoords;
     }
 

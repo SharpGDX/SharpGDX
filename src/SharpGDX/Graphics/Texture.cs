@@ -226,7 +226,7 @@ public class Texture : GLTexture {
 		// removal from the asset manager.
 		if (glHandle == 0) return;
 		delete();
-		if (data.isManaged()) if (managedTextures.get(Gdx.App) != null) managedTextures.get(Gdx.App).removeValue(this, true);
+		if (data.isManaged()) if (managedTextures.get(Gdx.App) != null) managedTextures.get(Gdx.App).RemoveValue(this, true);
 	}
 
 		public override String ToString () {
@@ -237,7 +237,7 @@ public class Texture : GLTexture {
 	private static void addManagedTexture (IApplication app, Texture texture) {
 		Array<Texture> managedTextureArray = managedTextures.get(app);
 		if (managedTextureArray == null) managedTextureArray = new Array<Texture>();
-		managedTextureArray.add(texture);
+		managedTextureArray.Add(texture);
 		managedTextures.put(app, managedTextureArray);
 	}
 
@@ -253,7 +253,7 @@ public class Texture : GLTexture {
 
 		if (assetManager == null) {
 			for (int i = 0; i < managedTextureArray.size; i++) {
-				Texture texture = managedTextureArray.get(i);
+				Texture texture = managedTextureArray.Get(i);
 				texture.reload();
 			}
 		} else {

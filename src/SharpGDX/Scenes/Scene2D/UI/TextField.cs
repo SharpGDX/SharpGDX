@@ -311,7 +311,7 @@ public class TextField : Widget , IDisableable {
 		float width = getWidth();
 		float height = getHeight();
 
-		batch.setColor(color.r, color.g, color.b, color.a * parentAlpha);
+		batch.SetColor(color.R, color.G, color.B, color.A * parentAlpha);
 		float bgLeftWidth = 0, bgRightWidth = 0;
 		if (background != null) {
 			background.draw(batch, x, y, width, height);
@@ -331,17 +331,17 @@ public class TextField : Widget , IDisableable {
 			if ((!focused || disabled) && messageText != null) {
 				BitmapFont messageFont = style.messageFont != null ? style.messageFont : font;
 				if (style.messageFontColor != null) {
-					messageFont.setColor(style.messageFontColor.r, style.messageFontColor.g, style.messageFontColor.b,
-						style.messageFontColor.a * color.a * parentAlpha);
+					messageFont.setColor(style.messageFontColor.R, style.messageFontColor.G, style.messageFontColor.B,
+						style.messageFontColor.A * color.A * parentAlpha);
 				} else
-					messageFont.setColor(0.7f, 0.7f, 0.7f, color.a * parentAlpha);
+					messageFont.setColor(0.7f, 0.7f, 0.7f, color.A * parentAlpha);
 				drawMessageText(batch, messageFont, x + bgLeftWidth, y + textY + yOffset, width - bgLeftWidth - bgRightWidth);
 			}
 		} else {
             BitmapFontData data = font.getData();
             bool markupEnabled = data.markupEnabled;
             data.markupEnabled = false;
-            font.setColor(fontColor.r, fontColor.g, fontColor.b, fontColor.a * color.a * parentAlpha);
+            font.setColor(fontColor.R, fontColor.G, fontColor.B, fontColor.A * color.A * parentAlpha);
 			drawText(batch, font, x + bgLeftWidth, y + textY + yOffset);
 		}
 		if (!disabled && cursorOn && cursorPatch != null) {
@@ -507,19 +507,19 @@ public class TextField : Widget , IDisableable {
 		Stage stage = getStage();
 		if (stage == null) return;
 		TextField current = this;
-		Vector2 currentCoords = current.getParent().localToStageCoordinates(tmp2.set(current.getX(), current.getY()));
+		Vector2 currentCoords = current.getParent().localToStageCoordinates(tmp2.Set(current.getX(), current.getY()));
 		Vector2 bestCoords = tmp1;
 		while (true) {
 			TextField textField = current.findNextTextField(stage.getActors(), null, bestCoords, currentCoords, up);
 			if (textField == null) { // Try to wrap around.
 				if (up)
-					currentCoords.set(-float.MaxValue, -float.MaxValue);
+					currentCoords.Set(-float.MaxValue, -float.MaxValue);
 				else
-					currentCoords.set(float.MaxValue, float.MaxValue);
+					currentCoords.Set(float.MaxValue, float.MaxValue);
 				textField = current.findNextTextField(stage.getActors(), null, bestCoords, currentCoords, up);
 			}
 			if (textField == null) {
-				Gdx.Input.setOnscreenKeyboardVisible(false);
+				Gdx.Input.SetOnscreenKeyboardVisible(false);
 				break;
 			}
 			if (stage.setKeyboardFocus(textField)) {
@@ -535,12 +535,12 @@ public class TextField : Widget , IDisableable {
 	private TextField? findNextTextField (Array<Actor> actors, TextField? best, Vector2 bestCoords,
 		Vector2 currentCoords, bool up) {
 		for (int i = 0, n = actors.size; i < n; i++) {
-			Actor actor = actors.get(i);
+			Actor actor = actors.Get(i);
 			if (actor is TextField) {
 				if (actor == this) continue;
 				TextField textField = (TextField)actor;
 				if (textField.isDisabled() || !textField.focusTraversal || !textField.ascendantsVisible()) continue;
-				Vector2 actorCoords = actor.getParent().localToStageCoordinates(tmp3.set(actor.getX(), actor.getY()));
+				Vector2 actorCoords = actor.getParent().localToStageCoordinates(tmp3.Set(actor.getX(), actor.getY()));
 				bool below = actorCoords.y != currentCoords.y && (actorCoords.y < currentCoords.y ^ up);
 				bool right = actorCoords.y == currentCoords.y && (actorCoords.x > currentCoords.x ^ up);
 				if (!below && !right) continue;
@@ -827,7 +827,7 @@ public class TextField : Widget , IDisableable {
 	 * @author mzechner */
 	public class DefaultOnscreenKeyboard : IOnscreenKeyboard {
 		public void show (bool visible) {
-			Gdx.Input.setOnscreenKeyboardVisible(visible);
+			Gdx.Input.SetOnscreenKeyboardVisible(visible);
 		}
 	}
 
@@ -1055,7 +1055,7 @@ public class TextField : Widget , IDisableable {
 
 			if (!_textField.hasKeyboardFocus()) return false;
 
-			if (UIUtils.isMac && Gdx.Input.isKeyPressed(Keys.SYM)) return true;
+			if (UIUtils.isMac && Gdx.Input.IsKeyPressed(Keys.SYM)) return true;
 
 			if (checkFocusTraversal(character))
 				_textField.next(UIUtils.shift());

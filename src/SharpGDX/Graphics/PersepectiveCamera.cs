@@ -52,15 +52,15 @@ public class PerspectiveCamera : Camera
 		var aspect = viewportWidth / viewportHeight;
 		projection.setToProjection(Math.Abs(near), Math.Abs(far), FieldOfView, aspect);
 		view.setToLookAt(position, tmp.set(position).add(direction), up);
-		combined.set(projection);
-		Matrix4.mul(combined.val, view.val);
+		Combined.set(projection);
+		Matrix4.mul(Combined.val, view.val);
 
 		if (!updateFrustum)
 		{
 			return;
 		}
 
-		invProjectionView.set(combined);
+		invProjectionView.set(Combined);
 		Matrix4.inv(invProjectionView.val);
 		frustum.update(invProjectionView);
 	}

@@ -44,20 +44,30 @@ public class SpriteBatch : IBatch {
 	private bool ownsShader;
 
 	private readonly Color color = new Color(1, 1, 1, 1);
-	protected float colorPacked = Color.WHITE_FLOAT_BITS;
+	protected float colorPacked = Color.WhiteFloatBits;
 
-	/** Number of render calls since the last {@link #begin()}. **/
-	public int renderCalls = 0;
+        /// <summary>
+        /// Number of render calls since the last <see cref="Begin"/>.
+        /// </summary>
+        public int renderCalls = 0;
 
-	/** Number of rendering calls, ever. Will not be reset unless set manually. **/
-	public int totalRenderCalls = 0;
+        /// <summary>
+        /// Number of rendering calls, ever. Will not be reset unless set manually.
+        /// </summary>
+        public int totalRenderCalls = 0;
 
-	/** The maximum number of sprites rendered in one batch so far. **/
-	public int maxSpritesInBatch = 0;
+        /// <summary>
+        /// The maximum number of sprites rendered in one batch so far.
+        /// </summary>
+        public int maxSpritesInBatch = 0;
 
-	/** Constructs a new SpriteBatch with a size of 1000, one buffer, and the default shader.
-	 * @see SpriteBatch#SpriteBatch(int, ShaderProgram) */
-	public SpriteBatch () 
+        /// <summary>
+        /// Constructs a new SpriteBatch with a size of 1000, one buffer, and the default shader.
+        /// </summary>
+        /// <remarks>
+        ///See <see cref="SpriteBatch(int, ShaderProgram)"/>.
+        /// </remarks>
+        public SpriteBatch () 
 	: this(1000, null)
 	{
 		
@@ -79,7 +89,7 @@ public class SpriteBatch : IBatch {
 	 * the ones expect for shaders set with {@link #setShader(ShaderProgram)}. See {@link #createDefaultShader()}.
 	 * @param size The max number of sprites in a single batch. Max of 8191.
 	 * @param defaultShader The default shader to use. This is not owned by the SpriteBatch and must be disposed separately. */
-	public SpriteBatch (int size, ShaderProgram defaultShader) {
+	public SpriteBatch (int size, ShaderProgram? defaultShader) {
 		// 32767 is max vertex index, so 32767 / 4 vertices per sprite = 8191 sprites max.
 		if (size > 8191) throw new IllegalArgumentException("Can't have more than 8191 sprites per batch: " + size);
 
@@ -159,7 +169,7 @@ public class SpriteBatch : IBatch {
 		return shader;
 	}
 
-	public void begin () {
+	public void Begin () {
 		if (drawing) throw new IllegalStateException("SpriteBatch.end must be called before begin.");
 		renderCalls = 0;
 
@@ -173,44 +183,44 @@ public class SpriteBatch : IBatch {
 		drawing = true;
 	}
 
-	public void end () {
+	public void End () {
 		if (!drawing) throw new IllegalStateException("SpriteBatch.begin must be called before end.");
 		if (idx > 0)
 		{
-			flush();
+			Flush();
 		}
 		lastTexture = null;
 		drawing = false;
 
 		IGL20 gl = Gdx.GL;
 		gl.glDepthMask(true);
-		if (isBlendingEnabled()) gl.glDisable(IGL20.GL_BLEND);
+		if (IsBlendingEnabled()) gl.glDisable(IGL20.GL_BLEND);
 	}
 
-	public void setColor (Color tint) {
-		color.set(tint);
-		colorPacked = tint.toFloatBits();
+	public void SetColor (Color tint) {
+		color.Set(tint);
+		colorPacked = tint.ToFloatBits();
 	}
 
-	public void setColor (float r, float g, float b, float a) {
-		color.set(r, g, b, a);
-		colorPacked = color.toFloatBits();
+	public void SetColor (float r, float g, float b, float a) {
+		color.Set(r, g, b, a);
+		colorPacked = color.ToFloatBits();
 	}
 
-	public Color getColor () {
+	public Color GetColor () {
 		return color;
 	}
 
-	public void setPackedColor (float packedColor) {
-		Color.abgr8888ToColor(color, packedColor);
+	public void SetPackedColor (float packedColor) {
+		Color.ABGR8888ToColor(color, packedColor);
 		this.colorPacked = packedColor;
 	}
 
-	public float getPackedColor () {
+	public float GetPackedColor () {
 		return colorPacked;
 	}
 
-	public virtual void draw (Texture texture, float x, float y, float originX, float originY, float width, float height, float scaleX,
+	public virtual void Draw (Texture texture, float x, float y, float originX, float originY, float width, float height, float scaleX,
 		float scaleY, float rotation, int srcX, int srcY, int srcWidth, int srcHeight, bool flipX, bool flipY) {
 		if (!drawing) throw new IllegalStateException("SpriteBatch.begin must be called before draw.");
 
@@ -219,7 +229,7 @@ public class SpriteBatch : IBatch {
 		if (texture != lastTexture)
 			switchTexture(texture);
 		else if (this.idx == vertices.Length) //
-			flush();
+			Flush();
 
 		// bottom left and top right corner points relative to origin
 		 float worldOriginX = x + originX;
@@ -340,7 +350,7 @@ public class SpriteBatch : IBatch {
 		this.idx = idx + 20;
 	}
 
-	public virtual void draw (Texture texture, float x, float y, float width, float height, int srcX, int srcY, int srcWidth,
+	public virtual void Draw (Texture texture, float x, float y, float width, float height, int srcX, int srcY, int srcWidth,
 		int srcHeight, bool flipX, bool flipY) {
 		if (!drawing) throw new IllegalStateException("SpriteBatch.begin must be called before draw.");
 
@@ -349,7 +359,7 @@ public class SpriteBatch : IBatch {
 		if (texture != lastTexture)
 			switchTexture(texture);
 		else if (this.idx == vertices.Length) //
-			flush();
+			Flush();
 
 		float u = srcX * invTexWidth;
 		float v = (srcY + srcHeight) * invTexHeight;
@@ -398,7 +408,7 @@ public class SpriteBatch : IBatch {
 		this.idx = idx + 20;
 	}
 
-	public virtual void draw (Texture texture, float x, float y, int srcX, int srcY, int srcWidth, int srcHeight) {
+	public virtual void Draw (Texture texture, float x, float y, int srcX, int srcY, int srcWidth, int srcHeight) {
 		if (!drawing) throw new IllegalStateException("SpriteBatch.begin must be called before draw.");
 
 		float[] vertices = this.vertices;
@@ -406,7 +416,7 @@ public class SpriteBatch : IBatch {
 		if (texture != lastTexture)
 			switchTexture(texture);
 		else if (this.idx == vertices.Length) //
-			flush();
+			Flush();
 
 		 float u = srcX * invTexWidth;
 		 float v = (srcY + srcHeight) * invTexHeight;
@@ -443,7 +453,7 @@ public class SpriteBatch : IBatch {
 		this.idx = idx + 20;
 	}
 
-	public virtual void draw (Texture texture, float x, float y, float width, float height, float u, float v, float u2, float v2) {
+	public virtual void Draw (Texture texture, float x, float y, float width, float height, float u, float v, float u2, float v2) {
 		if (!drawing) throw new IllegalStateException("SpriteBatch.begin must be called before draw.");
 
 		float[] vertices = this.vertices;
@@ -451,7 +461,7 @@ public class SpriteBatch : IBatch {
 		if (texture != lastTexture)
 			switchTexture(texture);
 		else if (this.idx == vertices.Length) //
-			flush();
+			Flush();
 
 		 float fx2 = x + width;
 		 float fy2 = y + height;
@@ -484,11 +494,11 @@ public class SpriteBatch : IBatch {
 		this.idx = idx + 20;
 	}
 
-	public virtual void draw (Texture texture, float x, float y) {
-		draw(texture, x, y, texture.getWidth(), texture.getHeight());
+	public virtual void Draw (Texture texture, float x, float y) {
+		Draw(texture, x, y, texture.getWidth(), texture.getHeight());
 	}
 
-	public virtual void draw (Texture texture, float x, float y, float width, float height) {
+	public virtual void Draw (Texture texture, float x, float y, float width, float height) {
 		if (!drawing) throw new IllegalStateException("SpriteBatch.begin must be called before draw.");
 
 		float[] vertices = this.vertices;
@@ -496,7 +506,7 @@ public class SpriteBatch : IBatch {
 		if (texture != lastTexture)
 			switchTexture(texture);
 		else if (this.idx == vertices.Length) //
-			flush();
+			Flush();
 
 		 float fx2 = x + width;
 		 float fy2 = y + height;
@@ -533,7 +543,7 @@ public class SpriteBatch : IBatch {
 		this.idx = idx + 20;
 	}
 
-	public virtual void draw (Texture texture, float[] spriteVertices, int offset, int count) {
+	public virtual void Draw (Texture texture, float[] spriteVertices, int offset, int count) {
 		if (!drawing) throw new IllegalStateException("SpriteBatch.begin must be called before draw.");
 
 		int verticesLength = vertices.Length;
@@ -543,7 +553,7 @@ public class SpriteBatch : IBatch {
 		else {
 			remainingVertices -= idx;
 			if (remainingVertices == 0) {
-				flush();
+				Flush();
 				remainingVertices = verticesLength;
 			}
 		}
@@ -554,7 +564,7 @@ public class SpriteBatch : IBatch {
 		count -= copyCount;
 		while (count > 0) {
 			offset += copyCount;
-			flush();
+			Flush();
 			copyCount = Math.Min(verticesLength, count);
 			Array.Copy(spriteVertices, offset, vertices, 0, copyCount);
 			idx += copyCount;
@@ -562,11 +572,11 @@ public class SpriteBatch : IBatch {
 		}
 	}
 
-	public virtual void draw (TextureRegion region, float x, float y) {
-		draw(region, x, y, region.getRegionWidth(), region.getRegionHeight());
+	public virtual void Draw (TextureRegion region, float x, float y) {
+		Draw(region, x, y, region.getRegionWidth(), region.getRegionHeight());
 	}
 
-	public virtual void draw (TextureRegion region, float x, float y, float width, float height) {
+	public virtual void Draw (TextureRegion region, float x, float y, float width, float height) {
 		if (!drawing) throw new IllegalStateException("SpriteBatch.begin must be called before draw.");
 
 		float[] vertices = this.vertices;
@@ -575,7 +585,7 @@ public class SpriteBatch : IBatch {
 		if (texture != lastTexture) {
 			switchTexture(texture);
 		} else if (this.idx == vertices.Length) //
-			flush();
+			Flush();
 
 		 float fx2 = x + width;
 		 float fy2 = y + height;
@@ -612,7 +622,7 @@ public class SpriteBatch : IBatch {
 		this.idx = idx + 20;
 	}
 
-	public virtual void draw (TextureRegion region, float x, float y, float originX, float originY, float width, float height,
+	public virtual void Draw (TextureRegion region, float x, float y, float originX, float originY, float width, float height,
 		float scaleX, float scaleY, float rotation) {
 		if (!drawing) throw new IllegalStateException("SpriteBatch.begin must be called before draw.");
 
@@ -622,7 +632,7 @@ public class SpriteBatch : IBatch {
 		if (texture != lastTexture) {
 			switchTexture(texture);
 		} else if (this.idx == vertices.Length) //
-			flush();
+			Flush();
 
 		// bottom left and top right corner points relative to origin
 		 float worldOriginX = x + originX;
@@ -731,7 +741,7 @@ public class SpriteBatch : IBatch {
 		this.idx = idx + 20;
 	}
 
-	public virtual void draw (TextureRegion region, float x, float y, float originX, float originY, float width, float height,
+	public virtual void Draw (TextureRegion region, float x, float y, float originX, float originY, float width, float height,
 		float scaleX, float scaleY, float rotation, bool clockwise) {
 		if (!drawing) throw new IllegalStateException("SpriteBatch.begin must be called before draw.");
 
@@ -741,7 +751,7 @@ public class SpriteBatch : IBatch {
 		if (texture != lastTexture) {
 			switchTexture(texture);
 		} else if (this.idx == vertices.Length) //
-			flush();
+			Flush();
 
 		// bottom left and top right corner points relative to origin
 		 float worldOriginX = x + originX;
@@ -866,7 +876,7 @@ public class SpriteBatch : IBatch {
 		this.idx = idx + 20;
 	}
 
-	public virtual void draw (TextureRegion region, float width, float height, Affine2 transform) {
+	public virtual void Draw (TextureRegion region, float width, float height, Affine2 transform) {
 		if (!drawing) throw new IllegalStateException("SpriteBatch.begin must be called before draw.");
 
 		float[] vertices = this.vertices;
@@ -875,7 +885,7 @@ public class SpriteBatch : IBatch {
 		if (texture != lastTexture) {
 			switchTexture(texture);
 		} else if (this.idx == vertices.Length) {
-			flush();
+			Flush();
 		}
 
 		// construct corner points
@@ -921,7 +931,7 @@ public class SpriteBatch : IBatch {
 		this.idx = idx + 20;
 	}
 
-	public void flush () {
+	public void Flush () {
 		if (idx == 0) return;
 
 		renderCalls++;
@@ -949,45 +959,45 @@ public class SpriteBatch : IBatch {
 		idx = 0;
 	}
 
-	public void disableBlending () {
+	public void DisableBlending () {
 		if (blendingDisabled) return;
-		flush();
+		Flush();
 		blendingDisabled = true;
 	}
 
-	public void enableBlending () {
+	public void EnableBlending () {
 		if (!blendingDisabled) return;
-		flush();
+		Flush();
 		blendingDisabled = false;
 	}
 
-	public void setBlendFunction (int srcFunc, int dstFunc) {
-		setBlendFunctionSeparate(srcFunc, dstFunc, srcFunc, dstFunc);
+	public void SetBlendFunction (int srcFunc, int dstFunc) {
+		SetBlendFunctionSeparate(srcFunc, dstFunc, srcFunc, dstFunc);
 	}
 
-	public void setBlendFunctionSeparate (int srcFuncColor, int dstFuncColor, int srcFuncAlpha, int dstFuncAlpha) {
+	public void SetBlendFunctionSeparate (int srcFuncColor, int dstFuncColor, int srcFuncAlpha, int dstFuncAlpha) {
 		if (blendSrcFunc == srcFuncColor && blendDstFunc == dstFuncColor && blendSrcFuncAlpha == srcFuncAlpha
 			&& blendDstFuncAlpha == dstFuncAlpha) return;
-		flush();
+		Flush();
 		blendSrcFunc = srcFuncColor;
 		blendDstFunc = dstFuncColor;
 		blendSrcFuncAlpha = srcFuncAlpha;
 		blendDstFuncAlpha = dstFuncAlpha;
 	}
 
-	public int getBlendSrcFunc () {
+	public int GetBlendSrcFunc () {
 		return blendSrcFunc;
 	}
 
-	public int getBlendDstFunc () {
+	public int GetBlendDstFunc () {
 		return blendDstFunc;
 	}
 
-	public int getBlendSrcFuncAlpha () {
+	public int GetBlendSrcFuncAlpha () {
 		return blendSrcFuncAlpha;
 	}
 
-	public int getBlendDstFuncAlpha () {
+	public int GetBlendDstFuncAlpha () {
 		return blendDstFuncAlpha;
 	}
 
@@ -996,22 +1006,22 @@ public class SpriteBatch : IBatch {
 		if (ownsShader && shader != null) shader.Dispose();
 	}
 
-	public Matrix4 getProjectionMatrix () {
+	public Matrix4 GetProjectionMatrix () {
 		return projectionMatrix;
 	}
 
-	public virtual Matrix4 getTransformMatrix () {
+	public virtual Matrix4 GetTransformMatrix () {
 		return transformMatrix;
 	}
 
-	public void setProjectionMatrix (Matrix4 projection) {
-		if (drawing) flush();
+	public void SetProjectionMatrix (Matrix4 projection) {
+		if (drawing) Flush();
 		projectionMatrix.set(projection);
 		if (drawing) setupMatrices();
 	}
 
-	public virtual void setTransformMatrix (Matrix4 transform) {
-		if (drawing) flush();
+	public virtual void SetTransformMatrix (Matrix4 transform) {
+		if (drawing) Flush();
 		transformMatrix.set(transform);
 		if (drawing) setupMatrices();
 	}
@@ -1028,17 +1038,17 @@ public class SpriteBatch : IBatch {
 	}
 
 	protected void switchTexture (Texture texture) {
-		flush();
+		Flush();
 		lastTexture = texture;
 		invTexWidth = 1.0f / texture.getWidth();
 		invTexHeight = 1.0f / texture.getHeight();
 	}
 
-	public void setShader (ShaderProgram shader) {
+	public void SetShader (ShaderProgram shader) {
 		if (shader == customShader) // avoid unnecessary flushing in case we are drawing
 			return;
 		if (drawing) {
-			flush();
+			Flush();
 		}
 		customShader = shader;
 		if (drawing) {
@@ -1050,18 +1060,18 @@ public class SpriteBatch : IBatch {
 		}
 	}
 
-	public ShaderProgram getShader () {
+	public ShaderProgram GetShader () {
 		if (customShader == null) {
 			return shader;
 		}
 		return customShader;
 	}
 
-	public bool isBlendingEnabled () {
+	public bool IsBlendingEnabled () {
 		return !blendingDisabled;
 	}
 
-	public bool isDrawing () {
+	public bool IsDrawing () {
 		return drawing;
 	}
 }

@@ -36,7 +36,7 @@ namespace SharpGDX.Scenes.Scene2D.Utils
 			else
 			{
 				// merge scissors
-				Rectangle parent = scissors.get(scissors.size - 1);
+				Rectangle parent = scissors.Get(scissors.size - 1);
 				float minX = Math.Max(parent.x, scissor.x);
 				float maxX = Math.Min(parent.x + parent.width, scissor.x + scissor.width);
 				if (maxX - minX < 1) return false;
@@ -50,7 +50,7 @@ namespace SharpGDX.Scenes.Scene2D.Utils
 				scissor.width = maxX - minX;
 				scissor.height = Math.Max(1, maxY - minY);
 			}
-			scissors.add(scissor);
+			scissors.Add(scissor);
 			HdpiUtils.glScissor((int)scissor.x, (int)scissor.y, (int)scissor.width, (int)scissor.height);
 			return true;
 		}
@@ -134,13 +134,13 @@ namespace SharpGDX.Scenes.Scene2D.Utils
 		{
 			if (scissors.size == 0)
 			{
-				viewport.set(0, 0, Gdx.Graphics.getWidth(), Gdx.Graphics.getHeight());
+				viewport.Set(0, 0, Gdx.Graphics.getWidth(), Gdx.Graphics.getHeight());
 				return viewport;
 			}
 			else
 			{
 				Rectangle scissor = scissors.peek();
-				viewport.set(scissor);
+				viewport.Set(scissor);
 				return viewport;
 			}
 		}

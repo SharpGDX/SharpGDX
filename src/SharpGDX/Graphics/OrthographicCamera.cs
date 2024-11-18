@@ -43,11 +43,11 @@ public class OrthographicCamera : Camera {
 			zoom * viewportHeight / 2, near, far);
         view.setToLookAt(direction, up);
         view.translate(-position.x, -position.y, -position.z);
-            combined.set(projection);
-		Matrix4.mul(combined.val, view.val);
+            Combined.set(projection);
+		Matrix4.mul(Combined.val, view.val);
 
 		if (updateFrustum) {
-			invProjectionView.set(combined);
+			invProjectionView.set(Combined);
 			Matrix4.inv(invProjectionView.val);
 			frustum.update(invProjectionView);
 		}

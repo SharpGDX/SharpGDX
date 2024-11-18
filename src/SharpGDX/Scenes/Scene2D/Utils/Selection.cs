@@ -116,7 +116,7 @@ public class Selection<T> : IDisableable, IEnumerable<T> {
 		lastSelected = default;
 		selected.clear(items.size);
 		for (int i = 0, n = items.size; i < n; i++) {
-			T item = items.get(i);
+			T item = items.Get(i);
 			if (item == null) throw new IllegalArgumentException("item cannot be null.");
 			if (selected.add(item)) added = true;
 		}
@@ -147,7 +147,7 @@ public class Selection<T> : IDisableable, IEnumerable<T> {
 		bool added = false;
 		snapshot();
 		for (int i = 0, n = items.size; i < n; i++) {
-			T item = items.get(i);
+			T item = items.Get(i);
 			if (item == null) throw new IllegalArgumentException("item cannot be null.");
 			if (selected.add(item)) added = true;
 		}
@@ -177,7 +177,7 @@ public class Selection<T> : IDisableable, IEnumerable<T> {
 		bool removed = false;
 		snapshot();
 		for (int i = 0, n = items.size; i < n; i++) {
-			T item = items.get(i);
+			T item = items.Get(i);
 			if (item == null) throw new IllegalArgumentException("item cannot be null.");
 			if (selected.remove(item)) removed = true;
 		}

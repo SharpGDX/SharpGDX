@@ -62,7 +62,7 @@ public class CpuSpriteBatch : SpriteBatch {
 	 * </p>
 	 * @see SpriteBatch#flush() */
 	public void flushAndSyncTransformMatrix () {
-		flush();
+		Flush();
 
 		if (adjustNeeded) {
 			// vertices flushed, safe now to replace matrix
@@ -72,25 +72,25 @@ public class CpuSpriteBatch : SpriteBatch {
 				throw new GdxRuntimeException("Transform matrix is singular, can't sync");
 
 			adjustNeeded = false;
-			base.setTransformMatrix(virtualMatrix);
+			base.SetTransformMatrix(virtualMatrix);
 		}
 	}
 
-	public override Matrix4 getTransformMatrix () {
-		return (adjustNeeded ? virtualMatrix : base.getTransformMatrix());
+	public override Matrix4 GetTransformMatrix () {
+		return (adjustNeeded ? virtualMatrix : base.GetTransformMatrix());
 	}
 
 	/** Sets the transform matrix to be used by this Batch. Even if this is called inside a {@link #begin()}/{@link #end()} block,
 	 * the current batch is <em>not</em> flushed to the GPU. Instead, for every subsequent draw() the vertices will be transformed
 	 * on the CPU to match the original batch matrix. This adjustment must be performed until the matrices are realigned by
 	 * restoring the original matrix, or by calling {@link #flushAndSyncTransformMatrix()}. */
-	public override void setTransformMatrix (Matrix4 transform) {
-		Matrix4 realMatrix = base.getTransformMatrix();
+	public override void SetTransformMatrix (Matrix4 transform) {
+		Matrix4 realMatrix = base.GetTransformMatrix();
 
 		if (checkEqual(realMatrix, transform)) {
 			adjustNeeded = false;
 		} else {
-			if (isDrawing()) {
+			if (IsDrawing()) {
 				virtualMatrix.setAsAffine(transform);
 				adjustNeeded = true;
 
@@ -115,14 +115,14 @@ public class CpuSpriteBatch : SpriteBatch {
 	 * on the CPU to match the original batch matrix. This adjustment must be performed until the matrices are realigned by
 	 * restoring the original matrix, or by calling {@link #flushAndSyncTransformMatrix()} or {@link #end()}. */
 	public void setTransformMatrix (Affine2 transform) {
-		Matrix4 realMatrix = base.getTransformMatrix();
+		Matrix4 realMatrix = base.GetTransformMatrix();
 
 		if (checkEqual(realMatrix, transform)) {
 			adjustNeeded = false;
 		} else {
 			virtualMatrix.setAsAffine(transform);
 
-			if (isDrawing()) {
+			if (IsDrawing()) {
 				adjustNeeded = true;
 
 				// adjust = inverse(real) x virtual
@@ -140,10 +140,10 @@ public class CpuSpriteBatch : SpriteBatch {
 		}
 	}
 
-	public override void draw (Texture texture, float x, float y, float originX, float originY, float width, float height, float scaleX,
+	public override void Draw (Texture texture, float x, float y, float originX, float originY, float width, float height, float scaleX,
 		float scaleY, float rotation, int srcX, int srcY, int srcWidth, int srcHeight, bool flipX, bool flipY) {
 		if (!adjustNeeded) {
-			base.draw(texture, x, y, originX, originY, width, height, scaleX, scaleY, rotation, srcX, srcY, srcWidth, srcHeight,
+			base.Draw(texture, x, y, originX, originY, width, height, scaleX, scaleY, rotation, srcX, srcY, srcWidth, srcHeight,
 				flipX, flipY);
 		} else {
 			drawAdjusted(texture, x, y, originX, originY, width, height, scaleX, scaleY, rotation, srcX, srcY, srcWidth, srcHeight,
@@ -151,94 +151,94 @@ public class CpuSpriteBatch : SpriteBatch {
 		}
 	}
 
-	public override void draw (Texture texture, float x, float y, float width, float height, int srcX, int srcY, int srcWidth,
+	public override void Draw (Texture texture, float x, float y, float width, float height, int srcX, int srcY, int srcWidth,
 		int srcHeight, bool flipX, bool flipY) {
 		if (!adjustNeeded) {
-			base.draw(texture, x, y, width, height, srcX, srcY, srcWidth, srcHeight, flipX, flipY);
+			base.Draw(texture, x, y, width, height, srcX, srcY, srcWidth, srcHeight, flipX, flipY);
 		} else {
 			drawAdjusted(texture, x, y, 0, 0, width, height, 1, 1, 0, srcX, srcY, srcWidth, srcHeight, flipX, flipY);
 		}
 	}
 
-	public override void draw (Texture texture, float x, float y, int srcX, int srcY, int srcWidth, int srcHeight) {
+	public override void Draw (Texture texture, float x, float y, int srcX, int srcY, int srcWidth, int srcHeight) {
 		if (!adjustNeeded) {
-			base.draw(texture, x, y, srcX, srcY, srcWidth, srcHeight);
+			base.Draw(texture, x, y, srcX, srcY, srcWidth, srcHeight);
 		} else {
 			drawAdjusted(texture, x, y, 0, 0, srcWidth, srcHeight, 1, 1, 0, srcX, srcY, srcWidth, srcHeight, false, false);
 		}
 	}
 
-	public override void draw (Texture texture, float x, float y, float width, float height, float u, float v, float u2, float v2) {
+	public override void Draw (Texture texture, float x, float y, float width, float height, float u, float v, float u2, float v2) {
 		if (!adjustNeeded) {
-			base.draw(texture, x, y, width, height, u, v, u2, v2);
+			base.Draw(texture, x, y, width, height, u, v, u2, v2);
 		} else {
 			drawAdjustedUV(texture, x, y, 0, 0, width, height, 1, 1, 0, u, v, u2, v2, false, false);
 		}
 	}
 
-	public override void draw (Texture texture, float x, float y) {
+	public override void Draw (Texture texture, float x, float y) {
 		if (!adjustNeeded) {
-			base.draw(texture, x, y);
+			base.Draw(texture, x, y);
 		} else {
 			drawAdjusted(texture, x, y, 0, 0, texture.getWidth(), texture.getHeight(), 1, 1, 0, 0, 1, 1, 0, false, false);
 		}
 	}
 
-	public override void draw (Texture texture, float x, float y, float width, float height) {
+	public override void Draw (Texture texture, float x, float y, float width, float height) {
 		if (!adjustNeeded) {
-			base.draw(texture, x, y, width, height);
+			base.Draw(texture, x, y, width, height);
 		} else {
 			drawAdjusted(texture, x, y, 0, 0, width, height, 1, 1, 0, 0, 1, 1, 0, false, false);
 		}
 	}
 
-	public override void draw (TextureRegion region, float x, float y) {
+	public override void Draw (TextureRegion region, float x, float y) {
 		if (!adjustNeeded) {
-			base.draw(region, x, y);
+			base.Draw(region, x, y);
 		} else {
 			drawAdjusted(region, x, y, 0, 0, region.getRegionWidth(), region.getRegionHeight(), 1, 1, 0);
 		}
 	}
 
-	public override void draw (TextureRegion region, float x, float y, float width, float height) {
+	public override void Draw (TextureRegion region, float x, float y, float width, float height) {
 		if (!adjustNeeded) {
-			base.draw(region, x, y, width, height);
+			base.Draw(region, x, y, width, height);
 		} else {
 			drawAdjusted(region, x, y, 0, 0, width, height, 1, 1, 0);
 		}
 	}
 
-	public override void draw (TextureRegion region, float x, float y, float originX, float originY, float width, float height,
+	public override void Draw (TextureRegion region, float x, float y, float originX, float originY, float width, float height,
 		float scaleX, float scaleY, float rotation) {
 		if (!adjustNeeded) {
-			base.draw(region, x, y, originX, originY, width, height, scaleX, scaleY, rotation);
+			base.Draw(region, x, y, originX, originY, width, height, scaleX, scaleY, rotation);
 		} else {
 			drawAdjusted(region, x, y, originX, originY, width, height, scaleX, scaleY, rotation);
 		}
 	}
 
-	public override void draw (TextureRegion region, float x, float y, float originX, float originY, float width, float height,
+	public override void Draw (TextureRegion region, float x, float y, float originX, float originY, float width, float height,
 		float scaleX, float scaleY, float rotation, bool clockwise) {
 		if (!adjustNeeded) {
-			base.draw(region, x, y, originX, originY, width, height, scaleX, scaleY, rotation, clockwise);
+			base.Draw(region, x, y, originX, originY, width, height, scaleX, scaleY, rotation, clockwise);
 		} else {
 			drawAdjusted(region, x, y, originX, originY, width, height, scaleX, scaleY, rotation, clockwise);
 		}
 	}
 
-	public override void draw (Texture texture, float[] spriteVertices, int offset, int count) {
+	public override void Draw (Texture texture, float[] spriteVertices, int offset, int count) {
 		if (count % Sprite.SPRITE_SIZE != 0) throw new GdxRuntimeException("invalid vertex count");
 
 		if (!adjustNeeded) {
-			base.draw(texture, spriteVertices, offset, count);
+			base.Draw(texture, spriteVertices, offset, count);
 		} else {
 			drawAdjusted(texture, spriteVertices, offset, count);
 		}
 	}
 
-	public override void draw (TextureRegion region, float width, float height, Affine2 transform) {
+	public override void Draw (TextureRegion region, float width, float height, Affine2 transform) {
 		if (!adjustNeeded) {
-			base.draw(region, width, height, transform);
+			base.Draw(region, width, height, transform);
 		} else {
 			drawAdjusted(region, width, height, transform);
 		}
@@ -270,7 +270,7 @@ public class CpuSpriteBatch : SpriteBatch {
 
 		if (texture != lastTexture)
 			switchTexture(texture);
-		else if (idx == vertices.Length) flush();
+		else if (idx == vertices.Length) Flush();
 
 		// bottom left and top right corner points relative to origin
 		 float worldOriginX = x + originX;
@@ -392,7 +392,7 @@ public class CpuSpriteBatch : SpriteBatch {
 
 		if (region.texture != lastTexture)
 			switchTexture(region.texture);
-		else if (idx == vertices.Length) flush();
+		else if (idx == vertices.Length) Flush();
 
 		// bottom left and top right corner points relative to origin
 		 float worldOriginX = x + originX;
@@ -523,7 +523,7 @@ public class CpuSpriteBatch : SpriteBatch {
 
 		if (region.texture != lastTexture)
 			switchTexture(region.texture);
-		else if (idx == vertices.Length) flush();
+		else if (idx == vertices.Length) Flush();
 
 		Affine2 t = transform;
 
@@ -598,7 +598,7 @@ public class CpuSpriteBatch : SpriteBatch {
 			}
 
 			if (count > 0) {
-				flush();
+				Flush();
 				copyCount = Math.Min(vertices.Length, count);
 			}
 		} while (count > 0);

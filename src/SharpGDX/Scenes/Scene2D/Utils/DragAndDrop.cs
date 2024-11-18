@@ -158,11 +158,11 @@ public class DragAndDrop {
 	}
 
 	public void addTarget (Target target) {
-		targets.add(target);
+		targets.Add(target);
 	}
 
 	public void removeTarget (Target target) {
-		targets.removeValue(target, true);
+		targets.RemoveValue(target, true);
 	}
 
 	/** Removes all targets and sources. */

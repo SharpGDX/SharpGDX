@@ -72,7 +72,7 @@ public class OrderedMap<K, V> : ObjectMap<K, V> {
 			i = -(i + 1); // Empty space was found.
 			keyTable[i] = key;
 			valueTable[i] = value;
-			_keys.add(key);
+			_keys.Add(key);
 			if (++size >= threshold) resize(keyTable.Length << 1);
 			return default;
 		}
@@ -88,12 +88,12 @@ public class OrderedMap<K, V> : ObjectMap<K, V> {
 	}
 
 		public override V remove (K key) {
-		_keys.removeValue(key, false);
+		_keys.RemoveValue(key, false);
 		return base.remove(key);
 	}
 
 	public V removeIndex (int index) {
-		return base.remove(_keys.removeIndex(index));
+		return base.remove(_keys.RemoveIndex(index));
 	}
 
 	/** Changes the key {@code before} to {@code after} without changing its position in the order or its value. Returns true if
@@ -120,7 +120,7 @@ public class OrderedMap<K, V> : ObjectMap<K, V> {
 	 * @return true if {@code after} successfully replaced the key at {@code index}, false otherwise */
 	public bool alterIndex (int index, K after) {
 		if (index < 0 || index >= size || containsKey(after)) return false;
-		base.put(after, base.remove(_keys.get(index)));
+		base.put(after, base.remove(_keys.Get(index)));
 		_keys.set(index, after);
 		return true;
 	}
@@ -215,7 +215,7 @@ public class OrderedMap<K, V> : ObjectMap<K, V> {
 		if (braces) buffer.Append('{');
 		Array<K> keys = this._keys;
 		for (int i = 0, n = keys.size; i < n; i++) {
-			K key = keys.get(i);
+			K key = keys.Get(i);
 			if (i > 0) buffer.Append(separator);
 			buffer.Append(ReferenceEquals(key , this) ? "(this)" : key);
 			buffer.Append('=');
@@ -246,7 +246,7 @@ public class OrderedMap<K, V> : ObjectMap<K, V> {
 			if (!_hasNext) throw new NoSuchElementException();
 			if (!valid) throw new GdxRuntimeException("#iterator() cannot be used nested.");
 			currentIndex = nextIndex;
-			entry.key = keys.get(nextIndex);
+			entry.key = keys.Get(nextIndex);
 			entry.value = map.get(entry.key);
 			nextIndex++;
 			_hasNext = nextIndex < map.size;
@@ -279,7 +279,7 @@ public class OrderedMap<K, V> : ObjectMap<K, V> {
 		public K next () {
 			if (!_hasNext) throw new NoSuchElementException();
 			if (!valid) throw new GdxRuntimeException("#iterator() cannot be used nested.");
-			K key = keys.get(nextIndex);
+			K key = keys.Get(nextIndex);
 			currentIndex = nextIndex;
 			nextIndex++;
 			_hasNext = nextIndex < map.size;

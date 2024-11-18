@@ -203,7 +203,7 @@ private class SelectBoxSelection : ArraySelection<T>
 		} else {
 			float maxItemWidth = 0;
 			for (int i = 0; i < items.size; i++) {
-				layout.setText(font, toString(items.get(i)));
+				layout.setText(font, toString(items.Get(i)));
 				maxItemWidth = Math.Max(layout.width, maxItemWidth);
 			}
 
@@ -250,7 +250,7 @@ private class SelectBoxSelection : ArraySelection<T>
 		float x = getX(), y = getY();
 		float width = getWidth(), height = getHeight();
 
-		batch.setColor(color.r, color.g, color.b, color.a * parentAlpha);
+		batch.SetColor(color.R, color.G, color.B, color.A * parentAlpha);
 		if (background != null) background.draw(batch, x, y, width, height);
 
 		T selected = selection.first();
@@ -263,7 +263,7 @@ private class SelectBoxSelection : ArraySelection<T>
 			} else {
 				y += (int)(height / 2 + font.getData().capHeight / 2);
 			}
-			font.setColor(fontColor.r, fontColor.g, fontColor.b, fontColor.a * parentAlpha);
+			font.setColor(fontColor.R, fontColor.G, fontColor.B, fontColor.A * parentAlpha);
 			drawItem(batch, font, selected, x, y, width);
 		}
 	}
@@ -309,7 +309,7 @@ private class SelectBoxSelection : ArraySelection<T>
 
 	/** Sets the selection to only the selected index. */
 	public void setSelectedIndex (int index) {
-		selection.set(items.get(index));
+		selection.set(items.Get(index));
 	}
 
 	/** When true the pref width is based on the selected item. */
@@ -328,7 +328,7 @@ private class SelectBoxSelection : ArraySelection<T>
 		GlyphLayout layout = layoutPool.obtain();
 		float width = 0;
 		for (int i = 0; i < items.size; i++) {
-			layout.setText(style.font, toString(items.get(i)));
+			layout.setText(style.font, toString(items.Get(i)));
 			width = Math.Max(layout.width, width);
 		}
 		IDrawable bg = style.background;
@@ -393,12 +393,12 @@ private class SelectBoxSelection : ArraySelection<T>
 	}
 
 	protected void onShow (Actor scrollPane, bool below) {
-		scrollPane.getColor().a = 0;
+		scrollPane.getColor().A = 0;
 		scrollPane.addAction(fadeIn(0.3f, Interpolation.fade));
 	}
 
 	protected void onHide (Actor scrollPane) {
-		scrollPane.getColor().a = 1;
+		scrollPane.getColor().A = 1;
 		scrollPane.addAction(sequence(fadeOut(0.15f, Interpolation.fade), removeActor()));
 	}
 
@@ -544,7 +544,7 @@ protected List<T> newList () {
 			stage.addCaptureListener(hideListener);
 			stage.addListener(list.getKeyListener());
 
-			selectBox.localToStageCoordinates(stagePosition.set(0, 0));
+			selectBox.localToStageCoordinates(stagePosition.Set(0, 0));
 
 			// Show the list above or below the select box, limited to a number of items and the available height in the stage.
 			float itemHeight = list.getItemHeight();
@@ -616,7 +616,7 @@ protected List<T> newList () {
 		}
 
 		public override void draw (IBatch batch, float parentAlpha) {
-			selectBox.localToStageCoordinates(temp.set(0, 0));
+			selectBox.localToStageCoordinates(temp.Set(0, 0));
 			if (!temp.Equals(stagePosition)) hide();
 			base.draw(batch, parentAlpha);
 		}
@@ -666,7 +666,7 @@ public class SelectBoxStyle
         ListStyle listStyle)
     {
         this.font = font;
-        this.fontColor.set(fontColor);
+        this.fontColor.Set(fontColor);
         this.background = background;
         this.scrollStyle = scrollStyle;
         this.listStyle = listStyle;
@@ -675,7 +675,7 @@ public class SelectBoxStyle
     public SelectBoxStyle(SelectBoxStyle style)
     {
         font = style.font;
-        fontColor.set(style.fontColor);
+        fontColor.Set(style.fontColor);
 
         if (style.overFontColor != null) overFontColor = new Color(style.overFontColor);
         if (style.disabledFontColor != null) disabledFontColor = new Color(style.disabledFontColor);

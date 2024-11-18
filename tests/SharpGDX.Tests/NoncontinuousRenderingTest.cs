@@ -30,7 +30,7 @@ public class NoncontinuousRenderingTest : GdxTest
 		texture = new Texture("data/badlogic.jpg");
 		region = new TextureRegion(texture);
 		stage = new Stage(new ScreenViewport(), batch);
-		Gdx.Input.setInputProcessor(stage);
+		Gdx.Input.SetInputProcessor(stage);
 
 		skin = new Skin(Gdx.Files.Internal("data/uiskin.json"));
 		skin.add("default", font = new BitmapFont(Gdx.Files.Internal("data/lsans-32.fnt"), false));
@@ -51,7 +51,7 @@ public class NoncontinuousRenderingTest : GdxTest
 
 	public override void Render()
 	{
-		float delta = Math.Min(Gdx.Graphics.getDeltaTime(), 1 / 30f);
+		float delta = Math.Min(Gdx.Graphics.GetDeltaTime(), 1 / 30f);
 		elapsed += delta;
 		float value = elapsed % 1f;
 		value = value < 0.5f ? Interpolation.fade.apply(2 * value) : 1 - Interpolation.fade.apply(2 * value - 1);
@@ -76,12 +76,12 @@ public class NoncontinuousRenderingTest : GdxTest
 		Gdx.GL.glClear(IGL20.GL_COLOR_BUFFER_BIT);
 
 		Camera cam = stage.getCamera();
-		batch.setProjectionMatrix(cam.combined);
-		batch.begin();
-		batch.draw(region, cam.position.x - texture.getWidth() / 2, cam.position.y - texture.getHeight() / 2,
+		batch.SetProjectionMatrix(cam.Combined);
+		batch.Begin();
+		batch.Draw(region, cam.position.x - texture.getWidth() / 2, cam.position.y - texture.getHeight() / 2,
 			texture.getWidth() / 2f, texture.getHeight() / 2f, (float)texture.getWidth(), (float)texture.getHeight(), 1f, 1f,
 			-((elapsed / 2f) % 1f) * 360f);
-		batch.end();
+		batch.End();
 
 		stage.act(delta);
 		stage.draw();
@@ -322,7 +322,7 @@ actionsRequestRendering.setChecked(true);
 actionsRequestRendering.addListener(new CheckBoxChangeListener(stage, actionsRequestRendering));
 root.add(actionsRequestRendering).Row();
 
-IDrawable knobDown = skin.newDrawable("default-slider-knob", Color.GRAY);
+IDrawable knobDown = skin.newDrawable("default-slider-knob", Color.Gray);
 Slider.SliderStyle sliderStyle = skin.get<Slider.SliderStyle>("default-horizontal", typeof(Slider.SliderStyle));
 sliderStyle.knobDown = knobDown;
 Slider slider = new Slider(0, 100, 1, false, sliderStyle);

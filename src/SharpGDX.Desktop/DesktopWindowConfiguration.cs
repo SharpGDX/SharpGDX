@@ -22,7 +22,7 @@ namespace SharpGDX.Desktop
 		internal IDesktopWindowListener windowListener;
 		internal DesktopGraphics.DesktopDisplayMode fullscreenMode;
 		public String title;
-		internal Color initialBackgroundColor = Color.BLACK;
+		internal Color initialBackgroundColor = Color.Black;
 		internal bool initialVisible = true;
 		internal bool vSyncEnabled = true;
 

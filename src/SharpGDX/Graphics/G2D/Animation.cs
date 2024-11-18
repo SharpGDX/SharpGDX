@@ -42,7 +42,7 @@ public class Animation<T> {
 			Type arrayType = keyFrames.items.GetType().GetGenericTypeDefinition();
 		T[] frames = (T[])ArrayReflection.newInstance(arrayType, keyFrames.size);
 		for (int i = 0, n = keyFrames.size; i < n; i++) {
-			frames[i] = keyFrames.get(i);
+			frames[i] = keyFrames.Get(i);
 		}
 		setKeyFrames(frames);
 	}

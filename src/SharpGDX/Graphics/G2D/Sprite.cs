@@ -24,7 +24,7 @@ public class Sprite : TextureRegion {
 
 	readonly float[] vertices = new float[SPRITE_SIZE];
 	private readonly Color color = new Color(1, 1, 1, 1);
-    private float packedColor = Color.WHITE_FLOAT_BITS;
+    private float packedColor = Color.WhiteFloatBits;
         private float x, y;
 	protected float width, height;
 	private float originX, originY;
@@ -35,7 +35,7 @@ public class Sprite : TextureRegion {
 
 	/** Creates an uninitialized sprite. The sprite will need a texture region and bounds set before it can be drawn. */
 	public Sprite () {
-		setColor(1, 1, 1, 1);
+		SetColor(1, 1, 1, 1);
 	}
 
 	/** Creates a sprite with width, height, and texture region equal to the size of the texture. */
@@ -62,9 +62,9 @@ public class Sprite : TextureRegion {
 		if (texture == null) throw new IllegalArgumentException("texture cannot be null.");
 		this.texture = texture;
 		setRegion(srcX, srcY, srcWidth, srcHeight);
-		setColor(1, 1, 1, 1);
-		setSize(Math.Abs(srcWidth), Math.Abs(srcHeight));
-		setOrigin(width / 2, height / 2);
+		SetColor(1, 1, 1, 1);
+		SetSize(Math.Abs(srcWidth), Math.Abs(srcHeight));
+		SetOrigin(width / 2, height / 2);
 	}
 
 	// Note the region is copied.
@@ -72,9 +72,9 @@ public class Sprite : TextureRegion {
 	 * one does not affect the other */
 	public Sprite (TextureRegion region) {
 		setRegion(region);
-		setColor(1, 1, 1, 1);
-		setSize(region.getRegionWidth(), region.getRegionHeight());
-		setOrigin(width / 2, height / 2);
+		SetColor(1, 1, 1, 1);
+		SetSize(region.getRegionWidth(), region.getRegionHeight());
+		SetOrigin(width / 2, height / 2);
 	}
 
 	/** Creates a sprite with width, height, and texture region equal to the specified size, relative to specified sprite's texture
@@ -83,18 +83,18 @@ public class Sprite : TextureRegion {
 	 * @param srcHeight The height of the texture region. May be negative to flip the sprite when drawn. */
 	public Sprite (TextureRegion region, int srcX, int srcY, int srcWidth, int srcHeight) {
 		setRegion(region, srcX, srcY, srcWidth, srcHeight);
-		setColor(1, 1, 1, 1);
-		setSize(Math.Abs(srcWidth), Math.Abs(srcHeight));
-		setOrigin(width / 2, height / 2);
+		SetColor(1, 1, 1, 1);
+		SetSize(Math.Abs(srcWidth), Math.Abs(srcHeight));
+		SetOrigin(width / 2, height / 2);
 	}
 
 	/** Creates a sprite that is a copy in every way of the specified sprite. */
 	public Sprite (Sprite sprite) {
-		set(sprite);
+		Set(sprite);
 	}
 
 	/** Make this sprite a copy in every way of the specified sprite */
-	public void set (Sprite sprite) {
+	public void Set (Sprite sprite) {
 		if (sprite == null) throw new IllegalArgumentException("sprite cannot be null.");
 		Array.Copy(sprite.vertices, 0, vertices, 0, SPRITE_SIZE);
 		texture = sprite.texture;
@@ -113,13 +113,13 @@ public class Sprite : TextureRegion {
 		rotation = sprite.rotation;
 		scaleX = sprite.scaleX;
 		scaleY = sprite.scaleY;
-		color.set(sprite.color);
+		color.Set(sprite.color);
 		dirty = sprite.dirty;
 	}
 
 	/** Sets the position and size of the sprite when drawn, before scaling and rotation are applied. If origin, rotation, or scale
 	 * are changed, it is slightly more efficient to set the bounds after those operations. */
-	public virtual void setBounds (float x, float y, float width, float height) {
+	public virtual void SetBounds (float x, float y, float width, float height) {
 		this.x = x;
 		this.y = y;
 		this.width = width;
@@ -150,7 +150,7 @@ public class Sprite : TextureRegion {
 	/** Sets the size of the sprite when drawn, before scaling and rotation are applied. If origin, rotation, or scale are changed,
 	 * it is slightly more efficient to set the size after those operations. If both position and size are to be changed, it is
 	 * better to use {@link #setBounds(float, float, float, float)}. */
-	public virtual void setSize (float width, float height) {
+	public virtual void SetSize (float width, float height) {
 		this.width = width;
 		this.height = height;
 
@@ -179,7 +179,7 @@ public class Sprite : TextureRegion {
 	/** Sets the position where the sprite will be drawn. If origin, rotation, or scale are changed, it is slightly more efficient
 	 * to set the position after those operations. If both position and size are to be changed, it is better to use
 	 * {@link #setBounds(float, float, float, float)}. */
-	public virtual void setPosition (float x, float y) {
+	public virtual void SetPosition (float x, float y) {
 		this.x = x;
 		this.y = y;
 
@@ -206,14 +206,14 @@ public class Sprite : TextureRegion {
 	}
 
 	/** Sets the position where the sprite will be drawn, relative to its current origin. */
-	public void setOriginBasedPosition (float x, float y) {
-		setPosition(x - this.originX, y - this.originY);
+	public void SetOriginBasedPosition (float x, float y) {
+		SetPosition(x - this.originX, y - this.originY);
 	}
 
 	/** Sets the x position where the sprite will be drawn. If origin, rotation, or scale are changed, it is slightly more
 	 * efficient to set the position after those operations. If both position and size are to be changed, it is better to use
 	 * {@link #setBounds(float, float, float, float)}. */
-	public virtual void setX (float x) {
+	public virtual void SetX (float x) {
 		this.x = x;
 
 		if (dirty) return;
@@ -233,7 +233,7 @@ public class Sprite : TextureRegion {
 	/** Sets the y position where the sprite will be drawn. If origin, rotation, or scale are changed, it is slightly more
 	 * efficient to set the position after those operations. If both position and size are to be changed, it is better to use
 	 * {@link #setBounds(float, float, float, float)}. */
-	public virtual void setY (float y) {
+	public virtual void SetY (float y) {
 		this.y = y;
 
 		if (dirty) return;
@@ -251,23 +251,23 @@ public class Sprite : TextureRegion {
 	}
 
 	/** Sets the x position so that it is centered on the given x parameter */
-	public void setCenterX (float x) {
-		setX(x - width / 2);
+	public void SetCenterX (float x) {
+		SetX(x - width / 2);
 	}
 
 	/** Sets the y position so that it is centered on the given y parameter */
-	public void setCenterY (float y) {
-		setY(y - height / 2);
+	public void SetCenterY (float y) {
+		SetY(y - height / 2);
 	}
 
 	/** Sets the position so that the sprite is centered on (x, y) */
-	public void setCenter (float x, float y) {
-		setPosition(x - width / 2, y - height / 2);
+	public void SetCenter (float x, float y) {
+		SetPosition(x - width / 2, y - height / 2);
 	}
 
 	/** Sets the x position relative to the current position where the sprite will be drawn. If origin, rotation, or scale are
 	 * changed, it is slightly more efficient to translate after those operations. */
-	public void translateX (float xAmount) {
+	public void TranslateX (float xAmount) {
 		this.x += xAmount;
 
 		if (dirty) return;
@@ -285,7 +285,7 @@ public class Sprite : TextureRegion {
 
 	/** Sets the y position relative to the current position where the sprite will be drawn. If origin, rotation, or scale are
 	 * changed, it is slightly more efficient to translate after those operations. */
-	public void translateY (float yAmount) {
+	public void TranslateY (float yAmount) {
 		y += yAmount;
 
 		if (dirty) return;
@@ -303,7 +303,7 @@ public class Sprite : TextureRegion {
 
 	/** Sets the position relative to the current position where the sprite will be drawn. If origin, rotation, or scale are
 	 * changed, it is slightly more efficient to translate after those operations. */
-	public void translate (float xAmount, float yAmount) {
+	public void Translate (float xAmount, float yAmount) {
 		x += xAmount;
 		y += yAmount;
 
@@ -328,9 +328,9 @@ public class Sprite : TextureRegion {
 	}
 
 	/** Sets the color used to tint this sprite. Default is {@link Color#WHITE}. */
-	public void setColor (Color tint) {
-		this.color.set(tint);
-        packedColor = tint.toFloatBits();
+	public void SetColor (Color tint) {
+		this.color.Set(tint);
+        packedColor = tint.ToFloatBits();
             float[] vertices = this.vertices;
             vertices[IBatch.C1] = packedColor;
             vertices[IBatch.C2] = packedColor;
@@ -339,11 +339,11 @@ public class Sprite : TextureRegion {
         }
 
 	/** Sets the alpha portion of the color used to tint this sprite. */
-	public void setAlpha (float a) {
-        if (color.a != a)
+	public void SetAlpha (float a) {
+        if (color.A != a)
         {
-            color.a = a;
-            packedColor = color.toFloatBits();
+            color.A = a;
+            packedColor = color.ToFloatBits();
             vertices[IBatch.C1] = packedColor;
             vertices[IBatch.C2] = packedColor;
             vertices[IBatch.C3] = packedColor;
@@ -352,9 +352,9 @@ public class Sprite : TextureRegion {
         }
 
 	/** @see #setColor(Color) */
-	public void setColor (float r, float g, float b, float a) {
-		this.color.set(r, g, b, a);
-        packedColor = color.toFloatBits();
+	public void SetColor (float r, float g, float b, float a) {
+		this.color.Set(r, g, b, a);
+        packedColor = color.ToFloatBits();
             float[] vertices = this.vertices;
             vertices[IBatch.C1] = packedColor;
             vertices[IBatch.C2] = packedColor;
@@ -365,14 +365,14 @@ public class Sprite : TextureRegion {
         /** Sets the packed color used to tint this sprite.
          * @see #setColor(Color)
          * @see Color#toFloatBits() */
-        public void setPackedColor (float packedColor) {
+        public void SetPackedColor (float packedColor) {
             // Handle 0f/-0f special case
             if (packedColor != this.packedColor || (packedColor == 0f && this.packedColor == 0f
 																	  // TODO: This can be made unsafe. -RP
                                                                       && BitConverter.ToInt32(BitConverter.GetBytes(packedColor), 0)  != BitConverter.ToInt32(BitConverter.GetBytes(this.packedColor), 0)))
             {
                 this.packedColor = packedColor;
-                Color.abgr8888ToColor(color, packedColor);
+                Color.ABGR8888ToColor(color, packedColor);
                 float[] vertices = this.vertices;
                 vertices[IBatch.C1] = packedColor;
                 vertices[IBatch.C2] = packedColor;
@@ -382,33 +382,33 @@ public class Sprite : TextureRegion {
         }
 
 	/** Sets the origin in relation to the sprite's position for scaling and rotation. */
-	public virtual void setOrigin (float originX, float originY) {
+	public virtual void SetOrigin (float originX, float originY) {
 		this.originX = originX;
 		this.originY = originY;
 		dirty = true;
 	}
 
 	/** Place origin in the center of the sprite */
-	public virtual void setOriginCenter () {
+	public virtual void SetOriginCenter () {
 		this.originX = width / 2;
 		this.originY = height / 2;
 		dirty = true;
 	}
 
 	/** Sets the rotation of the sprite in degrees. Rotation is centered on the origin set in {@link #setOrigin(float, float)} */
-	public void setRotation (float degrees) {
+	public void SetRotation (float degrees) {
 		this.rotation = degrees;
 		dirty = true;
 	}
 
 	/** @return the rotation of the sprite in degrees */
-	public float getRotation () {
+	public float GetRotation () {
 		return rotation;
 	}
 
 	/** Sets the sprite's rotation in degrees relative to the current rotation. Rotation is centered on the origin set in
 	 * {@link #setOrigin(float, float)} */
-	public void rotate (float degrees) {
+	public void Rotate (float degrees) {
 		if (degrees == 0) return;
 		rotation += degrees;
 		dirty = true;
@@ -416,7 +416,7 @@ public class Sprite : TextureRegion {
 
 	/** Rotates this sprite 90 degrees in-place by rotating the texture coordinates. This rotation is unaffected by
 	 * {@link #setRotation(float)} and {@link #rotate(float)}. */
-	public virtual void rotate90 (bool clockwise) {
+	public virtual void Rotate90 (bool clockwise) {
 		float[] vertices = this.vertices;
 
 		if (clockwise) {
@@ -448,7 +448,7 @@ public class Sprite : TextureRegion {
 
 	/** Sets the sprite's scale for both X and Y uniformly. The sprite scales out from the origin. This will not affect the values
 	 * returned by {@link #getWidth()} and {@link #getHeight()} */
-	public void setScale (float scaleXY) {
+	public void SetScale (float scaleXY) {
 		this.scaleX = scaleXY;
 		this.scaleY = scaleXY;
 		dirty = true;
@@ -456,7 +456,7 @@ public class Sprite : TextureRegion {
 
 	/** Sets the sprite's scale for both X and Y. The sprite scales out from the origin. This will not affect the values returned
 	 * by {@link #getWidth()} and {@link #getHeight()} */
-	public void setScale (float scaleX, float scaleY) {
+	public void SetScale (float scaleX, float scaleY) {
 		this.scaleX = scaleX;
 		this.scaleY = scaleY;
 		dirty = true;
@@ -465,14 +465,14 @@ public class Sprite : TextureRegion {
 	/** Sets the sprite's scale relative to the current scale. for example: original scale 2 -> sprite.scale(4) -> final scale 6.
 	 * The sprite scales out from the origin. This will not affect the values returned by {@link #getWidth()} and
 	 * {@link #getHeight()} */
-	public void scale (float amount) {
+	public void Scale (float amount) {
 		this.scaleX += amount;
 		this.scaleY += amount;
 		dirty = true;
 	}
 
 	/** Returns the packed vertices, colors, and texture coordinates for this sprite. */
-	public float[] getVertices () {
+	public float[] GetVertices () {
 		if (dirty) {
 			dirty = false;
 
@@ -545,8 +545,8 @@ public class Sprite : TextureRegion {
 	 * recomputed.
 	 * 
 	 * @return the bounding Rectangle */
-	public Rectangle getBoundingRectangle () {
-		 float[] vertices = getVertices();
+	public Rectangle GetBoundingRectangle () {
+		 float[] vertices = GetVertices();
 
 		float minx = vertices[IBatch.X1];
 		float miny = vertices[IBatch.Y1];
@@ -577,65 +577,65 @@ public class Sprite : TextureRegion {
 		return bounds;
 	}
 
-	public void draw (IBatch batch) {
-		batch.draw(texture, getVertices(), 0, SPRITE_SIZE);
+	public void Draw (IBatch batch) {
+		batch.Draw(texture, GetVertices(), 0, SPRITE_SIZE);
 	}
 
-	public void draw (IBatch batch, float alphaModulation) {
-		float oldAlpha = getColor().a;
-		setAlpha(oldAlpha * alphaModulation);
-		draw(batch);
-		setAlpha(oldAlpha);
+	public void Draw (IBatch batch, float alphaModulation) {
+		float oldAlpha = GetColor().A;
+		SetAlpha(oldAlpha * alphaModulation);
+		Draw(batch);
+		SetAlpha(oldAlpha);
 	}
 
-		public virtual float getX () {
+		public virtual float GetX () {
 		return x;
 	}
 
-		public virtual float getY () {
+		public virtual float GetY () {
 		return y;
 	}
 
 	/** @return the width of the sprite, not accounting for scale. */
-	public virtual float getWidth () {
+	public virtual float GetWidth () {
 		return width;
 	}
 
 	/** @return the height of the sprite, not accounting for scale. */
-	public virtual float getHeight () {
+	public virtual float GetHeight () {
 		return height;
 	}
 
 		/** The origin influences {@link #setPosition(float, float)}, {@link #setRotation(float)} and the expansion direction of
 		 * scaling {@link #setScale(float, float)} */
-		public virtual float getOriginX () {
+		public virtual float GetOriginX () {
 		return originX;
 	}
 
 		/** The origin influences {@link #setPosition(float, float)}, {@link #setRotation(float)} and the expansion direction of
 		 * scaling {@link #setScale(float, float)} */
-		public virtual float getOriginY () {
+		public virtual float GetOriginY () {
 		return originY;
 	}
 
 	/** X scale of the sprite, independent of size set by {@link #setSize(float, float)} */
-	public float getScaleX () {
+	public float GetScaleX () {
 		return scaleX;
 	}
 
 	/** Y scale of the sprite, independent of size set by {@link #setSize(float, float)} */
-	public float getScaleY () {
+	public float GetScaleY () {
 		return scaleY;
 	}
 
 	/** Returns the color of this sprite. If the returned instance is manipulated, {@link #setColor(Color)} must be called
 	 * afterward. */
-	public Color getColor () {
+	public Color GetColor () {
 		return color;
 	}
 
     /** Returns the packed color of this sprite. */
-    public float getPackedColor()
+    public float GetPackedColor()
     {
         return packedColor;
     }
@@ -684,7 +684,7 @@ public class Sprite : TextureRegion {
 	/** Set the sprite's flip state regardless of current condition
 	 * @param x the desired horizontal flip state
 	 * @param y the desired vertical flip state */
-	public void setFlip (bool x, bool y) {
+	public void SetFlip (bool x, bool y) {
 		bool performX = false;
 		bool performY = false;
 		if (isFlipX() != x) {

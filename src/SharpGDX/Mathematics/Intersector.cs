@@ -93,7 +93,7 @@ public sealed class Intersector {
 		float x = point.x, y = point.y;
 		bool oddNodes = false;
 		for (int i = 0; i < polygon.size; i++) {
-			Vector2 vertex = polygon.get(i);
+			Vector2 vertex = polygon.Get(i);
 			if ((vertex.y < y && last.y >= y) || (last.y < y && vertex.y >= y)) {
 				if (vertex.x + (y - vertex.y) / (last.y - vertex.y) * (last.x - vertex.x) < x) oddNodes = !oddNodes;
 			}
@@ -146,16 +146,16 @@ public sealed class Intersector {
 		floatArray2.addAll(p1.getTransformedVertices());
 		float[] vertices2 = p2.getTransformedVertices();
 		for (int i = 0, last = vertices2.Length - 2; i <= last; i += 2) {
-			ep1.set(vertices2[i], vertices2[i + 1]);
+			ep1.Set(vertices2[i], vertices2[i + 1]);
 			// wrap around to beginning of array if index points to end;
 			if (i < last)
-				ep2.set(vertices2[i + 2], vertices2[i + 3]);
+				ep2.Set(vertices2[i + 2], vertices2[i + 3]);
 			else
-				ep2.set(vertices2[0], vertices2[1]);
+				ep2.Set(vertices2[0], vertices2[1]);
 			if (floatArray2.size == 0) return false;
-			s.set(floatArray2.get(floatArray2.size - 2), floatArray2.get(floatArray2.size - 1));
+			s.Set(floatArray2.get(floatArray2.size - 2), floatArray2.get(floatArray2.size - 1));
 			for (int j = 0; j < floatArray2.size; j += 2) {
-				e.set(floatArray2.get(j), floatArray2.get(j + 1));
+				e.Set(floatArray2.get(j), floatArray2.get(j + 1));
 				// determine if point is inside clip edge
 				bool side = Intersector.pointLineSide(ep2, ep1, s) > 0;
 				if (Intersector.pointLineSide(ep2, ep1, e) > 0) {
@@ -174,7 +174,7 @@ public sealed class Intersector {
 					floatArray.add(ip.x);
 					floatArray.add(ip.y);
 				}
-				s.set(e.x, e.y);
+				s.Set(e.x, e.y);
 			}
 			floatArray2.clear();
 			floatArray2.addAll(floatArray);
@@ -228,7 +228,7 @@ public sealed class Intersector {
 
 	/** Returns the distance between the given line and point. Note the specified line is not a line segment. */
 	public static float distanceLinePoint (float startX, float startY, float endX, float endY, float pointX, float pointY) {
-		float normalLength = Vector2.len(endX - startX, endY - startY);
+		float normalLength = Vector2.Len(endX - startX, endY - startY);
 		return Math.Abs((pointX - startX) * (endY - startY) - (pointY - startY) * (endX - startX)) / normalLength;
 	}
 
@@ -249,7 +249,7 @@ public sealed class Intersector {
 		float t = ((point.x - start.x) * (end.x - start.x) + (point.y - start.y) * (end.y - start.y)) / length2;
 		if (t <= 0) return nearest.set(start);
 		if (t >= 1) return nearest.set(end);
-		return nearest.set(start.x + t * (end.x - start.x), start.y + t * (end.y - start.y));
+		return nearest.Set(start.x + t * (end.x - start.x), start.y + t * (end.y - start.y));
 	}
 
 	/** Returns a point on the segment nearest to the specified point. */
@@ -258,11 +258,11 @@ public sealed class Intersector {
 		float xDiff = endX - startX;
 		float yDiff = endY - startY;
 		float length2 = xDiff * xDiff + yDiff * yDiff;
-		if (length2 == 0) return nearest.set(startX, startY);
+		if (length2 == 0) return nearest.Set(startX, startY);
 		float t = ((pointX - startX) * (endX - startX) + (pointY - startY) * (endY - startY)) / length2;
-		if (t <= 0) return nearest.set(startX, startY);
-		if (t >= 1) return nearest.set(endX, endY);
-		return nearest.set(startX + t * (endX - startX), startY + t * (endY - startY));
+		if (t <= 0) return nearest.Set(startX, startY);
+		if (t >= 1) return nearest.Set(endX, endY);
+		return nearest.Set(startX + t * (endX - startX), startY + t * (endY - startY));
 	}
 
 	/** Returns whether the given line segment intersects the given circle.
@@ -299,7 +299,7 @@ public sealed class Intersector {
 	 * @return Whether the line segment and the circle intersect */
 	public static bool intersectSegmentCircle (Vector2 start, Vector2 end, Circle circle, MinimumTranslationVector mtv) {
 		v2a.set(end).sub(start);
-		v2b.set(circle.x - start.x, circle.y - start.y);
+		v2b.Set(circle.x - start.x, circle.y - start.y);
 		float len = v2a.len();
 		float u = v2b.dot(v2a.nor());
 		if (u <= 0) {
@@ -311,12 +311,12 @@ public sealed class Intersector {
 			v2c.set(v2d).add(start);
 		}
 
-		v2a.set(v2c.x - circle.x, v2c.y - circle.y);
+		v2a.Set(v2c.x - circle.x, v2c.y - circle.y);
 
 		if (mtv != null) {
 			// Handle special case of segment containing circle center
 			if (v2a.Equals(Vector2.Zero)) {
-				v2d.set(end.y - start.y, start.x - end.x);
+				v2d.Set(end.y - start.y, start.x - end.x);
 				mtv.normal.set(v2d).nor();
 				mtv.depth = circle.radius;
 			} else {
@@ -977,7 +977,7 @@ public sealed class Intersector {
 
 		if (intersection != null) {
 			float ua = ((x4 - x3) * (y1 - y3) - (y4 - y3) * (x1 - x3)) / d;
-			intersection.set(x1 + (x2 - x1) * ua, y1 + (y2 - y1) * ua);
+			intersection.Set(x1 + (x2 - x1) * ua, y1 + (y2 - y1) * ua);
 		}
 		return true;
 	}
@@ -1012,7 +1012,7 @@ public sealed class Intersector {
 	 * area of overlap.
 	 * @return Whether the rectangles intersect */
 	static public bool intersectRectangles (Rectangle rectangle1, Rectangle rectangle2, Rectangle intersection) {
-		if (rectangle1.overlaps(rectangle2)) {
+		if (rectangle1.Overlaps(rectangle2)) {
 			intersection.x = Math.Max(rectangle1.x, rectangle2.x);
 			intersection.width = Math.Min(rectangle1.x + rectangle1.width, rectangle2.x + rectangle2.width) - intersection.x;
 			intersection.y = Math.Max(rectangle1.y, rectangle2.y);
@@ -1105,7 +1105,7 @@ public sealed class Intersector {
 		float ub = ((x2 - x1) * yd - (y2 - y1) * xd) / d;
 		if (ub < 0 || ub > 1) return false;
 
-		if (intersection != null) intersection.set(x1 + (x2 - x1) * ua, y1 + (y2 - y1) * ua);
+		if (intersection != null) intersection.Set(x1 + (x2 - x1) * ua, y1 + (y2 - y1) * ua);
 		return true;
 	}
 
@@ -1122,7 +1122,7 @@ public sealed class Intersector {
 	}
 
 	public static bool overlaps (Rectangle r1, Rectangle r2) {
-		return r1.overlaps(r2);
+		return r1.Overlaps(r2);
 	}
 
 	public static bool overlaps (Circle c, Rectangle r) {
@@ -1228,7 +1228,7 @@ public sealed class Intersector {
 			float axisX = y1 - y2;
 			float axisY = -(x1 - x2);
 
-			float len = Vector2.len(axisX, axisY);
+			float len = Vector2.Len(axisX, axisY);
 			// We got a normalized Vector
 			axisX /= len;
 			axisY /= len;
@@ -1286,7 +1286,7 @@ public sealed class Intersector {
 							axisY = condition ? axisY : -axisY;
 						}
 
-						mtv.normal.set(axisX, axisY);
+						mtv.normal.Set(axisX, axisY);
 					}
 				}
 			}

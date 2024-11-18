@@ -22,14 +22,14 @@ public class MapLayers : IEnumerable<MapLayer> {
 	/** @param index
 	 * @return the MapLayer at the specified index */
 	public MapLayer get (int index) {
-		return layers.get(index);
+		return layers.Get(index);
 	}
 
 	/** @param name
 	 * @return the first layer having the specified name, if one exists, otherwise null */
 	public MapLayer get (String name) {
 		for (int i = 0, n = layers.size; i < n; i++) {
-			MapLayer layer = layers.get(i);
+			MapLayer layer = layers.Get(i);
 			if (name.Equals(layer.getName())) {
 				return layer;
 			}
@@ -54,17 +54,17 @@ public class MapLayers : IEnumerable<MapLayer> {
 
 	/** @param layer layer to be added to the set */
 	public void add (MapLayer layer) {
-		this.layers.add(layer);
+		this.layers.Add(layer);
 	}
 
 	/** @param index removes layer at index */
 	public void remove (int index) {
-		layers.removeIndex(index);
+		layers.RemoveIndex(index);
 	}
 
 	/** @param layer layer to be removed */
 	public void remove (MapLayer layer) {
-		layers.removeValue(layer, true);
+		layers.RemoveValue(layer, true);
 	}
 
 	/** @return the number of map layers **/
@@ -87,9 +87,9 @@ public class MapLayers : IEnumerable<MapLayer> {
 	{
 		fill.clear();
 		for (int i = 0, n = layers.size; i < n; i++) {
-			MapLayer layer = layers.get(i);
+			MapLayer layer = layers.Get(i);
 			if (ClassReflection.isInstance(type, layer)) {
-				fill.add((T)layer);
+				fill.Add((T)layer);
 			}
 		}
 		return fill;

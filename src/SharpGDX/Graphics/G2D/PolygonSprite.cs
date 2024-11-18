@@ -45,7 +45,7 @@ public class PolygonSprite {
 		rotation = sprite.rotation;
 		scaleX = sprite.scaleX;
 		scaleY = sprite.scaleY;
-		color.set(sprite.color);
+		color.Set(sprite.color);
 	}
 
 	/** Sets the position and size of the sprite when drawn, before scaling and rotation are applied. If origin, rotation, or scale
@@ -130,8 +130,8 @@ public class PolygonSprite {
 	}
 
 	public void setColor (Color tint) {
-		this.color.set(tint);
-		float color = tint.toFloatBits();
+		this.color.Set(tint);
+		float color = tint.ToFloatBits();
 
 		 float[] vertices = this.vertices;
 		for (int i = 2; i < vertices.Length; i += Sprite.VERTEX_SIZE)
@@ -139,8 +139,8 @@ public class PolygonSprite {
 	}
 
 	public void setColor (float r, float g, float b, float a) {
-		color.set(r, g, b, a);
-		float packedColor = color.toFloatBits();
+		color.Set(r, g, b, a);
+		float packedColor = color.ToFloatBits();
 		 float[] vertices = this.vertices;
 		for (int i = 2; i < vertices.Length; i += Sprite.VERTEX_SIZE)
 			vertices[i] = packedColor;
@@ -248,11 +248,11 @@ public class PolygonSprite {
 
 	public void draw (PolygonSpriteBatch spriteBatch, float alphaModulation) {
 		Color color = getColor();
-		float oldAlpha = color.a;
-		color.a *= alphaModulation;
+		float oldAlpha = color.A;
+		color.A *= alphaModulation;
 		setColor(color);
 		draw(spriteBatch);
-		color.a = oldAlpha;
+		color.A = oldAlpha;
 		setColor(color);
 	}
 
@@ -302,7 +302,7 @@ public class PolygonSprite {
 	 * unless {@link #setColor(Color)} or {@link #setColor(float, float, float, float)} is subsequently called before drawing this
 	 * sprite. */
 	public Color getPackedColor () {
-		Color.abgr8888ToColor(color, vertices[2]);
+		Color.ABGR8888ToColor(color, vertices[2]);
 		return color;
 	}
 
@@ -316,7 +316,7 @@ public class PolygonSprite {
 		if (this.vertices == null || this.vertices.Length != verticesLength) this.vertices = new float[verticesLength];
 
 		// Set the color and UVs in this sprite's vertices.
-		float floatColor = color.toFloatBits();
+		float floatColor = color.ToFloatBits();
 		float[] vertices = this.vertices;
 		for (int i = 0, v = 2; v < verticesLength; i += 2, v += 5) {
 			vertices[v] = floatColor;

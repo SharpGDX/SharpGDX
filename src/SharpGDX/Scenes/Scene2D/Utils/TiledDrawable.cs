@@ -31,12 +31,12 @@ public class TiledDrawable : TextureRegionDrawable {
 	}
 
 		public override void draw (IBatch batch, float x, float y, float width, float height) {
-		float oldColor = batch.getPackedColor();
-		batch.setColor(batch.getColor().mul(color));
+		float oldColor = batch.GetPackedColor();
+		batch.SetColor(batch.GetColor().Mul(color));
 
 		draw(batch, getRegion(), x, y, width, height, scale, align);
 
-		batch.setPackedColor(oldColor);
+		batch.SetPackedColor(oldColor);
 	}
 
 	public static void draw (IBatch batch, TextureRegion textureRegion, float x, float y, float width, float height, float scale,
@@ -103,7 +103,7 @@ public class TiledDrawable : TextureRegionDrawable {
 			// Left bottom partial
 			if (bottomPartialHeight > 0f) {
 				 float leftBottomV = v + (bottomPartialHeight / textureHeight);
-				batch.draw(texture, drawX, drawY, leftPartialWidth, bottomPartialHeight, leftEdgeU, leftBottomV, u2, v);
+				batch.Draw(texture, drawX, drawY, leftPartialWidth, bottomPartialHeight, leftEdgeU, leftBottomV, u2, v);
 				drawY += bottomPartialHeight;
 			}
 
@@ -112,11 +112,11 @@ public class TiledDrawable : TextureRegionDrawable {
 				 float vOffset = 0.5f * (v2 - v) * (1f - (height / regionHeight));
 				 float leftCenterV = v2 - vOffset;
 				 float leftCenterV2 = v + vOffset;
-				batch.draw(texture, drawX, drawY, leftPartialWidth, height, leftEdgeU, leftCenterV, u2, leftCenterV2);
+				batch.Draw(texture, drawX, drawY, leftPartialWidth, height, leftEdgeU, leftCenterV, u2, leftCenterV2);
 				drawY += height;
 			} else {
 				for (int i = 0; i < fullY; i++) {
-					batch.draw(texture, drawX, drawY, leftPartialWidth, regionHeight, leftEdgeU, v2, u2, v);
+					batch.Draw(texture, drawX, drawY, leftPartialWidth, regionHeight, leftEdgeU, v2, u2, v);
 					drawY += regionHeight;
 				}
 			}
@@ -124,7 +124,7 @@ public class TiledDrawable : TextureRegionDrawable {
 			// Left top partial
 			if (topPartialHeight > 0f) {
 				 float leftTopV = v2 - (topPartialHeight / textureHeight);
-				batch.draw(texture, drawX, drawY, leftPartialWidth, topPartialHeight, leftEdgeU, v2, u2, leftTopV);
+				batch.Draw(texture, drawX, drawY, leftPartialWidth, topPartialHeight, leftEdgeU, v2, u2, leftTopV);
 			}
 		}
 
@@ -141,11 +141,11 @@ public class TiledDrawable : TextureRegionDrawable {
 					 float uOffset = 0.5f * (u2 - u) * (1f - (width / regionWidth));
 					 float centerBottomU = u + uOffset;
 					 float centerBottomU2 = u2 - uOffset;
-					batch.draw(texture, drawX, drawY, width, bottomPartialHeight, centerBottomU, centerBottomV, centerBottomU2, v);
+					batch.Draw(texture, drawX, drawY, width, bottomPartialHeight, centerBottomU, centerBottomV, centerBottomU2, v);
 					drawX += width;
 				} else {
 					for (int i = 0; i < fullX; i++) {
-						batch.draw(texture, drawX, drawY, regionWidth, bottomPartialHeight, u, centerBottomV, u2, v);
+						batch.Draw(texture, drawX, drawY, regionWidth, bottomPartialHeight, u, centerBottomV, u2, v);
 						drawX += regionWidth;
 					}
 				}
@@ -181,7 +181,7 @@ public class TiledDrawable : TextureRegionDrawable {
 				for (int i = 0; i < fullX; i++) {
 					drawY = y + bottomPartialHeight;
 					for (int ii = 0; ii < fullY; ii++) {
-						batch.draw(texture, drawX, drawY, centerCenterDrawWidth, centerCenterDrawHeight, centerCenterU, centerCenterV,
+						batch.Draw(texture, drawX, drawY, centerCenterDrawWidth, centerCenterDrawHeight, centerCenterU, centerCenterV,
 							centerCenterU2, centerCenterV2);
 						drawY += centerCenterDrawHeight;
 					}
@@ -202,11 +202,11 @@ public class TiledDrawable : TextureRegionDrawable {
 					 float uOffset = 0.5f * (u2 - u) * (1f - (width / regionWidth));
 					 float centerTopU = u + uOffset;
 					 float centerTopU2 = u2 - uOffset;
-					batch.draw(texture, drawX, drawY, width, topPartialHeight, centerTopU, v2, centerTopU2, centerTopV);
+					batch.Draw(texture, drawX, drawY, width, topPartialHeight, centerTopU, v2, centerTopU2, centerTopV);
 					drawX += width;
 				} else {
 					for (int i = 0; i < fullX; i++) {
-						batch.draw(texture, drawX, drawY, regionWidth, topPartialHeight, u, v2, u2, centerTopV);
+						batch.Draw(texture, drawX, drawY, regionWidth, topPartialHeight, u, v2, u2, centerTopV);
 						drawX += regionWidth;
 					}
 				}
@@ -222,7 +222,7 @@ public class TiledDrawable : TextureRegionDrawable {
 			// Right bottom partial
 			if (bottomPartialHeight > 0f) {
 				 float rightBottomV = v + (bottomPartialHeight / textureHeight);
-				batch.draw(texture, drawX, drawY, rightPartialWidth, bottomPartialHeight, u, rightBottomV, rightEdgeU2, v);
+				batch.Draw(texture, drawX, drawY, rightPartialWidth, bottomPartialHeight, u, rightBottomV, rightEdgeU2, v);
 				drawY += bottomPartialHeight;
 			}
 
@@ -231,11 +231,11 @@ public class TiledDrawable : TextureRegionDrawable {
 				 float vOffset = 0.5f * (v2 - v) * (1f - (height / regionHeight));
 				 float rightCenterV = v2 - vOffset;
 				 float rightCenterV2 = v + vOffset;
-				batch.draw(texture, drawX, drawY, rightPartialWidth, height, u, rightCenterV, rightEdgeU2, rightCenterV2);
+				batch.Draw(texture, drawX, drawY, rightPartialWidth, height, u, rightCenterV, rightEdgeU2, rightCenterV2);
 				drawY += height;
 			} else {
 				for (int i = 0; i < fullY; i++) {
-					batch.draw(texture, drawX, drawY, rightPartialWidth, regionHeight, u, v2, rightEdgeU2, v);
+					batch.Draw(texture, drawX, drawY, rightPartialWidth, regionHeight, u, v2, rightEdgeU2, v);
 					drawY += regionHeight;
 				}
 			}
@@ -243,7 +243,7 @@ public class TiledDrawable : TextureRegionDrawable {
 			// Right top partial
 			if (topPartialHeight > 0f) {
 				 float rightTopV = v2 - (topPartialHeight / textureHeight);
-				batch.draw(texture, drawX, drawY, rightPartialWidth, topPartialHeight, u, v2, rightEdgeU2, rightTopV);
+				batch.Draw(texture, drawX, drawY, rightPartialWidth, topPartialHeight, u, v2, rightEdgeU2, rightTopV);
 			}
 		}
 	}
@@ -275,7 +275,7 @@ public class TiledDrawable : TextureRegionDrawable {
 
 		public override TiledDrawable tint (Color tint) {
 		TiledDrawable drawable = new TiledDrawable(this);
-		drawable.color.set(tint);
+		drawable.color.Set(tint);
 		drawable.setLeftWidth(getLeftWidth());
 		drawable.setRightWidth(getRightWidth());
 		drawable.setTopHeight(getTopHeight());

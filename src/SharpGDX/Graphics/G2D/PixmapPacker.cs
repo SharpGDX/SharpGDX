@@ -802,7 +802,7 @@ public class PixmapPacker : IDisposable {
 	 * bleeding or to highlight the page for debugging.
 	 * @see Page#Page(PixmapPacker packer) */
 	public void setTransparentColor (Color color) {
-		this.transparentColor.set(color);
+		this.transparentColor.Set(color);
 	}
 
 	private int[] getSplits (Pixmap raster) {
@@ -914,11 +914,11 @@ public class PixmapPacker : IDisposable {
 				y = next;
 
 			int colint = raster.getPixel(x, y);
-			c.set(colint);
-			rgba[0] = (int)(c.r * 255);
-			rgba[1] = (int)(c.g * 255);
-			rgba[2] = (int)(c.b * 255);
-			rgba[3] = (int)(c.a * 255);
+			c.Set(colint);
+			rgba[0] = (int)(c.R * 255);
+			rgba[1] = (int)(c.G * 255);
+			rgba[2] = (int)(c.B * 255);
+			rgba[3] = (int)(c.A * 255);
 			if (rgba[3] == breakA) return next;
 
 			if (!startPoint && (rgba[0] != 0 || rgba[1] != 0 || rgba[2] != 0 || rgba[3] != 255))

@@ -15,7 +15,7 @@ namespace SharpGDX.Input
 	private TextInputWrapper textInputWrapper;
 	private bool _isMultiLine = false;
 	private int maxLength;
-	private IInput.InputStringValidator validator;
+	private IInput.IInputStringValidator validator;
 	private String placeholder = "";
 	private bool showPasswordButton = false;
 	private String[] autoComplete = null;
@@ -70,12 +70,12 @@ namespace SharpGDX.Input
 		return this;
 	}
 
-	public IInput.InputStringValidator getValidator () {
+	public IInput.IInputStringValidator getValidator () {
 		return validator;
 	}
 
 	/** @param validator Can validate the input from the keyboard and reject. */
-	public NativeInputConfiguration setValidator (IInput.InputStringValidator validator) {
+	public NativeInputConfiguration setValidator (IInput.IInputStringValidator validator) {
 		this.validator = validator;
 		return this;
 	}

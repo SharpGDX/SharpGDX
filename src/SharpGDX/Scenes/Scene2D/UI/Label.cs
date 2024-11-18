@@ -156,7 +156,7 @@ public Label (String? text, LabelStyle style) {
 				width = Math.Max(width, style.background.getMinWidth()) - style.background.getLeftWidth()
 					- style.background.getRightWidth();
 			}
-			layout.setText(cache.getFont(), text.ToString(), Color.WHITE, width, Align.left, true);
+			layout.setText(cache.getFont(), text.ToString(), Color.White, width, Align.left, true);
 		} else
 			layout.setText(cache.getFont(), text.ToString());
 		prefWidth = layout.width;
@@ -196,7 +196,7 @@ public Label (String? text, LabelStyle style) {
 
 		if (wrap || stringText.IndexOf("\n") != -1) {
 			// If the text can span multiple lines, determine the text's actual size so it can be aligned within the label.
-			layout.setText(font, stringText, 0, stringText.Length, Color.WHITE, width, lineAlign, wrap, ellipsis);
+			layout.setText(font, stringText, 0, stringText.Length, Color.White, width, lineAlign, wrap, ellipsis);
 			textWidth = layout.width;
 			textHeight = layout.height;
 
@@ -222,7 +222,7 @@ public Label (String? text, LabelStyle style) {
 		}
 		if (!cache.getFont().isFlipped()) y += textHeight;
 
-		layout.setText(font, stringText, 0, stringText.Length, Color.WHITE, textWidth, lineAlign, wrap, ellipsis);
+		layout.setText(font, stringText, 0, stringText.Length, Color.White, textWidth, lineAlign, wrap, ellipsis);
 		cache.setText(layout, x, y);
 
 		if (fontScaleChanged) font.getData().setScale(oldScaleX, oldScaleY);
@@ -230,13 +230,13 @@ public Label (String? text, LabelStyle style) {
 
 	public override void draw (IBatch batch, float parentAlpha) {
 		validate();
-		Color color = tempColor.set(getColor());
-		color.a *= parentAlpha;
+		Color color = tempColor.Set(getColor());
+		color.A *= parentAlpha;
 		if (style.background != null) {
-			batch.setColor(color.r, color.g, color.b, color.a);
+			batch.SetColor(color.R, color.G, color.B, color.A);
 			style.background.draw(batch, getX(), getY(), getWidth(), getHeight());
 		}
-		if (style.fontColor != null) color.mul(style.fontColor);
+		if (style.fontColor != null) color.Mul(style.fontColor);
 		cache.tint(color);
 		cache.setPosition(getX(), getY());
 		cache.draw(batch);

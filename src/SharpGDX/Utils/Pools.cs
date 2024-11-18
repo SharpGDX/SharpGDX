@@ -59,7 +59,7 @@ public class Pools {
 		if (objects == null) throw new IllegalArgumentException("objects cannot be null.");
 		Pool<T>? pool = null;
 		for (int i = 0, n = objects.size; i < n; i++) {
-			T obj = objects.get(i);
+			T obj = objects.Get(i);
 			if (obj == null) continue;
 			if (pool == null) {
 				pool = typePools.get(obj.GetType()) as Pool<T>;

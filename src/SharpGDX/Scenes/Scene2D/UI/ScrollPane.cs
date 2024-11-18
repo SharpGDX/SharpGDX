@@ -116,7 +116,7 @@ public class ScrollPane : WidgetGroup {
 				_scrollPane.setScrollbarsVisible(true);
 				if (_scrollPane.hKnobBounds.contains(x, y))
 				{
-					_scrollPane.lastPoint.set(x, y);
+					_scrollPane.lastPoint.Set(x, y);
 					handlePosition = _scrollPane.hKnobBounds.x;
 					_scrollPane.touchScrollH = true;
 					_scrollPane.draggingPointer = pointer;
@@ -131,7 +131,7 @@ public class ScrollPane : WidgetGroup {
 				_scrollPane.setScrollbarsVisible(true);
 				if (_scrollPane.vKnobBounds.contains(x, y))
 				{
-					_scrollPane.lastPoint.set(x, y);
+					_scrollPane.lastPoint.Set(x, y);
 					handlePosition = _scrollPane.vKnobBounds.y;
 					_scrollPane.touchScrollV = true;
 					_scrollPane.draggingPointer = pointer;
@@ -161,7 +161,7 @@ public class ScrollPane : WidgetGroup {
 				scrollH = Math.Min(_scrollPane.hScrollBounds.x + _scrollPane.hScrollBounds.width - _scrollPane.hKnobBounds.width, scrollH);
 				float total = _scrollPane.hScrollBounds.width - _scrollPane.hKnobBounds.width;
 				if (total != 0) _scrollPane.setScrollPercentX((scrollH - _scrollPane.hScrollBounds.x) / total);
-				_scrollPane.lastPoint.set(x, y);
+				_scrollPane.lastPoint.Set(x, y);
 			}
 			else if (_scrollPane.touchScrollV)
 			{
@@ -172,7 +172,7 @@ public class ScrollPane : WidgetGroup {
 				scrollV = Math.Min(_scrollPane.vScrollBounds.y + _scrollPane.vScrollBounds.height - _scrollPane.vKnobBounds.height, scrollV);
 				float total = _scrollPane.vScrollBounds.height - _scrollPane.vKnobBounds.height;
 				if (total != 0) _scrollPane.setScrollPercentY(1 - (scrollV - _scrollPane.vScrollBounds.y) / total);
-				_scrollPane.lastPoint.set(x, y);
+				_scrollPane.lastPoint.Set(x, y);
 			}
 		}
 
@@ -298,10 +298,10 @@ public class ScrollPane : WidgetGroup {
 
 	void clamp () {
 		if (!_clamp) return;
-		scrollX(overscrollX ? MathUtils.clamp(amountX, -overscrollDistance, maxX + overscrollDistance)
-			: MathUtils.clamp(amountX, 0, maxX));
-		scrollY(overscrollY ? MathUtils.clamp(amountY, -overscrollDistance, maxY + overscrollDistance)
-			: MathUtils.clamp(amountY, 0, maxY));
+		scrollX(overscrollX ? MathUtils.Clamp(amountX, -overscrollDistance, maxX + overscrollDistance)
+			: MathUtils.Clamp(amountX, 0, maxX));
+		scrollY(overscrollY ? MathUtils.Clamp(amountY, -overscrollDistance, maxY + overscrollDistance)
+			: MathUtils.Clamp(amountY, 0, maxY));
 	}
 
 	public void setStyle (ScrollPaneStyle style) {
@@ -424,7 +424,7 @@ public class ScrollPane : WidgetGroup {
 			bgBottomHeight = bg.getBottomHeight();
 		}
 		float width = getWidth(), height = getHeight();
-		actorArea.set(bgLeftWidth, bgBottomHeight, width - bgLeftWidth - bgRightWidth, height - bgTopHeight - bgBottomHeight);
+		actorArea.Set(bgLeftWidth, bgBottomHeight, width - bgLeftWidth - bgRightWidth, height - bgTopHeight - bgBottomHeight);
 
 		if (actor == null) return;
 
@@ -475,15 +475,15 @@ public class ScrollPane : WidgetGroup {
 
 		maxX = actorWidth - actorArea.width;
 		maxY = actorHeight - actorArea.height;
-		scrollX(MathUtils.clamp(amountX, 0, maxX));
-		scrollY(MathUtils.clamp(amountY, 0, maxY));
+		scrollX(MathUtils.Clamp(amountX, 0, maxX));
+		scrollY(MathUtils.Clamp(amountY, 0, maxY));
 
 		// Set the scrollbar and knob bounds.
 		if (_scrollX) {
 			if (hScrollKnob != null) {
 				float x = scrollbarsOnTop ? bgLeftWidth : actorArea.x;
 				float y = hScrollOnBottom ? bgBottomHeight : height - bgTopHeight - scrollbarHeight;
-				hScrollBounds.set(x, y, actorArea.width, scrollbarHeight);
+				hScrollBounds.Set(x, y, actorArea.width, scrollbarHeight);
 				if (_scrollY && scrollbarsOnTop) {
 					hScrollBounds.width -= scrollbarWidth;
 					if (!vScrollOnRight) hScrollBounds.x += scrollbarWidth;
@@ -498,15 +498,15 @@ public class ScrollPane : WidgetGroup {
 				hKnobBounds.x = hScrollBounds.x + (int)((hScrollBounds.width - hKnobBounds.width) * getScrollPercentX());
 				hKnobBounds.y = hScrollBounds.y;
 			} else {
-				hScrollBounds.set(0, 0, 0, 0);
-				hKnobBounds.set(0, 0, 0, 0);
+				hScrollBounds.Set(0, 0, 0, 0);
+				hKnobBounds.Set(0, 0, 0, 0);
 			}
 		}
 		if (_scrollY) {
 			if (vScrollKnob != null) {
 				float x = vScrollOnRight ? width - bgRightWidth - scrollbarWidth : bgLeftWidth;
 				float y = scrollbarsOnTop ? bgBottomHeight : actorArea.y;
-				vScrollBounds.set(x, y, scrollbarWidth, actorArea.height);
+				vScrollBounds.Set(x, y, scrollbarWidth, actorArea.height);
 				if (_scrollX && scrollbarsOnTop) {
 					vScrollBounds.height -= scrollbarHeight;
 					if (hScrollOnBottom) vScrollBounds.y += scrollbarHeight;
@@ -522,8 +522,8 @@ public class ScrollPane : WidgetGroup {
 				vKnobBounds.x = vScrollOnRight ? width - bgRightWidth - vScrollKnob.getMinWidth() : bgLeftWidth;
 				vKnobBounds.y = vScrollBounds.y + (int)((vScrollBounds.height - vKnobBounds.height) * (1 - getScrollPercentY()));
 			} else {
-				vScrollBounds.set(0, 0, 0, 0);
-				vKnobBounds.set(0, 0, 0, 0);
+				vScrollBounds.Set(0, 0, 0, 0);
+				vKnobBounds.Set(0, 0, 0, 0);
 			}
 		}
 
@@ -565,23 +565,23 @@ public class ScrollPane : WidgetGroup {
 
 		// Draw the background ninepatch.
 		Color color = getColor();
-		float alpha = color.a * parentAlpha;
+		float alpha = color.A * parentAlpha;
 		if (style.background != null) {
-			batch.setColor(color.r, color.g, color.b, alpha);
+			batch.SetColor(color.R, color.G, color.B, alpha);
 			style.background.draw(batch, 0, 0, getWidth(), getHeight());
 		}
 
-		batch.flush();
+		batch.Flush();
 		if (clipBegin(actorArea.x, actorArea.y, actorArea.width, actorArea.height)) {
 			drawChildren(batch, parentAlpha);
-			batch.flush();
+			batch.Flush();
 			clipEnd();
 		}
 
 		// Render scrollbars and knobs on top if they will be visible.
-		batch.setColor(color.r, color.g, color.b, alpha);
+		batch.SetColor(color.R, color.G, color.B, alpha);
 		if (fadeScrollBars) alpha *= Interpolation.fade.apply(fadeAlpha / fadeAlphaSeconds);
-		drawScrollBars(batch, color.r, color.g, color.b, alpha);
+		drawScrollBars(batch, color.R, color.G, color.B, alpha);
 
 		resetTransform(batch);
 	}
@@ -590,7 +590,7 @@ public class ScrollPane : WidgetGroup {
 	 * skipped. */
 	protected void drawScrollBars (IBatch batch, float r, float g, float b, float a) {
 		if (a <= 0) return;
-		batch.setColor(r, g, b, a);
+		batch.SetColor(r, g, b, a);
 
 		bool x = _scrollX && hKnobBounds.width > 0;
 		bool y = _scrollY && vKnobBounds.height > 0;
@@ -743,7 +743,7 @@ public class ScrollPane : WidgetGroup {
 	}
 
 	public void setScrollX (float pixels) {
-		scrollX(MathUtils.clamp(pixels, 0, maxX));
+		scrollX(MathUtils.Clamp(pixels, 0, maxX));
 	}
 
 	/** Returns the x scroll position in pixels, where 0 is the left of the scroll pane. */
@@ -752,7 +752,7 @@ public class ScrollPane : WidgetGroup {
 	}
 
 	public void setScrollY (float pixels) {
-		scrollY(MathUtils.clamp(pixels, 0, maxY));
+		scrollY(MathUtils.Clamp(pixels, 0, maxY));
 	}
 
 	/** Returns the y scroll position in pixels, where 0 is the top of the scroll pane. */
@@ -777,30 +777,30 @@ public class ScrollPane : WidgetGroup {
 
 	public float getVisualScrollPercentX () {
 		if (maxX == 0) return 0;
-		return MathUtils.clamp(visualAmountX / maxX, 0, 1);
+		return MathUtils.Clamp(visualAmountX / maxX, 0, 1);
 	}
 
 	public float getVisualScrollPercentY () {
 		if (maxY == 0) return 0;
-		return MathUtils.clamp(visualAmountY / maxY, 0, 1);
+		return MathUtils.Clamp(visualAmountY / maxY, 0, 1);
 	}
 
 	public float getScrollPercentX () {
 		if (maxX == 0) return 0;
-		return MathUtils.clamp(amountX / maxX, 0, 1);
+		return MathUtils.Clamp(amountX / maxX, 0, 1);
 	}
 
 	public void setScrollPercentX (float percentX) {
-		scrollX(maxX * MathUtils.clamp(percentX, 0, 1));
+		scrollX(maxX * MathUtils.Clamp(percentX, 0, 1));
 	}
 
 	public float getScrollPercentY () {
 		if (maxY == 0) return 0;
-		return MathUtils.clamp(amountY / maxY, 0, 1);
+		return MathUtils.Clamp(amountY / maxY, 0, 1);
 	}
 
 	public void setScrollPercentY (float percentY) {
-		scrollY(maxY * MathUtils.clamp(percentY, 0, 1));
+		scrollY(maxY * MathUtils.Clamp(percentY, 0, 1));
 	}
 
 	public void setFlickScroll (bool flickScroll) {
@@ -832,16 +832,16 @@ public class ScrollPane : WidgetGroup {
 		if (centerHorizontal)
 			amountX = x + (width - actorArea.width) / 2;
 		else
-            amountX = MathUtils.clamp(amountX, x, x + width - actorArea.width);
-        scrollX(MathUtils.clamp(amountX, 0, maxX));
+            amountX = MathUtils.Clamp(amountX, x, x + width - actorArea.width);
+        scrollX(MathUtils.Clamp(amountX, 0, maxX));
 
 		float amountY = this.amountY;
 		y = maxY - y;
 		if (centerVertical)
 			amountY = y + (actorArea.height + height) / 2;
 		else
-			amountY = MathUtils.clamp(amountY, y + height, y + actorArea.height);
-		scrollY(MathUtils.clamp(amountY, 0, maxY));
+			amountY = MathUtils.Clamp(amountY, y + height, y + actorArea.height);
+		scrollY(MathUtils.Clamp(amountY, 0, maxY));
 	}
 
 	/** Returns the maximum scroll value in the x direction. */

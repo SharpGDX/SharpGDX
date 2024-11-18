@@ -148,7 +148,7 @@ where T : GLTexture
 		if (isMRT) {
 			foreach (FrameBufferTextureAttachmentSpec attachmentSpec in bufferBuilder.textureAttachmentSpecs) {
 				T texture = createTexture(attachmentSpec);
-				textureAttachments.add(texture);
+				textureAttachments.Add(texture);
 				if (attachmentSpec.isColorTexture()) {
 					gl.glFramebufferTexture2D(IGL20.GL_FRAMEBUFFER, IGL30.GL_COLOR_ATTACHMENT0 + colorAttachmentCounter,
 						IGL30.GL_TEXTURE_2D, texture.getTextureObjectHandle(), 0);
@@ -163,7 +163,7 @@ where T : GLTexture
 			}
 		} else if (bufferBuilder.textureAttachmentSpecs.size > 0) {
 			T texture = createTexture(bufferBuilder.textureAttachmentSpecs.first());
-			textureAttachments.add(texture);
+			textureAttachments.Add(texture);
 			gl.glBindTexture(texture.glTarget, texture.getTextureObjectHandle());
 		}
 
@@ -331,7 +331,7 @@ where T : GLTexture
 
 		gl.glDeleteFramebuffer(framebufferHandle);
 
-		if (buffers.get(Gdx.App) != null) buffers.get(Gdx.App).removeValue(this, true);
+		if (buffers.get(Gdx.App) != null) buffers.get(Gdx.App).RemoveValue(this, true);
 	}
 
 	/** Makes the frame buffer current so everything gets drawn to it. */
@@ -484,7 +484,7 @@ where T : GLTexture
 	private static void addManagedFrameBuffer (IApplication app, GLFrameBuffer<T> frameBuffer) {
 		var managedResources = buffers.get(app);
 		if (managedResources == null) managedResources = new ();
-		managedResources.add(frameBuffer);
+		managedResources.Add(frameBuffer);
 		buffers.put(app, managedResources);
 	}
 
@@ -496,7 +496,7 @@ where T : GLTexture
 		var bufferArray = buffers.get(app);
 		if (bufferArray == null) return;
 		for (int i = 0; i < bufferArray.size; i++) {
-			bufferArray.get(i).build();
+			bufferArray.Get(i).build();
 		}
 	}
 
@@ -586,7 +586,7 @@ public abstract class GLFrameBufferBuilder<U>
 
     public GLFrameBufferBuilder<U> addColorTextureAttachment(int internalFormat, int format, int type)
     {
-        textureAttachmentSpecs.add(new FrameBufferTextureAttachmentSpec(internalFormat, format, type));
+        textureAttachmentSpecs.Add(new FrameBufferTextureAttachmentSpec(internalFormat, format, type));
         return this;
     }
 
@@ -602,7 +602,7 @@ public abstract class GLFrameBufferBuilder<U>
         FrameBufferTextureAttachmentSpec spec = new FrameBufferTextureAttachmentSpec(internalFormat, format, type);
         spec.isFloat = true;
         spec.isGpuOnly = gpuOnly;
-        textureAttachmentSpecs.add(spec);
+        textureAttachmentSpecs.Add(spec);
         return this;
     }
 
@@ -611,7 +611,7 @@ public abstract class GLFrameBufferBuilder<U>
         FrameBufferTextureAttachmentSpec spec = new FrameBufferTextureAttachmentSpec(internalFormat, IGL30.GL_DEPTH_COMPONENT,
             type);
         spec.isDepth = true;
-        textureAttachmentSpecs.add(spec);
+        textureAttachmentSpecs.Add(spec);
         return this;
     }
 
@@ -620,7 +620,7 @@ public abstract class GLFrameBufferBuilder<U>
         FrameBufferTextureAttachmentSpec spec = new FrameBufferTextureAttachmentSpec(internalFormat, IGL30.GL_STENCIL_ATTACHMENT,
             type);
         spec.isStencil = true;
-        textureAttachmentSpecs.add(spec);
+        textureAttachmentSpecs.Add(spec);
         return this;
     }
 
@@ -633,7 +633,7 @@ public abstract class GLFrameBufferBuilder<U>
 
     public GLFrameBufferBuilder<U> addColorRenderBuffer(int internalFormat)
     {
-        colorRenderBufferSpecs.add(new FrameBufferRenderBufferAttachmentSpec(internalFormat));
+        colorRenderBufferSpecs.Add(new FrameBufferRenderBufferAttachmentSpec(internalFormat));
         return this;
     }
 

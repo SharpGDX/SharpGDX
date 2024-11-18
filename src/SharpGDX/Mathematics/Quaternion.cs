@@ -161,7 +161,7 @@ public class Quaternion   {
 	 * @return the rotation around the x axis in radians (between -(PI/2) and +(PI/2)) */
 	public float getPitchRad () {
 		 int pole = getGimbalPole();
-		return pole == 0 ? (float)Math.Asin(MathUtils.clamp(2f * (w * x - z * y), -1f, 1f)) : (float)pole * MathUtils.PI * 0.5f;
+		return pole == 0 ? (float)Math.Asin(MathUtils.Clamp(2f * (w * x - z * y), -1f, 1f)) : (float)pole * MathUtils.PI * 0.5f;
 	}
 
 	/** Get the pitch euler angle in degrees, which is the rotation around the x axis. Requires that this quaternion is normalized.
@@ -540,7 +540,7 @@ public class Quaternion   {
 	 * @param v2 The target vector, which should be normalized.
 	 * @return This quaternion for chaining */
 	public Quaternion setFromCross ( Vector3 v1,  Vector3 v2) {
-		 float dot = MathUtils.clamp(v1.dot(v2), -1f, 1f);
+		 float dot = MathUtils.Clamp(v1.dot(v2), -1f, 1f);
 		 float angle = (float)Math.Acos(dot);
 		return setFromAxisRad(v1.y * v2.z - v1.z * v2.y, v1.z * v2.x - v1.x * v2.z, v1.x * v2.y - v1.y * v2.x, angle);
 	}
@@ -555,7 +555,7 @@ public class Quaternion   {
 	 * @return This quaternion for chaining */
 	public Quaternion setFromCross ( float x1,  float y1,  float z1,  float x2,  float y2,
 		 float z2) {
-		 float dot = MathUtils.clamp(Vector3.dot(x1, y1, z1, x2, y2, z2), -1f, 1f);
+		 float dot = MathUtils.Clamp(Vector3.dot(x1, y1, z1, x2, y2, z2), -1f, 1f);
 		 float angle = (float)Math.Acos(dot);
 		return setFromAxisRad(y1 * z2 - z1 * y2, z1 * x2 - x1 * z2, x1 * y2 - y1 * x2, angle);
 	}
@@ -835,7 +835,7 @@ public class Quaternion   {
 		 float d = Vector3.dot(this.x, this.y, this.z, axisX, axisY, axisZ);
 		 float l2 = Quaternion.len2(axisX * d, axisY * d, axisZ * d, this.w);
 		return MathUtils.isZero(l2) ? 0f
-			: (float)(2.0 * Math.Acos(MathUtils.clamp((float)((d < 0 ? -this.w : this.w) / Math.Sqrt(l2)), -1f, 1f)));
+			: (float)(2.0 * Math.Acos(MathUtils.Clamp((float)((d < 0 ? -this.w : this.w) / Math.Sqrt(l2)), -1f, 1f)));
 	}
 
 	/** Get the angle in radians of the rotation around the specified axis. The axis must be normalized.

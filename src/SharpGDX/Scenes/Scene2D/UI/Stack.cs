@@ -41,7 +41,7 @@ public class Stack : WidgetGroup {
 		maxHeight = 0;
 		SnapshotArray<Actor> children = getChildren();
 		for (int i = 0, n = children.size; i < n; i++) {
-			Actor child = children.get(i);
+			Actor child = children.Get(i);
 			float childMaxWidth, childMaxHeight;
 			if (child is ILayout) {
 				ILayout layout = (ILayout)child;
@@ -73,7 +73,7 @@ public class Stack : WidgetGroup {
 		float width = getWidth(), height = getHeight();
 		Array<Actor> children = getChildren();
 		for (int i = 0, n = children.size; i < n; i++) {
-			Actor child = children.get(i);
+			Actor child = children.Get(i);
 			child.setBounds(0, 0, width, height);
 			if (child is ILayout) ((ILayout)child).validate();
 		}

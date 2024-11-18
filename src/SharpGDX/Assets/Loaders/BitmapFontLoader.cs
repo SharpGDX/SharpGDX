@@ -86,7 +86,7 @@ public class BitmapFontLoader : AsynchronousAssetLoader<BitmapFont, BitmapFontLo
 			Array<TextureRegion> regs = new(n);
 			for (int i = 0; i < n; i++)
 			{
-				regs.add(new TextureRegion(manager.get<Texture>(data.getImagePath(i), typeof(Texture))));
+				regs.Add(new TextureRegion(manager.get<Texture>(data.getImagePath(i), typeof(Texture))));
 			}
 
 			return new BitmapFont(data, regs, true);

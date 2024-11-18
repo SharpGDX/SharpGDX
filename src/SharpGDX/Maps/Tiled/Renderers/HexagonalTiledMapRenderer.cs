@@ -102,8 +102,8 @@ public class HexagonalTiledMapRenderer : BatchTiledMapRenderer {
 	}
 
 	public override void renderTileLayer (TiledMapTileLayer layer) {
-		 Color batchColor = batch.getColor();
-		 float color = Color.toFloatBits(batchColor.r, batchColor.g, batchColor.b, batchColor.a * layer.getOpacity());
+		 Color batchColor = batch.GetColor();
+		 float color = Color.ToFloatBits(batchColor.R, batchColor.G, batchColor.B, batchColor.A * layer.getOpacity());
 
 		 int layerWidth = layer.getWidth();
 		 int layerHeight = layer.getHeight();
@@ -249,7 +249,7 @@ public class HexagonalTiledMapRenderer : BatchTiledMapRenderer {
 					vertices[V2] = vertices[V4];
 					vertices[V4] = tempV;
 				}
-				batch.draw(region.getTexture(), vertices, 0, NUM_VERTICES);
+				batch.Draw(region.getTexture(), vertices, 0, NUM_VERTICES);
 			}
 		}
 	}

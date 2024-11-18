@@ -99,14 +99,14 @@ namespace SharpGDX.Utils
 		Array.Copy(array, start, items, 0, size);
 	}
 
-	public void add(T value)
+	public void Add(T value)
 	{
 		T[] items = this.items;
 		if (size == items.Length) items = resize(Math.Max(8, (int)(size * 1.75f)));
 		items[size++] = value;
 	}
 
-	public void add(T value1, T value2)
+	public void Add(T value1, T value2)
 	{
 		T[] items = this.items;
 		if (size + 1 >= items.Length) items = resize(Math.Max(8, (int)(size * 1.75f)));
@@ -115,7 +115,7 @@ namespace SharpGDX.Utils
 		size += 2;
 	}
 
-	public void add(T value1, T value2, T value3)
+	public void Add(T value1, T value2, T value3)
 	{
 		T[] items = this.items;
 		if (size + 2 >= items.Length) items = resize(Math.Max(8, (int)(size * 1.75f)));
@@ -124,7 +124,7 @@ namespace SharpGDX.Utils
 		items[size + 2] = value3;
 		size += 3;
 	}
-	public void add(T value1, T value2, T value3, T value4)
+	public void Add(T value1, T value2, T value3, T value4)
 	{
 		T[] items = this.items;
 		if (size + 3 >= items.Length) items = resize(Math.Max(8, (int)(size * 1.8f))); // 1.75 isn't enough when size=5.
@@ -161,7 +161,7 @@ namespace SharpGDX.Utils
 		size = sizeNeeded;
 	}
 
-	public T get(int index)
+	public T Get(int index)
 	{
 		if (index >= size) throw new IndexOutOfBoundsException("index can't be >= size: " + index + " >= " + size);
 		return items[index];
@@ -294,7 +294,7 @@ namespace SharpGDX.Utils
 	 * @param value May be null.
 	 * @param identity If true, == comparison will be used. If false, .equals() comparison will be used.
 	 * @return true if value was found and removed, false otherwise */
-	public virtual bool removeValue(T? value, bool identity)
+	public virtual bool RemoveValue(T? value, bool identity)
 	{
 		T[] items = this.items;
 		if (identity || value == null)
@@ -303,7 +303,7 @@ namespace SharpGDX.Utils
 			{
 				if (ReferenceEquals(items[i] , value))
 				{
-					removeIndex(i);
+					RemoveIndex(i);
 					return true;
 				}
 			}
@@ -314,7 +314,7 @@ namespace SharpGDX.Utils
 			{
 				if (value.Equals(items[i]))
 				{
-					removeIndex(i);
+					RemoveIndex(i);
 					return true;
 				}
 			}
@@ -323,7 +323,7 @@ namespace SharpGDX.Utils
 	}
 
 	/** Removes and returns the item at the specified index. */
-	public virtual T removeIndex(int index)
+	public virtual T RemoveIndex(int index)
 	{
 		if (index >= size) throw new IndexOutOfBoundsException("index can't be >= size: " + index + " >= " + size);
 		T[] items = this.items;
@@ -338,7 +338,7 @@ namespace SharpGDX.Utils
 	}
 
 		/** Removes the items between the specified indices, inclusive. */
-		public virtual void removeRange(int start, int end)
+		public virtual void RemoveRange(int start, int end)
 	{
 		int n = size;
 		if (end >= n) throw new IndexOutOfBoundsException("end can't be >= size: " + end + " >= " + size);
@@ -369,12 +369,12 @@ namespace SharpGDX.Utils
 		{
 			for (int i = 0, n = array.size; i < n; i++)
 			{
-				T item = array.get(i);
+				T item = array.Get(i);
 				for (int ii = 0; ii < size; ii++)
 				{
 					if (ReferenceEquals(item , items[ii]))
 					{
-						removeIndex(ii);
+						RemoveIndex(ii);
 						size--;
 						break;
 					}
@@ -385,12 +385,12 @@ namespace SharpGDX.Utils
 		{
 			for (int i = 0, n = array.size; i < n; i++)
 			{
-				T item = array.get(i);
+				T item = array.Get(i);
 				for (int ii = 0; ii < size; ii++)
 				{
 					if (item.Equals(items[ii]))
 					{
-						removeIndex(ii);
+						RemoveIndex(ii);
 						size--;
 						break;
 					}
@@ -758,7 +758,7 @@ namespace SharpGDX.Utils
 	{
 		if (!allowRemove) throw new GdxRuntimeException("Remove not allowed.");
 		index--;
-		array.removeIndex(index);
+		array.RemoveIndex(index);
 	}
 
 			public void Dispose(){}

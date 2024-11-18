@@ -39,7 +39,7 @@ public class InputMultiplexer : IInputProcessor
             throw new NullPointerException("processor cannot be null");
         }
 
-        _processors.add(processor);
+        _processors.Add(processor);
     }
 
     public void Clear()
@@ -142,12 +142,12 @@ public class InputMultiplexer : IInputProcessor
 
     public void RemoveProcessor(int index)
     {
-        _processors.removeIndex(index);
+        _processors.RemoveIndex(index);
     }
 
     public void RemoveProcessor(IInputProcessor processor)
     {
-        _processors.removeValue(processor, true);
+        _processors.RemoveValue(processor, true);
     }
 
     public bool Scrolled(float amountX, float amountY)

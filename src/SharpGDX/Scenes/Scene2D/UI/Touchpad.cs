@@ -46,7 +46,7 @@ public class Touchpad : Widget {
 		if (deadzoneRadius < 0) throw new IllegalArgumentException("deadzoneRadius must be > 0");
 		this.deadzoneRadius = deadzoneRadius;
 
-		knobPosition.set(getWidth() / 2f, getHeight() / 2f);
+		knobPosition.Set(getWidth() / 2f, getHeight() / 2f);
 
 		setStyle(style);
 		setSize(getPrefWidth(), getPrefHeight());
@@ -90,15 +90,15 @@ public class Touchpad : Widget {
 		float oldPercentY = knobPercent.y;
 		float centerX = knobBounds.x;
 		float centerY = knobBounds.y;
-		knobPosition.set(centerX, centerY);
-		knobPercent.set(0f, 0f);
+		knobPosition.Set(centerX, centerY);
+		knobPercent.Set(0f, 0f);
 		if (!isTouchUp) {
 			if (!deadzoneBounds.contains(x, y)) {
-				knobPercent.set((x - centerX) / knobBounds.radius, (y - centerY) / knobBounds.radius);
+				knobPercent.Set((x - centerX) / knobBounds.radius, (y - centerY) / knobBounds.radius);
 				float length = knobPercent.len();
 				if (length > 1) knobPercent.scl(1 / length);
 				if (knobBounds.contains(x, y)) {
-					knobPosition.set(x, y);
+					knobPosition.Set(x, y);
 				} else {
 					knobPosition.set(knobPercent).nor().scl(knobBounds.radius).add(knobBounds.x, knobBounds.y);
 				}
@@ -107,8 +107,8 @@ public class Touchpad : Widget {
 		if (oldPercentX != knobPercent.x || oldPercentY != knobPercent.y) {
 			ChangeListener.ChangeEvent changeEvent = Pools.obtain<ChangeListener.ChangeEvent>(typeof(ChangeListener.ChangeEvent));
 			if (fire(changeEvent)) {
-				knobPercent.set(oldPercentX, oldPercentY);
-				knobPosition.set(oldPositionX, oldPositionY);
+				knobPercent.Set(oldPercentX, oldPercentY);
+				knobPosition.Set(oldPositionX, oldPositionY);
 			}
 			Pools.free(changeEvent);
 		}
@@ -142,15 +142,15 @@ public class Touchpad : Widget {
 		knobBounds.set(halfWidth, halfHeight, radius);
 		deadzoneBounds.set(halfWidth, halfHeight, deadzoneRadius);
 		// Recalc pad values and knob position
-		knobPosition.set(halfWidth, halfHeight);
-		knobPercent.set(0, 0);
+		knobPosition.Set(halfWidth, halfHeight);
+		knobPercent.Set(0, 0);
 	}
 
 	public override void draw (IBatch batch, float parentAlpha) {
 		validate();
 
 		Color c = getColor();
-		batch.setColor(c.r, c.g, c.b, c.a * parentAlpha);
+		batch.SetColor(c.R, c.G, c.B, c.A * parentAlpha);
 
 		float x = getX();
 		float y = getY();

@@ -6,7 +6,7 @@ public partial interface IInput
     ///     Enumeration of potentially available peripherals.
     /// </summary>
     /// <remarks>
-    ///     Use with <see cref="IInput.isPeripheralAvailable(Peripheral)" />.
+    ///     Use with <see cref="IInput.IsPeripheralAvailable(Peripheral)" />.
     /// </remarks>
     public enum Peripheral
     {

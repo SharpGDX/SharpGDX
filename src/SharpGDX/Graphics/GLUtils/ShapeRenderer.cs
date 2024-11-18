@@ -120,12 +120,12 @@ public class ShapeRenderer : IDisposable {
 
 	/** Sets the color to be used by the next shapes drawn. */
 	public void setColor (Color color) {
-		this.color.set(color);
+		this.color.Set(color);
 	}
 
 	/** Sets the color to be used by the next shapes drawn. */
 	public void setColor (float r, float g, float b, float a) {
-		this.color.set(r, g, b, a);
+		this.color.Set(r, g, b, a);
 	}
 
 	public Color getColor () {
@@ -267,16 +267,16 @@ public class ShapeRenderer : IDisposable {
 			return;
 		}
 		check(ShapeType.Line, null, 2);
-		renderer.color(c1.r, c1.g, c1.b, c1.a);
+		renderer.color(c1.R, c1.G, c1.B, c1.A);
 		renderer.vertex(x, y, z);
-		renderer.color(c2.r, c2.g, c2.b, c2.a);
+		renderer.color(c2.R, c2.G, c2.B, c2.A);
 		renderer.vertex(x2, y2, z2);
 	}
 
 	/** Draws a curve using {@link ShapeType#Line}. */
 	public void curve (float x1, float y1, float cx1, float cy1, float cx2, float cy2, float x2, float y2, int segments) {
 		check(ShapeType.Line, null, segments * 2 + 2);
-		float colorBits = color.toFloatBits();
+		float colorBits = color.ToFloatBits();
 
 		// Algorithm from: http://www.antigrain.com/research/bezier_interpolation/index.html#PAGE_BEZIER_INTERPOLATION
 		float subdiv_step = 1f / segments;
@@ -327,7 +327,7 @@ public class ShapeRenderer : IDisposable {
 	/** Draws a triangle in x/y plane using {@link ShapeType#Line} or {@link ShapeType#Filled}. */
 	public void triangle (float x1, float y1, float x2, float y2, float x3, float y3) {
 		check(ShapeType.Line, ShapeType.Filled, 6);
-		float colorBits = color.toFloatBits();
+		float colorBits = color.ToFloatBits();
 		if (shapeType == ShapeType.Line) {
 			renderer.color(colorBits);
 			renderer.vertex(x1, y1, 0);
@@ -357,26 +357,26 @@ public class ShapeRenderer : IDisposable {
 	public void triangle (float x1, float y1, float x2, float y2, float x3, float y3, Color col1, Color col2, Color col3) {
 		check(ShapeType.Line, ShapeType.Filled, 6);
 		if (shapeType == ShapeType.Line) {
-			renderer.color(col1.r, col1.g, col1.b, col1.a);
+			renderer.color(col1.R, col1.G, col1.B, col1.A);
 			renderer.vertex(x1, y1, 0);
-			renderer.color(col2.r, col2.g, col2.b, col2.a);
+			renderer.color(col2.R, col2.G, col2.B, col2.A);
 			renderer.vertex(x2, y2, 0);
 
-			renderer.color(col2.r, col2.g, col2.b, col2.a);
+			renderer.color(col2.R, col2.G, col2.B, col2.A);
 			renderer.vertex(x2, y2, 0);
-			renderer.color(col3.r, col3.g, col3.b, col3.a);
+			renderer.color(col3.R, col3.G, col3.B, col3.A);
 			renderer.vertex(x3, y3, 0);
 
-			renderer.color(col3.r, col3.g, col3.b, col3.a);
+			renderer.color(col3.R, col3.G, col3.B, col3.A);
 			renderer.vertex(x3, y3, 0);
-			renderer.color(col1.r, col1.g, col1.b, col1.a);
+			renderer.color(col1.R, col1.G, col1.B, col1.A);
 			renderer.vertex(x1, y1, 0);
 		} else {
-			renderer.color(col1.r, col1.g, col1.b, col1.a);
+			renderer.color(col1.R, col1.G, col1.B, col1.A);
 			renderer.vertex(x1, y1, 0);
-			renderer.color(col2.r, col2.g, col2.b, col2.a);
+			renderer.color(col2.R, col2.G, col2.B, col2.A);
 			renderer.vertex(x2, y2, 0);
-			renderer.color(col3.r, col3.g, col3.b, col3.a);
+			renderer.color(col3.R, col3.G, col3.B, col3.A);
 			renderer.vertex(x3, y3, 0);
 		}
 	}
@@ -384,7 +384,7 @@ public class ShapeRenderer : IDisposable {
 	/** Draws a rectangle in the x/y plane using {@link ShapeType#Line} or {@link ShapeType#Filled}. */
 	public void rect (float x, float y, float width, float height) {
 		check(ShapeType.Line, ShapeType.Filled, 8);
-		float colorBits = color.toFloatBits();
+		float colorBits = color.ToFloatBits();
 		if (shapeType == ShapeType.Line) {
 			renderer.color(colorBits);
 			renderer.vertex(x, y, 0);
@@ -432,38 +432,38 @@ public class ShapeRenderer : IDisposable {
 		check(ShapeType.Line, ShapeType.Filled, 8);
 
 		if (shapeType == ShapeType.Line) {
-			renderer.color(col1.r, col1.g, col1.b, col1.a);
+			renderer.color(col1.R, col1.G, col1.B, col1.A);
 			renderer.vertex(x, y, 0);
-			renderer.color(col2.r, col2.g, col2.b, col2.a);
+			renderer.color(col2.R, col2.G, col2.B, col2.A);
 			renderer.vertex(x + width, y, 0);
 
-			renderer.color(col2.r, col2.g, col2.b, col2.a);
+			renderer.color(col2.R, col2.G, col2.B, col2.A);
 			renderer.vertex(x + width, y, 0);
-			renderer.color(col3.r, col3.g, col3.b, col3.a);
+			renderer.color(col3.R, col3.G, col3.B, col3.A);
 			renderer.vertex(x + width, y + height, 0);
 
-			renderer.color(col3.r, col3.g, col3.b, col3.a);
+			renderer.color(col3.R, col3.G, col3.B, col3.A);
 			renderer.vertex(x + width, y + height, 0);
-			renderer.color(col4.r, col4.g, col4.b, col4.a);
+			renderer.color(col4.R, col4.G, col4.B, col4.A);
 			renderer.vertex(x, y + height, 0);
 
-			renderer.color(col4.r, col4.g, col4.b, col4.a);
+			renderer.color(col4.R, col4.G, col4.B, col4.A);
 			renderer.vertex(x, y + height, 0);
-			renderer.color(col1.r, col1.g, col1.b, col1.a);
+			renderer.color(col1.R, col1.G, col1.B, col1.A);
 			renderer.vertex(x, y, 0);
 		} else {
-			renderer.color(col1.r, col1.g, col1.b, col1.a);
+			renderer.color(col1.R, col1.G, col1.B, col1.A);
 			renderer.vertex(x, y, 0);
-			renderer.color(col2.r, col2.g, col2.b, col2.a);
+			renderer.color(col2.R, col2.G, col2.B, col2.A);
 			renderer.vertex(x + width, y, 0);
-			renderer.color(col3.r, col3.g, col3.b, col3.a);
+			renderer.color(col3.R, col3.G, col3.B, col3.A);
 			renderer.vertex(x + width, y + height, 0);
 
-			renderer.color(col3.r, col3.g, col3.b, col3.a);
+			renderer.color(col3.R, col3.G, col3.B, col3.A);
 			renderer.vertex(x + width, y + height, 0);
-			renderer.color(col4.r, col4.g, col4.b, col4.a);
+			renderer.color(col4.R, col4.G, col4.B, col4.A);
 			renderer.vertex(x, y + height, 0);
-			renderer.color(col1.r, col1.g, col1.b, col1.a);
+			renderer.color(col1.R, col1.G, col1.B, col1.A);
 			renderer.vertex(x, y, 0);
 		}
 	}
@@ -515,38 +515,38 @@ public class ShapeRenderer : IDisposable {
 		float y4 = y3 - (y2 - y1);
 
 		if (shapeType == ShapeType.Line) {
-			renderer.color(col1.r, col1.g, col1.b, col1.a);
+			renderer.color(col1.R, col1.G, col1.B, col1.A);
 			renderer.vertex(x1, y1, 0);
-			renderer.color(col2.r, col2.g, col2.b, col2.a);
+			renderer.color(col2.R, col2.G, col2.B, col2.A);
 			renderer.vertex(x2, y2, 0);
 
-			renderer.color(col2.r, col2.g, col2.b, col2.a);
+			renderer.color(col2.R, col2.G, col2.B, col2.A);
 			renderer.vertex(x2, y2, 0);
-			renderer.color(col3.r, col3.g, col3.b, col3.a);
+			renderer.color(col3.R, col3.G, col3.B, col3.A);
 			renderer.vertex(x3, y3, 0);
 
-			renderer.color(col3.r, col3.g, col3.b, col3.a);
+			renderer.color(col3.R, col3.G, col3.B, col3.A);
 			renderer.vertex(x3, y3, 0);
-			renderer.color(col4.r, col4.g, col4.b, col4.a);
+			renderer.color(col4.R, col4.G, col4.B, col4.A);
 			renderer.vertex(x4, y4, 0);
 
-			renderer.color(col4.r, col4.g, col4.b, col4.a);
+			renderer.color(col4.R, col4.G, col4.B, col4.A);
 			renderer.vertex(x4, y4, 0);
-			renderer.color(col1.r, col1.g, col1.b, col1.a);
+			renderer.color(col1.R, col1.G, col1.B, col1.A);
 			renderer.vertex(x1, y1, 0);
 		} else {
-			renderer.color(col1.r, col1.g, col1.b, col1.a);
+			renderer.color(col1.R, col1.G, col1.B, col1.A);
 			renderer.vertex(x1, y1, 0);
-			renderer.color(col2.r, col2.g, col2.b, col2.a);
+			renderer.color(col2.R, col2.G, col2.B, col2.A);
 			renderer.vertex(x2, y2, 0);
-			renderer.color(col3.r, col3.g, col3.b, col3.a);
+			renderer.color(col3.R, col3.G, col3.B, col3.A);
 			renderer.vertex(x3, y3, 0);
 
-			renderer.color(col3.r, col3.g, col3.b, col3.a);
+			renderer.color(col3.R, col3.G, col3.B, col3.A);
 			renderer.vertex(x3, y3, 0);
-			renderer.color(col4.r, col4.g, col4.b, col4.a);
+			renderer.color(col4.R, col4.G, col4.B, col4.A);
 			renderer.vertex(x4, y4, 0);
-			renderer.color(col1.r, col1.g, col1.b, col1.a);
+			renderer.color(col1.R, col1.G, col1.B, col1.A);
 			renderer.vertex(x1, y1, 0);
 		}
 
@@ -556,8 +556,8 @@ public class ShapeRenderer : IDisposable {
 	 * y2. */
 	public void rectLine (float x1, float y1, float x2, float y2, float width) {
 		check(ShapeType.Line, ShapeType.Filled, 8);
-		float colorBits = color.toFloatBits();
-		Vector2 t = tmp.set(y2 - y1, x1 - x2).nor();
+		float colorBits = color.ToFloatBits();
+		Vector2 t = tmp.Set(y2 - y1, x1 - x2).nor();
 		width *= 0.5f;
 		float tx = t.x * width;
 		float ty = t.y * width;
@@ -602,9 +602,9 @@ public class ShapeRenderer : IDisposable {
 	 * y2. */
 	public void rectLine (float x1, float y1, float x2, float y2, float width, Color c1, Color c2) {
 		check(ShapeType.Line, ShapeType.Filled, 8);
-		float col1Bits = c1.toFloatBits();
-		float col2Bits = c2.toFloatBits();
-		Vector2 t = tmp.set(y2 - y1, x1 - x2).nor();
+		float col1Bits = c1.ToFloatBits();
+		float col2Bits = c2.ToFloatBits();
+		Vector2 t = tmp.Set(y2 - y1, x1 - x2).nor();
 		width *= 0.5f;
 		float tx = t.x * width;
 		float ty = t.y * width;
@@ -654,7 +654,7 @@ public class ShapeRenderer : IDisposable {
 	 * corner of the rectangle. */
 	public void box (float x, float y, float z, float width, float height, float depth) {
 		depth = -depth;
-		float colorBits = color.toFloatBits();
+		float colorBits = color.ToFloatBits();
 		if (shapeType == ShapeType.Line) {
 			check(ShapeType.Line, ShapeType.Filled, 24);
 
@@ -832,7 +832,7 @@ public class ShapeRenderer : IDisposable {
 	/** Draws an arc using {@link ShapeType#Line} or {@link ShapeType#Filled}. */
 	public void arc (float x, float y, float radius, float start, float degrees, int segments) {
 		if (segments <= 0) throw new IllegalArgumentException("segments must be > 0.");
-		float colorBits = color.toFloatBits();
+		float colorBits = color.ToFloatBits();
 		float theta = (2 * MathUtils.PI * (degrees / 360.0f)) / segments;
 		float cos = MathUtils.cos(theta);
 		float sin = MathUtils.sin(theta);
@@ -894,7 +894,7 @@ public class ShapeRenderer : IDisposable {
 	/** Draws a circle using {@link ShapeType#Line} or {@link ShapeType#Filled}. */
 	public void circle (float x, float y, float radius, int segments) {
 		if (segments <= 0) throw new IllegalArgumentException("segments must be > 0.");
-		float colorBits = color.toFloatBits();
+		float colorBits = color.ToFloatBits();
 		float angle = 2 * MathUtils.PI / segments;
 		float cos = MathUtils.cos(angle);
 		float sin = MathUtils.sin(angle);
@@ -953,7 +953,7 @@ public class ShapeRenderer : IDisposable {
 	public void ellipse (float x, float y, float width, float height, int segments) {
 		if (segments <= 0) throw new IllegalArgumentException("segments must be > 0.");
 		check(ShapeType.Line, ShapeType.Filled, segments * 3);
-		float colorBits = color.toFloatBits();
+		float colorBits = color.ToFloatBits();
 		float angle = 2 * MathUtils.PI / segments;
 
 		float cx = x + width / 2, cy = y + height / 2;
@@ -991,7 +991,7 @@ public class ShapeRenderer : IDisposable {
 	public void ellipse (float x, float y, float width, float height, float rotation, int segments) {
 		if (segments <= 0) throw new IllegalArgumentException("segments must be > 0.");
 		check(ShapeType.Line, ShapeType.Filled, segments * 3);
-		float colorBits = color.toFloatBits();
+		float colorBits = color.ToFloatBits();
 		float angle = 2 * MathUtils.PI / segments;
 
 		rotation = MathUtils.PI * rotation / 180f;
@@ -1039,7 +1039,7 @@ public class ShapeRenderer : IDisposable {
 	public void cone (float x, float y, float z, float radius, float height, int segments) {
 		if (segments <= 0) throw new IllegalArgumentException("segments must be > 0.");
 		check(ShapeType.Line, ShapeType.Filled, segments * 4 + 2);
-		float colorBits = color.toFloatBits();
+		float colorBits = color.ToFloatBits();
 		float angle = 2 * MathUtils.PI / segments;
 		float cos = MathUtils.cos(angle);
 		float sin = MathUtils.sin(angle);
@@ -1115,7 +1115,7 @@ public class ShapeRenderer : IDisposable {
 		if (count % 2 != 0) throw new IllegalArgumentException("Polygons must have an even number of vertices.");
 
 		check(ShapeType.Line, null, count);
-		float colorBits = color.toFloatBits();
+		float colorBits = color.ToFloatBits();
 		float firstX = vertices[0];
 		float firstY = vertices[1];
 
@@ -1153,7 +1153,7 @@ public class ShapeRenderer : IDisposable {
 		if (count % 2 != 0) throw new IllegalArgumentException("Polylines must have an even number of vertices.");
 
 		check(ShapeType.Line, null, count);
-		float colorBits = color.toFloatBits();
+		float colorBits = color.ToFloatBits();
 		for (int i = offset, n = offset + count - 2; i < n; i += 2) {
 			float x1 = vertices[i];
 			float y1 = vertices[i + 1];

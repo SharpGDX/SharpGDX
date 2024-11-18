@@ -59,7 +59,7 @@ public class TextureAtlasLoader : SynchronousAssetLoader<TextureAtlas, TextureAt
 			@params.minFilter = page.minFilter;
 			@params.magFilter = page.magFilter;
 			// TODO: Is AssetDescriptor<Texture> right? -RP
-			dependencies.add(new AssetDescriptor<Texture>(page.textureFile, typeof(Texture), @params));
+			dependencies.Add(new AssetDescriptor<Texture>(page.textureFile, typeof(Texture), @params));
 		}
 
 		throw new NotImplementedException();

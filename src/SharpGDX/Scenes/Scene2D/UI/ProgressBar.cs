@@ -100,7 +100,7 @@ public class ProgressBar : Widget , IDisableable {
 		float knobWidth = knob == null ? 0 : knob.getMinWidth();
 		float percent = getVisualPercent();
 
-		batch.setColor(color.r, color.g, color.b, color.a * parentAlpha);
+		batch.SetColor(color.R, color.G, color.B, color.A * parentAlpha);
 
 		if (vertical) {
 			float bgTopHeight = 0, bgBottomHeight = 0;
@@ -112,7 +112,7 @@ public class ProgressBar : Widget , IDisableable {
 			}
 
 			float total = height - knobHeight;
-			float beforeHeight = MathUtils.clamp(total * percent, 0, total);
+			float beforeHeight = MathUtils.Clamp(total * percent, 0, total);
 			position = bgBottomHeight + beforeHeight;
 
 			float knobHeightHalf = knobHeight * 0.5f;
@@ -146,7 +146,7 @@ public class ProgressBar : Widget , IDisableable {
 			}
 
 			float total = width - knobWidth;
-			float beforeWidth = MathUtils.clamp(total * percent, 0, total);
+			float beforeWidth = MathUtils.Clamp(total * percent, 0, total);
 			position = bgLeftWidth + beforeWidth;
 
 			float knobWidthHalf = knobWidth * 0.5f;
@@ -269,7 +269,7 @@ public class ProgressBar : Widget , IDisableable {
 	/** Clamps the value to the progress bar's min/max range. This can be overridden to allow a range different from the progress
 	 * bar knob's range. */
 	protected float clamp (float value) {
-		return MathUtils.clamp(value, min, max);
+		return MathUtils.Clamp(value, min, max);
 	}
 
 	/** Sets the range of this progress bar. The progress bar's current value is clamped to the range. */

@@ -29,7 +29,7 @@ public abstract class FlushablePool<T> : Pool<T> {
 
 		public override T obtain () {
 		T result = base.obtain();
-		obtained.add(result);
+		obtained.Add(result);
 		return result;
 	}
 
@@ -40,7 +40,7 @@ public abstract class FlushablePool<T> : Pool<T> {
 	}
 
 		public override void free (T obj) {
-		obtained.removeValue(obj, true);
+		obtained.RemoveValue(obj, true);
 		base.free(obj);
 	}
 

@@ -99,7 +99,7 @@ namespace SharpGDX.Headless.Mock.Graphics
 		return frameId;
 	}
 
-	public override float getDeltaTime()
+	public override float GetDeltaTime()
 	{
 		return deltaTime;
 	}

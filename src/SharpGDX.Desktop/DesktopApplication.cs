@@ -138,7 +138,7 @@ namespace SharpGDX.Desktop
 
 			DesktopWindow window = createWindow(config, listener, null);
 			if (config.glEmulation == DesktopApplicationConfiguration.GLEmulation.ANGLE_GLES20) postLoadANGLE();
-			windows.add(window);
+			windows.Add(window);
 			try
 			{
 				loop();
@@ -187,7 +187,7 @@ namespace SharpGDX.Desktop
 
 					if (window.shouldClose())
 					{
-						closedWindows.add(window);
+						closedWindows.Add(window);
 					}
 				}
 
@@ -226,7 +226,7 @@ namespace SharpGDX.Desktop
 						// when there is only 1 window left, which is in the process of being disposed.
 						for (int i = lifecycleListeners.size - 1; i >= 0; i--)
 						{
-							ILifecycleListener l = lifecycleListeners.get(i);
+							ILifecycleListener l = lifecycleListeners.Get(i);
 							l.Pause();
 							l.Dispose();
 						}
@@ -236,7 +236,7 @@ namespace SharpGDX.Desktop
 
 					closedWindow.Dispose();
 
-					windows.removeValue(closedWindow, false);
+					windows.RemoveValue(closedWindow, false);
 				}
 
 				if (!haveWindowsRendered)
@@ -418,7 +418,7 @@ namespace SharpGDX.Desktop
 		{
 			lock (runnables)
 			{
-				runnables.add(runnable);
+				runnables.Add(runnable);
 			}
 		}
 
@@ -431,7 +431,7 @@ namespace SharpGDX.Desktop
 		{
 			lock (lifecycleListeners)
 			{
-				lifecycleListeners.add(listener);
+				lifecycleListeners.Add(listener);
 			}
 		}
 
@@ -439,7 +439,7 @@ namespace SharpGDX.Desktop
 		{
 			lock (lifecycleListeners)
 			{
-				lifecycleListeners.removeValue(listener, true);
+				lifecycleListeners.RemoveValue(listener, true);
 			}
 		}
 
@@ -468,7 +468,7 @@ namespace SharpGDX.Desktop
 			DesktopApplicationConfiguration appConfig = DesktopApplicationConfiguration.copy(this.config);
 			appConfig.setWindowConfiguration(config);
 			if (appConfig.title == null) appConfig.title = listener.GetType().Name;
-			return createWindow(appConfig, listener, windows.get(0).getWindowPtr());
+			return createWindow(appConfig, listener, windows.Get(0).getWindowPtr());
 		}
 
 		private unsafe DesktopWindow createWindow(DesktopApplicationConfiguration config, IApplicationListener listener,
@@ -486,7 +486,7 @@ namespace SharpGDX.Desktop
 				PostRunnable(() =>
 				{
 					createWindow(window, config, sharedContext);
-					windows.add(window);
+					windows.Add(window);
 				});
 			}
 
@@ -502,8 +502,8 @@ namespace SharpGDX.Desktop
 
 			for (int i = 0; i < 2; i++)
 			{
-                window.getGraphics().gl20.glClearColor(config.initialBackgroundColor.r, config.initialBackgroundColor.g,
-                    config.initialBackgroundColor.b, config.initialBackgroundColor.a);
+                window.getGraphics().gl20.glClearColor(config.initialBackgroundColor.R, config.initialBackgroundColor.G,
+                    config.initialBackgroundColor.B, config.initialBackgroundColor.A);
                 window.getGraphics().gl20.glClear(GL11.GL_COLOR_BUFFER_BIT);
                 GLFW.SwapBuffers(windowHandle);
 			}

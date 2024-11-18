@@ -62,10 +62,10 @@ public class OrthoCachedTiledMapRenderer : ITiledMapRenderer, IDisposable {
 	}
 
 	public void setView (OrthographicCamera camera) {
-		spriteCache.setProjectionMatrix(camera.combined);
+		spriteCache.setProjectionMatrix(camera.Combined);
 		float width = camera.viewportWidth * camera.zoom + maxTileWidth * 2 * unitScale;
 		float height = camera.viewportHeight * camera.zoom + maxTileHeight * 2 * unitScale;
-		viewBounds.set(camera.position.x - width / 2, camera.position.y - height / 2, width, height);
+		viewBounds.Set(camera.position.x - width / 2, camera.position.y - height / 2, width, height);
 
 		if ((canCacheMoreW && viewBounds.x < cacheBounds.x - tolerance) || //
 			(canCacheMoreS && viewBounds.y < cacheBounds.y - tolerance) || //
@@ -80,7 +80,7 @@ public class OrthoCachedTiledMapRenderer : ITiledMapRenderer, IDisposable {
 		y -= maxTileHeight * unitScale;
 		width += maxTileWidth * 2 * unitScale;
 		height += maxTileHeight * 2 * unitScale;
-		viewBounds.set(x, y, width, height);
+		viewBounds.Set(x, y, width, height);
 
 		if ((canCacheMoreW && viewBounds.x < cacheBounds.x - tolerance) || //
 			(canCacheMoreS && viewBounds.y < cacheBounds.y - tolerance) || //
@@ -181,7 +181,7 @@ public class OrthoCachedTiledMapRenderer : ITiledMapRenderer, IDisposable {
 	}
 
 	public void renderTileLayer (TiledMapTileLayer layer) {
-		 float color = Color.toFloatBits(1, 1, 1, layer.getOpacity());
+		 float color = Color.ToFloatBits(1, 1, 1, layer.getOpacity());
 
 		 int layerWidth = layer.getWidth();
 		 int layerHeight = layer.getHeight();
@@ -329,7 +329,7 @@ public class OrthoCachedTiledMapRenderer : ITiledMapRenderer, IDisposable {
 
 	
 	public void renderImageLayer (TiledMapImageLayer layer) {
-		 float color = Color.toFloatBits(1.0f, 1.0f, 1.0f, layer.getOpacity());
+		 float color = Color.ToFloatBits(1.0f, 1.0f, 1.0f, layer.getOpacity());
 		 float[] vertices = this.vertices;
 
 		TextureRegion region = layer.getTextureRegion();

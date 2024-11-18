@@ -60,10 +60,10 @@ namespace SharpGDX.Desktop
         public void ResetPollingStates()
         {
             _justTouched = false;
-            keyJustPressed = false;
-            for (int i = 0; i < justPressedKeys.Length; i++)
+            KeyJustPressed = false;
+            for (int i = 0; i < JustPressedKeys.Length; i++)
             {
-                justPressedKeys[i] = false;
+                JustPressedKeys[i] = false;
             }
 
             for (int i = 0; i < justPressedButtons.Length; i++)
@@ -86,18 +86,18 @@ namespace SharpGDX.Desktop
                     {
                         case InputAction.Press:
                             eventQueue.KeyDown((int)intKey, TimeUtils.nanoTime());
-                            pressedKeyCount++;
-                            keyJustPressed = true;
-                            pressedKeys[(int)intKey] = true;
-                            justPressedKeys[(int)intKey] = true;
+                            PressedKeyCount++;
+                            KeyJustPressed = true;
+                            PressedKeys[(int)intKey] = true;
+                            JustPressedKeys[(int)intKey] = true;
                             this.window.getGraphics().requestRendering();
                             lastCharacter = (char)0;
                             char character = characterForKeyCode((int)intKey);
                             if (character != 0) charCallback(window, character);
                             break;
                         case InputAction.Release:
-                            pressedKeyCount--;
-                            pressedKeys[(int)intKey] = false;
+                            PressedKeyCount--;
+                            PressedKeys[(int)intKey] = false;
                             this.window.getGraphics().requestRendering();
                             eventQueue.KeyUp((int)intKey, TimeUtils.nanoTime());
                             break;
@@ -203,12 +203,12 @@ namespace SharpGDX.Desktop
                 }
             }
 
-            if (keyJustPressed)
+            if (KeyJustPressed)
             {
-                keyJustPressed = false;
-                for (int i = 0; i < justPressedKeys.Length; i++)
+                KeyJustPressed = false;
+                for (int i = 0; i < JustPressedKeys.Length; i++)
                 {
-                    justPressedKeys[i] = false;
+                    JustPressedKeys[i] = false;
                 }
             }
 
@@ -216,52 +216,52 @@ namespace SharpGDX.Desktop
             deltaY = 0;
         }
 
-        public override int getMaxPointers()
+        public override int GetMaxPointers()
         {
             return 1;
         }
 
-        public override int getX()
+        public override int GetX()
         {
             return mouseX;
         }
 
-        public override int getX(int pointer)
+        public override int GetX(int pointer)
         {
             return pointer == 0 ? mouseX : 0;
         }
 
-        public override int getDeltaX()
+        public override int GetDeltaX()
         {
             return deltaX;
         }
 
-        public override int getDeltaX(int pointer)
+        public override int GetDeltaX(int pointer)
         {
             return pointer == 0 ? deltaX : 0;
         }
 
-        public override int getY()
+        public override int GetY()
         {
             return mouseY;
         }
 
-        public override int getY(int pointer)
+        public override int GetY(int pointer)
         {
             return pointer == 0 ? mouseY : 0;
         }
 
-        public override int getDeltaY()
+        public override int GetDeltaY()
         {
             return deltaY;
         }
 
-        public override int getDeltaY(int pointer)
+        public override int GetDeltaY(int pointer)
         {
             return pointer == 0 ? deltaY : 0;
         }
 
-        public override unsafe bool isTouched()
+        public override unsafe bool IsTouched()
         {
             return GLFW.GetMouseButton(window.getWindowPtr(), MouseButton.Button1) == InputAction.Press
                    || GLFW.GetMouseButton(window.getWindowPtr(), MouseButton.Button2) == InputAction.Press
@@ -270,32 +270,32 @@ namespace SharpGDX.Desktop
                    || GLFW.GetMouseButton(window.getWindowPtr(), MouseButton.Button5) == InputAction.Press;
         }
 
-        public override bool justTouched()
+        public override bool JustTouched()
         {
             return _justTouched;
         }
 
-        public override bool isTouched(int pointer)
+        public override bool IsTouched(int pointer)
         {
-            return pointer == 0 && isTouched();
+            return pointer == 0 && IsTouched();
         }
 
-        public override float getPressure()
+        public override float GetPressure()
         {
-            return getPressure(0);
+            return GetPressure(0);
         }
 
-        public override float getPressure(int pointer)
+        public override float GetPressure(int pointer)
         {
-            return isTouched(pointer) ? 1 : 0;
+            return IsTouched(pointer) ? 1 : 0;
         }
 
-        public override unsafe bool isButtonPressed(int button)
+        public override unsafe bool IsButtonPressed(int button)
         {
             return GLFW.GetMouseButton(window.getWindowPtr(), (MouseButton)button) == InputAction.Press;
         }
 
-        public override bool isButtonJustPressed(int button)
+        public override bool IsButtonJustPressed(int button)
         {
             if (button < 0 || button >= justPressedButtons.Length)
             {
@@ -305,47 +305,47 @@ namespace SharpGDX.Desktop
             return justPressedButtons[button];
         }
 
-        public override void getTextInput(TextInputListener listener, String title, String text, String hint)
+        public override void GetTextInput(ITextInputListener listener, String title, String text, String hint)
         {
-            getTextInput(listener, title, text, hint, OnscreenKeyboardType.Default);
+            GetTextInput(listener, title, text, hint, OnscreenKeyboardType.Default);
         }
 
-        public override void getTextInput(TextInputListener listener, String title, String text, String hint,
+        public override void GetTextInput(ITextInputListener listener, String title, String text, String hint,
             OnscreenKeyboardType type)
         {
             // FIXME getTextInput does nothing
-            listener.canceled();
+            listener.Canceled();
         }
 
-        public override long getCurrentEventTime()
+        public override long GetCurrentEventTime()
         {
             // queue sets its event time for each event dequeued/processed
             return eventQueue.GetCurrentEventTime();
         }
 
-        public override void setInputProcessor(IInputProcessor processor)
+        public override void SetInputProcessor(IInputProcessor processor)
         {
             this.inputProcessor = processor;
         }
 
-        public override IInputProcessor getInputProcessor()
+        public override IInputProcessor GetInputProcessor()
         {
             return inputProcessor;
         }
 
-        public override unsafe void setCursorCatched(bool catched)
+        public override unsafe void SetCursorCatched(bool catched)
         {
             GLFW.SetInputMode(window.getWindowPtr(), CursorStateAttribute.Cursor,
                 catched ? CursorModeValue.CursorDisabled : CursorModeValue.CursorNormal);
         }
 
-        public override unsafe bool isCursorCatched()
+        public override unsafe bool IsCursorCatched()
         {
             return GLFW.GetInputMode(window.getWindowPtr(), CursorStateAttribute.Cursor) ==
                    CursorModeValue.CursorDisabled;
         }
 
-        public override unsafe void setCursorPosition(int x, int y)
+        public override unsafe void SetCursorPosition(int x, int y)
         {
             if (window.getConfig().hdpiMode == HdpiMode.Pixels)
             {
@@ -642,105 +642,105 @@ namespace SharpGDX.Desktop
 // -------------------------- Nothing to see below this line except for stubs
 // --------------------------------------------------------------------------
 
-        public override float getAccelerometerX()
+        public override float GetAccelerometerX()
         {
             return 0;
         }
 
-        public override float getAccelerometerY()
+        public override float GetAccelerometerY()
         {
             return 0;
         }
 
-        public override float getAccelerometerZ()
+        public override float GetAccelerometerZ()
         {
             return 0;
         }
 
-        public override bool isPeripheralAvailable(Peripheral peripheral)
+        public override bool IsPeripheralAvailable(Peripheral peripheral)
         {
             return peripheral == Peripheral.HardwareKeyboard;
         }
 
-        public override int getRotation()
+        public override int GetRotation()
         {
             return 0;
         }
 
-        public override Orientation getNativeOrientation()
+        public override Orientation GetNativeOrientation()
         {
             return Orientation.Landscape;
         }
 
-        public override void setOnscreenKeyboardVisible(bool visible)
+        public override void SetOnscreenKeyboardVisible(bool visible)
         {
         }
 
-        public override void setOnscreenKeyboardVisible(bool visible, OnscreenKeyboardType type)
+        public override void SetOnscreenKeyboardVisible(bool visible, OnscreenKeyboardType? type)
         {
         }
 
-        public override void vibrate(int milliseconds)
+        public override void Vibrate(int milliseconds)
         {
         }
 
-        public override void vibrate(int milliseconds, bool fallback)
+        public override void Vibrate(int milliseconds, bool fallback)
         {
         }
 
-        public override void vibrate(int milliseconds, int amplitude, bool fallback)
+        public override void Vibrate(int milliseconds, int amplitude, bool fallback)
         {
         }
 
-        public override void vibrate(VibrationType vibrationType)
+        public override void Vibrate(VibrationType vibrationType)
         {
         }
 
-        public override float getAzimuth()
-        {
-            return 0;
-        }
-
-        public override float getPitch()
+        public override float GetAzimuth()
         {
             return 0;
         }
 
-        public override float getRoll()
+        public override float GetPitch()
         {
             return 0;
         }
 
-        public override void getRotationMatrix(float[] matrix)
-        {
-        }
-
-        public override float getGyroscopeX()
+        public override float GetRoll()
         {
             return 0;
         }
 
-        public override float getGyroscopeY()
+        public override void GetRotationMatrix(float[] matrix)
+        {
+        }
+
+        public override float GetGyroscopeX()
         {
             return 0;
         }
 
-        public override float getGyroscopeZ()
+        public override float GetGyroscopeY()
         {
             return 0;
         }
 
-        public override void openTextInputField(NativeInputConfiguration configuration)
+        public override float GetGyroscopeZ()
+        {
+            return 0;
+        }
+
+        public override void OpenTextInputField(NativeInputConfiguration configuration)
         {
 
         }
 
-        public override void closeTextInputField(bool sendReturn)
+        public override void CloseTextInputField(bool sendReturn)
         {
 
         }
 
-        public override void setKeyboardHeightObserver(KeyboardHeightObserver observer)
+        public override void SetKeyboardHeightObserver(IKeyboardHeightObserver observer)
         {
 
         }

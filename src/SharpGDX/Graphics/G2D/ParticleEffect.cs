@@ -27,13 +27,13 @@ namespace SharpGDX.Graphics.G2D
 		{
 			emitters = new(true, effect.emitters.size);
 			for (int i = 0, n = effect.emitters.size; i < n; i++)
-				emitters.add(newEmitter(effect.emitters.get(i)));
+				emitters.Add(newEmitter(effect.emitters.Get(i)));
 		}
 
 		public void start()
 		{
 			for (int i = 0, n = emitters.size; i < n; i++)
-				emitters.get(i).start();
+				emitters.Get(i).start();
 		}
 
 		/** Resets the effect so it can be started again like a new effect. Any changes to scale are reverted. See
@@ -58,7 +58,7 @@ namespace SharpGDX.Graphics.G2D
         public void reset(bool resetScaling, bool start)
         {
             for (int i = 0, n = emitters.size; i < n; i++)
-                emitters.get(i).reset(start);
+                emitters.Get(i).reset(start);
             if (resetScaling && (xSizeScale != 1f || ySizeScale != 1f || motionScale != 1f))
 			{
 				scaleEffect(1f / xSizeScale, 1f / ySizeScale, 1f / motionScale);
@@ -69,32 +69,32 @@ namespace SharpGDX.Graphics.G2D
 		public void update(float delta)
 		{
 			for (int i = 0, n = emitters.size; i < n; i++)
-				emitters.get(i).update(delta);
+				emitters.Get(i).update(delta);
 		}
 
 		public void draw(IBatch spriteBatch)
 		{
 			for (int i = 0, n = emitters.size; i < n; i++)
-				emitters.get(i).draw(spriteBatch);
+				emitters.Get(i).draw(spriteBatch);
 		}
 
 		public void draw(IBatch spriteBatch, float delta)
 		{
 			for (int i = 0, n = emitters.size; i < n; i++)
-				emitters.get(i).draw(spriteBatch, delta);
+				emitters.Get(i).draw(spriteBatch, delta);
 		}
 
 		public void allowCompletion()
 		{
 			for (int i = 0, n = emitters.size; i < n; i++)
-				emitters.get(i).allowCompletion();
+				emitters.Get(i).allowCompletion();
 		}
 
 		public bool isComplete()
 		{
 			for (int i = 0, n = emitters.size; i < n; i++)
 			{
-				ParticleEmitter emitter = emitters.get(i);
+				ParticleEmitter emitter = emitters.Get(i);
 				if (!emitter.isComplete()) return false;
 			}
 
@@ -105,7 +105,7 @@ namespace SharpGDX.Graphics.G2D
 		{
 			for (int i = 0, n = emitters.size; i < n; i++)
 			{
-				ParticleEmitter emitter = emitters.get(i);
+				ParticleEmitter emitter = emitters.Get(i);
 				emitter.setContinuous(false);
 				emitter.duration = duration;
 				emitter.durationTimer = 0;
@@ -115,19 +115,19 @@ namespace SharpGDX.Graphics.G2D
 		public void setPosition(float x, float y)
 		{
 			for (int i = 0, n = emitters.size; i < n; i++)
-				emitters.get(i).setPosition(x, y);
+				emitters.Get(i).setPosition(x, y);
 		}
 
 		public void setFlip(bool flipX, bool flipY)
 		{
 			for (int i = 0, n = emitters.size; i < n; i++)
-				emitters.get(i).setFlip(flipX, flipY);
+				emitters.Get(i).setFlip(flipX, flipY);
 		}
 
 		public void flipY()
 		{
 			for (int i = 0, n = emitters.size; i < n; i++)
-				emitters.get(i).flipY();
+				emitters.Get(i).flipY();
 		}
 
 		public Array<ParticleEmitter> getEmitters()
@@ -140,7 +140,7 @@ namespace SharpGDX.Graphics.G2D
 		{
 			for (int i = 0, n = emitters.size; i < n; i++)
 			{
-				ParticleEmitter emitter = emitters.get(i);
+				ParticleEmitter emitter = emitters.Get(i);
 				if (emitter.getName().Equals(name)) return emitter;
 			}
 
@@ -161,7 +161,7 @@ namespace SharpGDX.Graphics.G2D
 			int index = 0;
 			for (int i = 0, n = emitters.size; i < n; i++)
 			{
-				ParticleEmitter emitter = emitters.get(i);
+				ParticleEmitter emitter = emitters.Get(i);
 				if (index++ > 0) output.write("\n");
 				emitter.save(output);
 			}
@@ -195,7 +195,7 @@ namespace SharpGDX.Graphics.G2D
 				while (true)
 				{
 					ParticleEmitter emitter = newEmitter(reader);
-					emitters.add(emitter);
+					emitters.Add(emitter);
 					if (reader.readLine() == null) break;
 				}
 			}
@@ -218,7 +218,7 @@ namespace SharpGDX.Graphics.G2D
 		{
 			for (int i = 0, n = emitters.size; i < n; i++)
 			{
-				ParticleEmitter emitter = emitters.get(i);
+				ParticleEmitter emitter = emitters.Get(i);
 				if (emitter.getImagePaths().size == 0) continue;
 				Array<Sprite> sprites = new Array<Sprite>();
 				foreach (String imagePath in emitter.getImagePaths())
@@ -229,7 +229,7 @@ namespace SharpGDX.Graphics.G2D
 					if (atlasPrefix != null) imageName = atlasPrefix + imageName;
 					Sprite sprite = atlas.createSprite(imageName);
                     if (sprite == null) throw new IllegalArgumentException("Atlas is missing region: " + imageName);
-                    sprites.add(sprite);
+                    sprites.Add(sprite);
 				}
 
 				emitter.setSprites(sprites);
@@ -242,7 +242,7 @@ namespace SharpGDX.Graphics.G2D
 			ObjectMap<String, Sprite> loadedSprites = new ObjectMap<String, Sprite>(emitters.size);
 			for (int i = 0, n = emitters.size; i < n; i++)
 			{
-				ParticleEmitter emitter = emitters.get(i);
+				ParticleEmitter emitter = emitters.Get(i);
 				if (emitter.getImagePaths().size == 0) continue;
 				Array<Sprite> sprites = new Array<Sprite>();
 				foreach (String imagePath in emitter.getImagePaths())
@@ -255,7 +255,7 @@ namespace SharpGDX.Graphics.G2D
 						loadedSprites.put(imageName, sprite);
 					}
 
-					sprites.add(sprite);
+					sprites.Add(sprite);
 				}
 
 				emitter.setSprites(sprites);
@@ -283,7 +283,7 @@ namespace SharpGDX.Graphics.G2D
 			if (!ownsTexture) return;
 			for (int i = 0, n = emitters.size; i < n; i++)
 			{
-				ParticleEmitter emitter = emitters.get(i);
+				ParticleEmitter emitter = emitters.Get(i);
 				foreach (Sprite sprite in emitter.getSprites())
 				{
 					sprite.getTexture().Dispose();
@@ -341,7 +341,7 @@ namespace SharpGDX.Graphics.G2D
 		{
 			for (int i = 0, n = emitters.size; i < n; i++)
 			{
-				emitters.get(i).setCleansUpBlendFunction(cleanUpBlendFunction);
+				emitters.Get(i).setCleansUpBlendFunction(cleanUpBlendFunction);
 			}
 		}
 	}

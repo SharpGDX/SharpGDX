@@ -52,5 +52,5 @@ For engaging discussions and support, join the official [SharpGDX Discord](https
     <img src=".github/jetbrains.svg" alt="JetBrains" class="logo-footer" width="72" align="left">
     <a><br/>
 
-Special thanks to [JetBrains](https://www.jetbrains.com/?from=SharpGDX) for supporting us with open-source licenses for their IDEs. </a>
+Special thanks to [JetBrains](https://www.jetbrains.com/?from=SharpGDX) for supporting us with open-source licenses for their tools and IDEs. </a>
 </div>

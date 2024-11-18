@@ -70,7 +70,7 @@ namespace SharpGDX.Desktop
 			imageDataHandle.Free();
 
 			glfwCursor = GLFW.CreateCursor(glfwImage.Value, xHotspot, yHotspot);
-			cursors.add(this);
+			cursors.Add(this);
 		}
 
 		public unsafe void Dispose()
@@ -80,7 +80,7 @@ namespace SharpGDX.Desktop
 				throw new GdxRuntimeException("Cursor already disposed");
 			}
 
-			cursors.removeValue(this, true);
+			cursors.RemoveValue(this, true);
 			pixmapCopy.Dispose();
 			pixmapCopy = null;
 
@@ -92,10 +92,10 @@ namespace SharpGDX.Desktop
 		{
 			for (int i = cursors.size - 1; i >= 0; i--)
 			{
-				DesktopCursor cursor = cursors.get(i);
+				DesktopCursor cursor = cursors.Get(i);
 				if (cursor.window.Equals(window))
 				{
-					cursors.removeIndex(i).Dispose();
+					cursors.RemoveIndex(i).Dispose();
 				}
 			}
 		}

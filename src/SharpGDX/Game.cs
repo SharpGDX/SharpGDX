@@ -43,7 +43,7 @@ public abstract class Game : IApplicationListener
     /// <inheritdoc cref="IApplicationListener.Render()" />
     public virtual void Render()
     {
-        Screen?.Render(Gdx.Graphics.getDeltaTime());
+        Screen?.Render(Gdx.Graphics.GetDeltaTime());
     }
 
     /// <inheritdoc cref="IApplicationListener.Resize(int, int)" />

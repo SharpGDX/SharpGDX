@@ -18,23 +18,23 @@ public class ColorAction : TemporalAction {
 
 	protected override void begin () {
 		if (color == null) color = target.getColor();
-		startR = color.r;
-		startG = color.g;
-		startB = color.b;
-		startA = color.a;
+		startR = color.R;
+		startG = color.G;
+		startB = color.B;
+		startA = color.A;
 	}
 
 	protected override void update (float percent) {
 		if (percent == 0)
-			color.set(startR, startG, startB, startA);
+			color.Set(startR, startG, startB, startA);
 		else if (percent == 1)
-			color.set(_end);
+			color.Set(_end);
 		else {
-			float r = startR + (_end.r - startR) * percent;
-			float g = startG + (_end.g - startG) * percent;
-			float b = startB + (_end.b - startB) * percent;
-			float a = startA + (_end.a - startA) * percent;
-			color.set(r, g, b, a);
+			float r = startR + (_end.R - startR) * percent;
+			float g = startG + (_end.G - startG) * percent;
+			float b = startB + (_end.B - startB) * percent;
+			float a = startA + (_end.A - startA) * percent;
+			color.Set(r, g, b, a);
 		}
 	}
 
@@ -59,6 +59,6 @@ public class ColorAction : TemporalAction {
 
 	/** Sets the color to transition to. Required. */
 	public void setEndColor (Color color) {
-		_end.set(color);
+		_end.Set(color);
 	}
 }

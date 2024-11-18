@@ -506,7 +506,7 @@ where P: BaseTmxMapLoader<P>.Parameters
 								properties.put(name, obj);
 						};
 						// [Runnable] should not run until the end of [loadTiledMap]
-						runOnEndOfLoadTiled.add(fetch);
+						runOnEndOfLoadTiled.Add(fetch);
 					} catch (Exception exception) {
 						throw new GdxRuntimeException(
 							"Error parsing property [\" + name + \"] of type \"object\" with value: [" + value + "]", exception);
@@ -709,7 +709,7 @@ where P: BaseTmxMapLoader<P>.Parameters
 				if (tile != null) {
 					AnimatedTiledMapTile animatedTile = createAnimatedTile(tileSet, tile, tileElement, firstgid);
 					if (animatedTile != null) {
-						animatedTiles.add(animatedTile);
+						animatedTiles.Add(animatedTile);
 						tile = animatedTile;
 					}
 					addTileProperties(tile, tileElement);
@@ -765,7 +765,7 @@ where P: BaseTmxMapLoader<P>.Parameters
 			Array<StaticTiledMapTile> staticTiles = new Array<StaticTiledMapTile>();
 			IntArray intervals = new IntArray();
 			foreach (Element frameElement in animationElement.getChildrenByName("frame")) {
-				staticTiles.add((StaticTiledMapTile)tileSet.getTile(firstgid + frameElement.getIntAttribute("tileid")));
+				staticTiles.Add((StaticTiledMapTile)tileSet.getTile(firstgid + frameElement.getIntAttribute("tileid")));
 				intervals.add(frameElement.getIntAttribute("duration"));
 			}
 

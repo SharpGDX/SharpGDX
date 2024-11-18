@@ -18,7 +18,7 @@ public abstract class Camera {
 	/** the view matrix **/
 	public readonly Matrix4 view = new Matrix4();
 	/** the combined projection and view matrix **/
-	public readonly Matrix4 combined = new Matrix4();
+	public readonly Matrix4 Combined = new Matrix4();
 	/** the inverse combined projection and view matrix **/
 	public readonly Matrix4 invProjectionView = new Matrix4();
 
@@ -211,7 +211,7 @@ public abstract class Camera {
 	 * @param viewportHeight the height of the viewport in pixels
 	 * @return the mutated and projected worldCoords {@link Vector3} */
 	public Vector3 project (Vector3 worldCoords, float viewportX, float viewportY, float viewportWidth, float viewportHeight) {
-		worldCoords.prj(combined);
+		worldCoords.prj(Combined);
 		worldCoords.x = viewportWidth * (worldCoords.x + 1) / 2 + viewportX;
 		worldCoords.y = viewportHeight * (worldCoords.y + 1) / 2 + viewportY;
 		worldCoords.z = (worldCoords.z + 1) / 2;

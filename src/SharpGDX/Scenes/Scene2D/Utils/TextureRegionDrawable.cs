@@ -34,12 +34,12 @@ public class TextureRegionDrawable : BaseDrawable , ITransformDrawable {
 	}
 
 		public override void draw (IBatch batch, float x, float y, float width, float height) {
-		batch.draw(region, x, y, width, height);
+		batch.Draw(region, x, y, width, height);
 	}
 
 	public virtual void draw (IBatch batch, float x, float y, float originX, float originY, float width, float height, float scaleX,
 		float scaleY, float rotation) {
-		batch.draw(region, x, y, originX, originY, width, height, scaleX, scaleY, rotation);
+		batch.Draw(region, x, y, originX, originY, width, height, scaleX, scaleY, rotation);
 	}
 
 	public void setRegion (TextureRegion? region) {
@@ -61,8 +61,8 @@ public class TextureRegionDrawable : BaseDrawable , ITransformDrawable {
 			sprite = new TextureAtlas.AtlasSprite((TextureAtlas.AtlasRegion)region);
 		else
 			sprite = new Sprite(region);
-		sprite.setColor(tint);
-		sprite.setSize(getMinWidth(), getMinHeight());
+		sprite.SetColor(tint);
+		sprite.SetSize(getMinWidth(), getMinHeight());
 		SpriteDrawable drawable = new SpriteDrawable(sprite);
 		drawable.setLeftWidth(getLeftWidth());
 		drawable.setRightWidth(getRightWidth());

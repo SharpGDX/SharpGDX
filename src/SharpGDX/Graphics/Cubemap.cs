@@ -205,13 +205,13 @@ public class Cubemap : GLTexture {
 		// removal from the asset manager.
 		if (glHandle == 0) return;
 		delete();
-		if (data.isManaged()) if (managedCubemaps.get(Gdx.App) != null) managedCubemaps.get(Gdx.App).removeValue(this, true);
+		if (data.isManaged()) if (managedCubemaps.get(Gdx.App) != null) managedCubemaps.get(Gdx.App).RemoveValue(this, true);
 	}
 
 	private static void addManagedCubemap (IApplication app, Cubemap cubemap) {
 		Array<Cubemap> managedCubemapArray = managedCubemaps.get(app);
 		if (managedCubemapArray == null) managedCubemapArray = new Array<Cubemap>();
-		managedCubemapArray.add(cubemap);
+		managedCubemapArray.Add(cubemap);
 		managedCubemaps.put(app, managedCubemapArray);
 	}
 
@@ -227,7 +227,7 @@ public class Cubemap : GLTexture {
 
 		if (assetManager == null) {
 			for (int i = 0; i < managedCubemapArray.size; i++) {
-				Cubemap cubemap = managedCubemapArray.get(i);
+				Cubemap cubemap = managedCubemapArray.Get(i);
 				cubemap.reload();
 			}
 		} else {

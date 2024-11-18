@@ -42,7 +42,7 @@ public class ArraySelection<T> : Selection<T> {
 				}
 				if (!UIUtils.ctrl()) selected.clear(8);
 				for (int i = start; i <= end; i++)
-					selected.add(array.get(i));
+					selected.add(array.Get(i));
 				if (fireChangeEvent())
 					revert();
 				else

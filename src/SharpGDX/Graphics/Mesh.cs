@@ -627,7 +627,7 @@ public class Mesh : IDisposable {
 
 	/** Frees all resources associated with this Mesh */
 	public void Dispose () {
-		if (meshes.get(Gdx.App) != null) meshes.get(Gdx.App).removeValue(this, true);
+		if (meshes.get(Gdx.App) != null) meshes.get(Gdx.App).RemoveValue(this, true);
 		_vertices.Dispose();
 		if (instances != null) instances.Dispose();
 		indices.Dispose();
@@ -928,7 +928,7 @@ public class Mesh : IDisposable {
 	private static void addManagedMesh (IApplication app, Mesh mesh) {
 		Array<Mesh> managedResources = meshes.get(app);
 		if (managedResources == null) managedResources = new Array<Mesh>();
-		managedResources.add(mesh);
+		managedResources.Add(mesh);
 		meshes.put(app, managedResources);
 	}
 
@@ -938,8 +938,8 @@ public class Mesh : IDisposable {
 		Array<Mesh> meshesArray = meshes.get(app);
 		if (meshesArray == null) return;
 		for (int i = 0; i < meshesArray.size; i++) {
-			meshesArray.get(i)._vertices.invalidate();
-			meshesArray.get(i).indices.invalidate();
+			meshesArray.Get(i)._vertices.invalidate();
+			meshesArray.Get(i).indices.invalidate();
 		}
 	}
 
@@ -1113,7 +1113,7 @@ public class Mesh : IDisposable {
 
 		int idx = offset + (start * vertexSize);
 		for (int i = 0; i < count; i++) {
-			tmp.set(vertices[idx], vertices[idx + 1]).mul(matrix);
+			tmp.Set(vertices[idx], vertices[idx + 1]).mul(matrix);
 			vertices[idx] = tmp.x;
 			vertices[idx + 1] = tmp.y;
 			idx += vertexSize;

@@ -94,7 +94,7 @@ namespace SharpGDX.Mathematics
 		{
 			GridPoint2 point = pool.obtain();
 			point.set(startX, startY);
-			output.add(point);
+			output.Add(point);
 			numerator += shortest2;
 			if (numerator > longest)
 			{

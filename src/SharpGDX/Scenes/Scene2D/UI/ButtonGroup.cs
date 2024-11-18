@@ -48,8 +48,8 @@ where T: Button{
 	public void remove (T button) {
 		if (button == null) throw new IllegalArgumentException("button cannot be null.");
 		button.buttonGroup = null;
-		buttons.removeValue(button, true);
-		checkedButtons.removeValue(button, true);
+		buttons.RemoveValue(button, true);
+		checkedButtons.RemoveValue(button, true);
 	}
 
 	public void remove (T[] buttons) {
@@ -85,7 +85,7 @@ where T: Button{
 		if (!newState) {
 			// Keep button checked to enforce minCheckCount.
 			if (checkedButtons.size <= minCheckCount) return false;
-			checkedButtons.removeValue(button, true);
+			checkedButtons.RemoveValue(button, true);
 		} else {
 			// Keep button unchecked to enforce maxCheckCount.
 			if (maxCheckCount != -1 && checkedButtons.size >= maxCheckCount) {
@@ -100,7 +100,7 @@ where T: Button{
 					if (tries++ > 10) return false; // Unable to uncheck another button.
 				}
 			}
-			checkedButtons.add(button);
+			checkedButtons.Add(button);
 			lastChecked = button;
 		}
 
@@ -112,7 +112,7 @@ where T: Button{
 		int old = minCheckCount;
 		minCheckCount = 0;
 		for (int i = 0, n = buttons.size; i < n; i++) {
-			T button = buttons.get(i);
+			T button = buttons.Get(i);
 			button.setChecked(false);
 		}
 		minCheckCount = old;
@@ -120,13 +120,13 @@ where T: Button{
 
 	/** @return The first checked button, or null. */
 	public T? getChecked () {
-		if (checkedButtons.size > 0) return checkedButtons.get(0);
+		if (checkedButtons.size > 0) return checkedButtons.Get(0);
 		return null;
 	}
 
 	/** @return The first checked button index, or -1. */
 	public int getCheckedIndex () {
-		if (checkedButtons.size > 0) return buttons.indexOf(checkedButtons.get(0), true);
+		if (checkedButtons.size > 0) return buttons.indexOf(checkedButtons.Get(0), true);
 		return -1;
 	}
 

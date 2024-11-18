@@ -490,7 +490,7 @@ namespace SharpGDX.Utils
 	public virtual Array<T> toArray(Array<T> array)
 	{
 		while (_hasNext)
-			array.add(Current);
+			array.Add(Current);
 		return array;
 	}
 

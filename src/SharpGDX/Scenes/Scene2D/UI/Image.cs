@@ -109,7 +109,7 @@ public class Image : Widget {
 		validate();
 
 		Color color = getColor();
-		batch.setColor(color.r, color.g, color.b, color.a * parentAlpha);
+		batch.SetColor(color.R, color.G, color.B, color.A * parentAlpha);
 
 		float x = getX();
 		float y = getY();

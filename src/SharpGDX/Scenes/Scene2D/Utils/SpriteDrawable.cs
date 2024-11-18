@@ -30,38 +30,38 @@ public class SpriteDrawable : BaseDrawable , ITransformDrawable {
 	}
 
 		public override void draw (IBatch batch, float x, float y, float width, float height) {
-		Color spriteColor = sprite.getColor();
-        float oldColor = sprite.getPackedColor();
-		sprite.setColor(spriteColor.mul(batch.getColor()));
+		Color spriteColor = sprite.GetColor();
+        float oldColor = sprite.GetPackedColor();
+		sprite.SetColor(spriteColor.Mul(batch.GetColor()));
 
-		sprite.setRotation(0);
-		sprite.setScale(1, 1);
-		sprite.setBounds(x, y, width, height);
-		sprite.draw(batch);
+		sprite.SetRotation(0);
+		sprite.SetScale(1, 1);
+		sprite.SetBounds(x, y, width, height);
+		sprite.Draw(batch);
 
-		sprite.setPackedColor(oldColor);
+		sprite.SetPackedColor(oldColor);
 	}
 
 	public void draw (IBatch batch, float x, float y, float originX, float originY, float width, float height, float scaleX,
 		float scaleY, float rotation) {
 
-		Color spriteColor = sprite.getColor();
-		float oldColor = sprite.getPackedColor();
-		sprite.setColor(spriteColor.mul(batch.getColor()));
+		Color spriteColor = sprite.GetColor();
+		float oldColor = sprite.GetPackedColor();
+		sprite.SetColor(spriteColor.Mul(batch.GetColor()));
 
-		sprite.setOrigin(originX, originY);
-		sprite.setRotation(rotation);
-		sprite.setScale(scaleX, scaleY);
-		sprite.setBounds(x, y, width, height);
-		sprite.draw(batch);
+		sprite.SetOrigin(originX, originY);
+		sprite.SetRotation(rotation);
+		sprite.SetScale(scaleX, scaleY);
+		sprite.SetBounds(x, y, width, height);
+		sprite.Draw(batch);
 
-		sprite.setPackedColor(oldColor);
+		sprite.SetPackedColor(oldColor);
 	}
 
 	public void setSprite (Sprite sprite) {
 		this.sprite = sprite;
-		setMinWidth(sprite.getWidth());
-		setMinHeight(sprite.getHeight());
+		setMinWidth(sprite.GetWidth());
+		setMinHeight(sprite.GetHeight());
 	}
 
 	public Sprite getSprite () {
@@ -75,8 +75,8 @@ public class SpriteDrawable : BaseDrawable , ITransformDrawable {
 			newSprite = new TextureAtlas.AtlasSprite((TextureAtlas.AtlasSprite)sprite);
 		else
 			newSprite = new Sprite(sprite);
-		newSprite.setColor(tint);
-		newSprite.setSize(getMinWidth(), getMinHeight());
+		newSprite.SetColor(tint);
+		newSprite.SetSize(getMinWidth(), getMinHeight());
 		SpriteDrawable drawable = new SpriteDrawable(newSprite);
 		drawable.setLeftWidth(getLeftWidth());
 		drawable.setRightWidth(getRightWidth());

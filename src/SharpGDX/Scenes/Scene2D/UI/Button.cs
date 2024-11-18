@@ -274,14 +274,14 @@ namespace SharpGDX.Scenes.Scene2D.UI
 			if (offset)
 			{
 				for (int i = 0; i < children.size; i++)
-					children.get(i).moveBy(offsetX, offsetY);
+					children.Get(i).moveBy(offsetX, offsetY);
 			}
 
 			base.draw(batch, parentAlpha);
 			if (offset)
 			{
 				for (int i = 0; i < children.size; i++)
-					children.get(i).moveBy(-offsetX, -offsetY);
+					children.Get(i).moveBy(-offsetX, -offsetY);
 			}
 
 			Stage stage = getStage();

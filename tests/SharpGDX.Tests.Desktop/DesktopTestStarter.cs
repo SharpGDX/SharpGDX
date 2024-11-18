@@ -74,7 +74,7 @@ public class DesktopTestStarter {
 			IPreferences prefs = Gdx.App.GetPreferences("lwjgl3-tests");
 
 			stage = new Stage(new ScreenViewport());
-			Gdx.Input.setInputProcessor(stage);
+			Gdx.Input.SetInputProcessor(stage);
 			skin = new Skin(Gdx.Files.Internal("data/uiskin.json"));
 
 			Table container = new Table();
@@ -106,7 +106,7 @@ public class DesktopTestStarter {
 
 			lastClickedTestButton = (TextButton)table.findActor<TextButton>(prefs.GetString("LastTest"));
 			if (lastClickedTestButton != null) {
-				lastClickedTestButton.setColor(Color.CYAN);
+				lastClickedTestButton.setColor(Color.Cyan);
 				scroll.layout();
 				float scrollY = lastClickedTestButton.getY() + scroll.getScrollHeight() / 2 + lastClickedTestButton.getHeight() / 2
 					+ tableSpace * 2 + 20;
@@ -148,10 +148,10 @@ public class DesktopTestStarter {
                 _prefs.Flush();
                 if (_testButton != _testChooser.lastClickedTestButton)
                 {
-                    _testButton.setColor(Color.CYAN);
+                    _testButton.setColor(Color.Cyan);
                     if (_testChooser.lastClickedTestButton != null)
                     {
-                        _testChooser.lastClickedTestButton.setColor(Color.WHITE);
+                        _testChooser.lastClickedTestButton.setColor(Color.White);
                     }
                     _testChooser.lastClickedTestButton = _testButton;
                 }
@@ -159,7 +159,7 @@ public class DesktopTestStarter {
 }
 
 		public override void Render () {
-			ScreenUtils.clear(0, 0, 0, 1);
+			ScreenUtils.Clear(0, 0, 0, 1);
 			stage.act();
 			stage.draw();
 		}

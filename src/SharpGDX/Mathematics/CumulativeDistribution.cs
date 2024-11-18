@@ -31,12 +31,12 @@ public class CumulativeDistribution<T> {
 
 	/** Adds a value with a given interval size to the distribution */
 	public void add (T value, float intervalSize) {
-		values.add(new CumulativeValue(value, 0, intervalSize));
+		values.Add(new CumulativeValue(value, 0, intervalSize));
 	}
 
 	/** Adds a value with interval size equal to zero to the distribution */
 	public void add (T value) {
-		values.add(new CumulativeValue(value, 0, 0));
+		values.Add(new CumulativeValue(value, 0, 0));
 	}
 
 	/** Generate the cumulative distribution */

@@ -55,7 +55,7 @@ public class DragScrollListener : DragListener {
 	}
 
 		public override void drag (InputEvent @event, float x, float y, int pointer) {
-		@event.getListenerActor().localToActorCoordinates(_scroll, tmpCoords.set(x, y));
+		@event.getListenerActor().localToActorCoordinates(_scroll, tmpCoords.Set(x, y));
 		if (isAbove(tmpCoords.y)) {
 			scrollDown.cancel();
 			if (!scrollUp.isScheduled()) {

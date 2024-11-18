@@ -155,9 +155,9 @@ namespace SharpGDX.Mathematics
 	{
 		if (length < 2 || length > 4)
 			throw new GdxRuntimeException("Only first, second and third degree Bezier curves are supported.");
-		if (tmp == null) tmp = points.get(0).cpy();
-		if (tmp2 == null) tmp2 = points.get(0).cpy();
-		if (tmp3 == null) tmp3 = points.get(0).cpy();
+		if (tmp == null) tmp = points.Get(0).cpy();
+		if (tmp2 == null) tmp2 = points.Get(0).cpy();
+		if (tmp3 == null) tmp3 = points.Get(0).cpy();
 		this.points.clear();
 		this.points.addAll(points, offset, length);
 		return this;
@@ -167,10 +167,10 @@ namespace SharpGDX.Mathematics
 	{
 		 int n = points.size;
 		if (n == 2)
-			linear(@out, t, points.get(0), points.get(1), tmp);
+			linear(@out, t, points.Get(0), points.Get(1), tmp);
 		else if (n == 3)
-			quadratic(@out, t, points.get(0), points.get(1), points.get(2), tmp);
-		else if (n == 4) cubic(@out, t, points.get(0), points.get(1), points.get(2), points.get(3), tmp);
+			quadratic(@out, t, points.Get(0), points.Get(1), points.Get(2), tmp);
+		else if (n == 4) cubic(@out, t, points.Get(0), points.Get(1), points.Get(2), points.Get(3), tmp);
 		return @out;
 	}
 
@@ -178,25 +178,25 @@ namespace SharpGDX.Mathematics
 	{
 		 int n = points.size;
 		if (n == 2)
-			linear_derivative(@out, t, points.get(0), points.get(1), tmp);
+			linear_derivative(@out, t, points.Get(0), points.Get(1), tmp);
 		else if (n == 3)
-			quadratic_derivative(@out, t, points.get(0), points.get(1), points.get(2), tmp);
-		else if (n == 4) cubic_derivative(@out, t, points.get(0), points.get(1), points.get(2), points.get(3), tmp);
+			quadratic_derivative(@out, t, points.Get(0), points.Get(1), points.Get(2), tmp);
+		else if (n == 4) cubic_derivative(@out, t, points.Get(0), points.Get(1), points.Get(2), points.Get(3), tmp);
 		return @out;
 	}
 
 	public float approximate( T v)
 	{
 		// TODO: make a real approximate method
-		T p1 = points.get(0);
-		T p2 = points.get(points.size - 1);
+		T p1 = points.Get(0);
+		T p2 = points.Get(points.size - 1);
 		T p3 = v;
 		float l1Sqr = p1.dst2(p2);
 		float l2Sqr = p3.dst2(p2);
 		float l3Sqr = p3.dst2(p1);
 		float l1 = (float)Math.Sqrt(l1Sqr);
 		float s = (l2Sqr + l1Sqr - l3Sqr) / (2 * l1);
-		return MathUtils.clamp((l1 - s) / l1, 0f, 1f);
+		return MathUtils.Clamp((l1 - s) / l1, 0f, 1f);
 	}
 
 	public float locate(T v)

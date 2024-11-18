@@ -141,7 +141,7 @@ public class AnimatedTiledMapTile : ITiledMapTile {
 		this.loopDuration = frameTiles.size * (int)(interval * 1000f);
 		this.animationIntervals = new int[frameTiles.size];
 		for (int i = 0; i < frameTiles.size; ++i) {
-			this.frameTiles[i] = frameTiles.get(i);
+			this.frameTiles[i] = frameTiles.Get(i);
 			this.animationIntervals[i] = (int)(interval * 1000f);
 		}
 	}
@@ -157,7 +157,7 @@ public class AnimatedTiledMapTile : ITiledMapTile {
 		this.loopDuration = 0;
 
 		for (int i = 0; i < intervals.size; ++i) {
-			this.frameTiles[i] = frameTiles.get(i);
+			this.frameTiles[i] = frameTiles.Get(i);
 			this.loopDuration += intervals.get(i);
 		}
 	}

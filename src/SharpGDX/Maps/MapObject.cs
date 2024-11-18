@@ -16,7 +16,7 @@ public class MapObject {
 	private float opacity = 1.0f;
 	private bool visible = true;
 	private MapProperties properties = new MapProperties();
-	private Color color = Color.WHITE.cpy();
+	private Color color = Color.White.Copy();
 
 	/** @return object's name */
 	public String getName () {

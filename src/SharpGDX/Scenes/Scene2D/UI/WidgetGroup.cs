@@ -68,7 +68,7 @@ public class WidgetGroup : Group , ILayout {
 	private void setLayoutEnabled (Group parent, bool enabled) {
 		SnapshotArray<Actor> children = parent.getChildren();
 		for (int i = 0, n = children.size; i < n; i++) {
-			Actor actor = children.get(i);
+			Actor actor = children.Get(i);
 			if (actor is ILayout)
 				((ILayout)actor).setLayoutEnabled(enabled);
 			else if (actor is Group) //

@@ -56,7 +56,7 @@ namespace SharpGDX.Mathematics
 	{
 		this.x = center.x;
 		this.y = center.y;
-		this.radius = Vector2.len(center.x - edge.x, center.y - edge.y);
+		this.radius = Vector2.Len(center.x - edge.x, center.y - edge.y);
 	}
 
 	/** Sets a new location and radius for this circle.
@@ -100,7 +100,7 @@ namespace SharpGDX.Mathematics
 	{
 		this.x = center.x;
 		this.y = center.y;
-		this.radius = Vector2.len(center.x - edge.x, center.y - edge.y);
+		this.radius = Vector2.Len(center.x - edge.x, center.y - edge.y);
 	}
 
 	/** Sets the x and y-coordinates of circle center from vector

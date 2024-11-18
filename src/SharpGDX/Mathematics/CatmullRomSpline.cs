@@ -203,7 +203,7 @@
 		float L3Sqr = P3.dst2(P1);
 		float L1 = (float)Math.Sqrt(L1Sqr);
 		float s = (L2Sqr + L1Sqr - L3Sqr) / (2f * L1);
-		float u = MathUtils.clamp((L1 - s) / L1, 0f, 1f);
+		float u = MathUtils.Clamp((L1 - s) / L1, 0f, 1f);
 		return (n + u) / spanCount;
 	}
 
