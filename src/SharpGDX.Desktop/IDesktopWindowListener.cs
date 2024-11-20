@@ -70,7 +70,7 @@ public interface IDesktopWindowListener
 
 	/// <summary>
 	///     Called when the window content is damaged and needs to be refreshed. When this occurs,
-	///     <see cref="DesktopGraphics.requestRendering()" /> is automatically called.
+	///     <see cref="DesktopGraphics.RequestRendering()" /> is automatically called.
 	/// </summary>
 	public void RefreshRequested();
 }

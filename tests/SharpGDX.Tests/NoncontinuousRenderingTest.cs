@@ -37,8 +37,8 @@ public class NoncontinuousRenderingTest : GdxTest
 
 		populateTable();
 
-		Gdx.Graphics.setContinuousRendering(false);
-		Gdx.Graphics.requestRendering();
+		Gdx.Graphics.SetContinuousRendering(false);
+		Gdx.Graphics.RequestRendering();
 	}
 
 	void nextColor()
@@ -91,8 +91,8 @@ public class NoncontinuousRenderingTest : GdxTest
     {
         public override void changed(ChangeEvent @event, Actor actor)
         {
-            bool continuous = Gdx.Graphics.isContinuousRendering();
-            Gdx.Graphics.setContinuousRendering(!continuous);
+            bool continuous = Gdx.Graphics.IsContinuousRendering();
+            Gdx.Graphics.SetContinuousRendering(!continuous);
         }
     }
 
@@ -153,7 +153,7 @@ public class NoncontinuousRenderingTest : GdxTest
             {
             }
             _test.nextColor();
-            graphics.requestRendering();
+            graphics.RequestRendering();
             Gdx.App.Log(_str2, "Called Gdx.graphics.requestRendering()");
             
             }).Start();
@@ -254,8 +254,8 @@ public class NoncontinuousRenderingTest : GdxTest
             {
             }
             _test.nextColor();
-            bool continuous = graphics.isContinuousRendering();
-            graphics.setContinuousRendering(!continuous);
+            bool continuous = graphics.IsContinuousRendering();
+            graphics.SetContinuousRendering(!continuous);
             Gdx.App.Log(_str5, "Toggled continuous");
             }
             

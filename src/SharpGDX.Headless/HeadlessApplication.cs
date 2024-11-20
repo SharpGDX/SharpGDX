@@ -51,7 +51,7 @@ namespace SharpGDX.Headless
 			// the following elements are not applicable for headless applications
 			// they are only implemented as mock objects
 			this.graphics = new MockGraphics();
-			this.graphics.setForegroundFPS(config.updatesPerSecond);
+			this.graphics.SetForegroundFPS(config.updatesPerSecond);
 			this.audio = new MockAudio();
 			this.input = new MockInput();
 

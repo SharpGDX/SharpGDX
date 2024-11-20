@@ -103,7 +103,7 @@ public class SpriteBatch : IBatch {
 				new VertexAttribute(VertexAttributes.Usage.TextureCoordinates, 2, ShaderProgram.TEXCOORD_ATTRIBUTE + "0")
 			});
 
-			projectionMatrix.setToOrtho2D(0, 0, Gdx.Graphics.getWidth(), Gdx.Graphics.getHeight());
+			projectionMatrix.setToOrtho2D(0, 0, Gdx.Graphics.GetWidth(), Gdx.Graphics.GetHeight());
 
 		vertices = new float[size * Sprite.SPRITE_SIZE];
 

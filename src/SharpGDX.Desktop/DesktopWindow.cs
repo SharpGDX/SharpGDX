@@ -57,7 +57,7 @@ namespace SharpGDX.Desktop
     {
             this.listener = listener;
             this.lifecycleListeners = lifecycleListeners;
-            this.windowListener = config.windowListener;
+            this.windowListener = config.WindowListener;
 		this.config = config;
 		this.application = application;
 
@@ -406,7 +406,7 @@ namespace SharpGDX.Desktop
 		foreach (Runnable runnable in executedRunnables) {
 			runnable.Invoke();
 		}
-		bool shouldRender = executedRunnables.size > 0 || graphics.isContinuousRendering();
+		bool shouldRender = executedRunnables.size > 0 || graphics.IsContinuousRendering();
 		executedRunnables.clear();
 
 		if (!iconified) input.Update();
@@ -421,8 +421,8 @@ namespace SharpGDX.Desktop
         {
             asyncResized = false;
             graphics.updateFramebufferInfo();
-            graphics.gl20.glViewport(0, 0, graphics.getBackBufferWidth(), graphics.getBackBufferHeight());
-            listener.Resize(graphics.getWidth(), graphics.getHeight());
+            graphics.gl20.glViewport(0, 0, graphics.GetBackBufferWidth(), graphics.GetBackBufferHeight());
+            listener.Resize(graphics.GetWidth(), graphics.GetHeight());
             graphics.update();
             listener.Render();
             GLFW.SwapBuffers(windowHandle);
@@ -461,17 +461,17 @@ namespace SharpGDX.Desktop
 	void initializeListener () {
 		if (!listenerInitialized) {
 			listener.Create();
-			listener.Resize(graphics.getWidth(), graphics.getHeight());
+			listener.Resize(graphics.GetWidth(), graphics.GetHeight());
 			listenerInitialized = true;
 		}
 	}
 
 	internal unsafe void makeCurrent () {
 		Gdx.Graphics = graphics;
-		Gdx.GL32 = graphics.getGL32();
-		Gdx.GL31 = Gdx.GL32 != null ? Gdx.GL32 : graphics.getGL31();
-		Gdx.GL30 = Gdx.GL31 != null ? Gdx.GL31 : graphics.getGL30();
-		Gdx.GL20 = Gdx.GL30 != null ? Gdx.GL30 : graphics.getGL20();
+		Gdx.GL32 = graphics.GetGL32();
+		Gdx.GL31 = Gdx.GL32 != null ? Gdx.GL32 : graphics.GetGL31();
+		Gdx.GL30 = Gdx.GL31 != null ? Gdx.GL31 : graphics.GetGL30();
+		Gdx.GL20 = Gdx.GL30 != null ? Gdx.GL30 : graphics.GetGL20();
 		Gdx.GL = Gdx.GL20;
 		Gdx.Input = input;
 

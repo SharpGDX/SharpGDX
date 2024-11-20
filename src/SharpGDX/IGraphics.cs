@@ -17,194 +17,129 @@ namespace SharpGDX
  * {@link BitmapFont}, {@link Batch} and so on. All these classes are managed, meaning they don't need to be reloaded on a context
  * loss. Explore the com.badlogic.gdx.graphics package for more classes that might come in handy.
  * @author mzechner */
-	public interface IGraphics
+	public partial interface IGraphics
 	{
-		/** Enumeration describing different types of {@link Graphics} implementations.
-		 *
-		 * @author mzechner */
-		enum GraphicsType
-		{
-			AndroidGL, WebGL, iOSGL, JGLFW, Mock, OpenGL
-		}
-
-		/** Describe a fullscreen display mode
-		 *
-		 * @author mzechner */
-		class DisplayMode
-		{
-			/** the width in physical pixels **/
-			public readonly int width;
-			/** the height in physical pixels **/
-			public readonly int height;
-			/** the refresh rate in Hertz **/
-			public readonly int refreshRate;
-			/** the number of bits per pixel, may exclude alpha **/
-			public readonly int bitsPerPixel;
-
-			protected DisplayMode(int width, int height, int refreshRate, int bitsPerPixel)
-			{
-				this.width = width;
-				this.height = height;
-				this.refreshRate = refreshRate;
-				this.bitsPerPixel = bitsPerPixel;
-			}
-
-			public override String ToString()
-			{
-				return width + "x" + height + ", bpp: " + bitsPerPixel + ", hz: " + refreshRate;
-			}
-		}
-
-		/** Describes a monitor
-		 *
-		 * @author badlogic */
-		class Monitor
-		{
-			public readonly int virtualX;
-			public readonly int virtualY;
-			public readonly String name;
-
-		protected Monitor(int virtualX, int virtualY, String name)
-			{
-				this.virtualX = virtualX;
-				this.virtualY = virtualY;
-				this.name = name;
-			}
-		}
-
-		/** Class describing the bits per pixel, depth buffer precision, stencil precision and number of MSAA samples. */
-		class BufferFormat
-		{
-			/* number of bits per color channel */
-			public readonly int r, g, b, a;
-			/* number of bits for depth and stencil buffer */
-			public readonly int depth, stencil;
-			/** number of samples for multi-sample anti-aliasing (MSAA) **/
-			public readonly int samples;
-			/** whether coverage sampling anti-aliasing is used. in that case you have to clear the coverage buffer as well! */
-			public readonly bool coverageSampling;
-
-		public BufferFormat(int r, int g, int b, int a, int depth, int stencil, int samples, bool coverageSampling)
-			{
-				this.r = r;
-				this.g = g;
-				this.b = b;
-				this.a = a;
-				this.depth = depth;
-				this.stencil = stencil;
-				this.samples = samples;
-				this.coverageSampling = coverageSampling;
-			}
-
-			public override String ToString()
-			{
-				return "r: " + r + ", g: " + g + ", b: " + b + ", a: " + a + ", depth: " + depth + ", stencil: " + stencil
-					+ ", num samples: " + samples + ", coverage sampling: " + coverageSampling;
-			}
-		}
-
 		/** Returns whether OpenGL ES 3.0 is available. If it is you can get an instance of {@link GL30} via {@link #getGL30()} to
 		 * access OpenGL ES 3.0 functionality. Note that this functionality will only be available if you instructed the
 		 * {@link Application} instance to use OpenGL ES 3.0!
 		 *
 		 * @return whether OpenGL ES 3.0 is available */
-		bool isGL30Available();
+		bool IsGL30Available();
 
 		/** Returns whether OpenGL ES 3.1 is available. If it is you can get an instance of {@link GL31} via {@link #getGL31()} to
 		 * access OpenGL ES 3.1 functionality. Note that this functionality will only be available if you instructed the
 		 * {@link Application} instance to use OpenGL ES 3.1!
 		 *
 		 * @return whether OpenGL ES 3.1 is available */
-		bool isGL31Available();
+		bool IsGL31Available();
 
-		/** Returns whether OpenGL ES 3.2 is available. If it is you can get an instance of {@link GL32} via {@link #getGL32()} to
-		 * access OpenGL ES 3.2 functionality. Note that this functionality will only be available if you instructed the
-		 * {@link Application} instance to use OpenGL ES 3.2!
-		 *
-		 * @return whether OpenGL ES 3.2 is available */
-		bool isGL32Available();
+        /// <summary>
+        /// Returns whether OpenGL ES 3.2 is available.
+        /// </summary>
+        /// <remarks>
+        ///<para>
+        ///If it is you can get an instance of <see cref="IGL32"/> via <see cref="GetGL32()"/> to access OpenGL ES 3.2 functionality.
+        /// </para>
+        /// <para>
+        ///Note that this functionality will only be available if you instructed the <see cref="IApplication"/> instance to use OpenGL ES 3.2!
+        /// </para>
+        /// </remarks>
+        /// <returns>Whether OpenGL ES 3.2 is available.</returns>
+        bool IsGL32Available();
 
-		/** @return the {@link GL20} instance */
-		IGL20 getGL20();
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns>The {@link GL20} instance.</returns>
+        IGL20 GetGL20();
 
-		/** @return the {@link GL30} instance or null if not supported */
-		 IGL30 getGL30();
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns>The {@link GL30} instance or null if not supported.</returns>
+        IGL30? GetGL30();
 
-		/** @return the {@link GL31} instance or null if not supported */
-		IGL31 getGL31();
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns>The {@link GL31} instance or null if not supported.</returns>
+        IGL31 GetGL31();
 
-		/** @return the {@link GL32} instance or null if not supported */
-		 IGL32 getGL32();
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns>The {@link GL32} instance or null if not supported.</returns>
+        IGL32? GetGL32();
 
 		/** Set the GL20 instance **/
-		 void setGL20(IGL20 gl20);
+		 void SetGL20(IGL20 gl20);
 
 		/** Set the GL30 instance **/
-		 void setGL30(IGL30 gl30);
+		 void SetGL30(IGL30 gl30);
 
 		/** Set the GL31 instance **/
-		 void setGL31(IGL31 gl31);
+		 void SetGL31(IGL31 gl31);
 
 		/** Set the GL32 instance **/
-		 void setGL32(IGL32 gl32);
+		 void SetGL32(IGL32 gl32);
 
 		/** @return the width of the client area in logical pixels. */
-		int getWidth();
+		int GetWidth();
 
 		/** @return the height of the client area in logical pixels */
-		int getHeight();
+		int GetHeight();
 
 		/** @return the width of the framebuffer in physical pixels */
-		int getBackBufferWidth();
+		int GetBackBufferWidth();
 
 		/** @return the height of the framebuffer in physical pixels */
-		int getBackBufferHeight();
+		int GetBackBufferHeight();
 
 		/** @return amount of pixels per logical pixel (point) */
-		float getBackBufferScale();
+		float GetBackBufferScale();
 
 		/** @return the inset from the left which avoids display cutouts in logical pixels */
-		int getSafeInsetLeft();
+		int GetSafeInsetLeft();
 
 		/** @return the inset from the top which avoids display cutouts in logical pixels */
-		int getSafeInsetTop();
+		int GetSafeInsetTop();
 
 		/** @return the inset from the bottom which avoids display cutouts or floating gesture bars, in logical pixels */
-		int getSafeInsetBottom();
+		int GetSafeInsetBottom();
 
 		/** @return the inset from the right which avoids display cutouts in logical pixels */
-		int getSafeInsetRight();
+		int GetSafeInsetRight();
 
 		/** Returns the id of the current frame. The general contract of this method is that the id is incremented only when the
 		 * application is in the running state right before calling the {@link ApplicationListener#render()} method. Also, the id of
 		 * the first frame is 0; the id of subsequent frames is guaranteed to take increasing values for 2<sup>63</sup>-1 rendering
 		 * cycles.
 		 * @return the id of the current frame */
-		long getFrameId();
+		long GetFrameId();
 
 		/** @return the time span between the current frame and the last frame in seconds. */
 		float GetDeltaTime();
 		
 		/** @return the average number of frames per second */
-		int getFramesPerSecond();
+		int GetFramesPerSecond();
 
 		/** @return the {@link GraphicsType} of this Graphics instance */
-		GraphicsType getType();
+		GraphicsType GetType();
 
 		/** @return the {@link GLVersion} of this Graphics instance */
-		GLVersion getGLVersion();
+		GLVersion GetGLVersion();
 
 		/** @return the pixels per inch on the x-axis */
-		float getPpiX();
+		float GetPpiX();
 
 		/** @return the pixels per inch on the y-axis */
-		float getPpiY();
+		float GetPpiY();
 
 		/** @return the pixels per centimeter on the x-axis */
-		float getPpcX();
+		float GetPpcX();
 
 		/** @return the pixels per centimeter on the y-axis. */
-		float getPpcY();
+		float GetPpcY();
 
 		/** This is a scaling factor for the Density Independent Pixel unit, following the same conventions as
 		 * android.util.DisplayMetrics#density, where one DIP is one pixel on an approximately 160 dpi screen. Thus on a 160dpi screen
@@ -216,51 +151,51 @@ namespace SharpGDX
 		 * be called continously on each frame.
 		 *
 		 * @return the Density Independent Pixel factor of the display. */
-		float getDensity();
+		float GetDensity();
 
 		/** Whether the given backend supports a display mode change via calling {@link Graphics#setFullscreenMode(DisplayMode)}
 		 *
 		 * @return whether display mode changes are supported or not. */
-		bool supportsDisplayModeChange();
+		bool SupportsDisplayModeChange();
 
 		/** @return the primary monitor **/
-		Monitor getPrimaryMonitor();
+		Monitor GetPrimaryMonitor();
 
 		/** @return the monitor the application's window is located on */
-		Monitor getMonitor();
+		Monitor GetMonitor();
 
 		/** @return the currently connected {@link Monitor}s */
-		Monitor[] getMonitors();
+		Monitor[] GetMonitors();
 
 		/** @return the supported fullscreen {@link DisplayMode}(s) of the monitor the window is on */
-		DisplayMode[] getDisplayModes();
+		DisplayMode[] GetDisplayModes();
 
 		/** @return the supported fullscreen {@link DisplayMode}s of the given {@link Monitor} */
-		DisplayMode[] getDisplayModes(Monitor monitor);
+		DisplayMode[] GetDisplayModes(Monitor monitor);
 
 		/** @return the current {@link DisplayMode} of the monitor the window is on. */
-		DisplayMode getDisplayMode();
+		DisplayMode GetDisplayMode();
 
 		/** @return the current {@link DisplayMode} of the given {@link Monitor} */
-		DisplayMode getDisplayMode(Monitor monitor);
+		DisplayMode GetDisplayMode(Monitor monitor);
 
 		/** Sets the window to full-screen mode.
 		 *
 		 * @param displayMode the display mode.
 		 * @return whether the operation succeeded. */
-		bool setFullscreenMode(DisplayMode displayMode);
+		bool SetFullscreenMode(DisplayMode displayMode);
 
 		/** Sets the window to windowed mode.
 		 *
 		 * @param width the width in pixels
 		 * @param height the height in pixels
 		 * @return whether the operation succeeded */
-		bool setWindowedMode(int width, int height);
+		bool SetWindowedMode(int width, int height);
 
 		/** Sets the title of the window. Ignored on Android.
 		 *
 		 * @param title the title. */
-		void setTitle(String title);
+		void SetTitle(String title);
 
 		/** Sets the window decoration as enabled or disabled. On Android, this will enable/disable the menu bar.
 		 *
@@ -270,7 +205,7 @@ namespace SharpGDX
 		 * Supported on all GDX desktop backends and on Android (to disable the menu bar).
 		 *
 		 * @param undecorated true if the window border or status bar should be hidden. false otherwise. */
-		void setUndecorated(bool undecorated);
+		void SetUndecorated(bool undecorated);
 
 		/** Sets whether or not the window should be resizable. Ignored on Android.
 		 *
@@ -280,25 +215,25 @@ namespace SharpGDX
 		 * Supported on all GDX desktop backends.
 		 *
 		 * @param resizable */
-		void setResizable(bool resizable);
+		void SetResizable(bool resizable);
 
 		/** Enable/Disable vsynching. This is a best-effort attempt which might not work on all platforms.
 		 *
 		 * @param vsync vsync enabled or not. */
-		void setVSync(bool vsync);
+		void SetVSync(bool vsync);
 
 		/** Sets the target framerate for the application when using continuous rendering. Might not work on all platforms. Is not
 		 * generally advised to be used on mobile platforms.
 		 *
 		 * @param fps the targeted fps; default differs by platform */
-		public void setForegroundFPS(int fps);
+		public void SetForegroundFPS(int fps);
 
 		/** @return the format of the color, depth and stencil buffer in a {@link BufferFormat} instance */
-		BufferFormat getBufferFormat();
+		BufferFormat GetBufferFormat();
 
 		/** @param extension the extension name
 		 * @return whether the extension is supported */
-		bool supportsExtension(String extension);
+		bool SupportsExtension(String extension);
 
 		/** Sets whether to render continuously. In case rendering is performed non-continuously, the following events will trigger a
 		 * redraw:
@@ -315,16 +250,27 @@ namespace SharpGDX
 		 * thread.
 		 *
 		 * @param isContinuous whether the rendering should be continuous or not. */
-		void setContinuousRendering(bool isContinuous);
+		void SetContinuousRendering(bool isContinuous);
 
-		/** @return whether rendering is continuous. */
-		bool isContinuousRendering();
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns>Whether rendering is continuous.</returns>
+        bool IsContinuousRendering();
 
-		/** Requests a new frame to be rendered if the rendering mode is non-continuous. This method can be called from any thread. */
-		void requestRendering();
+        /// <summary>
+        /// Requests a new frame to be rendered if the rendering mode is non-continuous.
+        /// </summary>
+        /// <remarks>
+        ///This method can be called from any thread.
+        /// </remarks>
+        void RequestRendering();
 
-		/** Whether the app is fullscreen or not */
-		bool isFullscreen();
+        /// <summary>
+        /// Whether the app is fullscreen or not.
+        /// </summary>
+        /// <returns></returns>
+        bool IsFullscreen();
 
 		/** Create a new cursor represented by the {@link com.badlogic.gdx.graphics.Pixmap}. The Pixmap must be in RGBA8888 format,
 		 * width & height must be powers-of-two greater than zero (not necessarily equal) and of a certain minimum size (32x32 is a
@@ -335,7 +281,7 @@ namespace SharpGDX
 		 * @param xHotspot the x location of the hotspot pixel within the cursor image (origin top-left corner)
 		 * @param yHotspot the y location of the hotspot pixel within the cursor image (origin top-left corner)
 		 * @return a cursor object that can be used by calling {@link #setCursor(Cursor)} or null if not supported */
-		ICursor newCursor(Pixmap pixmap, int xHotspot, int yHotspot);
+		ICursor NewCursor(Pixmap pixmap, int xHotspot, int yHotspot);
 
 		/** Only viable on the lwjgl-backend and on the gwt-backend. Browsers that support cursor:url() and support the png format (the
 		 * pixmap is converted to a data-url of type image/png) should also support custom cursors. Will set the mouse cursor image to
@@ -343,9 +289,12 @@ namespace SharpGDX
 		 * render thread, and maximum one time per frame.
 		 *
 		 * @param cursor the mouse cursor as a {@link com.badlogic.gdx.graphics.Cursor} */
-		void setCursor(ICursor cursor);
+		void SetCursor(ICursor cursor);
 
-		/** Sets one of the predefined {@link SystemCursor}s */
-		void setSystemCursor(ICursor.SystemCursor systemCursor);
+        /// <summary>
+        /// Sets one of the predefined <see cref="ICursor.SystemCursor"/>s.
+        /// </summary>
+        /// <param name="systemCursor"></param>
+        void SetSystemCursor(ICursor.SystemCursor systemCursor);
 	}
 }

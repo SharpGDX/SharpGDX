@@ -51,9 +51,9 @@ public class FloatFrameBuffer : FrameBuffer {
 
 	/** Check for support for any required extensions on the current platform. */
 	private void checkExtensions () {
-		if (Gdx.Graphics.isGL30Available() && Gdx.App.GetType() == IApplication.ApplicationType.WebGL) {
+		if (Gdx.Graphics.IsGL30Available() && Gdx.App.GetType() == IApplication.ApplicationType.WebGL) {
 			// For WebGL2, Rendering to a Floating Point Texture requires this extension
-			if (!Gdx.Graphics.supportsExtension("EXT_color_buffer_float"))
+			if (!Gdx.Graphics.SupportsExtension("EXT_color_buffer_float"))
 				throw new GdxRuntimeException("Extension EXT_color_buffer_float not supported!");
 		}
 	}

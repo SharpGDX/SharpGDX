@@ -130,7 +130,7 @@ public class PolygonSpriteBatch : IPolygonBatch {
 		} else
 			shader = defaultShader;
 
-		projectionMatrix.setToOrtho2D(0, 0, Gdx.Graphics.getWidth(), Gdx.Graphics.getHeight());
+		projectionMatrix.setToOrtho2D(0, 0, Gdx.Graphics.GetWidth(), Gdx.Graphics.GetHeight());
 	}
 
 	public void Begin () {

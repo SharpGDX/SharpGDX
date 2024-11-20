@@ -44,7 +44,7 @@ public class FloatTextureData : ITextureData {
 		if (_isPrepared) throw new GdxRuntimeException("Already prepared");
 		if (!isGpuOnly) {
 			int amountOfFloats = 4;
-			if (Gdx.Graphics.getGLVersion().GetType().Equals(GLType.OpenGL)) {
+			if (Gdx.Graphics.GetGLVersion().GetType().Equals(GLType.OpenGL)) {
 				if (internalFormat == IGL30.GL_RGBA16F || internalFormat == IGL30.GL_RGBA32F) amountOfFloats = 4;
 				if (internalFormat == IGL30.GL_RGB16F || internalFormat == IGL30.GL_RGB32F) amountOfFloats = 3;
 				if (internalFormat == IGL30.GL_RG16F || internalFormat == IGL30.GL_RG32F) amountOfFloats = 2;
@@ -57,9 +57,9 @@ public class FloatTextureData : ITextureData {
 
 	public void consumeCustomData (int target) {
 		if (Gdx.App.GetType() == IApplication.ApplicationType.Android || Gdx.App.GetType() == IApplication.ApplicationType.IOS
-                                                                      || (Gdx.App.GetType() == IApplication.ApplicationType.WebGL && !Gdx.Graphics.isGL30Available())) {
+                                                                      || (Gdx.App.GetType() == IApplication.ApplicationType.WebGL && !Gdx.Graphics.IsGL30Available())) {
 
-			if (!Gdx.Graphics.supportsExtension("OES_texture_float"))
+			if (!Gdx.Graphics.SupportsExtension("OES_texture_float"))
 				throw new GdxRuntimeException("Extension OES_texture_float not supported!");
 
 			// GLES and WebGL defines texture format by 3rd and 8th argument,
@@ -67,8 +67,8 @@ public class FloatTextureData : ITextureData {
 			Gdx.GL.glTexImage2D(target, 0, IGL20.GL_RGBA, width, height, 0, IGL20.GL_RGBA, IGL20.GL_FLOAT, buffer);
 
 		} else {
-			if (!Gdx.Graphics.isGL30Available()) {
-				if (!Gdx.Graphics.supportsExtension("GL_ARB_texture_float"))
+			if (!Gdx.Graphics.IsGL30Available()) {
+				if (!Gdx.Graphics.SupportsExtension("GL_ARB_texture_float"))
 					throw new GdxRuntimeException("Extension GL_ARB_texture_float not supported!");
 			}
 			// in desktop OpenGL the texture format is defined only by the third argument,

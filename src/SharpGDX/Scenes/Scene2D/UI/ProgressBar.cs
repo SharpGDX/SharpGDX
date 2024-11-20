@@ -81,7 +81,7 @@ public class ProgressBar : Widget , IDisableable {
 		if (animateTime > 0) {
 			animateTime -= delta;
 			Stage stage = getStage();
-			if (stage != null && stage.getActionsRequestRendering()) Gdx.Graphics.requestRendering();
+			if (stage != null && stage.getActionsRequestRendering()) Gdx.Graphics.RequestRendering();
 		}
 	}
 

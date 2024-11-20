@@ -101,7 +101,7 @@ namespace SharpGDX.Scenes.Scene2D.Utils
 		 * @see #calculateScissors(Camera, float, float, float, float, Matrix4, Rectangle, Rectangle) */
 		public static void calculateScissors(Camera camera, Matrix4 batchTransform, Rectangle area, Rectangle scissor)
 		{
-			calculateScissors(camera, 0, 0, Gdx.Graphics.getWidth(), Gdx.Graphics.getHeight(), batchTransform, area, scissor);
+			calculateScissors(camera, 0, 0, Gdx.Graphics.GetWidth(), Gdx.Graphics.GetHeight(), batchTransform, area, scissor);
 		}
 
 		/** Calculates a scissor rectangle in OpenGL ES window coordinates from a {@link Camera}, a transformation {@link Matrix4} and
@@ -134,7 +134,7 @@ namespace SharpGDX.Scenes.Scene2D.Utils
 		{
 			if (scissors.size == 0)
 			{
-				viewport.Set(0, 0, Gdx.Graphics.getWidth(), Gdx.Graphics.getHeight());
+				viewport.Set(0, 0, Gdx.Graphics.GetWidth(), Gdx.Graphics.GetHeight());
 				return viewport;
 			}
 			else

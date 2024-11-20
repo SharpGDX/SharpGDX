@@ -28,7 +28,7 @@ namespace SharpGDX.Desktop
         {
             if ((codepoint & 0xff00) == 0xf700) return;
             lastCharacter = (char)codepoint;
-            this.window.getGraphics().requestRendering();
+            this.window.getGraphics().RequestRendering();
             eventQueue.KeyTyped((char)codepoint, TimeUtils.nanoTime());
         }
 
@@ -90,7 +90,7 @@ namespace SharpGDX.Desktop
                             KeyJustPressed = true;
                             PressedKeys[(int)intKey] = true;
                             JustPressedKeys[(int)intKey] = true;
-                            this.window.getGraphics().requestRendering();
+                            this.window.getGraphics().RequestRendering();
                             lastCharacter = (char)0;
                             char character = characterForKeyCode((int)intKey);
                             if (character != 0) charCallback(window, character);
@@ -98,13 +98,13 @@ namespace SharpGDX.Desktop
                         case InputAction.Release:
                             PressedKeyCount--;
                             PressedKeys[(int)intKey] = false;
-                            this.window.getGraphics().requestRendering();
+                            this.window.getGraphics().RequestRendering();
                             eventQueue.KeyUp((int)intKey, TimeUtils.nanoTime());
                             break;
                         case InputAction.Repeat:
                             if (lastCharacter != 0)
                             {
-                                this.window.getGraphics().requestRendering();
+                                this.window.getGraphics().RequestRendering();
                                 eventQueue.KeyTyped(lastCharacter, TimeUtils.nanoTime());
                             }
 
@@ -117,7 +117,7 @@ namespace SharpGDX.Desktop
                 window.getWindowPtr(),
                 _scrollCallback = (_, scrollX, scrollY) =>
                 {
-                    this.window.getGraphics().requestRendering();
+                    this.window.getGraphics().RequestRendering();
                     eventQueue.Scrolled(-(float)scrollX, -(float)scrollY, TimeUtils.nanoTime());
                 }
             );
@@ -134,9 +134,9 @@ namespace SharpGDX.Desktop
 
                     if (window.getConfig().hdpiMode == HdpiMode.Pixels)
                     {
-                        float xScale = window.getGraphics().getBackBufferWidth() /
+                        float xScale = window.getGraphics().GetBackBufferWidth() /
                                        (float)window.getGraphics().getLogicalWidth();
-                        float yScale = window.getGraphics().getBackBufferHeight() /
+                        float yScale = window.getGraphics().GetBackBufferHeight() /
                                        (float)window.getGraphics().getLogicalHeight();
                         deltaX = (int)(deltaX * xScale);
                         deltaY = (int)(deltaY * yScale);
@@ -144,7 +144,7 @@ namespace SharpGDX.Desktop
                         mouseY = (int)(mouseY * yScale);
                     }
 
-                    this.window.getGraphics().requestRendering();
+                    this.window.getGraphics().RequestRendering();
                     long time = TimeUtils.nanoTime();
                     if (mousePressed > 0)
                     {
@@ -174,13 +174,13 @@ namespace SharpGDX.Desktop
                         mousePressed++;
                         _justTouched = true;
                         justPressedButtons[gdxButton] = true;
-                        this.window.getGraphics().requestRendering();
+                        this.window.getGraphics().RequestRendering();
                         eventQueue.TouchDown(mouseX, mouseY, 0, gdxButton, time);
                     }
                     else
                     {
                         mousePressed = Math.Max(0, mousePressed - 1);
-                        this.window.getGraphics().requestRendering();
+                        this.window.getGraphics().RequestRendering();
                         eventQueue.TouchUp(mouseX, mouseY, 0, gdxButton, time);
                     }
                 }
@@ -350,9 +350,9 @@ namespace SharpGDX.Desktop
             if (window.getConfig().hdpiMode == HdpiMode.Pixels)
             {
                 float xScale = window.getGraphics().getLogicalWidth() /
-                               (float)window.getGraphics().getBackBufferWidth();
+                               (float)window.getGraphics().GetBackBufferWidth();
                 float yScale = window.getGraphics().getLogicalHeight() /
-                               (float)window.getGraphics().getBackBufferHeight();
+                               (float)window.getGraphics().GetBackBufferHeight();
                 x = (int)(x * xScale);
                 y = (int)(y * yScale);
             }
@@ -496,7 +496,7 @@ namespace SharpGDX.Desktop
                 case OpenTK.Windowing.GraphicsLibraryFramework.Keys.Delete:
                     return Keys.FORWARD_DEL;
                 case OpenTK.Windowing.GraphicsLibraryFramework.Keys.Right:
-                    return Keys.RIGHT;
+                    return Keys.Right;
                 case OpenTK.Windowing.GraphicsLibraryFramework.Keys.Left:
                     return Keys.LEFT;
                 case OpenTK.Windowing.GraphicsLibraryFramework.Keys.Down:

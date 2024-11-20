@@ -198,7 +198,7 @@ public abstract class GLTexture : IDisposable {
 	/** @return The maximum supported anisotropic filtering level supported by the device. */
 	public static float getMaxAnisotropicFilterLevel () {
 		if (maxAnisotropicFilterLevel > 0) return maxAnisotropicFilterLevel;
-		if (Gdx.Graphics.supportsExtension("GL_EXT_texture_filter_anisotropic")) {
+		if (Gdx.Graphics.SupportsExtension("GL_EXT_texture_filter_anisotropic")) {
 			FloatBuffer buffer = BufferUtils.newFloatBuffer(16);
 			((Buffer)buffer).position(0);
 			((Buffer)buffer).limit(buffer.capacity());

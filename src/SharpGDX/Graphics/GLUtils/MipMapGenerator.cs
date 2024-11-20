@@ -50,8 +50,8 @@ namespace SharpGDX.Graphics.GLUtils
 
 	private static void generateMipMapDesktop (int target, Pixmap pixmap, int textureWidth, int textureHeight) {
 		// TODO: Update names
-		if (Gdx.Graphics.supportsExtension("GL_ARB_framebuffer_object")
-			|| Gdx.Graphics.supportsExtension("GL_EXT_framebuffer_object")
+		if (Gdx.Graphics.SupportsExtension("GL_ARB_framebuffer_object")
+			|| Gdx.Graphics.SupportsExtension("GL_EXT_framebuffer_object")
 			|| Gdx.GL20.GetType().Name.Equals("com.badlogic.gdx.backends.lwjgl3.Lwjgl3GLES20") // LWJGL3ANGLE
 			|| Gdx.GL30 != null) {
 			Gdx.GL.glTexImage2D(target, 0, pixmap.getGLInternalFormat(), pixmap.getWidth(), pixmap.getHeight(), 0,

@@ -214,8 +214,8 @@ where T : GLTexture
 		int result = gl.glCheckFramebufferStatus(IGL20.GL_FRAMEBUFFER);
 
 		if (result == IGL20.GL_FRAMEBUFFER_UNSUPPORTED && bufferBuilder.hasDepthRenderBuffer && bufferBuilder.hasStencilRenderBuffer
-			&& (Gdx.Graphics.supportsExtension("GL_OES_packed_depth_stencil")
-				|| Gdx.Graphics.supportsExtension("GL_EXT_packed_depth_stencil"))) {
+			&& (Gdx.Graphics.SupportsExtension("GL_OES_packed_depth_stencil")
+				|| Gdx.Graphics.SupportsExtension("GL_EXT_packed_depth_stencil"))) {
 			if (bufferBuilder.hasDepthRenderBuffer) {
 				gl.glDeleteRenderbuffer(depthbufferHandle);
 				depthbufferHandle = 0;
@@ -281,18 +281,18 @@ where T : GLTexture
 
 	private void checkValidBuilder () {
 
-		if (bufferBuilder.samples > 0 && !Gdx.Graphics.isGL31Available()) {
+		if (bufferBuilder.samples > 0 && !Gdx.Graphics.IsGL31Available()) {
 			throw new GdxRuntimeException("Framebuffer multisample requires GLES 3.1+");
 		}
 		if (bufferBuilder.samples > 0 && bufferBuilder.textureAttachmentSpecs.size > 0) {
 			throw new GdxRuntimeException("Framebuffer multisample with texture attachments not yet supported");
 		}
 
-		bool runningGL30 = Gdx.Graphics.isGL30Available();
+		bool runningGL30 = Gdx.Graphics.IsGL30Available();
 
 		if (!runningGL30) {
-			bool supportsPackedDepthStencil = Gdx.Graphics.supportsExtension("GL_OES_packed_depth_stencil")
-				|| Gdx.Graphics.supportsExtension("GL_EXT_packed_depth_stencil");
+			bool supportsPackedDepthStencil = Gdx.Graphics.SupportsExtension("GL_OES_packed_depth_stencil")
+				|| Gdx.Graphics.SupportsExtension("GL_EXT_packed_depth_stencil");
 
 			if (bufferBuilder.hasPackedStencilDepthRenderBuffer && !supportsPackedDepthStencil) {
 				throw new GdxRuntimeException("Packed Stencil/Render render buffers are not available on GLES 2.0");
@@ -304,7 +304,7 @@ where T : GLTexture
 				if (spec.isDepth) throw new GdxRuntimeException("Depth texture FrameBuffer Attachment not available on GLES 2.0");
 				if (spec.isStencil) throw new GdxRuntimeException("Stencil texture FrameBuffer Attachment not available on GLES 2.0");
 				if (spec.isFloat) {
-					if (!Gdx.Graphics.supportsExtension("OES_texture_float")) {
+					if (!Gdx.Graphics.SupportsExtension("OES_texture_float")) {
 						throw new GdxRuntimeException("Float texture FrameBuffer Attachment not available on GLES 2.0");
 					}
 				}
@@ -357,7 +357,7 @@ where T : GLTexture
 
 	/** Unbinds the framebuffer, all drawing will be performed to the normal framebuffer from here on. */
 	public void end () {
-		end(0, 0, Gdx.Graphics.getBackBufferWidth(), Gdx.Graphics.getBackBufferHeight());
+		end(0, 0, Gdx.Graphics.GetBackBufferWidth(), Gdx.Graphics.GetBackBufferHeight());
 	}
 
 	/** Unbinds the framebuffer and sets viewport sizes, all drawing will be performed to the normal framebuffer from here on.

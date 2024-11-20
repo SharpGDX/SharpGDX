@@ -24,7 +24,7 @@ public class DesktopTestStarter {
 		options = new CommandLineOptions(argv);
 
 		DesktopApplicationConfiguration config = new DesktopApplicationConfiguration();
-		config.setWindowedMode(640, 480);
+		config.SetWindowedMode(640, 480);
 
 		if (options.gl30 || options.gl31 || options.gl32) {
 			ShaderProgram.prependVertexCode = "#version 140\n#define varying out\n#define attribute in\n";
@@ -32,22 +32,22 @@ public class DesktopTestStarter {
 		}
 
 		if (options.gl32) {
-			config.setOpenGLEmulation(DesktopApplicationConfiguration.GLEmulation.GL32, 4, 6);
+			config.SetOpenGLEmulation(DesktopApplicationConfiguration.GLEmulation.GL32, 4, 6);
 		} else if (options.gl31) {
-			config.setOpenGLEmulation(DesktopApplicationConfiguration.GLEmulation.GL31, 4, 5);
+			config.SetOpenGLEmulation(DesktopApplicationConfiguration.GLEmulation.GL31, 4, 5);
 		} else if (options.gl30) {
 			if (SharedLibraryLoader.isMac) {
-				config.setOpenGLEmulation(DesktopApplicationConfiguration.GLEmulation.GL30, 3, 2);
+				config.SetOpenGLEmulation(DesktopApplicationConfiguration.GLEmulation.GL30, 3, 2);
 			} else {
-				config.setOpenGLEmulation(DesktopApplicationConfiguration.GLEmulation.GL30, 4, 3);
+				config.SetOpenGLEmulation(DesktopApplicationConfiguration.GLEmulation.GL30, 4, 3);
 			}
 		} else if (options.angle) {
-			config.setOpenGLEmulation(DesktopApplicationConfiguration.GLEmulation.ANGLE_GLES20, 0, 0);
+			config.SetOpenGLEmulation(DesktopApplicationConfiguration.GLEmulation.ANGLE_GLES20, 0, 0);
 			// Use CPU sync if ANGLE is enabled on macOS, otherwise the framerate gets halfed
 			// by each new open window.
 			if (SharedLibraryLoader.isMac) {
-				config.useVsync(false);
-				config.setForegroundFPS(60);
+				config.UseVsync(false);
+				config.SetForegroundFps(60);
 			}
 		}
 
@@ -68,8 +68,8 @@ public class DesktopTestStarter {
 		TextButton lastClickedTestButton;
 
 		public override void Create () {
-			Console.WriteLine("OpenGL renderer: " + Gdx.Graphics.getGLVersion().GetRendererString());
-			Console.WriteLine("OpenGL vendor: " + Gdx.Graphics.getGLVersion().GetVendorString());
+			Console.WriteLine("OpenGL renderer: " + Gdx.Graphics.GetGLVersion().GetRendererString());
+			Console.WriteLine("OpenGL vendor: " + Gdx.Graphics.GetGLVersion().GetVendorString());
 
 			IPreferences prefs = Gdx.App.GetPreferences("lwjgl3-tests");
 
@@ -137,11 +137,11 @@ public class DesktopTestStarter {
             public override void changed(ChangeEvent @event, Actor actor) {
                 IApplicationListener test = GdxTests.newTest(_testName);
                 DesktopWindowConfiguration winConfig = new DesktopWindowConfiguration();
-                winConfig.setTitle(_testName);
-                winConfig.setWindowedMode(640, 480);
-                winConfig.setWindowPosition(((DesktopGraphics)Gdx.Graphics).getWindow().getPositionX() + 40,
+                winConfig.SetTitle(_testName);
+                winConfig.SetWindowedMode(640, 480);
+                winConfig.SetWindowPosition(((DesktopGraphics)Gdx.Graphics).getWindow().getPositionX() + 40,
                     ((DesktopGraphics)Gdx.Graphics).getWindow().getPositionY() + 40);
-                winConfig.useVsync(false);
+                winConfig.UseVsync(false);
                 ((DesktopApplication)Gdx.App).newWindow(new GdxTestWrapper(test, options.logGLErrors), winConfig);
                 Console.WriteLine("Started test: " + _testName);
                 _prefs.PutString("LastTest", _testName);

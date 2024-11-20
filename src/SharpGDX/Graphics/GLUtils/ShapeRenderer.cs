@@ -114,7 +114,7 @@ public class ShapeRenderer : IDisposable {
 		} else {
 			renderer = new ImmediateModeRenderer20(maxVertices, false, true, 0, defaultShader);
 		}
-		projectionMatrix.setToOrtho2D(0, 0, Gdx.Graphics.getWidth(), Gdx.Graphics.getHeight());
+		projectionMatrix.setToOrtho2D(0, 0, Gdx.Graphics.GetWidth(), Gdx.Graphics.GetHeight());
 		matrixDirty = true;
 	}
 

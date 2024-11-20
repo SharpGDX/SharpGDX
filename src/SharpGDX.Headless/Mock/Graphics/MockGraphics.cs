@@ -19,82 +19,82 @@ namespace SharpGDX.Headless.Mock.Graphics
 	long targetRenderInterval;
 		GLVersion glVersion = new GLVersion(IApplication.ApplicationType.HeadlessDesktop, "", "", "");
 
-		public override bool isGL30Available()
+		public override bool IsGL30Available()
 	{
 		return false;
 	}
 
-	public override bool isGL31Available()
+	public override bool IsGL31Available()
 	{
 		return false;
 	}
 
-	public override bool isGL32Available()
+	public override bool IsGL32Available()
 	{
 		return false;
 	}
 
-	public override IGL20 getGL20()
+	public override IGL20 GetGL20()
 	{
 		return null;
 	}
 
-	public override void setGL20(IGL20 gl20)
+	public override void SetGL20(IGL20 gl20)
 	{
 
 	}
 
-	public override IGL30 getGL30()
-	{
-		return null;
-	}
-
-	public override void setGL30(IGL30 gl30)
-	{
-
-	}
-
-	public override IGL31 getGL31()
+	public override IGL30 GetGL30()
 	{
 		return null;
 	}
 
-	public override void setGL31(IGL31 gl31)
+	public override void SetGL30(IGL30 gl30)
 	{
 
 	}
 
-	public override IGL32 getGL32()
+	public override IGL31 GetGL31()
 	{
 		return null;
 	}
 
-	public override void setGL32(IGL32 gl32)
+	public override void SetGL31(IGL31 gl31)
 	{
 
 	}
 
-	public override int getWidth()
+	public override IGL32 GetGL32()
 	{
-		return 0;
+		return null;
 	}
 
-	public override int getHeight()
+	public override void SetGL32(IGL32 gl32)
 	{
-		return 0;
+
 	}
 
-	public override int getBackBufferWidth()
-	{
-		return 0;
-	}
-
-	public override int getBackBufferHeight()
+	public override int GetWidth()
 	{
 		return 0;
 	}
 
-	public override long getFrameId()
+	public override int GetHeight()
+	{
+		return 0;
+	}
+
+	public override int GetBackBufferWidth()
+	{
+		return 0;
+	}
+
+	public override int GetBackBufferHeight()
+	{
+		return 0;
+	}
+
+	public override long GetFrameId()
 	{
 		return frameId;
 	}
@@ -104,92 +104,92 @@ namespace SharpGDX.Headless.Mock.Graphics
 		return deltaTime;
 	}
 
-	public override int getFramesPerSecond()
+	public override int GetFramesPerSecond()
 	{
 		return fps;
 	}
 
-	public override GraphicsType getType()
+	public override GraphicsType GetType()
 	{
 		return GraphicsType.Mock;
 	}
 
-	public override GLVersion getGLVersion()
+	public override GLVersion GetGLVersion()
 	{
 		return glVersion;
 	}
 
-	public override float getPpiX()
+	public override float GetPpiX()
 	{
 		return 0;
 	}
 
-	public override float getPpiY()
+	public override float GetPpiY()
 	{
 		return 0;
 	}
 
-	public override float getPpcX()
+	public override float GetPpcX()
 	{
 		return 0;
 	}
 
-	public override float getPpcY()
+	public override float GetPpcY()
 	{
 		return 0;
 	}
 
-	public override bool supportsDisplayModeChange()
+	public override bool SupportsDisplayModeChange()
 	{
 		return false;
 	}
 
-	public override DisplayMode[] getDisplayModes()
+	public override DisplayMode[] GetDisplayModes()
 	{
 		return new DisplayMode[0];
 	}
 
-	public override DisplayMode getDisplayMode()
+	public override DisplayMode GetDisplayMode()
 	{
 		return null;
 	}
 
-	public override int getSafeInsetLeft()
+	public override int GetSafeInsetLeft()
 	{
 		return 0;
 	}
 
-	public override int getSafeInsetTop()
+	public override int GetSafeInsetTop()
 	{
 		return 0;
 	}
 
-	public override int getSafeInsetBottom()
+	public override int GetSafeInsetBottom()
 	{
 		return 0;
 	}
 
-	public override int getSafeInsetRight()
+	public override int GetSafeInsetRight()
 	{
 		return 0;
 	}
 
-	public override bool setFullscreenMode(DisplayMode displayMode)
+	public override bool SetFullscreenMode(DisplayMode displayMode)
 	{
 		return false;
 	}
 
-	public override bool setWindowedMode(int width, int height)
+	public override bool SetWindowedMode(int width, int height)
 	{
 		return false;
 	}
 
-	public override void setTitle(String title)
+	public override void SetTitle(String title)
 	{
 
 	}
 
-	public override void setVSync(bool vsync)
+	public override void SetVSync(bool vsync)
 	{
 
 	}
@@ -198,7 +198,7 @@ namespace SharpGDX.Headless.Mock.Graphics
 	 * is 60.
 	 *
 	 * @param fps fps */
-	public override void setForegroundFPS(int fps)
+	public override void SetForegroundFPS(int fps)
 	{
 		this.targetRenderInterval = (long)(fps <= 0 ? (fps == 0 ? 0 : -1) : ((1F / fps) * 1000000000F));
 	}
@@ -208,32 +208,32 @@ namespace SharpGDX.Headless.Mock.Graphics
 		return targetRenderInterval;
 	}
 
-	public override BufferFormat getBufferFormat()
+	public override BufferFormat GetBufferFormat()
 	{
 		return null;
 	}
 
-	public override bool supportsExtension(String extension)
+	public override bool SupportsExtension(String extension)
 	{
 		return false;
 	}
 
-	public override void setContinuousRendering(bool isContinuous)
+	public override void SetContinuousRendering(bool isContinuous)
 	{
 
 	}
 
-	public override bool isContinuousRendering()
+	public override bool IsContinuousRendering()
 	{
 		return false;
 	}
 
-	public override void requestRendering()
+	public override void RequestRendering()
 	{
 
 	}
 
-	public override bool isFullscreen()
+	public override bool IsFullscreen()
 	{
 		return false;
 	}
@@ -258,50 +258,50 @@ namespace SharpGDX.Headless.Mock.Graphics
 		frameId++;
 	}
 
-	public override ICursor newCursor(Pixmap pixmap, int xHotspot, int yHotspot)
+	public override ICursor NewCursor(Pixmap pixmap, int xHotspot, int yHotspot)
 	{
 		return null;
 	}
 
-	public override void setCursor(ICursor cursor)
+	public override void SetCursor(ICursor cursor)
 	{
 	}
 
-	public override void setSystemCursor(SystemCursor systemCursor)
+	public override void SetSystemCursor(SystemCursor systemCursor)
 	{
 	}
 
-	public override SharpGDX.IGraphics.Monitor getPrimaryMonitor()
-	{
-		return null;
-	}
-
-	public override SharpGDX.IGraphics.Monitor getMonitor()
+	public override SharpGDX.IGraphics.Monitor GetPrimaryMonitor()
 	{
 		return null;
 	}
 
-	public override SharpGDX.IGraphics.Monitor[] getMonitors()
+	public override SharpGDX.IGraphics.Monitor GetMonitor()
 	{
 		return null;
 	}
 
-	public override DisplayMode[] getDisplayModes(SharpGDX.IGraphics.Monitor monitor)
+	public override SharpGDX.IGraphics.Monitor[] GetMonitors()
 	{
 		return null;
 	}
 
-	public override DisplayMode getDisplayMode(SharpGDX.IGraphics.Monitor monitor)
+	public override DisplayMode[] GetDisplayModes(SharpGDX.IGraphics.Monitor monitor)
 	{
 		return null;
 	}
 
-	public override void setUndecorated(bool undecorated)
+	public override DisplayMode GetDisplayMode(SharpGDX.IGraphics.Monitor monitor)
+	{
+		return null;
+	}
+
+	public override void SetUndecorated(bool undecorated)
 	{
 
 	}
 
-	public override void setResizable(bool resizable)
+	public override void SetResizable(bool resizable)
 	{
 
 	}

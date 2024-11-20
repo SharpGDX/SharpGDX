@@ -57,7 +57,7 @@ public class Stage : InputAdapter , IDisposable {
 	/** Creates a stage with a {@link ScalingViewport} set to {@link Scaling#stretch}. The stage will use its own {@link Batch}
 	 * which will be disposed when the stage is disposed. */
 	public Stage ()
-		: this(new ScalingViewport(Scaling.stretch, Gdx.Graphics.getWidth(), Gdx.Graphics.getHeight(), new OrthographicCamera()),
+		: this(new ScalingViewport(Scaling.stretch, Gdx.Graphics.GetWidth(), Gdx.Graphics.GetHeight(), new OrthographicCamera()),
 		new SpriteBatch())
 	{
 		
@@ -85,7 +85,7 @@ public class Stage : InputAdapter , IDisposable {
 		root = new Group();
 		root.setStage(this);
 
-		viewport.Update(Gdx.Graphics.getWidth(), Gdx.Graphics.getHeight(), true);
+		viewport.Update(Gdx.Graphics.GetWidth(), Gdx.Graphics.GetHeight(), true);
 	}
 
 	public void draw () {
@@ -733,7 +733,7 @@ public class Stage : InputAdapter , IDisposable {
 	 * @param stageCoords Input stage coordinates and output for resulting screen coordinates. */
 	public Vector2 stageToScreenCoordinates (Vector2 stageCoords) {
 		viewport.Project(stageCoords);
-		stageCoords.y = Gdx.Graphics.getHeight() - stageCoords.y;
+		stageCoords.y = Gdx.Graphics.GetHeight() - stageCoords.y;
 		return stageCoords;
 	}
 
@@ -843,7 +843,7 @@ public class Stage : InputAdapter , IDisposable {
 		int x1 = x0 + viewport.GetScreenWidth();
 		int y0 = viewport.GetScreenY();
 		int y1 = y0 + viewport.GetScreenHeight();
-		screenY = Gdx.Graphics.getHeight() - 1 - screenY;
+		screenY = Gdx.Graphics.GetHeight() - 1 - screenY;
 		return screenX >= x0 && screenX < x1 && screenY >= y0 && screenY < y1;
 	}
 

@@ -57,7 +57,7 @@ namespace SharpGDX.Graphics.GLUtils
 	public void consumeCustomData (int target) {
 		if (!_isPrepared) throw new GdxRuntimeException("Call prepare() before calling consumeCompressedData()");
 
-		if (!Gdx.Graphics.supportsExtension("GL_OES_compressed_ETC1_RGB8_texture")) {
+		if (!Gdx.Graphics.SupportsExtension("GL_OES_compressed_ETC1_RGB8_texture")) {
 			Pixmap pixmap = ETC1.decodeImage(data, Pixmap.Format.RGB565);
 			Gdx.GL.glTexImage2D(target, 0, pixmap.getGLInternalFormat(), pixmap.getWidth(), pixmap.getHeight(), 0,
 				pixmap.getGLFormat(), pixmap.getGLType(), pixmap.getPixels());

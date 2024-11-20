@@ -23,9 +23,9 @@ public class GLProfiler {
 		 *           DesktopWindow.getGraphics() */
 		public GLProfiler (IGraphics graphics) {
 		this.graphics = graphics;
-		IGL32 gl32 = graphics.getGL32();
-		IGL31 gl31 = graphics.getGL31();
-		IGL30 gl30 = graphics.getGL30();
+		IGL32 gl32 = graphics.GetGL32();
+		IGL31 gl31 = graphics.GetGL31();
+		IGL30 gl30 = graphics.GetGL30();
 		if (gl32 != null) {
 			glInterceptor = new GL32Interceptor(this, gl32);
 		} else if (gl31 != null) {
@@ -33,7 +33,7 @@ public class GLProfiler {
 		} else if (gl30 != null) {
 			glInterceptor = new GL30Interceptor(this, gl30);
 		} else {
-			glInterceptor = new GL20Interceptor(this, graphics.getGL20());
+			glInterceptor = new GL20Interceptor(this, graphics.GetGL20());
 		}
 		listener = IGLErrorListener.LOGGING_LISTENER;
 	}
@@ -43,21 +43,21 @@ public class GLProfiler {
 		if (enabled) return;
 
 		if (glInterceptor is IGL32) {
-			graphics.setGL32((IGL32)glInterceptor);
+			graphics.SetGL32((IGL32)glInterceptor);
 		}
 		if (glInterceptor is IGL31) {
-			graphics.setGL31((IGL31)glInterceptor);
+			graphics.SetGL31((IGL31)glInterceptor);
 		}
 		if (glInterceptor is IGL30) {
-			graphics.setGL30((IGL30)glInterceptor);
+			graphics.SetGL30((IGL30)glInterceptor);
 		}
-		graphics.setGL20(glInterceptor);
+		graphics.SetGL20(glInterceptor);
 
-		Gdx.GL32 = graphics.getGL32();
-		Gdx.GL31 = graphics.getGL31();
-		Gdx.GL30 = graphics.getGL30();
-		Gdx.GL20 = graphics.getGL20();
-		Gdx.GL = graphics.getGL20();
+		Gdx.GL32 = graphics.GetGL32();
+		Gdx.GL31 = graphics.GetGL31();
+		Gdx.GL30 = graphics.GetGL30();
+		Gdx.GL20 = graphics.GetGL20();
+		Gdx.GL = graphics.GetGL20();
 
 		enabled = true;
 	}
@@ -67,23 +67,23 @@ public class GLProfiler {
 		if (!enabled) return;
 
 		if (glInterceptor is GL32Interceptor) {
-			graphics.setGL32(((GL32Interceptor)glInterceptor).gl32);
+			graphics.SetGL32(((GL32Interceptor)glInterceptor).gl32);
 		}
 		if (glInterceptor is GL31Interceptor) {
-			graphics.setGL31(((GL31Interceptor)glInterceptor).gl31);
+			graphics.SetGL31(((GL31Interceptor)glInterceptor).gl31);
 		}
 		if (glInterceptor is GL30Interceptor) {
-			graphics.setGL30(((GL30Interceptor)glInterceptor).gl30);
+			graphics.SetGL30(((GL30Interceptor)glInterceptor).gl30);
 		}
 		if (glInterceptor is GL20Interceptor) {
-			graphics.setGL20(((GL20Interceptor)graphics.getGL20()).gl20);
+			graphics.SetGL20(((GL20Interceptor)graphics.GetGL20()).gl20);
 		}
 
-		Gdx.GL32 = graphics.getGL32();
-		Gdx.GL31 = graphics.getGL31();
-		Gdx.GL30 = graphics.getGL30();
-		Gdx.GL20 = graphics.getGL20();
-		Gdx.GL = graphics.getGL20();
+		Gdx.GL32 = graphics.GetGL32();
+		Gdx.GL31 = graphics.GetGL31();
+		Gdx.GL30 = graphics.GetGL30();
+		Gdx.GL20 = graphics.GetGL20();
+		Gdx.GL = graphics.GetGL20();
 
 		enabled = false;
 	}

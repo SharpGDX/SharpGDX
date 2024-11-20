@@ -96,7 +96,7 @@ public class TextField : Widget , IDisableable {
 				return;
 			}
 			_textField.cursorOn = !_textField.cursorOn;
-			Gdx.Graphics.requestRendering();
+			Gdx.Graphics.RequestRendering();
 		}
 }
 
@@ -952,7 +952,7 @@ public class TextField : Widget , IDisableable {
 								repeat = true;
 								handled = true;
 								goto keys;
-							case Keys.RIGHT:
+							case Keys.Right:
 								_textField.moveCursor(true, jump);
 								repeat = true;
 								handled = true;
@@ -990,7 +990,7 @@ public class TextField : Widget , IDisableable {
 					repeat = true;
 					handled = true;
 					break;
-				case Keys.RIGHT:
+				case Keys.Right:
 					_textField.moveCursor(true, jump);
 					_textField.clearSelection();
 					repeat = true;

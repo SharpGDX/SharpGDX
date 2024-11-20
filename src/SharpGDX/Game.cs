@@ -73,6 +73,6 @@ public abstract class Game : IApplicationListener
         Screen = screen;
 
         Screen?.Show();
-        Screen?.Resize(Gdx.Graphics.getWidth(), Gdx.Graphics.getHeight());
+        Screen?.Resize(Gdx.Graphics.GetWidth(), Gdx.Graphics.GetHeight());
     }
 }

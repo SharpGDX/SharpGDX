@@ -107,11 +107,11 @@ namespace SharpGDX.Desktop
 			initializeGlfw();
 			SetApplicationLogger(new DesktopApplicationLogger());
 
-			this.config = config = DesktopApplicationConfiguration.copy(config);
-			if (config.title == null) config.title = listener.GetType().Name;
+			this.config = config = DesktopApplicationConfiguration.Copy(config);
+			if (config.Title == null) config.Title = listener.GetType().Name;
 
 			Gdx.App = this;
-			if (!config._disableAudio)
+			if (!config.IsAudioDisabled)
 			{
 				try
 				{
@@ -213,7 +213,7 @@ namespace SharpGDX.Desktop
 					// in the following render.
 					foreach (DesktopWindow window in windows)
 					{
-						if (!window.getGraphics().isContinuousRendering()) window.requestRendering();
+						if (!window.getGraphics().IsContinuousRendering()) window.requestRendering();
 					}
 				}
 
@@ -445,8 +445,8 @@ namespace SharpGDX.Desktop
 
 		public IDesktopAudio CreateAudio(DesktopApplicationConfiguration config)
 		{
-			return new OpenALDesktopAudio(config.audioDeviceSimultaneousSources, config.audioDeviceBufferCount,
-				config.audioDeviceBufferSize);
+			return new OpenALDesktopAudio(config.AudioDeviceSimultaneousSources, config.AudioDeviceBufferCount,
+				config.AudioDeviceBufferSize);
 		}
 
 		public IDesktopInput CreateInput(DesktopWindow window)
@@ -465,9 +465,9 @@ namespace SharpGDX.Desktop
 		 * with {@link Application#postRunnable(Runnable)} until after all existing windows are updated. */
 		public unsafe DesktopWindow newWindow(IApplicationListener listener, DesktopWindowConfiguration config)
 		{
-			DesktopApplicationConfiguration appConfig = DesktopApplicationConfiguration.copy(this.config);
-			appConfig.setWindowConfiguration(config);
-			if (appConfig.title == null) appConfig.title = listener.GetType().Name;
+			DesktopApplicationConfiguration appConfig = DesktopApplicationConfiguration.Copy(this.config);
+			appConfig.SetWindowConfiguration(config);
+			if (appConfig.Title == null) appConfig.Title = listener.GetType().Name;
 			return createWindow(appConfig, listener, windows.Get(0).getWindowPtr());
 		}
 
@@ -498,12 +498,12 @@ namespace SharpGDX.Desktop
 		{
 			Window* windowHandle = createGlfwWindow(config, sharedContext);
 			window.create(windowHandle);
-			window.setVisible(config.initialVisible);
+			window.setVisible(config.InitialVisible);
 
 			for (int i = 0; i < 2; i++)
 			{
-                window.getGraphics().gl20.glClearColor(config.initialBackgroundColor.R, config.initialBackgroundColor.G,
-                    config.initialBackgroundColor.B, config.initialBackgroundColor.A);
+                window.getGraphics().gl20.glClearColor(config.InitialBackgroundColor.R, config.InitialBackgroundColor.G,
+                    config.InitialBackgroundColor.B, config.InitialBackgroundColor.A);
                 window.getGraphics().gl20.glClear(GL11.GL_COLOR_BUFFER_BIT);
                 GLFW.SwapBuffers(windowHandle);
 			}
@@ -521,9 +521,9 @@ namespace SharpGDX.Desktop
 		{
 			GLFW.DefaultWindowHints();
 			GLFW.WindowHint(WindowHintBool.Visible, false);
-			GLFW.WindowHint(WindowHintBool.Resizable, config.windowResizable);
-			GLFW.WindowHint(WindowHintBool.Maximized, config.windowMaximized);
-			GLFW.WindowHint(WindowHintBool.AutoIconify, config.autoIconify);
+			GLFW.WindowHint(WindowHintBool.Resizable, config.WindowResizable);
+			GLFW.WindowHint(WindowHintBool.Maximized, config.WindowMaximized);
+			GLFW.WindowHint(WindowHintBool.AutoIconify, config.AutoIconify);
 
 			GLFW.WindowHint(WindowHintInt.RedBits, config.r);
 			GLFW.WindowHint(WindowHintInt.GreenBits, config.g);
@@ -571,17 +571,17 @@ namespace SharpGDX.Desktop
 
 			Window* windowHandle;
 
-			if (config.fullscreenMode != null)
+			if (config.FullscreenMode != null)
 			{
-				GLFW.WindowHint(WindowHintInt.RefreshRate, config.fullscreenMode.refreshRate);
-				windowHandle = GLFW.CreateWindow(config.fullscreenMode.width, config.fullscreenMode.height,
-					config.title,
-					config.fullscreenMode.getMonitor(), sharedContextWindow);
+				GLFW.WindowHint(WindowHintInt.RefreshRate, config.FullscreenMode.RefreshRate);
+				windowHandle = GLFW.CreateWindow(config.FullscreenMode.Width, config.FullscreenMode.Height,
+					config.Title,
+					config.FullscreenMode.getMonitor(), sharedContextWindow);
 			}
 			else
 			{
-				GLFW.WindowHint(WindowHintBool.Decorated, config.windowDecorated);
-				windowHandle = GLFW.CreateWindow(config.windowWidth, config.windowHeight, config.title, null,
+				GLFW.WindowHint(WindowHintBool.Decorated, config.WindowDecorated);
+				windowHandle = GLFW.CreateWindow(config.WindowWidth, config.WindowHeight, config.Title, null,
 					sharedContextWindow);
 			}
 
@@ -590,47 +590,47 @@ namespace SharpGDX.Desktop
 				throw new GdxRuntimeException("Couldn't create window");
 			}
 
-			DesktopWindow.setSizeLimits(windowHandle, config.windowMinWidth, config.windowMinHeight,
-				config.windowMaxWidth,
-				config.windowMaxHeight);
-			if (config.fullscreenMode == null)
+			DesktopWindow.setSizeLimits(windowHandle, config.WindowMinWidth, config.WindowMinHeight,
+				config.WindowMaxWidth,
+				config.WindowMaxHeight);
+			if (config.FullscreenMode == null)
 			{
-				if (config.windowX == -1 && config.windowY == -1)
+				if (config.WindowX == -1 && config.WindowY == -1)
 				{
 					// i.e., center the window
-					int windowWidth = Math.Max(config.windowWidth, config.windowMinWidth);
-					int windowHeight = Math.Max(config.windowHeight, config.windowMinHeight);
-					if (config.windowMaxWidth > -1) windowWidth = Math.Min(windowWidth, config.windowMaxWidth);
-					if (config.windowMaxHeight > -1) windowHeight = Math.Min(windowHeight, config.windowMaxHeight);
+					int windowWidth = Math.Max(config.WindowWidth, config.WindowMinWidth);
+					int windowHeight = Math.Max(config.WindowHeight, config.WindowMinHeight);
+					if (config.WindowMaxWidth > -1) windowWidth = Math.Min(windowWidth, config.WindowMaxWidth);
+					if (config.WindowMaxHeight > -1) windowHeight = Math.Min(windowHeight, config.WindowMaxHeight);
 
 					Monitor* monitorHandle = GLFW.GetPrimaryMonitor();
-					if (config.windowMaximized && config.maximizedMonitor != null)
+					if (config.WindowMaximized && config.MaximizedMonitor != null)
 					{
-						monitorHandle = config.maximizedMonitor.monitorHandle;
+						monitorHandle = config.MaximizedMonitor.monitorHandle;
 					}
 
-					GridPoint2 newPos = DesktopApplicationConfiguration.calculateCenteredWindowPosition(
-						DesktopApplicationConfiguration.toDesktopMonitor(monitorHandle), windowWidth, windowHeight);
+					GridPoint2 newPos = DesktopApplicationConfiguration.CalculateCenteredWindowPosition(
+						DesktopApplicationConfiguration.ToDesktopMonitor(monitorHandle), windowWidth, windowHeight);
 					GLFW.SetWindowPos(windowHandle, newPos.x, newPos.y);
 				}
 				else
 				{
-					GLFW.SetWindowPos(windowHandle, config.windowX, config.windowY);
+					GLFW.SetWindowPos(windowHandle, config.WindowX, config.WindowY);
 				}
 
-				if (config.windowMaximized)
+				if (config.WindowMaximized)
 				{
 					GLFW.MaximizeWindow(windowHandle);
 				}
 			}
 
-			if (config.windowIconPaths != null)
+			if (config.WindowIconPaths != null)
 			{
-				DesktopWindow.setIcon(windowHandle, config.windowIconPaths, config.windowIconFileType);
+				DesktopWindow.setIcon(windowHandle, config.WindowIconPaths, config.WindowIconFileType);
 			}
 
 			GLFW.MakeContextCurrent(windowHandle);
-			GLFW.SwapInterval(config.vSyncEnabled ? 1 : 0);
+			GLFW.SwapInterval(config.VSyncEnabled ? 1 : 0);
 			if (config.glEmulation == DesktopApplicationConfiguration.GLEmulation.ANGLE_GLES20)
 			{
 				try

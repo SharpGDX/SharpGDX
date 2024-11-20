@@ -84,7 +84,7 @@ public abstract class Viewport
     /// <returns></returns>
     public int GetRightGutterWidth()
     {
-        return Gdx.Graphics.getWidth() - (_screenX + _screenWidth);
+        return Gdx.Graphics.GetWidth() - (_screenX + _screenWidth);
     }
 
     /// <summary>
@@ -122,7 +122,7 @@ public abstract class Viewport
     /// <returns></returns>
     public int GetTopGutterHeight()
     {
-        return Gdx.Graphics.getHeight() - (_screenY + _screenHeight);
+        return Gdx.Graphics.GetHeight() - (_screenY + _screenHeight);
     }
 
     /// <summary>
@@ -313,7 +313,7 @@ public abstract class Viewport
         _tmp.set(worldCoords.x, worldCoords.y, 0);
         _tmp.mul(transformMatrix);
         _camera.project(_tmp, _screenX, _screenY, _screenWidth, _screenHeight);
-        _tmp.y = Gdx.Graphics.getHeight() - _tmp.y;
+        _tmp.y = Gdx.Graphics.GetHeight() - _tmp.y;
         worldCoords.x = _tmp.x;
         worldCoords.y = _tmp.y;
         return worldCoords;

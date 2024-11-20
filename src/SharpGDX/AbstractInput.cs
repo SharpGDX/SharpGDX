@@ -6,13 +6,15 @@ namespace SharpGDX;
 
 public abstract class AbstractInput : IInput
 {
+    private readonly IntSet _keysToCatch = new();
+
     protected readonly bool[] JustPressedKeys = new bool[Keys.MAX_KEYCODE + 1];
-    protected readonly bool[] PressedKeys     = new bool[Keys.MAX_KEYCODE + 1];
+    protected readonly bool[] PressedKeys = new bool[Keys.MAX_KEYCODE + 1];
 
     protected bool KeyJustPressed;
-    protected int  PressedKeyCount;
+    protected int PressedKeyCount;
 
-    private readonly IntSet _keysToCatch = new();
+    /// <inheritdoc cref="IInput.CloseTextInputField(bool)" />
     public abstract void CloseTextInputField(bool sendReturn);
 
     /// <inheritdoc cref="IInput.GetAccelerometerX" />
@@ -30,7 +32,7 @@ public abstract class AbstractInput : IInput
     /// <inheritdoc cref="IInput.GetCurrentEventTime()" />
     public abstract long GetCurrentEventTime();
 
-    /// <inheritdoc cref="IInput.GetDeltaX" />
+    /// <inheritdoc cref="IInput.GetDeltaX()" />
     public abstract int GetDeltaX();
 
     public abstract int GetDeltaX(int pointer);
@@ -95,30 +97,18 @@ public abstract class AbstractInput : IInput
 
     public bool IsKeyJustPressed(int key)
     {
-        if (key == Keys.ANY_KEY)
-        {
-            return KeyJustPressed;
-        }
+        if (key == Keys.ANY_KEY) return KeyJustPressed;
 
-        if (key < 0 || key > Keys.MAX_KEYCODE)
-        {
-            return false;
-        }
+        if (key < 0 || key > Keys.MAX_KEYCODE) return false;
 
         return JustPressedKeys[key];
     }
 
     public bool IsKeyPressed(int key)
     {
-        if (key == Keys.ANY_KEY)
-        {
-            return PressedKeyCount > 0;
-        }
+        if (key == Keys.ANY_KEY) return PressedKeyCount > 0;
 
-        if (key is < 0 or > Keys.MAX_KEYCODE)
-        {
-            return false;
-        }
+        if (key is < 0 or > Keys.MAX_KEYCODE) return false;
 
         return PressedKeys[key];
     }
@@ -132,13 +122,9 @@ public abstract class AbstractInput : IInput
     public void SetCatchKey(int keycode, bool catchKey)
     {
         if (!catchKey)
-        {
             _keysToCatch.remove(keycode);
-        }
         else
-        {
             _keysToCatch.add(keycode);
-        }
     }
 
     public abstract void SetCursorCatched(bool catched);

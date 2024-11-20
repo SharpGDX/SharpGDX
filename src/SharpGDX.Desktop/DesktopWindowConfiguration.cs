@@ -1,174 +1,268 @@
 ﻿using SharpGDX.Files;
-using static SharpGDX.IFiles;
 using SharpGDX.Graphics;
 using static SharpGDX.IGraphics;
 
-namespace SharpGDX.Desktop
+namespace SharpGDX.Desktop;
+
+public class DesktopWindowConfiguration
 {
-	public class DesktopWindowConfiguration
-	{
-		internal int windowX = -1;
-		internal int windowY = -1;
-		public int windowWidth = 640;
-		public int windowHeight = 480;
-		internal int windowMinWidth = -1, windowMinHeight = -1, windowMaxWidth = -1, windowMaxHeight = -1;
-		internal bool windowResizable = true;
-		internal bool windowDecorated = true;
-		internal bool windowMaximized = false;
-		internal DesktopGraphics.DesktopMonitor maximizedMonitor;
-		internal bool autoIconify = true;
-		internal FileType windowIconFileType;
-		internal String[]? windowIconPaths;
-		internal IDesktopWindowListener windowListener;
-		internal DesktopGraphics.DesktopDisplayMode fullscreenMode;
-		public String title;
-		internal Color initialBackgroundColor = Color.Black;
-		internal bool initialVisible = true;
-		internal bool vSyncEnabled = true;
+    public   string                             Title;
+    public   int                                WindowHeight = 480;
+    public   int                                WindowWidth  = 640;
+    internal bool                               AutoIconify  = true;
+    internal DesktopGraphics.DesktopDisplayMode FullscreenMode;
+    internal Color                              InitialBackgroundColor = Color.Black;
+    internal bool                               InitialVisible         = true;
+    internal DesktopGraphics.DesktopMonitor     MaximizedMonitor;
+    internal bool                               VSyncEnabled    = true;
+    internal bool                               WindowDecorated = true;
+    internal FileType                           WindowIconFileType;
+    internal string[]?                          WindowIconPaths;
+    internal IDesktopWindowListener             WindowListener;
+    internal int                                WindowMaxHeight = -1;
+    internal bool                               WindowMaximized;
+    internal int                                WindowMaxWidth  = -1;
+    internal int                                WindowMinHeight = -1;
+    internal int                                WindowMinWidth  = -1;
+    internal bool                               WindowResizable = true;
+    internal int                                WindowX         = -1;
+    internal int                                WindowY         = -1;
 
-		internal void setWindowConfiguration(DesktopWindowConfiguration config)
-		{
-			windowX = config.windowX;
-			windowY = config.windowY;
-			windowWidth = config.windowWidth;
-			windowHeight = config.windowHeight;
-			windowMinWidth = config.windowMinWidth;
-			windowMinHeight = config.windowMinHeight;
-			windowMaxWidth = config.windowMaxWidth;
-			windowMaxHeight = config.windowMaxHeight;
-			windowResizable = config.windowResizable;
-			windowDecorated = config.windowDecorated;
-			windowMaximized = config.windowMaximized;
-			maximizedMonitor = config.maximizedMonitor;
-			autoIconify = config.autoIconify;
-			windowIconFileType = config.windowIconFileType;
-			if (config.windowIconPaths != null)
-			{
-				windowIconPaths = new string[config.windowIconPaths.Length];
-				Array.Copy(config.windowIconPaths, windowIconPaths, config.windowIconPaths.Length);
-			}
-			windowListener = config.windowListener;
-			fullscreenMode = config.fullscreenMode;
-			title = config.title;
-			initialBackgroundColor = config.initialBackgroundColor;
-			initialVisible = config.initialVisible;
-			vSyncEnabled = config.vSyncEnabled;
-		}
+    /// <summary>
+    /// </summary>
+    /// <remarks>
+    ///     (default true) Does nothing in windowed mode.
+    /// </remarks>
+    /// <param name="autoIconify">
+    ///     Whether the window should automatically iconify and restore previous video mode on input
+    ///     focus loss.
+    /// </param>
+    public void SetAutoIconify(bool autoIconify)
+    {
+        AutoIconify = autoIconify;
+    }
 
-		/** @param visibility whether the window will be visible on creation. (default true) */
-		public virtual void setInitialVisible(bool visibility)
-		{
-			this.initialVisible = visibility;
-		}
+    /// <summary>
+    /// </summary>
+    /// <param name="decorated">Whether the windowed mode window is decorated, i.e. displaying the title bars (default true)</param>
+    public void SetDecorated(bool decorated)
+    {
+        WindowDecorated = decorated;
+    }
 
-		/** Sets the app to use windowed mode.
-		 * 
-		 * @param width the width of the window (default 640)
-		 * @param height the height of the window (default 480) */
-		public void setWindowedMode(int width, int height)
-		{
-			this.windowWidth = width;
-			this.windowHeight = height;
-		}
+    /// <summary>
+    ///     Sets the app to use fullscreen mode.
+    /// </summary>
+    /// <remarks>
+    ///     Use the static methods like <see cref="DesktopApplicationConfiguration.GetDisplayMode()" /> on this class to
+    ///     enumerate connected monitors and their fullscreen display modes.
+    /// </remarks>
+    /// <param name="mode"></param>
+    public void SetFullscreenMode(DisplayMode mode)
+    {
+        FullscreenMode = (DesktopGraphics.DesktopDisplayMode)mode;
+    }
 
-		/** @param resizable whether the windowed mode window is resizable (default true) */
-		public void setResizable(bool resizable)
-		{
-			this.windowResizable = resizable;
-		}
+    /// <summary>
+    ///     Sets the initial background color.
+    /// </summary>
+    /// <remarks>
+    ///     Defaults to black.
+    /// </remarks>
+    /// <param name="color"></param>
+    public void SetInitialBackgroundColor(Color color)
+    {
+        InitialBackgroundColor = color;
+    }
 
-		/** @param decorated whether the windowed mode window is decorated, i.e. displaying the title bars (default true) */
-		public void setDecorated(bool decorated)
-		{
-			this.windowDecorated = decorated;
-		}
+    /// <summary>
+    /// </summary>
+    /// <param name="visibility">Whether the window will be visible on creation. (default true)</param>
+    public virtual void SetInitialVisible(bool visibility)
+    {
+        InitialVisible = visibility;
+    }
 
-		/** @param maximized whether the window starts maximized. Ignored if the window is full screen. (default false) */
-		public void setMaximized(bool maximized)
-		{
-			this.windowMaximized = maximized;
-		}
+    /// <summary>
+    /// </summary>
+    /// <remarks>
+    ///     Ignored if the window is full screen. (default false)
+    /// </remarks>
+    /// <param name="maximized">Whether the window starts maximized.</param>
+    public void SetMaximized(bool maximized)
+    {
+        WindowMaximized = maximized;
+    }
 
-		/** @param monitor what monitor the window should maximize to */
-		public void setMaximizedMonitor(IGraphics.Monitor monitor)
-		{
-			this.maximizedMonitor = (DesktopGraphics.DesktopMonitor)monitor;
-		}
+    /// <summary>
+    /// </summary>
+    /// <param name="monitor">What monitor the window should maximize to.</param>
+    public void SetMaximizedMonitor(IGraphics.Monitor monitor)
+    {
+        MaximizedMonitor = (DesktopGraphics.DesktopMonitor)monitor;
+    }
 
-		/** @param autoIconify whether the window should automatically iconify and restore previous video mode on input focus loss.
-		 *           (default true) Does nothing in windowed mode. */
-		public void setAutoIconify(bool autoIconify)
-		{
-			this.autoIconify = autoIconify;
-		}
+    /// <summary>
+    /// </summary>
+    /// <param name="resizable">Whether the windowed mode window is resizable (default true)</param>
+    public void SetResizable(bool resizable)
+    {
+        WindowResizable = resizable;
+    }
 
-		/** Sets the position of the window in windowed mode. Default -1 for both coordinates for centered on primary monitor. */
-		public void setWindowPosition(int x, int y)
-		{
-			windowX = x;
-			windowY = y;
-		}
+    /// <summary>
+    ///     Sets the window title.
+    /// </summary>
+    /// <remarks>
+    ///     If null, the application listener's class name is used.
+    /// </remarks>
+    /// <param name="title"></param>
+    public void SetTitle(string title)
+    {
+        Title = title;
+    }
 
-		/** Sets minimum and maximum size limits for the window. If the window is full screen or not resizable, these limits are
-		 * ignored. The default for all four parameters is -1, which means unrestricted. */
-		public void setWindowSizeLimits(int minWidth, int minHeight, int maxWidth, int maxHeight)
-		{
-			windowMinWidth = minWidth;
-			windowMinHeight = minHeight;
-			windowMaxWidth = maxWidth;
-			windowMaxHeight = maxHeight;
-		}
+    /// <summary>
+    ///     Sets the app to use windowed mode.
+    /// </summary>
+    /// <param name="width">The width of the window (default 640).</param>
+    /// <param name="height">The height of the window (default 480).</param>
+    public void SetWindowedMode(int width, int height)
+    {
+        WindowWidth = width;
+        WindowHeight = height;
+    }
 
-		/** Sets the icon that will be used in the window's title bar. Has no effect in macOS, which doesn't use window icons.
-		 * @param filePaths One or more {@linkplain FileType#Internal internal} image paths. Must be JPEG, PNG, or BMP format. The one
-		 *           closest to the system's desired size will be scaled. Good sizes include 16x16, 32x32 and 48x48. */
-		public void setWindowIcon(params String[]filePaths)
-		{
-			setWindowIcon(FileType.Internal, filePaths);
-		}
+    /// <summary>
+    ///     Sets the icon that will be used in the window's title bar.
+    /// </summary>
+    /// <remarks>
+    ///     <para>
+    ///         Has no effect in macOS, which doesn't use window icons.
+    ///     </para>
+    /// </remarks>
+    /// <param name="filePaths">
+    ///     One or more <see cref="FileType" /> image paths. Must be JPEG, PNG, or BMP format. The one
+    ///     closest to the system's desired size will be scaled. Good sizes include 16x16, 32x32 and 48x48.
+    /// </param>
+    public void SetWindowIcon(params string[] filePaths)
+    {
+        SetWindowIcon(FileType.Internal, filePaths);
+    }
 
-		/** Sets the icon that will be used in the window's title bar. Has no effect in macOS, which doesn't use window icons.
-		 * @param fileType The type of file handle the paths are relative to.
-		 * @param filePaths One or more image paths, relative to the given {@linkplain FileType}. Must be JPEG, PNG, or BMP format. The
-		 *           one closest to the system's desired size will be scaled. Good sizes include 16x16, 32x32 and 48x48. */
-		public void setWindowIcon(FileType fileType, params String[]filePaths)
-		{
-			windowIconFileType = fileType;
-			windowIconPaths = filePaths;
-		}
+    /// <summary>
+    ///     Sets the icon that will be used in the window's title bar.
+    /// </summary>
+    /// <remarks>
+    ///     <para>
+    ///         Has no effect in macOS, which doesn't use window icons.
+    ///     </para>
+    /// </remarks>
+    /// <param name="fileType">The type of file handle the paths are relative to.</param>
+    /// <param name="filePaths">
+    ///     One or more image paths, relative to the given <see cref="FileType" />.Must be JPEG, PNG, or
+    ///     BMP format. The one closest to the system's desired size will be scaled. Good sizes include 16x16, 32x32 and 48x48.
+    /// </param>
+    public void SetWindowIcon(FileType fileType, params string[] filePaths)
+    {
+        WindowIconFileType = fileType;
+        WindowIconPaths = filePaths;
+    }
 
-		/** Sets the {@link DesktopWindowListener} which will be informed about iconficiation, focus loss and window close events. */
-		public void setWindowListener(IDesktopWindowListener windowListener)
-		{
-			this.windowListener = windowListener;
-		}
+    /// <summary>
+    ///     Sets the <see cref="IDesktopWindowListener" /> which will be informed about iconficiation, focus loss and window
+    ///     close events.
+    /// </summary>
+    /// <param name="windowListener"></param>
+    public void SetWindowListener(IDesktopWindowListener windowListener)
+    {
+        WindowListener = windowListener;
+    }
 
-		/** Sets the app to use fullscreen mode. Use the static methods like {@link DesktopApplicationConfiguration#getDisplayMode()} on
-		 * this class to enumerate connected monitors and their fullscreen display modes. */
-		public void setFullscreenMode(DisplayMode mode)
-		{
-			this.fullscreenMode = (DesktopGraphics.DesktopDisplayMode)mode;
-		}
+    /// <summary>
+    ///     Sets the position of the window in windowed mode.
+    /// </summary>
+    /// <remarks>
+    ///     Default -1 for both coordinates for centered on primary monitor.
+    /// </remarks>
+    /// <param name="x"></param>
+    /// <param name="y"></param>
+    public void SetWindowPosition(int x, int y)
+    {
+        WindowX = x;
+        WindowY = y;
+    }
 
-		/** Sets the window title. If null, the application listener's class name is used. */
-		public void setTitle(String title)
-		{
-			this.title = title;
-		}
+    /// <summary>
+    ///     Sets minimum and maximum size limits for the window.
+    /// </summary>
+    /// <remarks>
+    ///     <para>
+    ///         If the window is full screen or not resizable, these limits are ignored.
+    ///     </para>
+    ///     <para>
+    ///         The default for all four parameters is -1, which means unrestricted.
+    ///     </para>
+    /// </remarks>
+    /// <param name="minWidth"></param>
+    /// <param name="minHeight"></param>
+    /// <param name="maxWidth"></param>
+    /// <param name="maxHeight"></param>
+    public void SetWindowSizeLimits(int minWidth, int minHeight, int maxWidth, int maxHeight)
+    {
+        WindowMinWidth = minWidth;
+        WindowMinHeight = minHeight;
+        WindowMaxWidth = maxWidth;
+        WindowMaxHeight = maxHeight;
+    }
 
-		/** Sets the initial background color. Defaults to black. */
-		public void setInitialBackgroundColor(Color color)
-		{
-			initialBackgroundColor = color;
-		}
+    /// <summary>
+    ///     Sets whether to use vsync.
+    /// </summary>
+    /// <remarks>
+    ///     <para>
+    ///         This setting can be changed anytime at runtime via <see cref="IGraphics.SetVSync(bool)" />.
+    ///     </para>
+    ///     <para>
+    ///         For multi-window applications, only one (the main) window should enable vsync. Otherwise, every window will
+    ///         wait for the vertical blank on swap individually, effectively cutting the frame rate to (refreshRate /
+    ///         numberOfWindows).
+    ///     </para>
+    /// </remarks>
+    /// <param name="vsync"></param>
+    public void UseVsync(bool vsync)
+    {
+        VSyncEnabled = vsync;
+    }
 
-		/** Sets whether to use vsync. This setting can be changed anytime at runtime via {@link Graphics#setVSync(boolean)}.
-		 *
-		 * For multi-window applications, only one (the main) window should enable vsync. Otherwise, every window will wait for the
-		 * vertical blank on swap individually, effectively cutting the frame rate to (refreshRate / numberOfWindows). */
-		public void useVsync(bool vsync)
-		{
-			this.vSyncEnabled = vsync;
-		}
-	}
+    internal void SetWindowConfiguration(DesktopWindowConfiguration config)
+    {
+        WindowX = config.WindowX;
+        WindowY = config.WindowY;
+        WindowWidth = config.WindowWidth;
+        WindowHeight = config.WindowHeight;
+        WindowMinWidth = config.WindowMinWidth;
+        WindowMinHeight = config.WindowMinHeight;
+        WindowMaxWidth = config.WindowMaxWidth;
+        WindowMaxHeight = config.WindowMaxHeight;
+        WindowResizable = config.WindowResizable;
+        WindowDecorated = config.WindowDecorated;
+        WindowMaximized = config.WindowMaximized;
+        MaximizedMonitor = config.MaximizedMonitor;
+        AutoIconify = config.AutoIconify;
+        WindowIconFileType = config.WindowIconFileType;
+
+        if (config.WindowIconPaths != null)
+        {
+            WindowIconPaths = new string[config.WindowIconPaths.Length];
+            Array.Copy(config.WindowIconPaths, WindowIconPaths, config.WindowIconPaths.Length);
+        }
+
+        WindowListener = config.WindowListener;
+        FullscreenMode = config.FullscreenMode;
+        Title = config.Title;
+        InitialBackgroundColor = config.InitialBackgroundColor;
+        InitialVisible = config.InitialVisible;
+        VSyncEnabled = config.VSyncEnabled;
+    }
 }

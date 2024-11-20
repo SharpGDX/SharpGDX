@@ -73,7 +73,7 @@ public class Actor {
 	public virtual void act (float delta) {
 		Array<Action> actions = this.actions;
 		if (actions.size == 0) return;
-		if (stage != null && stage.getActionsRequestRendering()) Gdx.Graphics.requestRendering();
+		if (stage != null && stage.getActionsRequestRendering()) Gdx.Graphics.RequestRendering();
 		try {
 			for (int i = 0; i < actions.size; i++) {
 				Action action = actions.Get(i);
@@ -242,7 +242,7 @@ public class Actor {
 		action.setActor(this);
 		actions.Add(action);
 
-		if (stage != null && stage.getActionsRequestRendering()) Gdx.Graphics.requestRendering();
+		if (stage != null && stage.getActionsRequestRendering()) Gdx.Graphics.RequestRendering();
 	}
 
 	/** @param action May be null, in which case nothing is done. */

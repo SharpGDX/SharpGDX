@@ -50,7 +50,7 @@ namespace SharpGDX
             public const int CENTER = 23;
             public const int DOWN = 20;
             public const int LEFT = 21;
-            public const int RIGHT = 22;
+            public const int Right = 22;
             public const int UP = 19;
             public const int E = 33;
             public const int ENDCALL = 6;
@@ -273,7 +273,7 @@ namespace SharpGDX
                         return "Down";
                     case LEFT:
                         return "Left";
-                    case RIGHT:
+                    case Right:
                         return "Right";
                     case CENTER:
                         return "Center";

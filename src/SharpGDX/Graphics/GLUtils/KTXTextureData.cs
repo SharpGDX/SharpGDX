@@ -232,7 +232,7 @@ public class KTXTextureData : ITextureData, ICubemapData {
 					if (numberOfArrayElements > 0) pixelHeight = numberOfArrayElements;
 					if (compressed) {
 						if (glInternalFormat == ETC1.ETC1_RGB8_OES) {
-							if (!Gdx.Graphics.supportsExtension("GL_OES_compressed_ETC1_RGB8_texture")) {
+							if (!Gdx.Graphics.SupportsExtension("GL_OES_compressed_ETC1_RGB8_texture")) {
 								ETC1.ETC1Data etcData = new ETC1.ETC1Data(pixelWidth, pixelHeight, data, 0);
 								Pixmap pixmap = ETC1.decodeImage(etcData, Pixmap.Format.RGB888);
 								Gdx.GL.glTexImage2D(target + face, level, pixmap.getGLInternalFormat(), pixmap.getWidth(),

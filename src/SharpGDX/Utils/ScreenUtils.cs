@@ -78,7 +78,7 @@ public static class ScreenUtils
             mask |= IGL20.GL_DEPTH_BUFFER_BIT;
         }
 
-        if (applyAntialiasing && Gdx.Graphics.getBufferFormat().coverageSampling)
+        if (applyAntialiasing && Gdx.Graphics.GetBufferFormat().CoverageSampling)
         {
             mask |= IGL20.GL_COVERAGE_BUFFER_BIT_NV;
         }
@@ -105,8 +105,8 @@ public static class ScreenUtils
     /// <returns></returns>
     public static byte[] GetFrameBufferPixels(bool flipY)
     {
-        var w = Gdx.Graphics.getBackBufferWidth();
-        var h = Gdx.Graphics.getBackBufferHeight();
+        var w = Gdx.Graphics.GetBackBufferWidth();
+        var h = Gdx.Graphics.GetBackBufferHeight();
         return GetFrameBufferPixels(0, 0, w, h, flipY);
     }
 
@@ -182,8 +182,8 @@ public static class ScreenUtils
     /// <returns></returns>
     public static TextureRegion GetFrameBufferTexture()
     {
-        var w = Gdx.Graphics.getBackBufferWidth();
-        var h = Gdx.Graphics.getBackBufferHeight();
+        var w = Gdx.Graphics.GetBackBufferWidth();
+        var h = Gdx.Graphics.GetBackBufferHeight();
 
         return GetFrameBufferTexture(0, 0, w, h);
     }
