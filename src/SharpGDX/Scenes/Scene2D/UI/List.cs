@@ -66,23 +66,23 @@ public class List<T> : Widget , ICullable {
 						return true;
 					}
 					break;
-				case Keys.HOME:
+				case Keys.Home:
 					_list.setSelectedIndex(0);
 					return true;
-				case Keys.END:
+				case Keys.End:
 					_list.setSelectedIndex(_list.items.size - 1);
 					return true;
-				case Keys.DOWN:
+				case Keys.Down:
 					index = _list.items.indexOf(_list.getSelected(), false) + 1;
 					if (index >= _list.items.size) index = 0;
 					_list.setSelectedIndex(index);
 					return true;
-				case Keys.UP:
+				case Keys.Up:
 					index = _list.items.indexOf(_list.getSelected(), false) - 1;
 					if (index < 0) index = _list.items.size - 1;
 					_list.setSelectedIndex(index);
 					return true;
-				case Keys.ESCAPE:
+				case Keys.Escape:
 					if (_list.getStage() != null) _list.getStage().setKeyboardFocus(null);
 					return true;
 			}

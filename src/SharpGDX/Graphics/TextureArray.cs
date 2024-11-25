@@ -43,23 +43,23 @@ public class TextureArray : GLTexture {
 	}
 
 	public TextureArray (ITextureArrayData data) 
-	: base(IGL30.GL_TEXTURE_2D_ARRAY, Gdx.GL.glGenTexture())
+	: base(IGL30.GL_TEXTURE_2D_ARRAY, GDX.GL.glGenTexture())
 	{
 		
 
-		if (Gdx.GL30 == null) {
+		if (GDX.GL30 == null) {
 			throw new GdxRuntimeException("TextureArray requires a device running with GLES 3.0 compatibilty");
 		}
 
 		load(data);
 
-		if (data.isManaged()) addManagedTexture(Gdx.App, this);
+		if (data.isManaged()) addManagedTexture(GDX.App, this);
 	}
 
 	private static FileHandle[] getInternalHandles (String[] internalPaths) {
 		FileHandle[] handles = new FileHandle[internalPaths.Length];
 		for (int i = 0; i < internalPaths.Length; i++) {
-			handles[i] = Gdx.Files.Internal(internalPaths[i]);
+			handles[i] = GDX.Files.Internal(internalPaths[i]);
 		}
 		return handles;
 	}
@@ -70,7 +70,7 @@ public class TextureArray : GLTexture {
 		this.data = data;
 
 		bind();
-		Gdx.GL30.glTexImage3D(IGL30.GL_TEXTURE_2D_ARRAY, 0, data.getInternalFormat(), data.getWidth(), data.getHeight(),
+		GDX.GL30.glTexImage3D(IGL30.GL_TEXTURE_2D_ARRAY, 0, data.getInternalFormat(), data.getWidth(), data.getHeight(),
 			data.getDepth(), 0, data.getInternalFormat(), data.getGLType(), null);
 
 		if (!data.isPrepared()) data.prepare();
@@ -79,7 +79,7 @@ public class TextureArray : GLTexture {
 
 		setFilter(minFilter, magFilter);
 		setWrap(uWrap, vWrap);
-		Gdx.GL.glBindTexture(glTarget, 0);
+		GDX.GL.glBindTexture(glTarget, 0);
 	}
 
 	public override int getWidth () {
@@ -100,7 +100,7 @@ public class TextureArray : GLTexture {
 
 		protected override void reload () {
 		if (!isManaged()) throw new GdxRuntimeException("Tried to reload an unmanaged TextureArray");
-		glHandle = Gdx.GL.glGenTexture();
+		glHandle = GDX.GL.glGenTexture();
 		load(data);
 	}
 
@@ -140,7 +140,7 @@ public class TextureArray : GLTexture {
 
 	/** @return the number of managed TextureArrays currently loaded */
 	public static int getNumManagedTextureArrays () {
-		return managedTextureArrays.get(Gdx.App).size;
+		return managedTextureArrays.get(GDX.App).size;
 	}
 
 }

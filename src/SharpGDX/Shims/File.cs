@@ -18,11 +18,9 @@ public class File
 	{
 		ROOT = new("");
 	}
-
-	private static readonly string test = "fuck";
-	
-	private bool absolute;
-	private readonly string name;
+    
+	private bool _absolute;
+	private readonly string _name;
 
 	// TODO: public static readonly Storage LocalStorage = Storage.getLocalStorageIfSupported();
 
@@ -38,16 +36,16 @@ public class File
 		var cut = pathname.LastIndexOf(separatorChar);
 		if (cut == -1)
 		{
-			name = pathname;
+			_name = pathname;
 		}
 		else if (cut == 0)
 		{
-			name = pathname.Substring(cut);
-			parent = name.Equals("") ? null : ROOT;
+			_name = pathname.Substring(cut);
+			parent = _name.Equals("") ? null : ROOT;
 		}
 		else
 		{
-			name = pathname.Substring(cut + 1);
+			_name = pathname.Substring(cut + 1);
 			parent = new File(pathname.Substring(0, cut));
 		}
 
@@ -62,7 +60,7 @@ public class File
 	public File(File parent, string child)
 	{
 		this.parent = parent;
-		name = child;
+		_name = child;
 	}
 
 	public static File createTempFile(string prefix, string suffix, File directory) // TODO: throws IOException
@@ -161,10 +159,10 @@ public class File
 
 		if (parent == null)
 		{
-			return new File(ROOT, name);
+			return new File(ROOT, _name);
 		}
 
-		return new File(parent.getAbsoluteFile(), name);
+		return new File(parent.getAbsoluteFile(), _name);
 	}
 
 	public string getAbsolutePath()
@@ -176,17 +174,17 @@ public class File
 	public File getCanonicalFile()
 	{
 		var cParent = parent == null ? null : parent.getCanonicalFile();
-		if (name.Equals("."))
+		if (_name.Equals("."))
 		{
 			return cParent == null ? ROOT : cParent;
 		}
 
-		if (cParent != null && cParent.name.Equals(""))
+		if (cParent != null && cParent._name.Equals(""))
 		{
 			cParent = null;
 		}
 
-		if (name.Equals(".."))
+		if (_name.Equals(".."))
 		{
 			if (cParent == null)
 			{
@@ -201,12 +199,12 @@ public class File
 			return cParent.parent;
 		}
 
-		if (cParent == null && !name.Equals(""))
+		if (cParent == null && !_name.Equals(""))
 		{
-			return new File(ROOT, name);
+			return new File(ROOT, _name);
 		}
 
-		return new File(cParent, name);
+		return new File(cParent, _name);
 	}
 
 	public string getCanonicalPath()
@@ -216,7 +214,7 @@ public class File
 
 	public override int GetHashCode()
 	{
-		return parent != null ? parent.GetHashCode() + name.GetHashCode() : name.GetHashCode();
+		return parent != null ? parent.GetHashCode() + _name.GetHashCode() : _name.GetHashCode();
 	}
 
 	/*
@@ -225,7 +223,7 @@ public class File
 
 	public string getName()
 	{
-		return name;
+		return _name;
 	}
 
 	public string getParent()
@@ -240,7 +238,7 @@ public class File
 
 	public string getPath()
 	{
-		return parent == null ? name : parent.getPath() + (parent.getPath().Length > 0 ? separatorChar : "") + name;
+		return parent == null ? _name : parent.getPath() + (parent.getPath().Length > 0 ? separatorChar : "") + _name;
 	}
 
 	public bool isAbsolute()
@@ -402,11 +400,11 @@ public class File
 
 	public override String ToString()
 	{
-		return name;
+		return _name;
 	}
 
 	private bool isRoot()
 	{
-		return name.Equals("") && parent == null;
+		return _name.Equals("") && parent == null;
 	}
 }

@@ -136,7 +136,7 @@ where T: Actor{
 
 	public override void enter (InputEvent @event, float x, float y, int pointer, Actor? fromActor) {
 		if (pointer != -1) return;
-		if (touchIndependent && Gdx.Input.IsTouched()) return;
+		if (touchIndependent && GDX.Input.IsTouched()) return;
 		Actor actor = @event.getListenerActor();
 		if (fromActor != null && fromActor.isDescendantOf(actor)) return;
 		setContainerPosition(actor, x, y);

@@ -55,7 +55,7 @@ public class Mesh : IDisposable {
 		this.indices = indices;
 		this.isVertexArray = isVertexArray;
 
-		addManagedMesh(Gdx.App, this);
+		addManagedMesh(GDX.App, this);
 	}
 
 	/** Creates a new Mesh with the given attributes.
@@ -70,7 +70,7 @@ public class Mesh : IDisposable {
 		indices = new IndexBufferObject(isStatic, maxIndices);
 		isVertexArray = false;
 
-		addManagedMesh(Gdx.App, this);
+		addManagedMesh(GDX.App, this);
 	}
 
 	/** Creates a new Mesh with the given attributes.
@@ -85,7 +85,7 @@ public class Mesh : IDisposable {
 		indices = new IndexBufferObject(isStatic, maxIndices);
 		isVertexArray = false;
 
-		addManagedMesh(Gdx.App, this);
+		addManagedMesh(GDX.App, this);
 	}
 
 	/** Creates a new Mesh with the given attributes. Adds extra optimizations for dynamic (frequently modified) meshes.
@@ -103,11 +103,11 @@ public class Mesh : IDisposable {
 		indices = new IndexBufferObject(staticIndices, maxIndices);
 		isVertexArray = false;
 
-		addManagedMesh(Gdx.App, this);
+		addManagedMesh(GDX.App, this);
 	}
 
 	private IVertexData makeVertexBuffer (bool isStatic, int maxVertices, VertexAttributes vertexAttributes) {
-		if (Gdx.GL30 != null) {
+		if (GDX.GL30 != null) {
 			return new VertexBufferObjectWithVAO(isStatic, maxVertices, vertexAttributes);
 		} else {
 			return new VertexBufferObject(isStatic, maxVertices, vertexAttributes);
@@ -160,7 +160,7 @@ public class Mesh : IDisposable {
 			break;
 		}
 
-		addManagedMesh(Gdx.App, this);
+		addManagedMesh(GDX.App, this);
 	}
 
 	public Mesh enableInstancedRendering (bool isStatic, int maxInstances, VertexAttribute[] attributes) {
@@ -593,10 +593,10 @@ public class Mesh : IDisposable {
 				int oldPosition = buffer.position();
 				int oldLimit = buffer.limit();
 				((Buffer)buffer).position(offset);
-				Gdx.GL20.glDrawElements(primitiveType, count, IGL20.GL_UNSIGNED_SHORT, buffer);
+				GDX.GL20.glDrawElements(primitiveType, count, IGL20.GL_UNSIGNED_SHORT, buffer);
 				((Buffer)buffer).position(oldPosition);
 			} else {
-				Gdx.GL20.glDrawArrays(primitiveType, offset, count);
+				GDX.GL20.glDrawArrays(primitiveType, offset, count);
 			}
 		} else {
 			int numInstances = 0;
@@ -609,15 +609,15 @@ public class Mesh : IDisposable {
 				}
 
 				if (_isInstanced && numInstances > 0) {
-					Gdx.GL30.glDrawElementsInstanced(primitiveType, count, IGL20.GL_UNSIGNED_SHORT, offset * 2, numInstances);
+					GDX.GL30.glDrawElementsInstanced(primitiveType, count, IGL20.GL_UNSIGNED_SHORT, offset * 2, numInstances);
 				} else {
-					Gdx.GL20.glDrawElements(primitiveType, count, IGL20.GL_UNSIGNED_SHORT, offset * 2);
+					GDX.GL20.glDrawElements(primitiveType, count, IGL20.GL_UNSIGNED_SHORT, offset * 2);
 				}
 			} else {
 				if (_isInstanced && numInstances > 0) {
-					Gdx.GL30.glDrawArraysInstanced(primitiveType, offset, count, numInstances);
+					GDX.GL30.glDrawArraysInstanced(primitiveType, offset, count, numInstances);
 				} else {
-					Gdx.GL20.glDrawArrays(primitiveType, offset, count);
+					GDX.GL20.glDrawArrays(primitiveType, offset, count);
 				}
 			}
 		}
@@ -627,7 +627,7 @@ public class Mesh : IDisposable {
 
 	/** Frees all resources associated with this Mesh */
 	public void Dispose () {
-		if (meshes.get(Gdx.App) != null) meshes.get(Gdx.App).RemoveValue(this, true);
+		if (meshes.get(GDX.App) != null) meshes.get(GDX.App).RemoveValue(this, true);
 		_vertices.Dispose();
 		if (instances != null) instances.Dispose();
 		indices.Dispose();

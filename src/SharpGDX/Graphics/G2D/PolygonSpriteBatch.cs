@@ -111,7 +111,7 @@ public class PolygonSpriteBatch : IPolygonBatch {
 			throw new IllegalArgumentException("Can't have more than 32767 vertices per batch: " + maxVertices);
 
 		Mesh.VertexDataType vertexDataType = Mesh.VertexDataType.VertexArray;
-		if (Gdx.GL30 != null) {
+		if (GDX.GL30 != null) {
 			vertexDataType = VertexDataType.VertexBufferObjectWithVAO;
 		}
 		mesh = new Mesh(vertexDataType, false, maxVertices, maxTriangles * 3,
@@ -130,14 +130,14 @@ public class PolygonSpriteBatch : IPolygonBatch {
 		} else
 			shader = defaultShader;
 
-		projectionMatrix.setToOrtho2D(0, 0, Gdx.Graphics.GetWidth(), Gdx.Graphics.GetHeight());
+		projectionMatrix.setToOrtho2D(0, 0, GDX.Graphics.GetWidth(), GDX.Graphics.GetHeight());
 	}
 
 	public void Begin () {
 		if (drawing) throw new IllegalStateException("PolygonSpriteBatch.end must be called before begin.");
 		renderCalls = 0;
 
-		Gdx.GL.glDepthMask(false);
+		GDX.GL.glDepthMask(false);
 		if (customShader != null)
 			customShader.bind();
 		else
@@ -153,7 +153,7 @@ public class PolygonSpriteBatch : IPolygonBatch {
 		lastTexture = null;
 		drawing = false;
 
-		IGL20 gl = Gdx.GL;
+		IGL20 gl = GDX.GL;
 		gl.glDepthMask(true);
 		if (IsBlendingEnabled()) gl.glDisable(IGL20.GL_BLEND);
 	}
@@ -1171,10 +1171,10 @@ public class PolygonSpriteBatch : IPolygonBatch {
 		mesh.setVertices(vertices, 0, vertexIndex);
 		mesh.setIndices(triangles, 0, trianglesInBatch);
 		if (blendingDisabled) {
-			Gdx.GL.glDisable(IGL20.GL_BLEND);
+			GDX.GL.glDisable(IGL20.GL_BLEND);
 		} else {
-			Gdx.GL.glEnable(IGL20.GL_BLEND);
-			if (blendSrcFunc != -1) Gdx.GL.glBlendFuncSeparate(blendSrcFunc, blendDstFunc, blendSrcFuncAlpha, blendDstFuncAlpha);
+			GDX.GL.glEnable(IGL20.GL_BLEND);
+			if (blendSrcFunc != -1) GDX.GL.glBlendFuncSeparate(blendSrcFunc, blendDstFunc, blendSrcFuncAlpha, blendDstFuncAlpha);
 		}
 
 		mesh.render(customShader != null ? customShader : shader, IGL20.GL_TRIANGLES, 0, trianglesInBatch);

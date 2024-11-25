@@ -175,7 +175,7 @@ public partial interface IApplication
     ///     Posts a <see cref="Runnable" /> on the main loop thread.
     /// </summary>
     /// <remarks>
-    ///     In a multi-window application, the <see cref="Gdx.Graphics" /> and <see cref="Gdx.Input" /> values may be
+    ///     In a multi-window application, the <see cref="GDX.Graphics" /> and <see cref="GDX.Input" /> values may be
     ///     unpredictable
     ///     at the time the Runnable is executed. If graphics or input are needed, they can be copied to a variable to be used
     ///     in the Runnable.

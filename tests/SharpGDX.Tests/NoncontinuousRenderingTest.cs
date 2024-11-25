@@ -30,15 +30,15 @@ public class NoncontinuousRenderingTest : GdxTest
 		texture = new Texture("data/badlogic.jpg");
 		region = new TextureRegion(texture);
 		stage = new Stage(new ScreenViewport(), batch);
-		Gdx.Input.SetInputProcessor(stage);
+		GDX.Input.SetInputProcessor(stage);
 
-		skin = new Skin(Gdx.Files.Internal("data/uiskin.json"));
-		skin.add("default", font = new BitmapFont(Gdx.Files.Internal("data/lsans-32.fnt"), false));
+		skin = new Skin(GDX.Files.Internal("data/uiskin.json"));
+		skin.add("default", font = new BitmapFont(GDX.Files.Internal("data/lsans-32.fnt"), false));
 
 		populateTable();
 
-		Gdx.Graphics.SetContinuousRendering(false);
-		Gdx.Graphics.RequestRendering();
+		GDX.Graphics.SetContinuousRendering(false);
+		GDX.Graphics.RequestRendering();
 	}
 
 	void nextColor()
@@ -51,7 +51,7 @@ public class NoncontinuousRenderingTest : GdxTest
 
 	public override void Render()
 	{
-		float delta = Math.Min(Gdx.Graphics.GetDeltaTime(), 1 / 30f);
+		float delta = Math.Min(GDX.Graphics.GetDeltaTime(), 1 / 30f);
 		elapsed += delta;
 		float value = elapsed % 1f;
 		value = value < 0.5f ? Interpolation.fade.apply(2 * value) : 1 - Interpolation.fade.apply(2 * value - 1);
@@ -62,18 +62,18 @@ public class NoncontinuousRenderingTest : GdxTest
 			switch (colorCycle)
 			{
 				case 0:
-					Gdx.GL.glClearColor(value, 0, 0, 1);
+					GDX.GL.glClearColor(value, 0, 0, 1);
 					break;
 				case 1:
-					Gdx.GL.glClearColor(0, value, 0, 1);
+					GDX.GL.glClearColor(0, value, 0, 1);
 					break;
 				case 2:
-					Gdx.GL.glClearColor(0, 0, value, 1);
+					GDX.GL.glClearColor(0, 0, value, 1);
 					break;
 			}
 		}
 
-		Gdx.GL.glClear(IGL20.GL_COLOR_BUFFER_BIT);
+		GDX.GL.glClear(IGL20.GL_COLOR_BUFFER_BIT);
 
 		Camera cam = stage.getCamera();
 		batch.SetProjectionMatrix(cam.Combined);
@@ -91,8 +91,8 @@ public class NoncontinuousRenderingTest : GdxTest
     {
         public override void changed(ChangeEvent @event, Actor actor)
         {
-            bool continuous = Gdx.Graphics.IsContinuousRendering();
-            Gdx.Graphics.SetContinuousRendering(!continuous);
+            bool continuous = GDX.Graphics.IsContinuousRendering();
+            GDX.Graphics.SetContinuousRendering(!continuous);
         }
     }
 
@@ -118,9 +118,9 @@ public class NoncontinuousRenderingTest : GdxTest
             {
             }
             _test.nextColor();
-            Gdx.App.PostRunnable(() =>
+            GDX.App.PostRunnable(() =>
             {
-                Gdx.App.Log(_str, "Posted runnable to Gdx.app");
+                GDX.App.Log(_str, "Posted runnable to Gdx.app");
 
 
             });
@@ -141,7 +141,7 @@ public class NoncontinuousRenderingTest : GdxTest
         }
         public override void changed(ChangeEvent @event, Actor actor)
         {
-            IGraphics graphics = Gdx.Graphics; // caching necessary to ensure call on this window
+            IGraphics graphics = GDX.Graphics; // caching necessary to ensure call on this window
             new Thread(() =>
                 {
 
@@ -154,7 +154,7 @@ public class NoncontinuousRenderingTest : GdxTest
             }
             _test.nextColor();
             graphics.RequestRendering();
-            Gdx.App.Log(_str2, "Called Gdx.graphics.requestRendering()");
+            GDX.App.Log(_str2, "Called Gdx.graphics.requestRendering()");
             
             }).Start();
 
@@ -191,10 +191,10 @@ public class NoncontinuousRenderingTest : GdxTest
             public override void run()
             {
                 _test.nextColor();
-                Gdx.App.PostRunnable(() =>
+                GDX.App.PostRunnable(() =>
                 {
 
-                    Gdx.App.Log(_str3, "Posted runnable to Gdx.app");
+                    GDX.App.Log(_str3, "Posted runnable to Gdx.app");
 
                 });
             }
@@ -220,7 +220,7 @@ public class NoncontinuousRenderingTest : GdxTest
 
                 
                 _test.nextColor();
-                Gdx.App.Log(_str4, "RunnableAction executed");
+                GDX.App.Log(_str4, "RunnableAction executed");
             
             })));
         }
@@ -241,7 +241,7 @@ public class NoncontinuousRenderingTest : GdxTest
 
         public override void changed(ChangeEvent @event, Actor actor)
         {
-            IGraphics graphics = Gdx.Graphics; // caching necessary to ensure call on this window
+            IGraphics graphics = GDX.Graphics; // caching necessary to ensure call on this window
             new Thread(() =>
                 {
                 for (int i = 0; i < 2; i++)
@@ -256,7 +256,7 @@ public class NoncontinuousRenderingTest : GdxTest
             _test.nextColor();
             bool continuous = graphics.IsContinuousRendering();
             graphics.SetContinuousRendering(!continuous);
-            Gdx.App.Log(_str5, "Toggled continuous");
+            GDX.App.Log(_str5, "Toggled continuous");
             }
             
             }).Start();

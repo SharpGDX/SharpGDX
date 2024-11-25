@@ -480,15 +480,15 @@ private class SelectBoxSelection : ArraySelection<T>
 			{
 				switch (keycode)
 				{
-					case Keys.NUMPAD_ENTER:
-					case Keys.ENTER:
+					case Keys.NumpadEnter:
+					case Keys.Enter:
 						_selectBoxScrollPane.selectBox.selection.choose(_selectBoxScrollPane.list.getSelected());
 						// TODO: This is ugly, need to condense code, C# can't fall thru.
 				// Fall thru.
 						_selectBoxScrollPane.hide();
 						@event.stop();
 						return true;
-			case Keys.ESCAPE:
+			case Keys.Escape:
 						_selectBoxScrollPane.hide();
 						@event.stop();
 						return true;

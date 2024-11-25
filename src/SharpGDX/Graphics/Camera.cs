@@ -169,7 +169,7 @@ public abstract class Camera {
 	 * @param viewportHeight the height of the viewport in pixels
 	 * @return the mutated and unprojected screenCoords {@link Vector3} */
 	public Vector3 unproject (Vector3 screenCoords, float viewportX, float viewportY, float viewportWidth, float viewportHeight) {
-		float x = screenCoords.x - viewportX, y = Gdx.Graphics.GetHeight() - screenCoords.y - viewportY;
+		float x = screenCoords.x - viewportX, y = GDX.Graphics.GetHeight() - screenCoords.y - viewportY;
 		screenCoords.x = (2 * x) / viewportWidth - 1;
 		screenCoords.y = (2 * y) / viewportHeight - 1;
 		screenCoords.z = 2 * screenCoords.z - 1;
@@ -185,7 +185,7 @@ public abstract class Camera {
 	 * @param screenCoords the point in screen coordinates
 	 * @return the mutated and unprojected screenCoords {@link Vector3} */
 	public Vector3 unproject (Vector3 screenCoords) {
-		unproject(screenCoords, 0, 0, Gdx.Graphics.GetWidth(), Gdx.Graphics.GetHeight());
+		unproject(screenCoords, 0, 0, GDX.Graphics.GetWidth(), GDX.Graphics.GetHeight());
 		return screenCoords;
 	}
 
@@ -195,7 +195,7 @@ public abstract class Camera {
 	 * useable in conjunction with {@link Batch} and similar classes.
 	 * @return the mutated and projected worldCoords {@link Vector3} */
 	public Vector3 project (Vector3 worldCoords) {
-		project(worldCoords, 0, 0, Gdx.Graphics.GetWidth(), Gdx.Graphics.GetHeight());
+		project(worldCoords, 0, 0, GDX.Graphics.GetWidth(), GDX.Graphics.GetHeight());
 		return worldCoords;
 	}
 
@@ -239,7 +239,7 @@ public abstract class Camera {
 	 * pointing to the right. The returned instance is not a new instance but an internal member only accessible via this function.
 	 * @return the picking Ray. */
 	public Ray getPickRay (float screenX, float screenY) {
-		return getPickRay(screenX, screenY, 0, 0, Gdx.Graphics.GetWidth(), Gdx.Graphics.GetHeight());
+		return getPickRay(screenX, screenY, 0, 0, GDX.Graphics.GetWidth(), GDX.Graphics.GetHeight());
 	}
 }
 }

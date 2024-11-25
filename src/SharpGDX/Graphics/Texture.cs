@@ -98,7 +98,7 @@ public class Texture : GLTexture {
 
 
         public Texture (String internalPath) 
-	: this(Gdx.Files.Internal(internalPath))
+	: this(GDX.Files.Internal(internalPath))
 	{
 		
 	}
@@ -146,7 +146,7 @@ public class Texture : GLTexture {
 	}
 
 	public Texture (ITextureData data) 
-	: this(IGL20.GL_TEXTURE_2D, Gdx.GL.glGenTexture(), data)
+	: this(IGL20.GL_TEXTURE_2D, GDX.GL.glGenTexture(), data)
 	{
 		
 	}
@@ -156,7 +156,7 @@ public class Texture : GLTexture {
 	{
 		
 		load(data);
-		if (data.isManaged()) addManagedTexture(Gdx.App, this);
+		if (data.isManaged()) addManagedTexture(GDX.App, this);
 	}
 
 	public void load (ITextureData data) {
@@ -172,14 +172,14 @@ public class Texture : GLTexture {
 		unsafeSetFilter(minFilter, magFilter, true);
 		unsafeSetWrap(uWrap, vWrap, true);
 		unsafeSetAnisotropicFilter(anisotropicFilterLevel, true);
-		Gdx.GL.glBindTexture(glTarget, 0);
+		GDX.GL.glBindTexture(glTarget, 0);
 	}
 
 	/** Used internally to reload after context loss. Creates a new GL handle then calls {@link #load(TextureData)}. Use this only
 	 * if you know what you do! */
 	protected override void reload () {
 		if (!isManaged()) throw new GdxRuntimeException("Tried to reload unmanaged Texture");
-		glHandle = Gdx.GL.glGenTexture();
+		glHandle = GDX.GL.glGenTexture();
 		load(data);
 	}
 
@@ -193,7 +193,7 @@ public class Texture : GLTexture {
 		if (data.isManaged()) throw new GdxRuntimeException("can't draw to a managed texture");
 
 		bind();
-		Gdx.GL.glTexSubImage2D(glTarget, 0, x, y, pixmap.getWidth(), pixmap.getHeight(), pixmap.getGLFormat(), pixmap.getGLType(),
+		GDX.GL.glTexSubImage2D(glTarget, 0, x, y, pixmap.getWidth(), pixmap.getHeight(), pixmap.getGLFormat(), pixmap.getGLType(),
 			pixmap.getPixels());
 	}
 
@@ -226,7 +226,7 @@ public class Texture : GLTexture {
 		// removal from the asset manager.
 		if (glHandle == 0) return;
 		delete();
-		if (data.isManaged()) if (managedTextures.get(Gdx.App) != null) managedTextures.get(Gdx.App).RemoveValue(this, true);
+		if (data.isManaged()) if (managedTextures.get(GDX.App) != null) managedTextures.get(GDX.App).RemoveValue(this, true);
 	}
 
 		public override String ToString () {
@@ -297,7 +297,7 @@ public class Texture : GLTexture {
 
 					// unload the texture, create a new gl handle then reload it.
 					assetManager.unload(fileName);
-					texture.glHandle = Gdx.GL.glGenTexture();
+					texture.glHandle = GDX.GL.glGenTexture();
 					assetManager.load(fileName, typeof(Texture), @params);
 				}
 			}
@@ -327,7 +327,7 @@ public class Texture : GLTexture {
 
 	/** @return the number of managed textures currently loaded */
 	public static int getNumManagedTextures () {
-		return managedTextures.get(Gdx.App).size;
+		return managedTextures.get(GDX.App).size;
 	}
 }
 }

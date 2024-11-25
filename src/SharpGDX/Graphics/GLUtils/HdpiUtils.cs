@@ -39,14 +39,14 @@ namespace SharpGDX.Graphics.GLUtils
 		 * automatically converts them to backbuffer coordinates, which may be bigger on HDPI screens. */
 		public static void glScissor(int x, int y, int width, int height)
 		{
-			if (mode == HdpiMode.Logical && (Gdx.Graphics.GetWidth() != Gdx.Graphics.GetBackBufferWidth()
-				|| Gdx.Graphics.GetHeight() != Gdx.Graphics.GetBackBufferHeight()))
+			if (mode == HdpiMode.Logical && (GDX.Graphics.GetWidth() != GDX.Graphics.GetBackBufferWidth()
+				|| GDX.Graphics.GetHeight() != GDX.Graphics.GetBackBufferHeight()))
 			{
-				Gdx.GL.glScissor(toBackBufferX(x), toBackBufferY(y), toBackBufferX(width), toBackBufferY(height));
+				GDX.GL.glScissor(toBackBufferX(x), toBackBufferY(y), toBackBufferX(width), toBackBufferY(height));
 			}
 			else
 			{
-				Gdx.GL.glScissor(x, y, width, height);
+				GDX.GL.glScissor(x, y, width, height);
 			}
 		}
 
@@ -54,39 +54,39 @@ namespace SharpGDX.Graphics.GLUtils
 		 * automatically converts them to backbuffer coordinates, which may be bigger on HDPI screens. */
 		public static void glViewport(int x, int y, int width, int height)
 		{
-			if (mode == HdpiMode.Logical && (Gdx.Graphics.GetWidth() != Gdx.Graphics.GetBackBufferWidth()
-				|| Gdx.Graphics.GetHeight() != Gdx.Graphics.GetBackBufferHeight()))
+			if (mode == HdpiMode.Logical && (GDX.Graphics.GetWidth() != GDX.Graphics.GetBackBufferWidth()
+				|| GDX.Graphics.GetHeight() != GDX.Graphics.GetBackBufferHeight()))
 			{
-				Gdx.GL.glViewport(toBackBufferX(x), toBackBufferY(y), toBackBufferX(width), toBackBufferY(height));
+				GDX.GL.glViewport(toBackBufferX(x), toBackBufferY(y), toBackBufferX(width), toBackBufferY(height));
 			}
 			else
 			{
-				Gdx.GL.glViewport(x, y, width, height);
+				GDX.GL.glViewport(x, y, width, height);
 			}
 		}
 
 		/** Converts an x-coordinate given in backbuffer coordinates to logical screen coordinates. */
 		public static int toLogicalX(int backBufferX)
 		{
-			return (int)(backBufferX * Gdx.Graphics.GetWidth() / (float)Gdx.Graphics.GetBackBufferWidth());
+			return (int)(backBufferX * GDX.Graphics.GetWidth() / (float)GDX.Graphics.GetBackBufferWidth());
 		}
 
 		/** Converts an y-coordinate given in backbuffer coordinates to logical screen coordinates. */
 		public static int toLogicalY(int backBufferY)
 		{
-			return (int)(backBufferY * Gdx.Graphics.GetHeight() / (float)Gdx.Graphics.GetBackBufferHeight());
+			return (int)(backBufferY * GDX.Graphics.GetHeight() / (float)GDX.Graphics.GetBackBufferHeight());
 		}
 
 		/** Converts an x-coordinate given in logical screen coordinates to backbuffer coordinates. */
 		public static int toBackBufferX(int logicalX)
 		{
-			return (int)(logicalX * Gdx.Graphics.GetBackBufferWidth() / (float)Gdx.Graphics.GetWidth());
+			return (int)(logicalX * GDX.Graphics.GetBackBufferWidth() / (float)GDX.Graphics.GetWidth());
 		}
 
 		/** Converts an y-coordinate given in logical screen coordinates to backbuffer coordinates. */
 		public static int toBackBufferY(int logicalY)
 		{
-			return (int)(logicalY * Gdx.Graphics.GetBackBufferHeight() / (float)Gdx.Graphics.GetHeight());
+			return (int)(logicalY * GDX.Graphics.GetBackBufferHeight() / (float)GDX.Graphics.GetHeight());
 		}
 	}
 }

@@ -15,7 +15,7 @@ namespace SharpGDX;
 ///         This is normally a design faux pas but in this case is better than the alternatives.
 ///     </para>
 /// </remarks>
-public class Gdx
+public class GDX
 {
     public static IApplication App = null!;
     public static IAudio Audio = null!;

@@ -112,7 +112,7 @@ public class SpriteCache : IDisposable {
 			mesh.setIndices(indices);
 		}
 
-		projectionMatrix.setToOrtho2D(0, 0, Gdx.Graphics.GetWidth(), Gdx.Graphics.GetHeight());
+		projectionMatrix.setToOrtho2D(0, 0, GDX.Graphics.GetWidth(), GDX.Graphics.GetHeight());
 	}
 
 	/** Sets the color used to tint images when they are added to the SpriteCache. Default is {@link Color#WHITE}. */
@@ -831,7 +831,7 @@ public class SpriteCache : IDisposable {
 		renderCalls = 0;
 		combinedMatrix.set(projectionMatrix).mul(transformMatrix);
 
-		Gdx.GL20.glDepthMask(false);
+		GDX.GL20.glDepthMask(false);
 
 		if (customShader != null) {
 			customShader.bind();
@@ -854,7 +854,7 @@ public class SpriteCache : IDisposable {
 		if (!drawing) throw new IllegalStateException("begin must be called before end.");
 		drawing = false;
 
-		IGL20 gl = Gdx.GL20;
+		IGL20 gl = GDX.GL20;
 		gl.glDepthMask(true);
 		if (customShader != null)
 			mesh.unbind(customShader);

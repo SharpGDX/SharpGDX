@@ -52,11 +52,11 @@ public interface IGLErrorListener {
 
 			if (place != null)
 			{
-				Gdx.App.Error("GLProfiler", "Error " + resolveErrorNumber(error) + " from " + place);
+				GDX.App.Error("GLProfiler", "Error " + resolveErrorNumber(error) + " from " + place);
 			}
 			else
 			{
-				Gdx.App.Error("GLProfiler", "Error " + resolveErrorNumber(error) + " at: ", new Exception());
+				GDX.App.Error("GLProfiler", "Error " + resolveErrorNumber(error) + " at: ", new Exception());
 				// This will capture current stack trace for logging, if possible
 			}
 		}

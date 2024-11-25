@@ -47,7 +47,7 @@ public class DesktopTestStarter {
 			// by each new open window.
 			if (SharedLibraryLoader.isMac) {
 				config.UseVsync(false);
-				config.SetForegroundFps(60);
+				config.SetForegroundFPS(60);
 			}
 		}
 
@@ -68,14 +68,14 @@ public class DesktopTestStarter {
 		TextButton lastClickedTestButton;
 
 		public override void Create () {
-			Console.WriteLine("OpenGL renderer: " + Gdx.Graphics.GetGLVersion().GetRendererString());
-			Console.WriteLine("OpenGL vendor: " + Gdx.Graphics.GetGLVersion().GetVendorString());
+			Console.WriteLine("OpenGL renderer: " + GDX.Graphics.GetGLVersion().GetRendererString());
+			Console.WriteLine("OpenGL vendor: " + GDX.Graphics.GetGLVersion().GetVendorString());
 
-			IPreferences prefs = Gdx.App.GetPreferences("lwjgl3-tests");
+			IPreferences prefs = GDX.App.GetPreferences("lwjgl3-tests");
 
 			stage = new Stage(new ScreenViewport());
-			Gdx.Input.SetInputProcessor(stage);
-			skin = new Skin(Gdx.Files.Internal("data/uiskin.json"));
+			GDX.Input.SetInputProcessor(stage);
+			skin = new Skin(GDX.Files.Internal("data/uiskin.json"));
 
 			Table container = new Table();
 			stage.addActor(container);
@@ -139,10 +139,10 @@ public class DesktopTestStarter {
                 DesktopWindowConfiguration winConfig = new DesktopWindowConfiguration();
                 winConfig.SetTitle(_testName);
                 winConfig.SetWindowedMode(640, 480);
-                winConfig.SetWindowPosition(((DesktopGraphics)Gdx.Graphics).getWindow().getPositionX() + 40,
-                    ((DesktopGraphics)Gdx.Graphics).getWindow().getPositionY() + 40);
+                winConfig.SetWindowPosition(((DesktopGraphics)GDX.Graphics).getWindow().getPositionX() + 40,
+                    ((DesktopGraphics)GDX.Graphics).getWindow().getPositionY() + 40);
                 winConfig.UseVsync(false);
-                ((DesktopApplication)Gdx.App).newWindow(new GdxTestWrapper(test, options.logGLErrors), winConfig);
+                ((DesktopApplication)GDX.App).newWindow(new GdxTestWrapper(test, options.logGLErrors), winConfig);
                 Console.WriteLine("Started test: " + _testName);
                 _prefs.PutString("LastTest", _testName);
                 _prefs.Flush();

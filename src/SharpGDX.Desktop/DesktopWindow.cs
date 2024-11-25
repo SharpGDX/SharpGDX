@@ -300,7 +300,7 @@ namespace SharpGDX.Desktop
 
 		Pixmap[] pixmaps = new Pixmap[imagePaths.Length];
 		for (int i = 0; i < imagePaths.Length; i++) {
-			pixmaps[i] = new Pixmap(Gdx.Files.GetFileHandle(imagePaths[i], imageFileType));
+			pixmaps[i] = new Pixmap(GDX.Files.GetFileHandle(imagePaths[i], imageFileType));
 		}
 
 		setIcon(windowHandle, pixmaps);
@@ -467,13 +467,13 @@ namespace SharpGDX.Desktop
 	}
 
 	internal unsafe void makeCurrent () {
-		Gdx.Graphics = graphics;
-		Gdx.GL32 = graphics.GetGL32();
-		Gdx.GL31 = Gdx.GL32 != null ? Gdx.GL32 : graphics.GetGL31();
-		Gdx.GL30 = Gdx.GL31 != null ? Gdx.GL31 : graphics.GetGL30();
-		Gdx.GL20 = Gdx.GL30 != null ? Gdx.GL30 : graphics.GetGL20();
-		Gdx.GL = Gdx.GL20;
-		Gdx.Input = input;
+		GDX.Graphics = graphics;
+		GDX.GL32 = graphics.GetGL32();
+		GDX.GL31 = GDX.GL32 != null ? GDX.GL32 : graphics.GetGL31();
+		GDX.GL30 = GDX.GL31 != null ? GDX.GL31 : graphics.GetGL30();
+		GDX.GL20 = GDX.GL30 != null ? GDX.GL30 : graphics.GetGL20();
+		GDX.GL = GDX.GL20;
+		GDX.Input = input;
 
 		GLFW.MakeContextCurrent(windowHandle);
 	}

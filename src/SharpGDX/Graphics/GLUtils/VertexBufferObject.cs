@@ -49,7 +49,7 @@ public class VertexBufferObject : IVertexData {
 	 * @param numVertices the maximum number of vertices
 	 * @param attributes the {@link VertexAttributes}. */
 	public VertexBufferObject (bool isStatic, int numVertices, VertexAttributes attributes) {
-		bufferHandle = Gdx.GL20.glGenBuffer();
+		bufferHandle = GDX.GL20.glGenBuffer();
 
 		ByteBuffer data = BufferUtils.newUnsafeByteBuffer(attributes.vertexSize * numVertices);
 		((Buffer)data).limit(0);
@@ -58,7 +58,7 @@ public class VertexBufferObject : IVertexData {
 	}
 
 	protected VertexBufferObject (int usage, ByteBuffer data, bool ownsBuffer, VertexAttributes attributes) {
-		bufferHandle = Gdx.GL20.glGenBuffer();
+		bufferHandle = GDX.GL20.glGenBuffer();
 
 		setBuffer(data, ownsBuffer, attributes);
 		setUsage(usage);
@@ -104,7 +104,7 @@ public class VertexBufferObject : IVertexData {
 
 	private void bufferChanged () {
 		if (isBound) {
-			Gdx.GL20.glBufferData(IGL20.GL_ARRAY_BUFFER, byteBuffer.limit(), byteBuffer, usage);
+			GDX.GL20.glBufferData(IGL20.GL_ARRAY_BUFFER, byteBuffer.limit(), byteBuffer, usage);
 			isDirty = false;
 		}
 	}
@@ -147,7 +147,7 @@ public class VertexBufferObject : IVertexData {
 	}
 
 	public void bind (ShaderProgram shader, int[] locations) {
-		IGL20 gl = Gdx.GL20;
+		IGL20 gl = GDX.GL20;
 
 		gl.glBindBuffer(IGL20.GL_ARRAY_BUFFER, bufferHandle);
 		if (isDirty) {
@@ -190,7 +190,7 @@ public class VertexBufferObject : IVertexData {
 	}
 
 	public void unbind (ShaderProgram shader, int[] locations) {
-		 IGL20 gl = Gdx.GL20;
+		 IGL20 gl = GDX.GL20;
 		 int numAttributes = attributes.size();
 		if (locations == null) {
 			for (int i = 0; i < numAttributes; i++) {
@@ -208,13 +208,13 @@ public class VertexBufferObject : IVertexData {
 
 	/** Invalidates the VertexBufferObject so a new OpenGL buffer handle is created. Use this in case of a context loss. */
 	public void invalidate () {
-		bufferHandle = Gdx.GL20.glGenBuffer();
+		bufferHandle = GDX.GL20.glGenBuffer();
 		isDirty = true;
 	}
 
 	/** Disposes of all resources this VertexBufferObject uses. */
 	public void Dispose () {
-		IGL20 gl = Gdx.GL20;
+		IGL20 gl = GDX.GL20;
 		gl.glBindBuffer(IGL20.GL_ARRAY_BUFFER, 0);
 		gl.glDeleteBuffer(bufferHandle);
 		bufferHandle = 0;

@@ -35,7 +35,7 @@ public class BitmapFont : IDisposable {
 	/** Creates a BitmapFont using the default 15pt Liberation Sans font included in the libgdx JAR file. This is convenient to
 	 * easily display text without bothering without generating a bitmap font yourself. */
 	public BitmapFont () 
-	: this(Gdx.Files.Classpath("SharpGDX.lsans-15.fnt"), Gdx.Files.Classpath("SharpGDX.lsans-15.png"),
+	: this(GDX.Files.Classpath("SharpGDX.lsans-15.fnt"), GDX.Files.Classpath("SharpGDX.lsans-15.png"),
 		false, true)
 	{
 		
@@ -45,7 +45,7 @@ public class BitmapFont : IDisposable {
 	 * easily display text without bothering without generating a bitmap font yourself.
 	 * @param flip If true, the glyphs will be flipped for use with a perspective where 0,0 is the upper left corner. */
 	public BitmapFont (bool flip) 
-	: this(Gdx.Files.Classpath("SharpGDX.lsans-15.fnt"), Gdx.Files.Classpath("SharpGDX.lsans-15.png"),
+	: this(GDX.Files.Classpath("SharpGDX.lsans-15.fnt"), GDX.Files.Classpath("SharpGDX.lsans-15.png"),
 		flip, true)
 	{
 		
@@ -147,9 +147,9 @@ public class BitmapFont : IDisposable {
 			for (int i = 0; i < n; i++) {
 				FileHandle file;
 				if (data.fontFile == null)
-					file = Gdx.Files.Internal(data.imagePaths[i]);
+					file = GDX.Files.Internal(data.imagePaths[i]);
 				else
-					file = Gdx.Files.GetFileHandle(data.imagePaths[i], data.fontFile.type());
+					file = GDX.Files.GetFileHandle(data.imagePaths[i], data.fontFile.type());
 				regions.Add(new TextureRegion(new Texture(file, false)));
 			}
 			_ownsTexture = true;

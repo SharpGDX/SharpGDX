@@ -202,9 +202,9 @@ public class KTXTextureData : ITextureData, ICubemapData {
 		}
 
 		// KTX files require an unpack alignment of 4
-		Gdx.GL.glGetIntegerv(IGL20.GL_UNPACK_ALIGNMENT, buffer);
+		GDX.GL.glGetIntegerv(IGL20.GL_UNPACK_ALIGNMENT, buffer);
 		int previousUnpackAlignment = buffer.get(0);
-		if (previousUnpackAlignment != 4) Gdx.GL.glPixelStorei(IGL20.GL_UNPACK_ALIGNMENT, 4);
+		if (previousUnpackAlignment != 4) GDX.GL.glPixelStorei(IGL20.GL_UNPACK_ALIGNMENT, 4);
 		int glInternalFormat = this.glInternalFormat;
 		int glFormat = this.glFormat;
 		int pos = imagePos;
@@ -232,23 +232,23 @@ public class KTXTextureData : ITextureData, ICubemapData {
 					if (numberOfArrayElements > 0) pixelHeight = numberOfArrayElements;
 					if (compressed) {
 						if (glInternalFormat == ETC1.ETC1_RGB8_OES) {
-							if (!Gdx.Graphics.SupportsExtension("GL_OES_compressed_ETC1_RGB8_texture")) {
+							if (!GDX.Graphics.SupportsExtension("GL_OES_compressed_ETC1_RGB8_texture")) {
 								ETC1.ETC1Data etcData = new ETC1.ETC1Data(pixelWidth, pixelHeight, data, 0);
 								Pixmap pixmap = ETC1.decodeImage(etcData, Pixmap.Format.RGB888);
-								Gdx.GL.glTexImage2D(target + face, level, pixmap.getGLInternalFormat(), pixmap.getWidth(),
+								GDX.GL.glTexImage2D(target + face, level, pixmap.getGLInternalFormat(), pixmap.getWidth(),
 									pixmap.getHeight(), 0, pixmap.getGLFormat(), pixmap.getGLType(), pixmap.getPixels());
 								pixmap.Dispose();
 							} else {
-								Gdx.GL.glCompressedTexImage2D(target + face, level, glInternalFormat, pixelWidth, pixelHeight, 0,
+								GDX.GL.glCompressedTexImage2D(target + face, level, glInternalFormat, pixelWidth, pixelHeight, 0,
 									faceLodSize, data);
 							}
 						} else {
 							// Try to load (no software unpacking fallback)
-							Gdx.GL.glCompressedTexImage2D(target + face, level, glInternalFormat, pixelWidth, pixelHeight, 0,
+							GDX.GL.glCompressedTexImage2D(target + face, level, glInternalFormat, pixelWidth, pixelHeight, 0,
 								faceLodSize, data);
 						}
 					} else
-						Gdx.GL.glTexImage2D(target + face, level, glInternalFormat, pixelWidth, pixelHeight, 0, glFormat, glType, data);
+						GDX.GL.glTexImage2D(target + face, level, glInternalFormat, pixelWidth, pixelHeight, 0, glFormat, glType, data);
 				} else if (textureDimensions == 3) {
 					if (numberOfArrayElements > 0) pixelDepth = numberOfArrayElements;
 					// if (compressed)
@@ -260,8 +260,8 @@ public class KTXTextureData : ITextureData, ICubemapData {
 				}
 			}
 		}
-		if (previousUnpackAlignment != 4) Gdx.GL.glPixelStorei(IGL20.GL_UNPACK_ALIGNMENT, previousUnpackAlignment);
-		if (useMipMaps()) Gdx.GL.glGenerateMipmap(target);
+		if (previousUnpackAlignment != 4) GDX.GL.glPixelStorei(IGL20.GL_UNPACK_ALIGNMENT, previousUnpackAlignment);
+		if (useMipMaps()) GDX.GL.glGenerateMipmap(target);
 
 		// dispose data once transfered to GPU
 		disposePreparedData();

@@ -987,8 +987,8 @@ public class Cell: IPoolable {
 	/** Returns the defaults to use for all cells. This can be used to avoid needing to set the same defaults for every table (eg,
 	 * for spacing). */
 	static public Cell defaults () {
-		if (files == null || files != Gdx.Files) {
-			files = Gdx.Files;
+		if (files == null || files != GDX.Files) {
+			files = GDX.Files;
             _defaults = new Cell();
             _defaults._minWidth = Value.minWidth;
             _defaults._minHeight = Value.minHeight;

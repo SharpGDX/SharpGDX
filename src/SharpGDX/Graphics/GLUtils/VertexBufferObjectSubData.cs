@@ -63,10 +63,10 @@ public class VertexBufferObjectSubData : IVertexData {
 	}
 
 	private int createBufferObject () {
-		int result = Gdx.GL20.glGenBuffer();
-		Gdx.GL20.glBindBuffer(IGL20.GL_ARRAY_BUFFER, result);
-		Gdx.GL20.glBufferData(IGL20.GL_ARRAY_BUFFER, byteBuffer.capacity(), null, usage);
-		Gdx.GL20.glBindBuffer(IGL20.GL_ARRAY_BUFFER, 0);
+		int result = GDX.GL20.glGenBuffer();
+		GDX.GL20.glBindBuffer(IGL20.GL_ARRAY_BUFFER, result);
+		GDX.GL20.glBufferData(IGL20.GL_ARRAY_BUFFER, byteBuffer.capacity(), null, usage);
+		GDX.GL20.glBindBuffer(IGL20.GL_ARRAY_BUFFER, 0);
 		return result;
 	}
 
@@ -89,7 +89,7 @@ public class VertexBufferObjectSubData : IVertexData {
 
 	private void bufferChanged () {
 		if (isBound) {
-			Gdx.GL20.glBufferSubData(IGL20.GL_ARRAY_BUFFER, 0, byteBuffer.limit(), byteBuffer);
+			GDX.GL20.glBufferSubData(IGL20.GL_ARRAY_BUFFER, 0, byteBuffer.limit(), byteBuffer);
 			isDirty = false;
 		}
 	}
@@ -132,7 +132,7 @@ public class VertexBufferObjectSubData : IVertexData {
 	}
 
 	public void bind ( ShaderProgram shader,  int[] locations) {
-		 IGL20 gl = Gdx.GL20;
+		 IGL20 gl = GDX.GL20;
 
 		gl.glBindBuffer(IGL20.GL_ARRAY_BUFFER, bufferHandle);
 		if (isDirty) {
@@ -174,7 +174,7 @@ public class VertexBufferObjectSubData : IVertexData {
 	}
 
 	public void unbind ( ShaderProgram shader,  int[] locations) {
-		 IGL20 gl = Gdx.GL20;
+		 IGL20 gl = GDX.GL20;
 		 int numAttributes = attributes.size();
 		if (locations == null) {
 			for (int i = 0; i < numAttributes; i++) {
@@ -198,7 +198,7 @@ public class VertexBufferObjectSubData : IVertexData {
 
 	/** Disposes of all resources this VertexBufferObject uses. */
 	public void Dispose () {
-		IGL20 gl = Gdx.GL20;
+		IGL20 gl = GDX.GL20;
 		gl.glBindBuffer(IGL20.GL_ARRAY_BUFFER, 0);
 		gl.glDeleteBuffer(bufferHandle);
 		bufferHandle = 0;

@@ -57,7 +57,7 @@ public class Stage : InputAdapter , IDisposable {
 	/** Creates a stage with a {@link ScalingViewport} set to {@link Scaling#stretch}. The stage will use its own {@link Batch}
 	 * which will be disposed when the stage is disposed. */
 	public Stage ()
-		: this(new ScalingViewport(Scaling.stretch, Gdx.Graphics.GetWidth(), Gdx.Graphics.GetHeight(), new OrthographicCamera()),
+		: this(new ScalingViewport(Scaling.stretch, GDX.Graphics.GetWidth(), GDX.Graphics.GetHeight(), new OrthographicCamera()),
 		new SpriteBatch())
 	{
 		
@@ -85,7 +85,7 @@ public class Stage : InputAdapter , IDisposable {
 		root = new Group();
 		root.setStage(this);
 
-		viewport.Update(Gdx.Graphics.GetWidth(), Gdx.Graphics.GetHeight(), true);
+		viewport.Update(GDX.Graphics.GetWidth(), GDX.Graphics.GetHeight(), true);
 	}
 
 	public void draw () {
@@ -110,7 +110,7 @@ public class Stage : InputAdapter , IDisposable {
 		}
 
 		if (debugUnderMouse || debugParentUnderMouse || debugTableUnderMouse != Table.Debug.none) {
-			screenToStageCoordinates(tempCoords.Set(Gdx.Input.GetX(), Gdx.Input.GetY()));
+			screenToStageCoordinates(tempCoords.Set(GDX.Input.GetX(), GDX.Input.GetY()));
 			Actor actor = hit(tempCoords.x, tempCoords.y, true);
 			if (actor == null) return;
 
@@ -134,12 +134,12 @@ public class Stage : InputAdapter , IDisposable {
 			if (debugAll) root.debugAll();
 		}
 
-		Gdx.GL.glEnable(IGL20.GL_BLEND);
+		GDX.GL.glEnable(IGL20.GL_BLEND);
 		debugShapes.setProjectionMatrix(viewport.GetCamera().Combined);
 		debugShapes.begin();
 		root.drawDebug(debugShapes);
 		debugShapes.end();
-		Gdx.GL.glDisable(IGL20.GL_BLEND);
+		GDX.GL.glDisable(IGL20.GL_BLEND);
 	}
 
 	/** Disables debug on all actors recursively except the specified actor and any children. */
@@ -155,7 +155,7 @@ public class Stage : InputAdapter , IDisposable {
 
 	/** Calls {@link #act(float)} with {@link Graphics#getDeltaTime()}, limited to a minimum of 30fps. */
 	public void act () {
-		act(Math.Min(Gdx.Graphics.GetDeltaTime(), 1 / 30f));
+		act(Math.Min(GDX.Graphics.GetDeltaTime(), 1 / 30f));
 	}
 
 	/** Calls the {@link Actor#act(float)} method on each actor in the stage. Typically called each frame. This method also fires
@@ -176,7 +176,7 @@ public class Stage : InputAdapter , IDisposable {
 		}
 
 		// Update over actor for the mouse on the desktop.
-		IApplication.ApplicationType type = Gdx.App.GetType();
+		IApplication.ApplicationType type = GDX.App.GetType();
 		if (type == IApplication.ApplicationType.Desktop || type == IApplication.ApplicationType.Applet || type == IApplication.ApplicationType.WebGL)
 			mouseOverActor = fireEnterAndExit(mouseOverActor, mouseScreenX, mouseScreenY, -1);
 
@@ -733,7 +733,7 @@ public class Stage : InputAdapter , IDisposable {
 	 * @param stageCoords Input stage coordinates and output for resulting screen coordinates. */
 	public Vector2 stageToScreenCoordinates (Vector2 stageCoords) {
 		viewport.Project(stageCoords);
-		stageCoords.y = Gdx.Graphics.GetHeight() - stageCoords.y;
+		stageCoords.y = GDX.Graphics.GetHeight() - stageCoords.y;
 		return stageCoords;
 	}
 
@@ -843,7 +843,7 @@ public class Stage : InputAdapter , IDisposable {
 		int x1 = x0 + viewport.GetScreenWidth();
 		int y0 = viewport.GetScreenY();
 		int y1 = y0 + viewport.GetScreenHeight();
-		screenY = Gdx.Graphics.GetHeight() - 1 - screenY;
+		screenY = GDX.Graphics.GetHeight() - 1 - screenY;
 		return screenX >= x0 && screenX < x1 && screenY >= y0 && screenY < y1;
 	}
 

@@ -53,11 +53,11 @@ public class GLProfiler {
 		}
 		graphics.SetGL20(glInterceptor);
 
-		Gdx.GL32 = graphics.GetGL32();
-		Gdx.GL31 = graphics.GetGL31();
-		Gdx.GL30 = graphics.GetGL30();
-		Gdx.GL20 = graphics.GetGL20();
-		Gdx.GL = graphics.GetGL20();
+		GDX.GL32 = graphics.GetGL32();
+		GDX.GL31 = graphics.GetGL31();
+		GDX.GL30 = graphics.GetGL30();
+		GDX.GL20 = graphics.GetGL20();
+		GDX.GL = graphics.GetGL20();
 
 		enabled = true;
 	}
@@ -79,11 +79,11 @@ public class GLProfiler {
 			graphics.SetGL20(((GL20Interceptor)graphics.GetGL20()).gl20);
 		}
 
-		Gdx.GL32 = graphics.GetGL32();
-		Gdx.GL31 = graphics.GetGL31();
-		Gdx.GL30 = graphics.GetGL30();
-		Gdx.GL20 = graphics.GetGL20();
-		Gdx.GL = graphics.GetGL20();
+		GDX.GL32 = graphics.GetGL32();
+		GDX.GL31 = graphics.GetGL31();
+		GDX.GL30 = graphics.GetGL30();
+		GDX.GL20 = graphics.GetGL20();
+		GDX.GL = graphics.GetGL20();
 
 		enabled = false;
 	}

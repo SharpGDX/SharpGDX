@@ -199,7 +199,7 @@ public class DesktopApplicationConfiguration : DesktopWindowConfiguration
      * Sets the target framerate for the application. The CPU sleeps as needed. Must be positive. Use 0 to never sleep. Default is
      * 0.
      */
-    public void SetForegroundFps(int fps)
+    public void SetForegroundFPS(int fps)
     {
         foregroundFPS = fps;
     }

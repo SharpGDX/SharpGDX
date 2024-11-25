@@ -19,7 +19,7 @@ public class TextureAtlas : IDisposable {
 	/** Loads the specified pack file using {@link FileType#Internal}, using the parent directory of the pack file to find the page
 	 * images. */
 	public TextureAtlas (String internalPackFile) 
-	: this(Gdx.Files.Internal(internalPackFile))
+	: this(GDX.Files.Internal(internalPackFile))
 	{
 		
 	}

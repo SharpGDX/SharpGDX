@@ -170,8 +170,8 @@ public class FacedCubemapData : ICubemapData {
 					pixmap = tmp;
 					disposePixmap = true;
 				}
-				Gdx.GL.glPixelStorei(IGL20.GL_UNPACK_ALIGNMENT, 1);
-				Gdx.GL.glTexImage2D(IGL20.GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, pixmap.getGLInternalFormat(), pixmap.getWidth(),
+				GDX.GL.glPixelStorei(IGL20.GL_UNPACK_ALIGNMENT, 1);
+				GDX.GL.glTexImage2D(IGL20.GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, pixmap.getGLInternalFormat(), pixmap.getWidth(),
 					pixmap.getHeight(), 0, pixmap.getGLFormat(), pixmap.getGLType(), pixmap.getPixels());
 				if (disposePixmap) pixmap.Dispose();
 			}

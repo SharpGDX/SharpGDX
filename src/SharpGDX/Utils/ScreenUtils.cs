@@ -70,7 +70,7 @@ public static class ScreenUtils
     /// <param name="applyAntialiasing">Applies multi-sampling for antialiasing if true.</param>
     public static void Clear(float r, float g, float b, float a, bool clearDepth, bool applyAntialiasing)
     {
-        Gdx.GL.glClearColor(r, g, b, a);
+        GDX.GL.glClearColor(r, g, b, a);
         var mask = IGL20.GL_COLOR_BUFFER_BIT;
 
         if (clearDepth)
@@ -78,12 +78,12 @@ public static class ScreenUtils
             mask |= IGL20.GL_DEPTH_BUFFER_BIT;
         }
 
-        if (applyAntialiasing && Gdx.Graphics.GetBufferFormat().CoverageSampling)
+        if (applyAntialiasing && GDX.Graphics.GetBufferFormat().CoverageSampling)
         {
             mask |= IGL20.GL_COVERAGE_BUFFER_BIT_NV;
         }
 
-        Gdx.GL.glClear(mask);
+        GDX.GL.glClear(mask);
     }
 
     /// <summary>
@@ -105,8 +105,8 @@ public static class ScreenUtils
     /// <returns></returns>
     public static byte[] GetFrameBufferPixels(bool flipY)
     {
-        var w = Gdx.Graphics.GetBackBufferWidth();
-        var h = Gdx.Graphics.GetBackBufferHeight();
+        var w = GDX.Graphics.GetBackBufferWidth();
+        var h = GDX.Graphics.GetBackBufferHeight();
         return GetFrameBufferPixels(0, 0, w, h, flipY);
     }
 
@@ -138,9 +138,9 @@ public static class ScreenUtils
     /// <returns></returns>
     public static byte[] GetFrameBufferPixels(int x, int y, int w, int h, bool flipY)
     {
-        Gdx.GL.glPixelStorei(IGL20.GL_PACK_ALIGNMENT, 1);
+        GDX.GL.glPixelStorei(IGL20.GL_PACK_ALIGNMENT, 1);
         var pixels = BufferUtils.newByteBuffer(w * h * 4);
-        Gdx.GL.glReadPixels(x, y, w, h, IGL20.GL_RGBA, IGL20.GL_UNSIGNED_BYTE, pixels);
+        GDX.GL.glReadPixels(x, y, w, h, IGL20.GL_RGBA, IGL20.GL_UNSIGNED_BYTE, pixels);
         var numBytes = w * h * 4;
         var lines = new byte[numBytes];
 
@@ -182,8 +182,8 @@ public static class ScreenUtils
     /// <returns></returns>
     public static TextureRegion GetFrameBufferTexture()
     {
-        var w = Gdx.Graphics.GetBackBufferWidth();
-        var h = Gdx.Graphics.GetBackBufferHeight();
+        var w = GDX.Graphics.GetBackBufferWidth();
+        var h = GDX.Graphics.GetBackBufferHeight();
 
         return GetFrameBufferTexture(0, 0, w, h);
     }

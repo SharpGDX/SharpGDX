@@ -157,7 +157,7 @@ public class GLVersion
 		}
 		catch (FormatException)
 		{
-			Gdx.App.Error("libGDX GL", "Error parsing number: " + v + ", assuming: " + defaultValue);
+			GDX.App.Error("libGDX GL", "Error parsing number: " + v + ", assuming: " + defaultValue);
 
 			return defaultValue;
 		}
@@ -179,7 +179,7 @@ public class GLVersion
 		}
 		else
 		{
-			Gdx.App.Log(Tag, "Invalid version string: " + versionString);
+			GDX.App.Log(Tag, "Invalid version string: " + versionString);
 			_majorVersion = 2;
 			_minorVersion = 0;
 			_releaseVersion = 0;

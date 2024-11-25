@@ -95,11 +95,11 @@ public enum Filter
  * @return the pixmap */
 public static Pixmap createFromFrameBuffer(int x, int y, int w, int h)
 {
-	Gdx.GL.glPixelStorei(IGL20.GL_PACK_ALIGNMENT, 1);
+	GDX.GL.glPixelStorei(IGL20.GL_PACK_ALIGNMENT, 1);
 
 	Pixmap pixmap = new Pixmap(w, h, Format.RGBA8888);
 	ByteBuffer pixels = pixmap.getPixels();
-	Gdx.GL.glReadPixels(x, y, w, h, IGL20.GL_RGBA, IGL20.GL_UNSIGNED_BYTE, pixels);
+	GDX.GL.glReadPixels(x, y, w, h, IGL20.GL_RGBA, IGL20.GL_UNSIGNED_BYTE, pixels);
 
 	return pixmap;
 }
@@ -432,7 +432,7 @@ public void Dispose()
 {
     if (disposed)
     {
-        Gdx.App.Error("Pixmap", "Pixmap already disposed!");
+        GDX.App.Error("Pixmap", "Pixmap already disposed!");
         return;
     }
 

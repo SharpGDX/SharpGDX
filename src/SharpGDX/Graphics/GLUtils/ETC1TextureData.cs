@@ -57,17 +57,17 @@ namespace SharpGDX.Graphics.GLUtils
 	public void consumeCustomData (int target) {
 		if (!_isPrepared) throw new GdxRuntimeException("Call prepare() before calling consumeCompressedData()");
 
-		if (!Gdx.Graphics.SupportsExtension("GL_OES_compressed_ETC1_RGB8_texture")) {
+		if (!GDX.Graphics.SupportsExtension("GL_OES_compressed_ETC1_RGB8_texture")) {
 			Pixmap pixmap = ETC1.decodeImage(data, Pixmap.Format.RGB565);
-			Gdx.GL.glTexImage2D(target, 0, pixmap.getGLInternalFormat(), pixmap.getWidth(), pixmap.getHeight(), 0,
+			GDX.GL.glTexImage2D(target, 0, pixmap.getGLInternalFormat(), pixmap.getWidth(), pixmap.getHeight(), 0,
 				pixmap.getGLFormat(), pixmap.getGLType(), pixmap.getPixels());
 			if (_useMipMaps) MipMapGenerator.generateMipMap(target, pixmap, pixmap.getWidth(), pixmap.getHeight());
 			pixmap.Dispose();
 			_useMipMaps = false;
 		} else {
-			Gdx.GL.glCompressedTexImage2D(target, 0, ETC1.ETC1_RGB8_OES, width, height, 0,
+			GDX.GL.glCompressedTexImage2D(target, 0, ETC1.ETC1_RGB8_OES, width, height, 0,
 				data.compressedData.capacity() - data.dataOffset, data.compressedData);
-			if (useMipMaps()) Gdx.GL20.glGenerateMipmap(IGL20.GL_TEXTURE_2D);
+			if (useMipMaps()) GDX.GL20.glGenerateMipmap(IGL20.GL_TEXTURE_2D);
 		}
 		data.Dispose();
 		data = null;

@@ -99,7 +99,7 @@ public class Cubemap : GLTexture {
 		
 		this.data = data;
 		load(data);
-		if (data.isManaged()) addManagedCubemap(Gdx.App, this);
+		if (data.isManaged()) addManagedCubemap(GDX.App, this);
 	}
 
 	/** Construct a Cubemap with the specified texture files for the sides, does not generate mipmaps. */
@@ -168,7 +168,7 @@ public class Cubemap : GLTexture {
 		unsafeSetWrap(uWrap, vWrap, true);
 		unsafeSetAnisotropicFilter(anisotropicFilterLevel, true);
 		data.consumeCubemapData();
-		Gdx.GL.glBindTexture(glTarget, 0);
+		GDX.GL.glBindTexture(glTarget, 0);
 	}
 
 	public ICubemapData getCubemapData () {
@@ -181,7 +181,7 @@ public class Cubemap : GLTexture {
 
 	protected override void reload () {
 		if (!isManaged()) throw new GdxRuntimeException("Tried to reload an unmanaged Cubemap");
-		glHandle = Gdx.GL.glGenTexture();
+		glHandle = GDX.GL.glGenTexture();
 		load(data);
 	}
 
@@ -205,7 +205,7 @@ public class Cubemap : GLTexture {
 		// removal from the asset manager.
 		if (glHandle == 0) return;
 		delete();
-		if (data.isManaged()) if (managedCubemaps.get(Gdx.App) != null) managedCubemaps.get(Gdx.App).RemoveValue(this, true);
+		if (data.isManaged()) if (managedCubemaps.get(GDX.App) != null) managedCubemaps.get(GDX.App).RemoveValue(this, true);
 	}
 
 	private static void addManagedCubemap (IApplication app, Cubemap cubemap) {
@@ -270,7 +270,7 @@ public class Cubemap : GLTexture {
 
 					// unload the c, create a new gl handle then reload it.
 					assetManager.unload(fileName);
-					cubemap.glHandle = Gdx.GL.glGenTexture();
+					cubemap.glHandle = GDX.GL.glGenTexture();
 					assetManager.load(fileName, typeof(Cubemap), @params);
 				}
 			}
@@ -300,7 +300,7 @@ public class Cubemap : GLTexture {
 
 	/** @return the number of managed cubemaps currently loaded */
 	public static int getNumManagedCubemaps () {
-		return managedCubemaps.get(Gdx.App).size;
+		return managedCubemaps.get(GDX.App).size;
 	}
 
 }

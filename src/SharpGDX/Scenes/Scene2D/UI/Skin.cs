@@ -552,7 +552,7 @@ return typeResources.get(name);
             Boolean useIntegerPositions = (bool)json.readValue("useIntegerPositions", typeof(bool), true, jsonData);
 
             FileHandle fontFile = _skinFile.parent().child(path);
-            if (!fontFile.exists()) fontFile = Gdx.Files.Internal (path);
+            if (!fontFile.exists()) fontFile = GDX.Files.Internal (path);
         if (!fontFile.exists()) throw new SerializationException("Font file not found: " + fontFile);
 
         // Use a region with the same name as the font, else use a PNG file in the same directory as the FNT file.

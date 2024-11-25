@@ -12,166 +12,165 @@ namespace SharpGDX
     {
         public static class Keys
         {
-            // TODO: Fix casing. -RP
-            public const int ANY_KEY = -1;
-            public const int NUM_0 = 7;
-            public const int NUM_1 = 8;
-            public const int NUM_2 = 9;
-            public const int NUM_3 = 10;
-            public const int NUM_4 = 11;
-            public const int NUM_5 = 12;
-            public const int NUM_6 = 13;
-            public const int NUM_7 = 14;
-            public const int NUM_8 = 15;
-            public const int NUM_9 = 16;
+            public const int AnyKey = -1;
+            public const int Num0 = 7;
+            public const int Num1 = 8;
+            public const int Num2 = 9;
+            public const int Num3 = 10;
+            public const int Num4 = 11;
+            public const int Num5 = 12;
+            public const int Num6 = 13;
+            public const int Num7 = 14;
+            public const int Num8 = 15;
+            public const int Num9 = 16;
             public const int A = 29;
-            public const int ALT_LEFT = 57;
-            public const int ALT_RIGHT = 58;
-            public const int APOSTROPHE = 75;
-            public const int AT = 77;
+            public const int AltLeft = 57;
+            public const int AltRight = 58;
+            public const int Apostrophe = 75;
+            public const int At = 77;
             public const int B = 30;
-            public const int BACK = 4;
-            public const int BACKSLASH = 73;
+            public const int Back = 4;
+            public const int Backslash = 73;
             public const int C = 31;
-            public const int CALL = 5;
-            public const int CAMERA = 27;
-            public const int CAPS_LOCK = 115;
-            public const int CLEAR = 28;
-            public const int COMMA = 55;
+            public const int Call = 5;
+            public const int Camera = 27;
+            public const int CapsLock = 115;
+            public const int Clear = 28;
+            public const int Comma = 55;
             public const int D = 32;
-            public const int DEL = 67;
-            public const int BACKSPACE = 67;
-            public const int FORWARD_DEL = 112;
-            public const int DPAD_CENTER = 23;
-            public const int DPAD_DOWN = 20;
-            public const int DPAD_LEFT = 21;
-            public const int DPAD_RIGHT = 22;
-            public const int DPAD_UP = 19;
-            public const int CENTER = 23;
-            public const int DOWN = 20;
-            public const int LEFT = 21;
+            public const int Del = 67;
+            public const int Backspace = 67;
+            public const int ForwardDel = 112;
+            public const int DPadCenter = 23;
+            public const int DPadDown = 20;
+            public const int DPadLeft = 21;
+            public const int DPadRight = 22;
+            public const int DPadUp = 19;
+            public const int Center = 23;
+            public const int Down = 20;
+            public const int Left = 21;
             public const int Right = 22;
-            public const int UP = 19;
+            public const int Up = 19;
             public const int E = 33;
-            public const int ENDCALL = 6;
-            public const int ENTER = 66;
-            public const int ENVELOPE = 65;
+            public const int EndCall = 6;
+            public const int Enter = 66;
+            public const int Envelope = 65;
             public const int EQUALS = 70;
-            public const int EXPLORER = 64;
+            public const int Explorer = 64;
             public const int F = 34;
-            public const int FOCUS = 80;
+            public const int Focus = 80;
             public const int G = 35;
-            public const int GRAVE = 68;
+            public const int Grave = 68;
             public const int H = 36;
-            public const int HEADSETHOOK = 79;
-            public const int HOME = 3;
+            public const int HeadsetHook = 79;
+            public const int Home = 3;
             public const int I = 37;
             public const int J = 38;
             public const int K = 39;
             public const int L = 40;
-            public const int LEFT_BRACKET = 71;
+            public const int LeftBracket = 71;
             public const int M = 41;
-            public const int MEDIA_FAST_FORWARD = 90;
-            public const int MEDIA_NEXT = 87;
-            public const int MEDIA_PLAY_PAUSE = 85;
-            public const int MEDIA_PREVIOUS = 88;
-            public const int MEDIA_REWIND = 89;
-            public const int MEDIA_STOP = 86;
-            public const int MENU = 82;
-            public const int MINUS = 69;
-            public const int MUTE = 91;
+            public const int MediaFastForward = 90;
+            public const int MediaNext = 87;
+            public const int MediaPlayPause = 85;
+            public const int MediaPrevious = 88;
+            public const int MediaRewind = 89;
+            public const int MediaStop = 86;
+            public const int Menu = 82;
+            public const int Minus = 69;
+            public const int Mute = 91;
             public const int N = 42;
-            public const int NOTIFICATION = 83;
-            public const int NUM = 78;
+            public const int Notification = 83;
+            public const int Num = 78;
             public const int O = 43;
             public const int P = 44;
-            public const int PAUSE = 121; // aka break
-            public const int PERIOD = 56;
-            public const int PLUS = 81;
-            public const int POUND = 18;
-            public const int POWER = 26;
-            public const int PRINT_SCREEN = 120; // aka SYSRQ
+            public const int Pause = 121; // aka break
+            public const int Period = 56;
+            public const int Plus = 81;
+            public const int Pound = 18;
+            public const int Power = 26;
+            public const int PrintScreen = 120; // aka SYSRQ
             public const int Q = 45;
             public const int R = 46;
-            public const int RIGHT_BRACKET = 72;
+            public const int RightBracket = 72;
             public const int S = 47;
-            public const int SCROLL_LOCK = 116;
-            public const int SEARCH = 84;
-            public const int SEMICOLON = 74;
-            public const int SHIFT_LEFT = 59;
-            public const int SHIFT_RIGHT = 60;
-            public const int SLASH = 76;
-            public const int SOFT_LEFT = 1;
-            public const int SOFT_RIGHT = 2;
-            public const int SPACE = 62;
-            public const int STAR = 17;
-            public const int SYM = 63; // on MacOS, this is Command (⌘)
+            public const int ScrollLock = 116;
+            public const int Search = 84;
+            public const int Semicolon = 74;
+            public const int ShiftLeft = 59;
+            public const int ShiftRight = 60;
+            public const int Slash = 76;
+            public const int SoftLeft = 1;
+            public const int SoftRight = 2;
+            public const int Space = 62;
+            public const int Star = 17;
+            public const int Sym = 63; // on MacOS, this is Command (⌘)
             public const int T = 48;
-            public const int TAB = 61;
+            public const int Tab = 61;
             public const int U = 49;
-            public const int UNKNOWN = 0;
+            public const int Unknown = 0;
             public const int V = 50;
-            public const int VOLUME_DOWN = 25;
-            public const int VOLUME_UP = 24;
+            public const int VolumeDown = 25;
+            public const int VolumeUp = 24;
             public const int W = 51;
             public const int X = 52;
             public const int Y = 53;
             public const int Z = 54;
-            public const int META_ALT_LEFT_ON = 16;
-            public const int META_ALT_ON = 2;
-            public const int META_ALT_RIGHT_ON = 32;
-            public const int META_SHIFT_LEFT_ON = 64;
-            public const int META_SHIFT_ON = 1;
-            public const int META_SHIFT_RIGHT_ON = 128;
-            public const int META_SYM_ON = 4;
-            public const int CONTROL_LEFT = 129;
-            public const int CONTROL_RIGHT = 130;
-            public const int ESCAPE = 111;
-            public const int END = 123;
-            public const int INSERT = 124;
-            public const int PAGE_UP = 92;
-            public const int PAGE_DOWN = 93;
-            public const int PICTSYMBOLS = 94;
-            public const int SWITCH_CHARSET = 95;
-            public const int BUTTON_CIRCLE = 255;
-            public const int BUTTON_A = 96;
-            public const int BUTTON_B = 97;
-            public const int BUTTON_C = 98;
-            public const int BUTTON_X = 99;
-            public const int BUTTON_Y = 100;
-            public const int BUTTON_Z = 101;
-            public const int BUTTON_L1 = 102;
-            public const int BUTTON_R1 = 103;
-            public const int BUTTON_L2 = 104;
-            public const int BUTTON_R2 = 105;
-            public const int BUTTON_THUMBL = 106;
-            public const int BUTTON_THUMBR = 107;
-            public const int BUTTON_START = 108;
-            public const int BUTTON_SELECT = 109;
-            public const int BUTTON_MODE = 110;
+            public const int MetaAltLeftOn = 16;
+            public const int MetaAltOn = 2;
+            public const int MetaAltRightOn = 32;
+            public const int MetaShiftLeftOn = 64;
+            public const int MetaShiftOn = 1;
+            public const int MetaShiftRightOn = 128;
+            public const int MetaSymOn = 4;
+            public const int ControlLeft = 129;
+            public const int ControlRight = 130;
+            public const int Escape = 111;
+            public const int End = 123;
+            public const int Insert = 124;
+            public const int PageUp = 92;
+            public const int PageDown = 93;
+            public const int PictSymbols = 94;
+            public const int SwitchCharset = 95;
+            public const int ButtonCircle = 255;
+            public const int ButtonA = 96;
+            public const int ButtonB = 97;
+            public const int ButtonC = 98;
+            public const int ButtonX = 99;
+            public const int ButtonY = 100;
+            public const int ButtonZ = 101;
+            public const int ButtonL1 = 102;
+            public const int ButtonR1 = 103;
+            public const int ButtonL2 = 104;
+            public const int ButtonR2 = 105;
+            public const int ButtonThumbL = 106;
+            public const int ButtonThumbR = 107;
+            public const int ButtonStart = 108;
+            public const int ButtonSelect = 109;
+            public const int ButtonMode = 110;
 
-            public const int NUMPAD_0 = 144;
-            public const int NUMPAD_1 = 145;
-            public const int NUMPAD_2 = 146;
-            public const int NUMPAD_3 = 147;
-            public const int NUMPAD_4 = 148;
-            public const int NUMPAD_5 = 149;
-            public const int NUMPAD_6 = 150;
-            public const int NUMPAD_7 = 151;
-            public const int NUMPAD_8 = 152;
-            public const int NUMPAD_9 = 153;
+            public const int Numpad0 = 144;
+            public const int Numpad1 = 145;
+            public const int Numpad2 = 146;
+            public const int Numpad3 = 147;
+            public const int Numpad4 = 148;
+            public const int Numpad5 = 149;
+            public const int Numpad6 = 150;
+            public const int Numpad7 = 151;
+            public const int Numpad8 = 152;
+            public const int Numpad9 = 153;
 
-            public const int NUMPAD_DIVIDE = 154;
-            public const int NUMPAD_MULTIPLY = 155;
-            public const int NUMPAD_SUBTRACT = 156;
-            public const int NUMPAD_ADD = 157;
-            public const int NUMPAD_DOT = 158;
-            public const int NUMPAD_COMMA = 159;
-            public const int NUMPAD_ENTER = 160;
-            public const int NUMPAD_EQUALS = 161;
-            public const int NUMPAD_LEFT_PAREN = 162;
-            public const int NUMPAD_RIGHT_PAREN = 163;
-            public const int NUM_LOCK = 143;
+            public const int NumpadDivide = 154;
+            public const int NumpadMultiply = 155;
+            public const int NumpadSubtract = 156;
+            public const int NumpadAdd = 157;
+            public const int NumpadDot = 158;
+            public const int NumpadComma = 159;
+            public const int NumpadEnter = 160;
+            public const int NumpadEquals = 161;
+            public const int NumpadLeftParen = 162;
+            public const int NumpadRightParen = 163;
+            public const int NumLock = 143;
 
             // public const int BACKTICK = 0;
             // public const int TILDE = 0;
@@ -191,7 +190,7 @@ namespace SharpGDX
             // | | VK_PIPE
             // ! | VK_EXCLAMATION
             // ? | VK_QUESTION
-            public const int COLON = 243;
+            public const int Colon = 243;
             public const int F1 = 131;
             public const int F2 = 132;
             public const int F3 = 133;
@@ -217,75 +216,75 @@ namespace SharpGDX
             public const int F23 = 193;
             public const int F24 = 194;
 
-            public const int MAX_KEYCODE = 255;
+            public const int MaxKeycode = 255;
 
             /** @return a human readable representation of the keycode. The returned value can be used in
              *         {@link Input.Keys#valueOf(String)} */
             public static string toString(int keycode)
             {
                 if (keycode < 0) throw new IllegalArgumentException("keycode cannot be negative, keycode: " + keycode);
-                if (keycode > MAX_KEYCODE)
+                if (keycode > MaxKeycode)
                     throw new IllegalArgumentException("keycode cannot be greater than 255, keycode: " + keycode);
                 switch (keycode)
                 {
                     // META* variables should not be used with this method.
-                    case UNKNOWN:
+                    case Unknown:
                         return "Unknown";
-                    case SOFT_LEFT:
+                    case SoftLeft:
                         return "Soft Left";
-                    case SOFT_RIGHT:
+                    case SoftRight:
                         return "Soft Right";
-                    case HOME:
+                    case Home:
                         return "Home";
-                    case BACK:
+                    case Back:
                         return "Back";
-                    case CALL:
+                    case Call:
                         return "Call";
-                    case ENDCALL:
+                    case EndCall:
                         return "End Call";
-                    case NUM_0:
+                    case Num0:
                         return "0";
-                    case NUM_1:
+                    case Num1:
                         return "1";
-                    case NUM_2:
+                    case Num2:
                         return "2";
-                    case NUM_3:
+                    case Num3:
                         return "3";
-                    case NUM_4:
+                    case Num4:
                         return "4";
-                    case NUM_5:
+                    case Num5:
                         return "5";
-                    case NUM_6:
+                    case Num6:
                         return "6";
-                    case NUM_7:
+                    case Num7:
                         return "7";
-                    case NUM_8:
+                    case Num8:
                         return "8";
-                    case NUM_9:
+                    case Num9:
                         return "9";
-                    case STAR:
+                    case Star:
                         return "*";
-                    case POUND:
+                    case Pound:
                         return "#";
-                    case UP:
+                    case Up:
                         return "Up";
-                    case DOWN:
+                    case Down:
                         return "Down";
-                    case LEFT:
+                    case Left:
                         return "Left";
                     case Right:
                         return "Right";
-                    case CENTER:
+                    case Center:
                         return "Center";
-                    case VOLUME_UP:
+                    case VolumeUp:
                         return "Volume Up";
-                    case VOLUME_DOWN:
+                    case VolumeDown:
                         return "Volume Down";
-                    case POWER:
+                    case Power:
                         return "Power";
-                    case CAMERA:
+                    case Camera:
                         return "Camera";
-                    case CLEAR:
+                    case Clear:
                         return "Clear";
                     case A:
                         return "A";
@@ -339,151 +338,151 @@ namespace SharpGDX
                         return "Y";
                     case Z:
                         return "Z";
-                    case COMMA:
+                    case Comma:
                         return ",";
-                    case PERIOD:
+                    case Period:
                         return ".";
-                    case ALT_LEFT:
+                    case AltLeft:
                         return "L-Alt";
-                    case ALT_RIGHT:
+                    case AltRight:
                         return "R-Alt";
-                    case SHIFT_LEFT:
+                    case ShiftLeft:
                         return "L-Shift";
-                    case SHIFT_RIGHT:
+                    case ShiftRight:
                         return "R-Shift";
-                    case TAB:
+                    case Tab:
                         return "Tab";
-                    case SPACE:
+                    case Space:
                         return "Space";
-                    case SYM:
+                    case Sym:
                         return "SYM";
-                    case EXPLORER:
+                    case Explorer:
                         return "Explorer";
-                    case ENVELOPE:
+                    case Envelope:
                         return "Envelope";
-                    case ENTER:
+                    case Enter:
                         return "Enter";
-                    case DEL:
+                    case Del:
                         return "Delete"; // also BACKSPACE
-                    case GRAVE:
+                    case Grave:
                         return "`";
-                    case MINUS:
+                    case Minus:
                         return "-";
                     case EQUALS:
                         return "=";
-                    case LEFT_BRACKET:
+                    case LeftBracket:
                         return "[";
-                    case RIGHT_BRACKET:
+                    case RightBracket:
                         return "]";
-                    case BACKSLASH:
+                    case Backslash:
                         return "\\";
-                    case SEMICOLON:
+                    case Semicolon:
                         return ";";
-                    case APOSTROPHE:
+                    case Apostrophe:
                         return "'";
-                    case SLASH:
+                    case Slash:
                         return "/";
-                    case AT:
+                    case At:
                         return "@";
-                    case NUM:
+                    case Num:
                         return "Num";
-                    case HEADSETHOOK:
+                    case HeadsetHook:
                         return "Headset Hook";
-                    case FOCUS:
+                    case Focus:
                         return "Focus";
-                    case PLUS:
+                    case Plus:
                         return "Plus";
-                    case MENU:
+                    case Menu:
                         return "Menu";
-                    case NOTIFICATION:
+                    case Notification:
                         return "Notification";
-                    case SEARCH:
+                    case Search:
                         return "Search";
-                    case MEDIA_PLAY_PAUSE:
+                    case MediaPlayPause:
                         return "Play/Pause";
-                    case MEDIA_STOP:
+                    case MediaStop:
                         return "Stop Media";
-                    case MEDIA_NEXT:
+                    case MediaNext:
                         return "Next Media";
-                    case MEDIA_PREVIOUS:
+                    case MediaPrevious:
                         return "Prev Media";
-                    case MEDIA_REWIND:
+                    case MediaRewind:
                         return "Rewind";
-                    case MEDIA_FAST_FORWARD:
+                    case MediaFastForward:
                         return "Fast Forward";
-                    case MUTE:
+                    case Mute:
                         return "Mute";
-                    case PAGE_UP:
+                    case PageUp:
                         return "Page Up";
-                    case PAGE_DOWN:
+                    case PageDown:
                         return "Page Down";
-                    case PICTSYMBOLS:
+                    case PictSymbols:
                         return "PICTSYMBOLS";
-                    case SWITCH_CHARSET:
+                    case SwitchCharset:
                         return "SWITCH_CHARSET";
-                    case BUTTON_A:
+                    case ButtonA:
                         return "A Button";
-                    case BUTTON_B:
+                    case ButtonB:
                         return "B Button";
-                    case BUTTON_C:
+                    case ButtonC:
                         return "C Button";
-                    case BUTTON_X:
+                    case ButtonX:
                         return "X Button";
-                    case BUTTON_Y:
+                    case ButtonY:
                         return "Y Button";
-                    case BUTTON_Z:
+                    case ButtonZ:
                         return "Z Button";
-                    case BUTTON_L1:
+                    case ButtonL1:
                         return "L1 Button";
-                    case BUTTON_R1:
+                    case ButtonR1:
                         return "R1 Button";
-                    case BUTTON_L2:
+                    case ButtonL2:
                         return "L2 Button";
-                    case BUTTON_R2:
+                    case ButtonR2:
                         return "R2 Button";
-                    case BUTTON_THUMBL:
+                    case ButtonThumbL:
                         return "Left Thumb";
-                    case BUTTON_THUMBR:
+                    case ButtonThumbR:
                         return "Right Thumb";
-                    case BUTTON_START:
+                    case ButtonStart:
                         return "Start";
-                    case BUTTON_SELECT:
+                    case ButtonSelect:
                         return "Select";
-                    case BUTTON_MODE:
+                    case ButtonMode:
                         return "Button Mode";
-                    case FORWARD_DEL:
+                    case ForwardDel:
                         return "Forward Delete";
-                    case CONTROL_LEFT:
+                    case ControlLeft:
                         return "L-Ctrl";
-                    case CONTROL_RIGHT:
+                    case ControlRight:
                         return "R-Ctrl";
-                    case ESCAPE:
+                    case Escape:
                         return "Escape";
-                    case END:
+                    case End:
                         return "End";
-                    case INSERT:
+                    case Insert:
                         return "Insert";
-                    case NUMPAD_0:
+                    case Numpad0:
                         return "Numpad 0";
-                    case NUMPAD_1:
+                    case Numpad1:
                         return "Numpad 1";
-                    case NUMPAD_2:
+                    case Numpad2:
                         return "Numpad 2";
-                    case NUMPAD_3:
+                    case Numpad3:
                         return "Numpad 3";
-                    case NUMPAD_4:
+                    case Numpad4:
                         return "Numpad 4";
-                    case NUMPAD_5:
+                    case Numpad5:
                         return "Numpad 5";
-                    case NUMPAD_6:
+                    case Numpad6:
                         return "Numpad 6";
-                    case NUMPAD_7:
+                    case Numpad7:
                         return "Numpad 7";
-                    case NUMPAD_8:
+                    case Numpad8:
                         return "Numpad 8";
-                    case NUMPAD_9:
+                    case Numpad9:
                         return "Numpad 9";
-                    case COLON:
+                    case Colon:
                         return ":";
                     case F1:
                         return "F1";
@@ -533,35 +532,35 @@ namespace SharpGDX
                         return "F23";
                     case F24:
                         return "F24";
-                    case NUMPAD_DIVIDE:
+                    case NumpadDivide:
                         return "Num /";
-                    case NUMPAD_MULTIPLY:
+                    case NumpadMultiply:
                         return "Num *";
-                    case NUMPAD_SUBTRACT:
+                    case NumpadSubtract:
                         return "Num -";
-                    case NUMPAD_ADD:
+                    case NumpadAdd:
                         return "Num +";
-                    case NUMPAD_DOT:
+                    case NumpadDot:
                         return "Num .";
-                    case NUMPAD_COMMA:
+                    case NumpadComma:
                         return "Num ,";
-                    case NUMPAD_ENTER:
+                    case NumpadEnter:
                         return "Num Enter";
-                    case NUMPAD_EQUALS:
+                    case NumpadEquals:
                         return "Num =";
-                    case NUMPAD_LEFT_PAREN:
+                    case NumpadLeftParen:
                         return "Num (";
-                    case NUMPAD_RIGHT_PAREN:
+                    case NumpadRightParen:
                         return "Num )";
-                    case NUM_LOCK:
+                    case NumLock:
                         return "Num Lock";
-                    case CAPS_LOCK:
+                    case CapsLock:
                         return "Caps Lock";
-                    case SCROLL_LOCK:
+                    case ScrollLock:
                         return "Scroll Lock";
-                    case PAUSE:
+                    case Pause:
                         return "Pause";
-                    case PRINT_SCREEN:
+                    case PrintScreen:
                         return "Print";
                     // BUTTON_CIRCLE unhandled, as it conflicts with the more likely to be pressed F12
                     default:

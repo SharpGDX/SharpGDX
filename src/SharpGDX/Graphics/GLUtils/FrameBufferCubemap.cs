@@ -103,7 +103,7 @@ public class FrameBufferCubemap : GLFrameBuffer<Cubemap> {
 	}
 
     protected override void attachFrameBufferColorTexture (Cubemap texture) {
-		IGL20 gl = Gdx.GL20;
+		IGL20 gl = GDX.GL20;
 		int glHandle = texture.getTextureObjectHandle();
 		Cubemap.CubemapSide[] sides = Cubemap.CubemapSide.values();
 		foreach (Cubemap.CubemapSide side in sides) {
@@ -135,7 +135,7 @@ public class FrameBufferCubemap : GLFrameBuffer<Cubemap> {
 	/** Bind the side, making it active to render on. Should be called in between a call to {@link #begin()} and {@link #end()}.
 	 * @param side The side to bind */
 	protected void bindSide (Cubemap.CubemapSide side) {
-		Gdx.GL20.glFramebufferTexture2D(IGL20.GL_FRAMEBUFFER, IGL20.GL_COLOR_ATTACHMENT0, side.glEnum,
+		GDX.GL20.glFramebufferTexture2D(IGL20.GL_FRAMEBUFFER, IGL20.GL_COLOR_ATTACHMENT0, side.glEnum,
 			getColorBufferTexture().getTextureObjectHandle(), 0);
 	}
 

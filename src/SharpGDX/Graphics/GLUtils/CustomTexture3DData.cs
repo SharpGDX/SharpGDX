@@ -116,7 +116,7 @@ public class CustomTexture3DData : ITexture3DData {
 	}
 
 	public void consume3DData () {
-		Gdx.GL30.glTexImage3D(IGL30.GL_TEXTURE_3D, mipMapLevel, glInternalFormat, width, height, depth, 0, glFormat, glType, pixels);
+		GDX.GL30.glTexImage3D(IGL30.GL_TEXTURE_3D, mipMapLevel, glInternalFormat, width, height, depth, 0, glFormat, glType, pixels);
 	}
 
 }

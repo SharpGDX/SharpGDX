@@ -1593,7 +1593,7 @@ namespace SharpGDX.Graphics.G2D
 				String errorMessage = "The loaded particle effect descriptor file uses an old invalid format. "
 					+ "Please download the latest version of the Particle Editor tool and recreate the file by"
 					+ " loading and saving it again.";
-				Gdx.App.Error("ParticleEmitter", errorMessage);
+				GDX.App.Error("ParticleEmitter", errorMessage);
 				throw new IOException(errorMessage);
 			}
 		}

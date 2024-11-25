@@ -21,6 +21,7 @@ public class InputEventQueue
 
     private readonly IntArray _processingQueue = new();
     private readonly IntArray _queue = new();
+
     private long _currentEventTime;
 
     public void Drain(IInputProcessor? processor)

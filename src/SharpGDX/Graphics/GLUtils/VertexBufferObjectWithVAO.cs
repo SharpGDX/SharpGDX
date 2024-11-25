@@ -67,7 +67,7 @@ public class VertexBufferObjectWithVAO : IVertexData {
 		ownsBuffer = true;
 		((Buffer)buffer).flip();
 		((Buffer)byteBuffer).flip();
-		bufferHandle = Gdx.GL20.glGenBuffer();
+		bufferHandle = GDX.GL20.glGenBuffer();
 		usage = isStatic ? IGL20.GL_STATIC_DRAW : IGL20.GL_DYNAMIC_DRAW;
 		createVAO();
 	}
@@ -81,7 +81,7 @@ public class VertexBufferObjectWithVAO : IVertexData {
 		buffer = byteBuffer.asFloatBuffer();
 		((Buffer)buffer).flip();
 		((Buffer)byteBuffer).flip();
-		bufferHandle = Gdx.GL20.glGenBuffer();
+		bufferHandle = GDX.GL20.glGenBuffer();
 		usage = isStatic ? IGL20.GL_STATIC_DRAW : IGL20.GL_DYNAMIC_DRAW;
 		createVAO();
 	}
@@ -105,8 +105,8 @@ public class VertexBufferObjectWithVAO : IVertexData {
 
 	private void bufferChanged () {
 		if (isBound) {
-			Gdx.GL20.glBindBuffer(IGL20.GL_ARRAY_BUFFER, bufferHandle);
-			Gdx.GL20.glBufferData(IGL20.GL_ARRAY_BUFFER, byteBuffer.limit(), byteBuffer, usage);
+			GDX.GL20.glBindBuffer(IGL20.GL_ARRAY_BUFFER, bufferHandle);
+			GDX.GL20.glBufferData(IGL20.GL_ARRAY_BUFFER, byteBuffer.limit(), byteBuffer, usage);
 			isDirty = false;
 		}
 	}
@@ -137,7 +137,7 @@ public class VertexBufferObjectWithVAO : IVertexData {
 	}
 
 	public void bind (ShaderProgram shader, int[] locations) {
-		IGL30 gl = Gdx.GL30;
+		IGL30 gl = GDX.GL30;
 
 		gl.glBindVertexArray(vaoHandle);
 
@@ -169,7 +169,7 @@ public class VertexBufferObjectWithVAO : IVertexData {
 		}
 
 		if (!stillValid) {
-			Gdx.GL.glBindBuffer(IGL20.GL_ARRAY_BUFFER, bufferHandle);
+			GDX.GL.glBindBuffer(IGL20.GL_ARRAY_BUFFER, bufferHandle);
 			unbindAttributes(shader);
 			this.cachedLocations.clear();
 
@@ -224,21 +224,21 @@ public class VertexBufferObjectWithVAO : IVertexData {
 	}
 
 	public void unbind (ShaderProgram shader, int[] locations) {
-		IGL30 gl = Gdx.GL30;
+		IGL30 gl = GDX.GL30;
 		gl.glBindVertexArray(0);
 		isBound = false;
 	}
 
 	/** Invalidates the VertexBufferObject so a new OpenGL buffer handle is created. Use this in case of a context loss. */
 	public void invalidate () {
-		bufferHandle = Gdx.GL30.glGenBuffer();
+		bufferHandle = GDX.GL30.glGenBuffer();
 		createVAO();
 		isDirty = true;
 	}
 
 	/** Disposes of all resources this VertexBufferObject uses. */
 	public void Dispose () {
-		IGL30 gl = Gdx.GL30;
+		IGL30 gl = GDX.GL30;
 
 		gl.glBindBuffer(IGL20.GL_ARRAY_BUFFER, 0);
 		gl.glDeleteBuffer(bufferHandle);
@@ -251,7 +251,7 @@ public class VertexBufferObjectWithVAO : IVertexData {
 
 	private void createVAO () {
 		((Buffer)tmpHandle).clear();
-		Gdx.GL30.glGenVertexArrays(1, tmpHandle);
+		GDX.GL30.glGenVertexArrays(1, tmpHandle);
 		vaoHandle = tmpHandle.get();
 	}
 
@@ -260,7 +260,7 @@ public class VertexBufferObjectWithVAO : IVertexData {
 			((Buffer)tmpHandle).clear();
 			tmpHandle.put(vaoHandle);
 			((Buffer)tmpHandle).flip();
-			Gdx.GL30.glDeleteVertexArrays(1, tmpHandle);
+			GDX.GL30.glDeleteVertexArrays(1, tmpHandle);
 			vaoHandle = -1;
 		}
 	}

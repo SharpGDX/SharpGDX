@@ -171,7 +171,7 @@ public class Slider : ProgressBar {
 		}
 
 		float oldValue = value;
-		if (!Gdx.Input.IsKeyPressed(Keys.SHIFT_LEFT) && !Gdx.Input.IsKeyPressed(Keys.SHIFT_RIGHT)) value = snap(value);
+		if (!GDX.Input.IsKeyPressed(Keys.ShiftLeft) && !GDX.Input.IsKeyPressed(Keys.ShiftRight)) value = snap(value);
 		bool valueSet = setValue(value);
 		if (value == oldValue) position = oldPosition;
 		return valueSet;

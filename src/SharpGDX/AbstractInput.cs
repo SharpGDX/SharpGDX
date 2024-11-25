@@ -8,8 +8,8 @@ public abstract class AbstractInput : IInput
 {
     private readonly IntSet _keysToCatch = new();
 
-    protected readonly bool[] JustPressedKeys = new bool[Keys.MAX_KEYCODE + 1];
-    protected readonly bool[] PressedKeys = new bool[Keys.MAX_KEYCODE + 1];
+    protected readonly bool[] JustPressedKeys = new bool[Keys.MaxKeycode + 1];
+    protected readonly bool[] PressedKeys = new bool[Keys.MaxKeycode + 1];
 
     protected bool KeyJustPressed;
     protected int PressedKeyCount;
@@ -97,18 +97,18 @@ public abstract class AbstractInput : IInput
 
     public bool IsKeyJustPressed(int key)
     {
-        if (key == Keys.ANY_KEY) return KeyJustPressed;
+        if (key == Keys.AnyKey) return KeyJustPressed;
 
-        if (key < 0 || key > Keys.MAX_KEYCODE) return false;
+        if (key < 0 || key > Keys.MaxKeycode) return false;
 
         return JustPressedKeys[key];
     }
 
     public bool IsKeyPressed(int key)
     {
-        if (key == Keys.ANY_KEY) return PressedKeyCount > 0;
+        if (key == Keys.AnyKey) return PressedKeyCount > 0;
 
-        if (key is < 0 or > Keys.MAX_KEYCODE) return false;
+        if (key is < 0 or > Keys.MaxKeycode) return false;
 
         return PressedKeys[key];
     }

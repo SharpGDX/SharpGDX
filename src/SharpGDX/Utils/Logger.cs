@@ -34,32 +34,32 @@ namespace SharpGDX.Utils
 
 		public void debug(String message)
 		{
-			if (level >= DEBUG) Gdx.App.Debug(tag, message);
+			if (level >= DEBUG) GDX.App.Debug(tag, message);
 		}
 
 		public void debug(String message, Exception exception)
 		{
-			if (level >= DEBUG) Gdx.App.Debug(tag, message, exception);
+			if (level >= DEBUG) GDX.App.Debug(tag, message, exception);
 		}
 
 		public void info(String message)
 		{
-			if (level >= INFO) Gdx.App.Log(tag, message);
+			if (level >= INFO) GDX.App.Log(tag, message);
 		}
 
 		public void info(String message, Exception exception)
 		{
-			if (level >= INFO) Gdx.App.Log(tag, message, exception);
+			if (level >= INFO) GDX.App.Log(tag, message, exception);
 		}
 
 		public void error(String message)
 		{
-			if (level >= ERROR) Gdx.App.Error(tag, message);
+			if (level >= ERROR) GDX.App.Error(tag, message);
 		}
 
 		public void error(String message, Exception exception)
 		{
-			if (level >= ERROR) Gdx.App.Error(tag, message, exception);
+			if (level >= ERROR) GDX.App.Error(tag, message, exception);
 		}
 
 		/** Sets the log level. {@link #NONE} will mute all log output. {@link #ERROR} will only let error messages through.

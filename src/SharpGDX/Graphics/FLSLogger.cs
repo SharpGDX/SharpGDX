@@ -35,10 +35,10 @@ namespace SharpGDX.Graphics
 			 long nanoTime = TimeUtils.nanoTime();
 			if (nanoTime - startTime > 1000000000) /* 1,000,000,000ns == one second */
 			{
-				 int fps = Gdx.Graphics.GetFramesPerSecond();
+				 int fps = GDX.Graphics.GetFramesPerSecond();
 				if (fps < bound)
 				{
-					Gdx.App.Log("FPSLogger", "fps: " + fps);
+					GDX.App.Log("FPSLogger", "fps: " + fps);
 					startTime = nanoTime;
 				}
 			}

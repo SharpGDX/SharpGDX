@@ -31,7 +31,7 @@ namespace SharpGDX.Scenes.Scene2D.Utils
 			if (scissors.size == 0)
 			{
 				if (scissor.width < 1 || scissor.height < 1) return false;
-				Gdx.GL.glEnable(IGL20.GL_SCISSOR_TEST);
+				GDX.GL.glEnable(IGL20.GL_SCISSOR_TEST);
 			}
 			else
 			{
@@ -63,7 +63,7 @@ namespace SharpGDX.Scenes.Scene2D.Utils
 		{
 			Rectangle old = scissors.pop();
 			if (scissors.size == 0)
-				Gdx.GL.glDisable(IGL20.GL_SCISSOR_TEST);
+				GDX.GL.glDisable(IGL20.GL_SCISSOR_TEST);
 			else
 			{
 				Rectangle scissor = scissors.peek();
@@ -101,7 +101,7 @@ namespace SharpGDX.Scenes.Scene2D.Utils
 		 * @see #calculateScissors(Camera, float, float, float, float, Matrix4, Rectangle, Rectangle) */
 		public static void calculateScissors(Camera camera, Matrix4 batchTransform, Rectangle area, Rectangle scissor)
 		{
-			calculateScissors(camera, 0, 0, Gdx.Graphics.GetWidth(), Gdx.Graphics.GetHeight(), batchTransform, area, scissor);
+			calculateScissors(camera, 0, 0, GDX.Graphics.GetWidth(), GDX.Graphics.GetHeight(), batchTransform, area, scissor);
 		}
 
 		/** Calculates a scissor rectangle in OpenGL ES window coordinates from a {@link Camera}, a transformation {@link Matrix4} and
@@ -134,7 +134,7 @@ namespace SharpGDX.Scenes.Scene2D.Utils
 		{
 			if (scissors.size == 0)
 			{
-				viewport.Set(0, 0, Gdx.Graphics.GetWidth(), Gdx.Graphics.GetHeight());
+				viewport.Set(0, 0, GDX.Graphics.GetWidth(), GDX.Graphics.GetHeight());
 				return viewport;
 			}
 			else

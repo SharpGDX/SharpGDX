@@ -412,8 +412,8 @@ public class TextArea : TextField {
 			bool result = base.keyDown(@event, keycode);
 			if (_textArea.hasKeyboardFocus()) {
 				bool repeat = false;
-				bool shift = Gdx.Input.IsKeyPressed(Keys.SHIFT_LEFT) || Gdx.Input.IsKeyPressed(Keys.SHIFT_RIGHT);
-				if (keycode == Keys.DOWN) {
+				bool shift = GDX.Input.IsKeyPressed(Keys.ShiftLeft) || GDX.Input.IsKeyPressed(Keys.ShiftRight);
+				if (keycode == Keys.Down) {
 					if (shift) {
 						if (!_textArea.hasSelection) {
 							_textArea.selectionStart = _textArea.cursor;
@@ -425,7 +425,7 @@ public class TextArea : TextField {
 					_textArea.moveCursorLine(_textArea.cursorLine + 1);
 					repeat = true;
 
-				} else if (keycode == Keys.UP) {
+				} else if (keycode == Keys.Up) {
 					if (shift) {
 						if (!_textArea.hasSelection) {
 							_textArea.selectionStart = _textArea.cursor;

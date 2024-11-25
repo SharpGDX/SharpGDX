@@ -96,7 +96,7 @@ public class TextField : Widget , IDisableable {
 				return;
 			}
 			_textField.cursorOn = !_textField.cursorOn;
-			Gdx.Graphics.RequestRendering();
+			GDX.Graphics.RequestRendering();
 		}
 }
 
@@ -120,7 +120,7 @@ public class TextField : Widget , IDisableable {
 		keyRepeatTask = new KeyRepeatTask(this);
 		blinkTask = new BlinkTask(this);
 		setStyle(style);
-		clipboard = Gdx.App.GetClipboard();
+		clipboard = GDX.App.GetClipboard();
 		initialize();
 		setText(text);
 		setSize(getPrefWidth(), getPrefHeight());
@@ -519,7 +519,7 @@ public class TextField : Widget , IDisableable {
 				textField = current.findNextTextField(stage.getActors(), null, bestCoords, currentCoords, up);
 			}
 			if (textField == null) {
-				Gdx.Input.SetOnscreenKeyboardVisible(false);
+				GDX.Input.SetOnscreenKeyboardVisible(false);
 				break;
 			}
 			if (stage.setKeyboardFocus(textField)) {
@@ -827,7 +827,7 @@ public class TextField : Widget , IDisableable {
 	 * @author mzechner */
 	public class DefaultOnscreenKeyboard : IOnscreenKeyboard {
 		public void show (bool visible) {
-			Gdx.Input.SetOnscreenKeyboardVisible(visible);
+			GDX.Input.SetOnscreenKeyboardVisible(visible);
 		}
 	}
 
@@ -910,7 +910,7 @@ public class TextField : Widget , IDisableable {
 					repeat = true;
 					break;
 				case Keys.C:
-				case Keys.INSERT:
+				case Keys.Insert:
 					_textField.copy();
 					return true;
 				case Keys.X:
@@ -933,10 +933,10 @@ public class TextField : Widget , IDisableable {
 
 			if (UIUtils.shift()) {
 				switch (keycode) {
-				case Keys.INSERT:
+				case Keys.Insert:
 					_textField.paste(_textField.clipboard.GetContents(), true);
 					break;
-				case Keys.FORWARD_DEL:
+				case Keys.ForwardDel:
 					_textField.cut(true);
 					break;
 				}
@@ -947,7 +947,7 @@ public class TextField : Widget , IDisableable {
 					{
 						switch (keycode)
 						{
-							case Keys.LEFT:
+							case Keys.Left:
 								_textField.moveCursor(false, jump);
 								repeat = true;
 								handled = true;
@@ -957,11 +957,11 @@ public class TextField : Widget , IDisableable {
 								repeat = true;
 								handled = true;
 								goto keys;
-							case Keys.HOME:
+							case Keys.Home:
 								goHome(jump);
 								handled = true;
 								goto keys;
-							case Keys.END:
+							case Keys.End:
 								goEnd(jump);
 								handled = true;
 								goto keys;
@@ -984,7 +984,7 @@ public class TextField : Widget , IDisableable {
 			} else {
 				// Cursor movement or other keys (kills selection).
 				switch (keycode) {
-				case Keys.LEFT:
+				case Keys.Left:
 					_textField.moveCursor(false, jump);
 					_textField.clearSelection();
 					repeat = true;
@@ -996,12 +996,12 @@ public class TextField : Widget , IDisableable {
 					repeat = true;
 					handled = true;
 					break;
-				case Keys.HOME:
+				case Keys.Home:
 					goHome(jump);
 					_textField.clearSelection();
 					handled = true;
 					break;
-				case Keys.END:
+				case Keys.End:
 					goEnd(jump);
 					_textField.clearSelection();
 					handled = true;
@@ -1055,7 +1055,7 @@ public class TextField : Widget , IDisableable {
 
 			if (!_textField.hasKeyboardFocus()) return false;
 
-			if (UIUtils.isMac && Gdx.Input.IsKeyPressed(Keys.SYM)) return true;
+			if (UIUtils.isMac && GDX.Input.IsKeyPressed(Keys.Sym)) return true;
 
 			if (checkFocusTraversal(character))
 				_textField.next(UIUtils.shift());

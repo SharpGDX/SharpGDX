@@ -71,13 +71,13 @@ public class FileTextureArrayData : ITextureArrayData {
 					pixmap = temp;
 					disposePixmap = true;
 				}
-				Gdx.GL30.glTexSubImage3D(IGL30.GL_TEXTURE_2D_ARRAY, 0, 0, 0, i, pixmap.getWidth(), pixmap.getHeight(), 1,
+				GDX.GL30.glTexSubImage3D(IGL30.GL_TEXTURE_2D_ARRAY, 0, 0, 0, i, pixmap.getWidth(), pixmap.getHeight(), 1,
 					pixmap.getGLInternalFormat(), pixmap.getGLType(), pixmap.getPixels());
 				if (disposePixmap) pixmap.Dispose();
 			}
 		}
 		if (useMipMaps && !containsCustomData) {
-			Gdx.GL20.glGenerateMipmap(IGL30.GL_TEXTURE_2D_ARRAY);
+			GDX.GL20.glGenerateMipmap(IGL30.GL_TEXTURE_2D_ARRAY);
 		}
 	}
 
