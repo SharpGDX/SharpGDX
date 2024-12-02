@@ -21,7 +21,7 @@ where T: Event{
 		this.count = count;
 	}
 
-	public override bool handle (T @event) {
+	public override bool Handle (T @event) {
 		current++;
 		return current >= count;
 	}

@@ -10,7 +10,7 @@ namespace SharpGDX.Scenes.Scene2D.Utils
  * @author Nathan Sweet */
 	abstract public class ChangeListener : IEventListener
 	{
-	public bool handle(Event @event)
+	public bool Handle(Event @event)
 	{
 		if (!(@event is ChangeEvent)) return false;
 		changed((ChangeEvent)@event, @event.getTarget());

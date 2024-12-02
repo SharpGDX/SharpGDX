@@ -13,7 +13,7 @@ public class MoveByAction : RelativeTemporalAction {
 	private float amountX, amountY;
 
 	protected override void updateRelative (float percentDelta) {
-		target.moveBy(amountX * percentDelta, amountY * percentDelta);
+		Target.moveBy(amountX * percentDelta, amountY * percentDelta);
 	}
 
 	public void setAmount (float x, float y) {

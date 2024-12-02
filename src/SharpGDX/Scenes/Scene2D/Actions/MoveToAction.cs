@@ -15,8 +15,8 @@ public class MoveToAction : TemporalAction {
 	private int alignment = Align.bottomLeft;
 
 	protected override void begin () {
-		startX = target.getX(alignment);
-		startY = target.getY(alignment);
+		startX = Target.getX(alignment);
+		startY = Target.getY(alignment);
 	}
 
 	protected override void update (float percent) {
@@ -31,11 +31,11 @@ public class MoveToAction : TemporalAction {
 			x = startX + (endX - startX) * percent;
 			y = startY + (endY - startY) * percent;
 		}
-		target.setPosition(x, y, alignment);
+		Target.setPosition(x, y, alignment);
 	}
 
-	public override void reset () {
-		base.reset();
+	public override void Reset () {
+		base.Reset();
 		alignment = Align.bottomLeft;
 	}
 

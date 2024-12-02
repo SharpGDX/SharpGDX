@@ -18,7 +18,7 @@ public class Stack : WidgetGroup {
 		setTransform(false);
 		setWidth(150);
 		setHeight(150);
-		setTouchable(Touchable.childrenOnly);
+		setTouchable(Touchable.ChildrenOnly);
 	}
 
 	public Stack (Actor[] actors) {

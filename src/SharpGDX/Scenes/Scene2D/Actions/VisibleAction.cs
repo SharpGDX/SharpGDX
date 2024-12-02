@@ -12,8 +12,8 @@ namespace SharpGDX.Scenes.Scene2D.Actions;
 public class VisibleAction : Action {
 	private bool visible;
 
-	public override bool act (float delta) {
-		target.setVisible(visible);
+	public override bool Act (float delta) {
+		Target.setVisible(visible);
 		return true;
 	}
 

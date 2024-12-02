@@ -26,7 +26,7 @@ where T: Actor{
 
 	/** Creates a container with no actor. */
 	public Container () {
-		setTouchable(Touchable.childrenOnly);
+		setTouchable(Touchable.ChildrenOnly);
 		setTransform(false);
 	}
 
@@ -709,7 +709,7 @@ where T: Actor{
 
 	public override Actor? hit (float x, float y, bool touchable) {
 		if (_clip) {
-			if (touchable && getTouchable() == Touchable.disabled) return null;
+			if (touchable && getTouchable() == Touchable.Disabled) return null;
 			if (x < 0 || x >= getWidth() || y < 0 || y >= getHeight()) return null;
 		}
 		return base.hit(x, y, touchable);

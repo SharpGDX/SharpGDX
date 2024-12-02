@@ -44,7 +44,7 @@ public class Actor {
 	private readonly Array<Action> actions = new (0);
 
 	private  String? name;
-	private Touchable touchable = Touchable.enabled;
+	private Touchable touchable = Touchable.Enabled;
 	private bool visible = true, _debug;
 	internal float x, y;
 	internal float width, height;
@@ -77,12 +77,12 @@ public class Actor {
 		try {
 			for (int i = 0; i < actions.size; i++) {
 				Action action = actions.Get(i);
-				if (action.act(delta) && i < actions.size) {
+				if (action.Act(delta) && i < actions.size) {
 					Action current = actions.Get(i);
 					int actionIndex = current == action ? i : actions.indexOf(action, true);
 					if (actionIndex != -1) {
 						actions.RemoveIndex(actionIndex);
-						action.setActor(null);
+						action.SetActor(null);
 						i--;
 					}
 				}
@@ -167,7 +167,7 @@ public class Actor {
 		try {
 			listeners.begin();
 			for (int i = 0, n = listeners.size; i < n; i++)
-				if (listeners.Get(i).handle(@event)) @event.handle();
+				if (listeners.Get(i).Handle(@event)) @event.handle();
 			listeners.end();
 		} catch (RuntimeException ex) {
 			String context = ToString();
@@ -188,7 +188,7 @@ public class Actor {
 	 * @param touchable If true, hit detection will respect the {@link #setTouchable(Touchable) touchability}.
 	 * @see Touchable */
 	public virtual Actor? hit (float x, float y, bool touchable) {
-		if (touchable && this.touchable != Touchable.enabled) return null;
+		if (touchable && this.touchable != Touchable.Enabled) return null;
 		if (!isVisible()) return null;
 		return x >= 0 && x < width && y >= 0 && y < height ? this : null;
 	}
@@ -239,7 +239,7 @@ public class Actor {
 	}
 
 	public void addAction (Action action) {
-		action.setActor(this);
+		action.SetActor(this);
 		actions.Add(action);
 
 		if (stage != null && stage.getActionsRequestRendering()) GDX.Graphics.RequestRendering();
@@ -247,7 +247,7 @@ public class Actor {
 
 	/** @param action May be null, in which case nothing is done. */
 	public void removeAction ( Action? action) {
-		if (action != null && actions.RemoveValue(action, true)) action.setActor(null);
+		if (action != null && actions.RemoveValue(action, true)) action.SetActor(null);
 	}
 
 	public Array<Action> getActions () {
@@ -262,7 +262,7 @@ public class Actor {
 	/** Removes all actions on this actor. */
 	public void clearActions () {
 		for (int i = actions.size - 1; i >= 0; i--)
-			actions.Get(i).setActor(null);
+			actions.Get(i).SetActor(null);
 		actions.clear();
 	}
 
@@ -341,7 +341,7 @@ public class Actor {
 
 	/** Returns true if input events are processed by this actor. */
 	public bool isTouchable () {
-		return touchable == Touchable.enabled;
+		return touchable == Touchable.Enabled;
 	}
 
 	public Touchable getTouchable () {

@@ -3,25 +3,32 @@
 
 namespace SharpGDX.Scenes.Scene2D
 {
-	/** Actions attach to an {@link Actor} and perform some task, often over time.
- * @author Nathan Sweet */
-	abstract public class Action : IPoolable
+    /// <summary>
+    /// Actions attach to an {@link Actor} and perform some task, often over time.
+    /// </summary>
+    abstract public class Action : IPoolable
 	{
-	/** The actor this action is attached to, or null if it is not attached. */
-	protected Actor actor;
+        /// <summary>
+        /// The actor this action is attached to, or null if it is not attached.
+        /// </summary>
+        protected Actor? Actor;
 
-	/** The actor this action targets, or null if a target has not been set. */
-	protected Actor target;
+        /// <summary>
+        /// The actor this action targets, or null if a target has not been set.
+        /// </summary>
+        protected Actor? Target;
 
-	private Pool? pool;
+	private Pool? _pool;
 
 	/** Updates the action based on time. Typically this is called each frame by {@link Actor#act(float)}.
 	 * @param delta Time in seconds since the last frame.
 	 * @return true if the action is done. This method may continue to be called after the action is done. */
-	abstract public bool act(float delta);
+	abstract public bool Act(float delta);
 
-	/** Sets the state of the action so it can be run again. */
-	public virtual void restart()
+        /// <summary>
+        /// Sets the state of the action so it can be run again.
+        /// </summary>
+        public virtual void Restart()
 	{
 	}
 
@@ -36,37 +43,39 @@ namespace SharpGDX.Scenes.Scene2D
 	 * This method is not typically a good place for an action subclass to query the actor's state because the action may not be
 	 * executed for some time, eg it may be {@link DelayAction delayed}. The actor's state is best queried in the first call to
 	 * {@link #act(float)}. For a {@link TemporalAction}, use TemporalAction#begin(). */
-	public virtual void setActor(Actor actor)
+	public virtual void SetActor(Actor? actor)
 	{
-		this.actor = actor;
-		if (target == null) setTarget(actor);
-		if (actor == null)
+		this.Actor = actor;
+		
+        if (Target == null) SetTarget(actor);
+		
+        if (actor == null)
 		{
-			if (pool != null)
+			if (_pool != null)
 			{
-				((Pool<Action>?)pool).free(this);
-				pool = null;
+				((Pool<Action>?)_pool)!.free(this);
+				_pool = null;
 			}
 		}
 	}
 
 	/** @return null if the action is not attached to an actor. */
-	public Actor getActor()
+	public Actor? GetActor()
 	{
-		return actor;
+		return Actor;
 	}
 
 	/** Sets the actor this action will manipulate. If no target actor is set, {@link #setActor(Actor)} will set the target actor
 	 * when the action is added to an actor. */
-	public virtual void setTarget(Actor target)
+	public virtual void SetTarget(Actor? target)
 	{
-		this.target = target;
+		this.Target = target;
 	}
 
 	/** @return null if the action has no target. */
-	public Actor getTarget()
+	public Actor? GetTarget()
 	{
-		return target;
+		return Target;
 	}
 
 	/** Resets the optional state of this action to as if it were newly created, allowing the action to be pooled and reused. State
@@ -75,34 +84,37 @@ namespace SharpGDX.Scenes.Scene2D
 	 * The default implementation calls {@link #restart()}.
 	 * <p>
 	 * If a subclass has optional state, it must override this method, call super, and reset the optional state. */
-	public virtual void reset()
+	public virtual void Reset()
 	{
-		actor = null;
-		target = null;
-		pool = null;
-		restart();
+		Actor = null;
+		Target = null;
+		_pool = null;
+		Restart();
 	}
 
-	public Pool<Action>? getPool()
+	public Pool<Action>? GetPool()
 	{
-		return (Pool<Action>?)pool;
+		return (Pool<Action>?)_pool;
 	}
 
 	/** Sets the pool that the action will be returned to when removed from the actor.
 	 * @param pool May be null.
 	 * @see #setActor(Actor) */
-	public void setPool<T>(Pool<T>? pool)
+	public void SetPool<T>(Pool<T>? pool)
 	where T: Action
 	{
-		this.pool = pool;
+		this._pool = pool;
 	}
 
 	public override String ToString()
 		{
 		String name = GetType().Name;
 		int dotIndex = name.LastIndexOf('.');
-		if (dotIndex != -1) name = name.Substring(dotIndex + 1);
-		if (name.EndsWith("Action")) name = name.Substring(0, name.Length - 6);
+		
+        if (dotIndex != -1) name = name[(dotIndex + 1)..];
+		
+        if (name.EndsWith("Action")) name = name[..^6];
+
 		return name;
 	}
 }

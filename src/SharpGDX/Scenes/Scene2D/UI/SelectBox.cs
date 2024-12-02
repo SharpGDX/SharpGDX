@@ -423,7 +423,7 @@ private class SelectBoxSelection : ArraySelection<T>
 			setScrollingDisabled(true, false);
 
 			list = newList();
-			list.setTouchable(Touchable.disabled);
+			list.setTouchable(Touchable.Disabled);
 			list.setTypeToSelect(true);
 			setActor(list);
 
@@ -593,14 +593,14 @@ protected List<T> newList () {
 			stage.setScrollFocus(this);
 
 			list.selection.set(selectBox.getSelected());
-			list.setTouchable(Touchable.enabled);
+			list.setTouchable(Touchable.Enabled);
 			clearActions();
 			selectBox.onShow(this, below);
 		}
 
 		public void hide () {
 			if (!list.isTouchable() || !hasParent()) return;
-			list.setTouchable(Touchable.disabled);
+			list.setTouchable(Touchable.Disabled);
 
 			Stage stage = getStage();
 			if (stage != null) {

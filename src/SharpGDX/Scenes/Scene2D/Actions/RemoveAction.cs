@@ -12,8 +12,8 @@ namespace SharpGDX.Scenes.Scene2D.Actions;
 public class RemoveAction : Action {
 	private Action action;
 
-	public override bool act (float delta) {
-		target.removeAction(action);
+	public override bool Act (float delta) {
+		Target.removeAction(action);
 		return true;
 	}
 
@@ -25,8 +25,8 @@ public class RemoveAction : Action {
 		this.action = action;
 	}
 
-	public override void reset () {
-		base.reset();
+	public override void Reset () {
+		base.Reset();
 		action = null;
 	}
 }

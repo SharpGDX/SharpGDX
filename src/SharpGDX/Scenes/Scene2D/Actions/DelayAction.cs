@@ -26,7 +26,7 @@ public class DelayAction : DelegateAction {
 			delta = time - duration;
 		}
 		if (action == null) return true;
-		return action.act(delta);
+		return action.Act(delta);
 	}
 
 	/** Causes the delay to be complete. */
@@ -34,8 +34,8 @@ public class DelayAction : DelegateAction {
 		time = duration;
 	}
 
-	public override void restart () {
-		base.restart();
+	public override void Restart () {
+		base.Restart();
 		time = 0;
 	}
 

@@ -33,7 +33,7 @@ public class FloatCounter : IPoolable {
 	 * @param windowSize The size of the mean window or 1 or below to not use a windowed mean. */
 	public FloatCounter (int windowSize) {
 		mean = (windowSize > 1) ? new WindowedMean(windowSize) : null;
-		reset();
+		Reset();
 	}
 
 	/** Add a value and update all fields.
@@ -57,7 +57,7 @@ public class FloatCounter : IPoolable {
 	}
 
 	/** Reset all values to their default value. */
-	public void reset () {
+	public void Reset () {
 		count = 0;
 		total = 0f;
 		min = float.MaxValue;

@@ -63,7 +63,7 @@ public interface ISound : IDisposable
     ///     If the sound is already playing, it will be played again, concurrently.
     /// </para>
     /// <para>
-    ///Note that (with the exception of the web backend) panning only works for mono sounds, not for stereo sounds!
+    ///Note that (except for the web backend) panning only works for mono sounds, not for stereo sounds!
     /// </para>
     /// </remarks>
     /// <param name="volume">The volume in the range [0, 1].</param>
@@ -120,7 +120,7 @@ public interface ISound : IDisposable
 	///     If the sound is already playing, it will be played again, concurrently.
 	/// </para>
 	/// <para>
-	/// Note that (with the exception of the web backend) panning only works for mono sounds, not for stereo sounds!
+	/// Note that (except for the web backend) panning only works for mono sounds, not for stereo sounds!
     /// </para>
     /// </remarks>
     /// <param name="volume">The volume in the range [0,1].</param>

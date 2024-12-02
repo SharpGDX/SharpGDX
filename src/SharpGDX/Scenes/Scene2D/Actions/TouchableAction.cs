@@ -12,8 +12,8 @@ namespace SharpGDX.Scenes.Scene2D.Actions;
 public class TouchableAction : Action {
 	private Touchable touchable;
 
-	public override bool act (float delta) {
-		target.setTouchable(touchable);
+	public override bool Act (float delta) {
+		Target.setTouchable(touchable);
 		return true;
 	}
 

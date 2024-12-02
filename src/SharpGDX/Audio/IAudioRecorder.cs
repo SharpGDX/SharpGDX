@@ -1,6 +1,4 @@
-﻿using SharpGDX.Utils;
-
-namespace SharpGDX.Audio;
+﻿namespace SharpGDX.Audio;
 
 /// <summary>
 ///     An AudioRecorder allows to record input from an audio device.

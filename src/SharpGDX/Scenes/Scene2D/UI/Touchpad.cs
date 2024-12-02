@@ -127,7 +127,7 @@ public class Touchpad : Widget {
 	}
 
 	public override Actor hit (float x, float y, bool touchable) {
-		if (touchable && this.getTouchable() != Touchable.enabled) return null;
+		if (touchable && this.getTouchable() != Touchable.Enabled) return null;
 		if (!isVisible()) return null;
 		return touchBounds.contains(x, y) ? this : null;
 	}

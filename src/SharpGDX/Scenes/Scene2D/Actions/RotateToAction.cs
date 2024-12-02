@@ -32,7 +32,7 @@ public class RotateToAction : TemporalAction {
 	}
 
 	protected override void begin () {
-		_start = target.getRotation();
+		_start = Target.getRotation();
 	}
 
 	protected override void update (float percent) {
@@ -45,7 +45,7 @@ public class RotateToAction : TemporalAction {
 			rotation = MathUtils.lerpAngleDeg(this._start, this._end, percent);
 		else
 			rotation = _start + (_end - _start) * percent;
-		target.setRotation(rotation);
+		Target.setRotation(rotation);
 	}
 
 	public float getRotation () {

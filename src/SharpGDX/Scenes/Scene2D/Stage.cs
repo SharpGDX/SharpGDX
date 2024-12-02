@@ -251,7 +251,7 @@ public class Stage : InputAdapter , IDisposable {
 
 		Actor target = hit(tempCoords.x, tempCoords.y, true);
 		if (target == null) {
-			if (root.getTouchable() == Touchable.enabled) root.fire(@event);
+			if (root.getTouchable() == Touchable.Enabled) root.fire(@event);
 		} else
 			target.fire(@event);
 
@@ -287,7 +287,7 @@ public class Stage : InputAdapter , IDisposable {
 			if (!touchFocuses.contains(focus, true)) continue; // Touch focus already gone.
 			@event.setTarget(focus.target);
 			@event.setListenerActor(focus.listenerActor);
-			if (focus.listener.handle(@event)) @event.handle();
+			if (focus.listener.Handle(@event)) @event.handle();
 		}
 		touchFocuses.end();
 
@@ -323,7 +323,7 @@ public class Stage : InputAdapter , IDisposable {
 			if (!touchFocuses.RemoveValue(focus, true)) continue; // Touch focus already gone.
 			@event.setTarget(focus.target);
 			@event.setListenerActor(focus.listenerActor);
-			if (focus.listener.handle(@event)) @event.handle();
+			if (focus.listener.Handle(@event)) @event.handle();
 			Pools.free(focus);
 		}
 		touchFocuses.end();
@@ -478,7 +478,7 @@ public class Stage : InputAdapter , IDisposable {
 			@event.setListenerActor(focus.listenerActor);
 			@event.setPointer(focus.pointer);
 			@event.setButton(focus.button);
-			focus.listener.handle(@event);
+			focus.listener.Handle(@event);
 			// Cannot return TouchFocus to pool, as it may still be in use (eg if cancelTouchFocus is called from touchDragged).
 		}
 		touchFocuses.end();
@@ -514,7 +514,7 @@ public class Stage : InputAdapter , IDisposable {
 			@event.setListenerActor(focus.listenerActor);
 			@event.setPointer(focus.pointer);
 			@event.setButton(focus.button);
-			focus.listener.handle(@event);
+			focus.listener.Handle(@event);
 			// Cannot return TouchFocus to pool, as it may still be in use (eg if cancelTouchFocus is called from touchDragged).
 		}
 		touchFocuses.end();
@@ -854,7 +854,7 @@ public class Stage : InputAdapter , IDisposable {
 		internal Actor listenerActor, target;
 		internal int pointer, button;
 
-		public void reset () {
+		public void Reset () {
 			listenerActor = null;
 			listener = null;
 			target = null;

@@ -26,10 +26,10 @@ abstract public class TemporalAction : Action {
 		this.interpolation = interpolation;
 	}
 
-	public override bool act (float delta) {
+	public override bool Act (float delta) {
 		if (complete) return true;
-		var pool = getPool();
-		setPool((Pool<Action>?)null); // Ensure this action can't be returned to the pool while executing.
+		var pool = GetPool();
+		SetPool((Pool<Action>?)null); // Ensure this action can't be returned to the pool while executing.
 		try {
 			if (!began) {
 				begin();
@@ -43,7 +43,7 @@ abstract public class TemporalAction : Action {
 			if (complete) end();
 			return complete;
 		} finally {
-			setPool(pool);
+			SetPool(pool);
 		}
 	}
 
@@ -66,14 +66,14 @@ abstract public class TemporalAction : Action {
 		time = duration;
 	}
 
-	public override void restart () {
+	public override void Restart () {
 		time = 0;
 		began = false;
 		complete = false;
 	}
 
-	public override void reset () {
-		base.reset();
+	public override void Reset () {
+		base.Reset();
 		reverse = false;
 		interpolation = null;
 	}

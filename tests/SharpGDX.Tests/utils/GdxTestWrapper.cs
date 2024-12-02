@@ -12,28 +12,29 @@ namespace SharpGDX.Tests.Utils;
 
 public class GdxTestWrapper : IApplicationListener
 {
-	private IApplicationListener app;
-	private bool logGLErrors;
+    private IApplicationListener app;
+    private bool logGLErrors;
 
-	public GdxTestWrapper(IApplicationListener delegates, bool logGLErrors)
-	: base()
-	{
+    public GdxTestWrapper(IApplicationListener delegates, bool logGLErrors)
+        : base()
+    {
 
-		this.app = delegates;
-		this.logGLErrors = logGLErrors;
-	}
+        this.app = delegates;
+        this.logGLErrors = logGLErrors;
+    }
 
-	public void Create()
-	{
-		if (logGLErrors)
-		{
-			GDX.App.Log("GLProfiler", "profiler enabled");
-			GLProfiler profiler = new GLProfiler(GDX.Graphics);
-			profiler.setListener(new GLErrorListener());
-		profiler.enable();
-	}
-	app.Create();
-	}
+    public void Create()
+    {
+        if (logGLErrors)
+        {
+            GDX.App.Log("GLProfiler", "profiler enabled");
+            GLProfiler profiler = new GLProfiler(GDX.Graphics);
+            profiler.setListener(new GLErrorListener());
+            profiler.enable();
+        }
+
+        app.Create();
+    }
 
     private class GLErrorListener : IGLErrorListener
     {
@@ -43,29 +44,29 @@ public class GdxTestWrapper : IApplicationListener
         }
     }
 
-public void Resize(int width, int height)
-{
-	app.Resize(width, height);
-}
+    public void Resize(int width, int height)
+    {
+        app.Resize(width, height);
+    }
 
-public void Render()
-{
-	app.Render();
-}
+    public void Render()
+    {
+        app.Render();
+    }
 
-public void Pause()
-{
-	app.Pause();
-}
+    public void Pause()
+    {
+        app.Pause();
+    }
 
-public void Resume()
-{
-	app.Resume();
-}
+    public void Resume()
+    {
+        app.Resume();
+    }
 
-public void Dispose()
-{
-	app.Dispose();
-}
+    public void Dispose()
+    {
+        app.Dispose();
+    }
 
 }

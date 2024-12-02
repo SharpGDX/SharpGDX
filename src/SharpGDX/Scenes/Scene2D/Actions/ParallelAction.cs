@@ -47,46 +47,46 @@ public class ParallelAction : Action {
 		addAction(action5);
 	}
 
-	public override bool act (float delta) {
+	public override bool Act (float delta) {
 		if (complete) return true;
 		complete = true;
-		Pool<Action>? pool = getPool();
-		setPool((Pool<Action>?)null); // Ensure this action can't be returned to the pool while executing.
+		Pool<Action>? pool = GetPool();
+		SetPool((Pool<Action>?)null); // Ensure this action can't be returned to the pool while executing.
 		try {
 			Array<Action> actions = this.actions;
-			for (int i = 0, n = actions.size; i < n && actor != null; i++) {
+			for (int i = 0, n = actions.size; i < n && Actor != null; i++) {
 				Action currentAction = actions.Get(i);
-				if (currentAction.getActor() != null && !currentAction.act(delta)) complete = false;
-				if (actor == null) return true; // This action was removed.
+				if (currentAction.GetActor() != null && !currentAction.Act(delta)) complete = false;
+				if (Actor == null) return true; // This action was removed.
 			}
 			return complete;
 		} finally {
-			setPool(pool);
+			SetPool(pool);
 		}
 	}
 
-	public override void restart () {
+	public override void Restart () {
 		complete = false;
 		Array<Action> actions = this.actions;
 		for (int i = 0, n = actions.size; i < n; i++)
-			actions.Get(i).restart();
+			actions.Get(i).Restart();
 	}
 
-	public override void reset () {
-		base.reset();
+	public override void Reset () {
+		base.Reset();
 		actions.clear();
 	}
 
 	public void addAction (Action action) {
 		actions.Add(action);
-		if (actor != null) action.setActor(actor);
+		if (Actor != null) action.SetActor(Actor);
 	}
 
-	public override void setActor (Actor actor) {
+	public override void SetActor (Actor actor) {
 		Array<Action> actions = this.actions;
 		for (int i = 0, n = actions.size; i < n; i++)
-			actions.Get(i).setActor(actor);
-		base.setActor(actor);
+			actions.Get(i).SetActor(actor);
+		base.SetActor(actor);
 	}
 
 	public Array<Action> getActions () {

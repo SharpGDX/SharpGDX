@@ -16,7 +16,7 @@ public class AlphaAction : TemporalAction {
 	private  Color? color;
 
 	protected override void begin () {
-		if (color == null) color = target.getColor();
+		if (color == null) color = Target.getColor();
 		_start = color.A;
 	}
 
@@ -29,8 +29,8 @@ public class AlphaAction : TemporalAction {
 			color.A = _start + (_end - _start) * percent;
 	}
 
-	public override void reset () {
-		base.reset();
+	public override void Reset () {
+		base.Reset();
 		color = null;
 	}
 

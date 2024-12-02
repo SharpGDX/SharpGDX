@@ -225,7 +225,7 @@ public class Group : Actor , ICullable {
 	}
 
 		public override Actor? hit (float x, float y, bool touchable) {
-		if (touchable && getTouchable() == Touchable.disabled) return null;
+		if (touchable && getTouchable() == Touchable.Disabled) return null;
 		if (!isVisible()) return null;
 		Vector2 point = tmp;
 		Actor[] childrenArray = children.items;

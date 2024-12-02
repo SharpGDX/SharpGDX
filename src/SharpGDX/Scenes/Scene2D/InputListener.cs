@@ -36,7 +36,7 @@ namespace SharpGDX.Scenes.Scene2D
 		 * {@link #touchDown(InputEvent, float, float, int, int)} returns true (indicating the event was handled) then this listener is
 		 * added to the stage's {@link Stage#addTouchFocus(EventListener, Actor, Actor, int, int) touch focus} so it will receive all
 		 * touch dragged events until the next touch up event. */
-		public bool handle(Event e)
+		public bool Handle(Event e)
 		{
 			if (!(e is InputEvent)) return false;
 			InputEvent @event = (InputEvent)e;

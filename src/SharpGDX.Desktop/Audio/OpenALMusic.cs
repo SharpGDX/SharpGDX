@@ -4,8 +4,6 @@ using OpenTK.Audio.OpenAL;
 using SharpGDX.Audio;
 using SharpGDX.Shims;
 using SharpGDX.Utils;
-using static SharpGDX.Audio.IMusic;
-using SharpGDX.Scenes.Scene2D.UI;
 
 // TODO: Not fond of the creation of arrays just to pass queue and dequeue buffers.
 

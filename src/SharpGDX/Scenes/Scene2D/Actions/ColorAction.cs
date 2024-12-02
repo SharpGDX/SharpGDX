@@ -17,7 +17,7 @@ public class ColorAction : TemporalAction {
 	private readonly Color _end = new Color();
 
 	protected override void begin () {
-		if (color == null) color = target.getColor();
+		if (color == null) color = Target.getColor();
 		startR = color.R;
 		startG = color.G;
 		startB = color.B;
@@ -38,8 +38,8 @@ public class ColorAction : TemporalAction {
 		}
 	}
 
-	public override void reset () {
-		base.reset();
+	public override void Reset () {
+		base.Reset();
 		color = null;
 	}
 

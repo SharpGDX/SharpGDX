@@ -263,7 +263,7 @@ public interface INet {
 			return includeCredentials;
 		}
 
-		public void reset () {
+		public void Reset () {
 			httpMethod = null;
 			url = null;
 			headers.clear();

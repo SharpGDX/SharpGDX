@@ -1,6 +1,4 @@
-﻿using SharpGDX.Utils;
-
-namespace SharpGDX.Audio;
+﻿namespace SharpGDX.Audio;
 
 /// <summary>
 ///     A Music instance represents a streamed audio file.

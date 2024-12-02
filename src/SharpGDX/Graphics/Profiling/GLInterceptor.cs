@@ -65,7 +65,7 @@ namespace SharpGDX.Graphics.Profiling
 		textureBindings = 0;
 		drawCalls = 0;
 		shaderSwitches = 0;
-		vertexCount.reset();
+		vertexCount.Reset();
 	}
 
 	public abstract void glActiveTexture(int texture);

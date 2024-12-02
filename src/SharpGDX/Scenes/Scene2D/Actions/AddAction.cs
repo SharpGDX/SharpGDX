@@ -12,8 +12,8 @@ namespace SharpGDX.Scenes.Scene2D.Actions;
 public class AddAction : Action {
 	private Action action;
 
-	public override bool act (float delta) {
-		target.addAction(action);
+	public override bool Act (float delta) {
+		Target.addAction(action);
 		return true;
 	}
 
@@ -25,12 +25,12 @@ public class AddAction : Action {
 		this.action = action;
 	}
 
-	public override void restart () {
-		if (action != null) action.restart();
+	public override void Restart () {
+		if (action != null) action.Restart();
 	}
 
-	public override void reset () {
-		base.reset();
+	public override void Reset () {
+		base.Reset();
 		action = null;
 	}
 }

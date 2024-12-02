@@ -13,7 +13,7 @@ public class SizeByAction : RelativeTemporalAction {
 	private float amountWidth, amountHeight;
 
 	protected override void updateRelative (float percentDelta) {
-		target.sizeBy(amountWidth * percentDelta, amountHeight * percentDelta);
+		Target.sizeBy(amountWidth * percentDelta, amountHeight * percentDelta);
 	}
 
 	public void setAmount (float width, float height) {

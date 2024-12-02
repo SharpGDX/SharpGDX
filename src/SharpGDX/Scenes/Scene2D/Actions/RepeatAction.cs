@@ -17,11 +17,11 @@ public class RepeatAction : DelegateAction {
 
 	protected override bool @delegate (float delta) {
 		if (executedCount == repeatCount) return true;
-		if (action.act(delta)) {
+		if (action.Act(delta)) {
 			if (finished) return true;
 			if (repeatCount > 0) executedCount++;
 			if (executedCount == repeatCount) return true;
-			if (action != null) action.restart();
+			if (action != null) action.Restart();
 		}
 		return false;
 	}
@@ -31,8 +31,8 @@ public class RepeatAction : DelegateAction {
 		finished = true;
 	}
 
-	public override void restart () {
-		base.restart();
+	public override void Restart () {
+		base.Restart();
 		executedCount = 0;
 		finished = false;
 	}

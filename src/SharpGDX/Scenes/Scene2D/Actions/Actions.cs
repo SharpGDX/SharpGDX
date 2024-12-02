@@ -17,7 +17,7 @@ public class Actions {
 	where T: Action{
 		Pool<T> pool = Pools.get<T>(type);
 		T action = pool.obtain();
-		action.setPool(pool);
+		action.SetPool(pool);
 		return action;
 	}
 
@@ -29,7 +29,7 @@ public class Actions {
 
 	static public AddAction addAction (Action action, Actor targetActor) {
 		AddAction addAction = action< AddAction>(typeof(AddAction));
-		addAction.setTarget(targetActor);
+		addAction.SetTarget(targetActor);
 		addAction.setAction(action);
 		return addAction;
 	}
@@ -42,7 +42,7 @@ public class Actions {
 
 	static public RemoveAction removeAction (Action action, Actor targetActor) {
 		RemoveAction removeAction = action< RemoveAction>(typeof(RemoveAction));
-		removeAction.setTarget(targetActor);
+		removeAction.SetTarget(targetActor);
 		removeAction.setAction(action);
 		return removeAction;
 	}
@@ -291,7 +291,7 @@ public class Actions {
 
 	static public RemoveActorAction removeActor (Actor removeActor) {
 		RemoveActorAction action = action< RemoveActorAction>(typeof(RemoveActorAction));
-		action.setTarget(removeActor);
+		action.SetTarget(removeActor);
 		return action;
 	}
 
@@ -458,7 +458,7 @@ public class Actions {
 
 	static public AddListenerAction addListener (IEventListener listener, bool capture, Actor targetActor) {
 		AddListenerAction addAction = action<AddListenerAction>(typeof(AddListenerAction));
-		addAction.setTarget(targetActor);
+		addAction.SetTarget(targetActor);
 		addAction.setListener(listener);
 		addAction.setCapture(capture);
 		return addAction;
@@ -473,7 +473,7 @@ public class Actions {
 
 	static public RemoveListenerAction removeListener (IEventListener listener, bool capture, Actor targetActor) {
 		RemoveListenerAction addAction = action<RemoveListenerAction>(typeof(RemoveListenerAction));
-		addAction.setTarget(targetActor);
+		addAction.SetTarget(targetActor);
 		addAction.setListener(listener);
 		addAction.setCapture(capture);
 		return addAction;
@@ -484,7 +484,7 @@ public class Actions {
 	 * @param action the action on which to set the target
 	 * @return the action with its target set */
 	static public Action targeting (Actor target, Action action) {
-		action.setTarget(target);
+		action.SetTarget(target);
 		return action;
 	}
 }

@@ -15,77 +15,78 @@ namespace SharpGDX.Tests;
 
 public class NoncontinuousRenderingTest : GdxTest
 {
-	SpriteBatch batch;
-	Texture texture;
-	TextureRegion region;
-	Stage stage;
-	Skin skin;
-	BitmapFont font;
-	float elapsed;
-	int colorCycle;
+    SpriteBatch batch;
+    Texture texture;
+    TextureRegion region;
+    Stage stage;
+    Skin skin;
+    BitmapFont font;
+    float elapsed;
+    int colorCycle;
 
-	public override void Create()
-	{
-		batch = new SpriteBatch();
-		texture = new Texture("data/badlogic.jpg");
-		region = new TextureRegion(texture);
-		stage = new Stage(new ScreenViewport(), batch);
-		GDX.Input.SetInputProcessor(stage);
+    public override void Create()
+    {
+        batch = new SpriteBatch();
+        texture = new Texture("data/badlogic.jpg");
+        region = new TextureRegion(texture);
+        stage = new Stage(new ScreenViewport(), batch);
+        GDX.Input.SetInputProcessor(stage);
 
-		skin = new Skin(GDX.Files.Internal("data/uiskin.json"));
-		skin.add("default", font = new BitmapFont(GDX.Files.Internal("data/lsans-32.fnt"), false));
+        skin = new Skin(GDX.Files.Internal("data/uiskin.json"));
+        skin.add("default", font = new BitmapFont(GDX.Files.Internal("data/lsans-32.fnt"), false));
 
-		populateTable();
+        populateTable();
 
-		GDX.Graphics.SetContinuousRendering(false);
-		GDX.Graphics.RequestRendering();
-	}
+        GDX.Graphics.SetContinuousRendering(false);
+        GDX.Graphics.RequestRendering();
+    }
 
-	void nextColor()
-	{
-		lock (this)
-		{
-			colorCycle = (colorCycle + 1) % 3;
-		}
-	}
+    void nextColor()
+    {
+        lock (this)
+        {
+            colorCycle = (colorCycle + 1) % 3;
+        }
+    }
 
-	public override void Render()
-	{
-		float delta = Math.Min(GDX.Graphics.GetDeltaTime(), 1 / 30f);
-		elapsed += delta;
-		float value = elapsed % 1f;
-		value = value < 0.5f ? Interpolation.fade.apply(2 * value) : 1 - Interpolation.fade.apply(2 * value - 1);
-		value = 0.2f + value * 0.8f; // avoid black
+    public override void Render()
+    {
+        float delta = Math.Min(GDX.Graphics.GetDeltaTime(), 1 / 30f);
+        elapsed += delta;
+        float value = elapsed % 1f;
+        value = value < 0.5f ? Interpolation.fade.apply(2 * value) : 1 - Interpolation.fade.apply(2 * value - 1);
+        value = 0.2f + value * 0.8f; // avoid black
 
-		lock (this)
-		{
-			switch (colorCycle)
-			{
-				case 0:
-					GDX.GL.glClearColor(value, 0, 0, 1);
-					break;
-				case 1:
-					GDX.GL.glClearColor(0, value, 0, 1);
-					break;
-				case 2:
-					GDX.GL.glClearColor(0, 0, value, 1);
-					break;
-			}
-		}
+        lock (this)
+        {
+            switch (colorCycle)
+            {
+                case 0:
+                    GDX.GL.glClearColor(value, 0, 0, 1);
+                    break;
+                case 1:
+                    GDX.GL.glClearColor(0, value, 0, 1);
+                    break;
+                case 2:
+                    GDX.GL.glClearColor(0, 0, value, 1);
+                    break;
+            }
+        }
 
-		GDX.GL.glClear(IGL20.GL_COLOR_BUFFER_BIT);
+        GDX.GL.glClear(IGL20.GL_COLOR_BUFFER_BIT);
 
-		Camera cam = stage.getCamera();
-		batch.SetProjectionMatrix(cam.Combined);
-		batch.Begin();
-		batch.Draw(region, cam.position.x - texture.getWidth() / 2, cam.position.y - texture.getHeight() / 2,
-			texture.getWidth() / 2f, texture.getHeight() / 2f, (float)texture.getWidth(), (float)texture.getHeight(), 1f, 1f,
-			-((elapsed / 2f) % 1f) * 360f);
-		batch.End();
+        Camera cam = stage.getCamera();
+        batch.SetProjectionMatrix(cam.Combined);
+        batch.Begin();
+        batch.Draw(region, cam.position.x - texture.getWidth() / 2, cam.position.y - texture.getHeight() / 2,
+            texture.getWidth() / 2f, texture.getHeight() / 2f, (float)texture.getWidth(), (float)texture.getHeight(),
+            1f, 1f,
+            -((elapsed / 2f) % 1f) * 360f);
+        batch.End();
 
-		stage.act(delta);
-		stage.draw();
-	}
+        stage.act(delta);
+        stage.draw();
+    }
 
     private class Button0ChangeListener : ChangeListener
     {
@@ -106,28 +107,26 @@ public class NoncontinuousRenderingTest : GdxTest
             _test = test;
             _str = str;
         }
-        public override void changed(ChangeEvent @event, Actor actor) {
-            new Thread(() =>
-                {
 
-                    try
-                    {
+        public override void changed(ChangeEvent @event, Actor actor)
+        {
+            new Thread(() =>
+            {
+
+                try
+                {
                     Thread.Sleep(2000);
                 }
                 catch (ThreadInterruptedException x)
-            {
-            }
-            _test.nextColor();
-            GDX.App.PostRunnable(() =>
-            {
-                GDX.App.Log(_str, "Posted runnable to Gdx.app");
+                {
+                }
 
-
-            });
-                }).Start();
+                _test.nextColor();
+                GDX.App.PostRunnable(() => { GDX.App.Log(_str, "Posted runnable to Gdx.app"); });
+            }).Start();
 
         }
-}
+    }
 
     private class Button2ChangeListener : ChangeListener
     {
@@ -139,27 +138,29 @@ public class NoncontinuousRenderingTest : GdxTest
             _test = test;
             _str2 = str2;
         }
+
         public override void changed(ChangeEvent @event, Actor actor)
         {
             IGraphics graphics = GDX.Graphics; // caching necessary to ensure call on this window
             new Thread(() =>
-                {
+            {
 
-                    try
-                    {
+                try
+                {
                     Thread.Sleep(2000);
                 }
                 catch (ThreadInterruptedException ignored)
-            {
-            }
-            _test.nextColor();
-            graphics.RequestRendering();
-            GDX.App.Log(_str2, "Called Gdx.graphics.requestRendering()");
-            
+                {
+                }
+
+                _test.nextColor();
+                graphics.RequestRendering();
+                GDX.App.Log(_str2, "Called Gdx.graphics.requestRendering()");
+
             }).Start();
 
         }
-}
+    }
 
     private class Button3ChangeListener : ChangeListener
     {
@@ -174,7 +175,7 @@ public class NoncontinuousRenderingTest : GdxTest
 
         public override void changed(ChangeEvent @event, Actor actor)
         {
-			SharpGDX.Utils.Timer.schedule(new Task(_test, _str3), 2f);
+            SharpGDX.Utils.Timer.schedule(new Task(_test, _str3), 2f);
         }
 
         private class Task : SharpGDX.Utils.Timer.Task
@@ -191,15 +192,10 @@ public class NoncontinuousRenderingTest : GdxTest
             public override void run()
             {
                 _test.nextColor();
-                GDX.App.PostRunnable(() =>
-                {
-
-                    GDX.App.Log(_str3, "Posted runnable to Gdx.app");
-
-                });
+                GDX.App.PostRunnable(() => { GDX.App.Log(_str3, "Posted runnable to Gdx.app"); });
             }
         }
-}
+    }
 
     private class Button4ChangeListener : ChangeListener
     {
@@ -216,12 +212,13 @@ public class NoncontinuousRenderingTest : GdxTest
 
         public override void changed(ChangeEvent @event, Actor actor)
         {
-            _stage.addAction(Actions.sequence(Actions.delay(2), Actions.run(() => {
+            _stage.addAction(Actions.sequence(Actions.delay(2), Actions.run(() =>
+            {
 
-                
+
                 _test.nextColor();
                 GDX.App.Log(_str4, "RunnableAction executed");
-            
+
             })));
         }
     }
@@ -243,26 +240,27 @@ public class NoncontinuousRenderingTest : GdxTest
         {
             IGraphics graphics = GDX.Graphics; // caching necessary to ensure call on this window
             new Thread(() =>
-                {
+            {
                 for (int i = 0; i < 2; i++)
-                    {
+                {
                     try
                     {
-                    Thread.Sleep(2000);
+                        Thread.Sleep(2000);
+                    }
+                    catch (ThreadInterruptedException ignored)
+                    {
+                    }
+
+                    _test.nextColor();
+                    bool continuous = graphics.IsContinuousRendering();
+                    graphics.SetContinuousRendering(!continuous);
+                    GDX.App.Log(_str5, "Toggled continuous");
                 }
-                catch (ThreadInterruptedException ignored)
-            {
-            }
-            _test.nextColor();
-            bool continuous = graphics.IsContinuousRendering();
-            graphics.SetContinuousRendering(!continuous);
-            GDX.App.Log(_str5, "Toggled continuous");
-            }
-            
+
             }).Start();
 
         }
-}
+    }
 
     private class CheckBoxChangeListener : ChangeListener
     {
@@ -274,78 +272,79 @@ public class NoncontinuousRenderingTest : GdxTest
             _stage = stage;
             _actionsRequestRendering = actionsRequestRendering;
         }
+
         public override void changed(ChangeEvent @event, Actor actor)
         {
             _stage.setActionsRequestRendering(_actionsRequestRendering.isChecked());
         }
-        }
+    }
 
     private void populateTable()
-	{
-		Table root = new Table();
-		stage.addActor(root);
-		root.setFillParent(true);
-		root.pad(5);
-		root.defaults().Left().Space(5);
+    {
+        Table root = new Table();
+        stage.addActor(root);
+        root.setFillParent(true);
+        root.pad(5);
+        root.defaults().Left().Space(5);
 
-		Button button0 = new TextButton("Toggle continuous rendering", skin, "toggle");
-		button0.addListener(new Button0ChangeListener());
-		root.add(button0).Row();
+        Button button0 = new TextButton("Toggle continuous rendering", skin, "toggle");
+        button0.addListener(new Button0ChangeListener());
+        root.add(button0).Row();
 
-	String str1 = "2s sleep -> Application.postRunnable()";
-		Button button1 = new TextButton(str1, skin);
-	button1.addListener(new Button1ChangeListener(this, str1));
-root.add(button1).Row();
+        String str1 = "2s sleep -> Application.postRunnable()";
+        Button button1 = new TextButton(str1, skin);
+        button1.addListener(new Button1ChangeListener(this, str1));
+        root.add(button1).Row();
 
-String str2 = "2s sleep -> Graphics.requestRendering()";
-Button button2 = new TextButton(str2, skin);
-button2.addListener(new Button2ChangeListener(this, str2));
-root.add(button2).Row();
+        String str2 = "2s sleep -> Graphics.requestRendering()";
+        Button button2 = new TextButton(str2, skin);
+        button2.addListener(new Button2ChangeListener(this, str2));
+        root.add(button2).Row();
 
-String str3 = "2s Timer -> Application.postRunnable()";
-Button button3 = new TextButton(str3, skin);
-button3.addListener(new Button3ChangeListener(this, str3));
-root.add(button3).Row();
+        String str3 = "2s Timer -> Application.postRunnable()";
+        Button button3 = new TextButton(str3, skin);
+        button3.addListener(new Button3ChangeListener(this, str3));
+        root.add(button3).Row();
 
-String str4 = "2s DelayAction";
-Button button4 = new TextButton(str4, skin);
-button4.addListener(new Button4ChangeListener(this, stage, str4));
-root.add(button4).Row();
+        String str4 = "2s DelayAction";
+        Button button4 = new TextButton(str4, skin);
+        button4.addListener(new Button4ChangeListener(this, stage, str4));
+        root.add(button4).Row();
 
-String str5 = "(2s sleep -> toggle continuous) 2X";
-Button button5 = new TextButton(str5, skin);
-button5.addListener(new Button5ChangeListener(this, stage, str5));
-root.add(button5).Row();
+        String str5 = "(2s sleep -> toggle continuous) 2X";
+        Button button5 = new TextButton(str5, skin);
+        button5.addListener(new Button5ChangeListener(this, stage, str5));
+        root.add(button5).Row();
 
-CheckBox actionsRequestRendering = new CheckBox("ActionsRequestRendering", skin);
-actionsRequestRendering.setChecked(true);
-actionsRequestRendering.addListener(new CheckBoxChangeListener(stage, actionsRequestRendering));
-root.add(actionsRequestRendering).Row();
+        CheckBox actionsRequestRendering = new CheckBox("ActionsRequestRendering", skin);
+        actionsRequestRendering.setChecked(true);
+        actionsRequestRendering.addListener(new CheckBoxChangeListener(stage, actionsRequestRendering));
+        root.add(actionsRequestRendering).Row();
 
-IDrawable knobDown = skin.newDrawable("default-slider-knob", Color.Gray);
-Slider.SliderStyle sliderStyle = skin.get<Slider.SliderStyle>("default-horizontal", typeof(Slider.SliderStyle));
-sliderStyle.knobDown = knobDown;
-Slider slider = new Slider(0, 100, 1, false, sliderStyle);
-root.add(slider).Row();
+        IDrawable knobDown = skin.newDrawable("default-slider-knob", Color.Gray);
+        Slider.SliderStyle sliderStyle = skin.get<Slider.SliderStyle>("default-horizontal", typeof(Slider.SliderStyle));
+        sliderStyle.knobDown = knobDown;
+        Slider slider = new Slider(0, 100, 1, false, sliderStyle);
+        root.add(slider).Row();
 
-SelectBox<Pixmap.Format> selectBox = new (skin);
-selectBox.setItems(Enum.GetValues<Pixmap.Format>());
-root.add(selectBox).Row();
+        SelectBox<Pixmap.Format> selectBox = new(skin);
+        selectBox.setItems(Enum.GetValues<Pixmap.Format>());
+        root.add(selectBox).Row();
 
-root.add();
-root.add().Grow();
-	}
+        root.add();
+        root.add().Grow();
+    }
 
-	public override void Resize(int width, int height)
-{
-	stage.getViewport().Update(width, height, true);
-}
+    public override void Resize(int width, int height)
+    {
+        stage.getViewport().Update(width, height, true);
+    }
 
-public override void Dispose()
-{
-	batch.Dispose();
-	texture.Dispose();
-	stage.Dispose();
-	font.Dispose();
-}
+    public override void Dispose()
+    {
+        batch.Dispose();
+        texture.Dispose();
+        stage.Dispose();
+        font.Dispose();
+    }
 }

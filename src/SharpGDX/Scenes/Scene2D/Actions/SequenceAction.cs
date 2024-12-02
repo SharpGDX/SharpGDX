@@ -45,24 +45,24 @@ public class SequenceAction : ParallelAction {
 		addAction(action5);
 	}
 
-	public override bool act (float delta) {
+	public override bool Act (float delta) {
 		if (index >= actions.size) return true;
-		var pool = getPool();
-		setPool((Pool<Action>?)null); // Ensure this action can't be returned to the pool while executings.
+		var pool = GetPool();
+		SetPool((Pool<Action>?)null); // Ensure this action can't be returned to the pool while executings.
 		try {
-			if (actions.Get(index).act(delta)) {
-				if (actor == null) return true; // This action was removed.
+			if (actions.Get(index).Act(delta)) {
+				if (Actor == null) return true; // This action was removed.
 				index++;
 				if (index >= actions.size) return true;
 			}
 			return false;
 		} finally {
-			setPool(pool);
+			SetPool(pool);
 		}
 	}
 
-	public override void restart () {
-		base.restart();
+	public override void Restart () {
+		base.Restart();
 		index = 0;
 	}
 }

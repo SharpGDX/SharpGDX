@@ -12,15 +12,15 @@ namespace SharpGDX.Scenes.Scene2D.Actions;
 public class RemoveActorAction : Action {
 	private bool removed;
 
-	public override bool act (float delta) {
+	public override bool Act (float delta) {
 		if (!removed) {
 			removed = true;
-			target.remove();
+			Target.remove();
 		}
 		return true;
 	}
 
-	public override void restart () {
+	public override void Restart () {
 		removed = false;
 	}
 }

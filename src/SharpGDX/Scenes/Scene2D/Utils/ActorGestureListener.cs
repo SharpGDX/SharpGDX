@@ -104,7 +104,7 @@ public class ActorGestureListener : IEventListener {
 			}
 		}
 
-		public virtual bool handle (Event e) {
+		public virtual bool Handle (Event e) {
 		if (!(e is InputEvent)) return false;
 		InputEvent @event = (InputEvent)e;
 

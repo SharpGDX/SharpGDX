@@ -78,7 +78,7 @@ namespace SharpGDX.Scenes.Scene2D.UI
 
 		private void initialize()
 		{
-			setTouchable(Touchable.enabled);
+			setTouchable(Touchable.Enabled);
 			addListener(clickListener = new ClickListener()
 			{
 

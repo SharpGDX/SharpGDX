@@ -13,7 +13,7 @@ public class RotateByAction : RelativeTemporalAction {
 	private float amount;
 
 	protected override void updateRelative (float percentDelta) {
-		target.rotateBy(amount * percentDelta);
+		Target.rotateBy(amount * percentDelta);
 	}
 
 	public float getAmount () {

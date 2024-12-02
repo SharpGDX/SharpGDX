@@ -53,7 +53,7 @@ public class Event : IPoolable {
 		stopped = true;
 	}
 
-	public virtual void reset () {
+	public virtual void Reset () {
 		stage = null;
 		targetActor = null;
 		listenerActor = null;

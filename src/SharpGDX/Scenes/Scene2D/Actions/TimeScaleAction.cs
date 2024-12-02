@@ -14,7 +14,7 @@ public class TimeScaleAction : DelegateAction {
 
 	protected override bool @delegate (float delta) {
 		if (action == null) return true;
-		return action.act(delta * scale);
+		return action.Act(delta * scale);
 	}
 
 	public float getScale () {

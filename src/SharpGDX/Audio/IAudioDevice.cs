@@ -1,6 +1,4 @@
-﻿using SharpGDX.Utils;
-
-namespace SharpGDX.Audio;
+﻿namespace SharpGDX.Audio;
 
 /// <summary>
 ///     Encapsulates an audio device in mono or stereo mode.

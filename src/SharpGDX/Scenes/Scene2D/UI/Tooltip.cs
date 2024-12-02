@@ -46,7 +46,7 @@ where T: Actor{
 	public Tooltip (T? contents, TooltipManager manager)
 	:base(manager){
 		container = new TooltipContainer(this, contents) ;
-		container.setTouchable(Touchable.disabled);
+		container.setTouchable(Touchable.Disabled);
 	}
 
 	private class TooltipContainer:Container<T>

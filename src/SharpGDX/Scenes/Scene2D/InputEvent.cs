@@ -18,8 +18,8 @@ public class InputEvent : Event {
 	private Actor? relatedActor;
 	private bool touchFocus = true;
 
-		public override void reset () {
-		base.reset();
+		public override void Reset () {
+		base.Reset();
 		relatedActor = null;
 		button = -1;
 	}

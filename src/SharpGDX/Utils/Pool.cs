@@ -89,7 +89,7 @@ namespace SharpGDX.Utils
 		 * {@link Poolable#reset()} if the object is {@link Poolable}. */
 		protected void reset(T obj)
 		{
-			if (obj is IPoolable) ((IPoolable)obj).reset();
+			if (obj is IPoolable) ((IPoolable)obj).Reset();
 		}
 
 		/** Called when an object is discarded. This is the case when an object is freed, but the maximum capacity of the pool is

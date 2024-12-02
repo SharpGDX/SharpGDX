@@ -1,70 +1,75 @@
-using SharpGDX;
-using SharpGDX.Mathematics;
-using SharpGDX.Utils;
 using SharpGDX.Utils.Reflect;
-using SharpGDX.Shims;
-using SharpGDX.Scenes.Scene2D;
-using SharpGDX.Scenes.Scene2D.Utils;
 
 namespace SharpGDX.Scenes.Scene2D.Actions;
 
-/** Adds a listener to the actor for a specific event type and does not complete until {@link #handle(Event)} returns true.
- * @author JavadocMD
- * @author Nathan Sweet */
-abstract public class EventAction<T> : Action 
-where T: Event{
-	readonly Type eventClass;
-	bool result, active;
+/// <summary>
+///     Adds a listener to the actor for a specific event type and does not complete until <see cref="Handle(T)" /> returns
+///     true.
+/// </summary>
+/// <typeparam name="T"></typeparam>
+public abstract class EventAction<T> : Action
+    where T : Event
+{
+    private readonly Type _eventClass;
+    private readonly IEventListener _listener;
+    private bool _active;
 
-	private readonly IEventListener listener ;
+    private bool _result;
 
-	private class EventActionEventListener : IEventListener
-	{
-		private readonly EventAction<T> _eventAction;
+    public EventAction(Type eventClass)
+    {
+        _eventClass = eventClass;
+        _listener = new EventActionEventListener(this);
+    }
 
-		public EventActionEventListener(EventAction<T> eventAction)
-		{
-			_eventAction = eventAction;
-		}
+    public override void Restart()
+    {
+        _result = false;
+        _active = false;
+    }
 
-		public bool handle(Event @event)
-		{
-			if (!_eventAction.active || !ClassReflection.isInstance(_eventAction.eventClass, @event)) return false;
-			_eventAction.result = _eventAction.handle((T)@event);
-			return _eventAction.result;
-		}
-	}
+    public override void SetTarget(Actor? newTarget)
+    {
+        Target?.removeListener(_listener);
+        base.SetTarget(newTarget);
+        newTarget?.addListener(_listener);
+    }
 
-	public EventAction (Type eventClass) {
-		this.eventClass = eventClass;
-		listener = new EventActionEventListener(this);
-	}
+    /// <summary>
+    ///     Called when the specific type of event occurs on the actor.
+    /// </summary>
+    /// <param name="event"></param>
+    /// <returns>
+    ///     true if the event should be considered {@link Event#handle() handled} and this EventAction considered
+    ///     complete.
+    /// </returns>
+    public abstract bool Handle(T @event);
 
-	public override void restart () {
-		result = false;
-		active = false;
-	}
+    public override bool Act(float delta)
+    {
+        _active = true;
+        return _result;
+    }
 
-	public override void setTarget (Actor newTarget) {
-		if (target != null) target.removeListener(listener);
-		base.setTarget(newTarget);
-		if (newTarget != null) newTarget.addListener(listener);
-	}
+    public bool IsActive()
+    {
+        return _active;
+    }
 
-	/** Called when the specific type of event occurs on the actor.
-	 * @return true if the event should be considered {@link Event#handle() handled} and this EventAction considered complete. */
-	abstract public bool handle (T @event);
+    public void SetActive(bool active)
+    {
+        _active = active;
+    }
 
-	public override bool act (float delta) {
-		active = true;
-		return result;
-	}
+    private class EventActionEventListener(EventAction<T> eventAction) : IEventListener
+    {
+        public bool Handle(Event @event)
+        {
+            if (!eventAction._active || !ClassReflection.isInstance(eventAction._eventClass, @event)) return false;
 
-	public bool isActive () {
-		return active;
-	}
+            eventAction._result = eventAction.Handle((T)@event);
 
-	public void setActive (bool active) {
-		this.active = active;
-	}
+            return eventAction._result;
+        }
+    }
 }

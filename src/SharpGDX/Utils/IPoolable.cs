@@ -1,15 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace SharpGDX.Utils;
 
-namespace SharpGDX.Utils
+/// <summary>
+///     Objects implementing this interface will have <see cref="Reset()" /> called when passed to
+///     <see cref="Pool.free(Object)" />.
+/// </summary>
+public interface IPoolable
 {
-	/** Objects implementing this interface will have {@link #reset()} called when passed to {@link Pool#free(Object)}. */
-	public interface IPoolable
-	{
-		/** Resets the object for reuse. Object references should be nulled and fields may be set to default values. */
-		public void reset();
-	}
+    /// <summary>
+    ///     Resets the object for reuse.
+    /// </summary>
+    /// <remarks>
+    ///     Object references should be set to <see langword="null" /> and fields may be set to default values.
+    /// </remarks>
+    public void Reset();
 }

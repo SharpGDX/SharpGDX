@@ -13,13 +13,13 @@ namespace SharpGDX.Scenes.Scene2D.Actions;
 public class LayoutAction : Action {
 	private bool enabled;
 
-	public override void setTarget (Actor actor) {
+	public override void SetTarget (Actor actor) {
 		if (actor != null && !(actor is ILayout)) throw new GdxRuntimeException("Actor must implement layout: " + actor);
-		base.setTarget(actor);
+		base.SetTarget(actor);
 	}
 
-	public override bool act (float delta) {
-		((ILayout)target).setLayoutEnabled(enabled);
+	public override bool Act (float delta) {
+		((ILayout)Target).setLayoutEnabled(enabled);
 		return true;
 	}
 

@@ -23,33 +23,33 @@ abstract public class DelegateAction : Action {
 
 	abstract protected bool @delegate (float delta);
 
-	public override bool act (float delta) {
-		var pool = getPool();
-		setPool((Pool<Action>?)null); // Ensure this action can't be returned to the pool inside the delegate action.
+	public override bool Act (float delta) {
+		var pool = GetPool();
+		SetPool((Pool<Action>?)null); // Ensure this action can't be returned to the pool inside the delegate action.
 		try {
 			return @delegate(delta);
 		} finally {
-			setPool(pool);
+			SetPool(pool);
 		}
 	}
 
-	public override void restart () {
-		if (action != null) action.restart();
+	public override void Restart () {
+		if (action != null) action.Restart();
 	}
 
-	public override void reset () {
-		base.reset();
+	public override void Reset () {
+		base.Reset();
 		action = null;
 	}
 
-	public override void setActor (Actor actor) {
-		if (action != null) action.setActor(actor);
-		base.setActor(actor);
+	public override void SetActor (Actor actor) {
+		if (action != null) action.SetActor(actor);
+		base.SetActor(actor);
 	}
 
-	public override void setTarget (Actor target) {
-		if (action != null) action.setTarget(target);
-		base.setTarget(target);
+	public override void SetTarget (Actor target) {
+		if (action != null) action.SetTarget(target);
+		base.SetTarget(target);
 	}
 
 	public override String ToString() {

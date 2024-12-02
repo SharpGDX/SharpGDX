@@ -13,11 +13,11 @@ public class AddListenerAction : Action {
 	private IEventListener listener;
 	private bool capture;
 
-	public override bool act (float delta) {
+	public override bool Act (float delta) {
 		if (capture)
-			target.addCaptureListener(listener);
+			Target.addCaptureListener(listener);
 		else
-			target.addListener(listener);
+			Target.addListener(listener);
 		return true;
 	}
 
@@ -37,8 +37,8 @@ public class AddListenerAction : Action {
 		this.capture = capture;
 	}
 
-	public override void reset () {
-		base.reset();
+	public override void Reset () {
+		base.Reset();
 		listener = null;
 	}
 }

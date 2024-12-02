@@ -12,7 +12,7 @@ namespace SharpGDX.Input
 	private IInput.OnscreenKeyboardType type = IInput.OnscreenKeyboardType.Default;
 	private bool preventCorrection = false;
 
-	private TextInputWrapper textInputWrapper;
+	private ITextInputWrapper textInputWrapper;
 	private bool _isMultiLine = false;
 	private int maxLength;
 	private IInput.IInputStringValidator validator;
@@ -40,12 +40,12 @@ namespace SharpGDX.Input
 		return this;
 	}
 
-	public TextInputWrapper getTextInputWrapper () {
+	public ITextInputWrapper getTextInputWrapper () {
 		return textInputWrapper;
 	}
 
 	/** @param textInputWrapper Should provide access to the backed input field. */
-	public NativeInputConfiguration setTextInputWrapper (TextInputWrapper textInputWrapper) {
+	public NativeInputConfiguration setTextInputWrapper (ITextInputWrapper textInputWrapper) {
 		this.textInputWrapper = textInputWrapper;
 		return this;
 	}

@@ -14,7 +14,7 @@ public class RunnableAction : Action {
 	private Runnable runnable;
 	private bool ran;
 
-	public override bool act (float delta) {
+	public override bool Act (float delta) {
 		if (!ran) {
 			ran = true;
 			run();
@@ -24,21 +24,21 @@ public class RunnableAction : Action {
 
 	/** Called to run the runnable. */
 	public void run () {
-		var pool = getPool();
-		setPool((Pool<Action>?)null); // Ensure this action can't be returned to the pool inside the runnable.
+		var pool = GetPool();
+		SetPool((Pool<Action>?)null); // Ensure this action can't be returned to the pool inside the runnable.
 		try {
 			runnable.Invoke();
 		} finally {
-			setPool(pool);
+			SetPool(pool);
 		}
 	}
 
-	public override void restart () {
+	public override void Restart () {
 		ran = false;
 	}
 
-	public override void reset () {
-		base.reset();
+	public override void Reset () {
+		base.Reset();
 		runnable = null;
 	}
 

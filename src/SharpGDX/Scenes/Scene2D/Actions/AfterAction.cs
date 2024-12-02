@@ -12,18 +12,18 @@ namespace SharpGDX.Scenes.Scene2D.Actions;
 public class AfterAction : DelegateAction {
 	private Array<Action> waitForActions = new (false, 4);
 
-	public override void setTarget (Actor target) {
+	public override void SetTarget (Actor target) {
 		if (target != null) waitForActions.addAll(target.getActions());
-		base.setTarget(target);
+		base.SetTarget(target);
 	}
 
-	public override void restart () {
-		base.restart();
+	public override void Restart () {
+		base.Restart();
 		waitForActions.clear();
 	}
 
 	protected override bool @delegate (float delta) {
-		Array<Action> currentActions = target.getActions();
+		Array<Action> currentActions = Target.getActions();
 		if (currentActions.size == 1) waitForActions.clear();
 		for (int i = waitForActions.size - 1; i >= 0; i--) {
 			Action action = waitForActions.Get(i);
@@ -31,6 +31,6 @@ public class AfterAction : DelegateAction {
 			if (index == -1) waitForActions.RemoveIndex(i);
 		}
 		if (waitForActions.size > 0) return false;
-		return action.act(delta);
+		return action.Act(delta);
 	}
 }

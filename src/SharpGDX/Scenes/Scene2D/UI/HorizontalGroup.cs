@@ -30,7 +30,7 @@ public class HorizontalGroup : WidgetGroup {
 	private float _space, _wrapSpace, _fill, _padTop, _padLeft, _padBottom, _padRight;
 
 	public HorizontalGroup () {
-		setTouchable(Touchable.childrenOnly);
+		setTouchable(Touchable.ChildrenOnly);
 	}
 
 	public override void invalidate () {

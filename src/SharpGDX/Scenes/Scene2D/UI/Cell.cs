@@ -921,7 +921,7 @@ public class Cell: IPoolable {
 	}
 
 	/** Reset state so the cell can be reused, setting all constraints to their {@link #defaults() default} values. */
-	public void reset () {
+	public void Reset () {
 		actor = null;
 		table = null;
 		endRow = false;

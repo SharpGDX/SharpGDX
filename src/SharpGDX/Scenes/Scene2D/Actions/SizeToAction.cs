@@ -14,8 +14,8 @@ public class SizeToAction : TemporalAction {
 	private float endWidth, endHeight;
 
 	protected override void begin () {
-		startWidth = target.getWidth();
-		startHeight = target.getHeight();
+		startWidth = Target.getWidth();
+		startHeight = Target.getHeight();
 	}
 
 	protected override void update (float percent) {
@@ -30,7 +30,7 @@ public class SizeToAction : TemporalAction {
 			width = startWidth + (endWidth - startWidth) * percent;
 			height = startHeight + (endHeight - startHeight) * percent;
 		}
-		target.setSize(width, height);
+		Target.setSize(width, height);
 	}
 
 	public void setSize (float width, float height) {

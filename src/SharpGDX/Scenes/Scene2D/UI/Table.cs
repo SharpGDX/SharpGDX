@@ -83,7 +83,7 @@ public class Table : WidgetGroup {
 		cellDefaults = obtainCell();
 
 		setTransform(false);
-		setTouchable(Touchable.childrenOnly);
+		setTouchable(Touchable.ChildrenOnly);
 	}
 
 		private Cell obtainCell () {
@@ -162,7 +162,7 @@ public class Table : WidgetGroup {
 
 		public override Actor? hit (float x, float y, bool touchable) {
 		if (_clip) {
-			if (touchable && getTouchable() == Touchable.disabled) return null;
+			if (touchable && getTouchable() == Touchable.Disabled) return null;
 			if (x < 0 || x >= getWidth() || y < 0 || y >= getHeight()) return null;
 		}
 		return base.hit(x, y, touchable);
@@ -349,7 +349,7 @@ public class Table : WidgetGroup {
 		_padRight = backgroundRight;
 		_align = Align.center;
 		debug(Debug.none);
-		cellDefaults.reset();
+		cellDefaults.Reset();
 		for (int i = 0, n = _columnDefaults.size; i < n; i++) {
 			Cell columnCell = _columnDefaults.Get(i);
 			if (columnCell != null) cellPool.free(columnCell);
