@@ -96,7 +96,6 @@ public class Texture : GLTexture {
         
     }
 
-
         public Texture (String internalPath) 
 	: this(GDX.Files.Internal(internalPath))
 	{
@@ -193,8 +192,8 @@ public class Texture : GLTexture {
 		if (data.isManaged()) throw new GdxRuntimeException("can't draw to a managed texture");
 
 		bind();
-		GDX.GL.glTexSubImage2D(glTarget, 0, x, y, pixmap.getWidth(), pixmap.getHeight(), pixmap.getGLFormat(), pixmap.getGLType(),
-			pixmap.getPixels());
+		GDX.GL.glTexSubImage2D(glTarget, 0, x, y, pixmap.GetWidth(), pixmap.GetHeight(), pixmap.GetGLFormat(), pixmap.GetGLType(),
+			pixmap.GetPixels());
 	}
 
 	public override int getWidth () {

@@ -22,7 +22,7 @@ namespace SharpGDX.Graphics.GLUtils
 
 	public PixmapTextureData (Pixmap pixmap, Pixmap.Format? format, bool useMipMaps, bool disposePixmap, bool managed) {
 		this.pixmap = pixmap;
-		this.format = format == null ? pixmap.getFormat() : format;
+		this.format = format == null ? pixmap.GetFormat() : format;
 		this._useMipMaps = useMipMaps;
 		this._disposePixmap = disposePixmap;
 		this.managed = managed;
@@ -37,11 +37,11 @@ namespace SharpGDX.Graphics.GLUtils
 	}
 
 	public int getWidth () {
-		return pixmap.getWidth();
+		return pixmap.GetWidth();
 	}
 
 	public int getHeight () {
-		return pixmap.getHeight();
+		return pixmap.GetHeight();
 	}
 
 	public Pixmap.Format? getFormat () {

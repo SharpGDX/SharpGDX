@@ -21,49 +21,49 @@ namespace SharpGDX.Desktop
 		internal unsafe DesktopCursor(DesktopWindow window, Pixmap pixmap, int xHotspot, int yHotspot)
 		{
 			this.window = window;
-			if (pixmap.getFormat() != Pixmap.Format.RGBA8888)
+			if (pixmap.GetFormat() != Pixmap.Format.RGBA8888)
 			{
 				throw new GdxRuntimeException("Cursor image pixmap is not in RGBA8888 format.");
 			}
 
-			if ((pixmap.getWidth() & (pixmap.getWidth() - 1)) != 0)
+			if ((pixmap.GetWidth() & (pixmap.GetWidth() - 1)) != 0)
 			{
 				throw new GdxRuntimeException(
-					"Cursor image pixmap width of " + pixmap.getWidth() + " is not a power-of-two greater than zero.");
+					"Cursor image pixmap width of " + pixmap.GetWidth() + " is not a power-of-two greater than zero.");
 			}
 
-			if ((pixmap.getHeight() & (pixmap.getHeight() - 1)) != 0)
+			if ((pixmap.GetHeight() & (pixmap.GetHeight() - 1)) != 0)
 			{
 				throw new GdxRuntimeException(
-					"Cursor image pixmap height of " + pixmap.getHeight() +
+					"Cursor image pixmap height of " + pixmap.GetHeight() +
 					" is not a power-of-two greater than zero.");
 			}
 
-			if (xHotspot < 0 || xHotspot >= pixmap.getWidth())
+			if (xHotspot < 0 || xHotspot >= pixmap.GetWidth())
 			{
 				throw new GdxRuntimeException(
 					"xHotspot coordinate of " + xHotspot + " is not within image width bounds: [0, " +
-					pixmap.getWidth() + ").");
+					pixmap.GetWidth() + ").");
 			}
 
-			if (yHotspot < 0 || yHotspot >= pixmap.getHeight())
+			if (yHotspot < 0 || yHotspot >= pixmap.GetHeight())
 			{
 				throw new GdxRuntimeException(
 					"yHotspot coordinate of " + yHotspot + " is not within image height bounds: [0, " +
-					pixmap.getHeight() + ").");
+					pixmap.GetHeight() + ").");
 			}
 
-			this.pixmapCopy = new Pixmap(pixmap.getWidth(), pixmap.getHeight(), Pixmap.Format.RGBA8888);
-			this.pixmapCopy.setBlending(Pixmap.Blending.None);
-			this.pixmapCopy.drawPixmap(pixmap, 0, 0);
+			this.pixmapCopy = new Pixmap(pixmap.GetWidth(), pixmap.GetHeight(), Pixmap.Format.RGBA8888);
+			this.pixmapCopy.SetBlending(Pixmap.Blending.None);
+			this.pixmapCopy.DrawPixmap(pixmap, 0, 0);
 
 			// TODO: Verify
-			var imageDataHandle = GCHandle.Alloc(pixmapCopy.getPixels().array(), GCHandleType.Pinned);
+			var imageDataHandle = GCHandle.Alloc(pixmapCopy.GetPixels().array(), GCHandleType.Pinned);
 
 			glfwImage = new Image()
 			{
-				Width = (pixmapCopy.getWidth()),
-				Height = (pixmapCopy.getHeight()),
+				Width = (pixmapCopy.GetWidth()),
+				Height = (pixmapCopy.GetHeight()),
 				Pixels = (byte*)imageDataHandle.AddrOfPinnedObject()
 			};
 

@@ -21,9 +21,9 @@ namespace SharpGDX.Graphics.GLUtils
 		this.format = format;
 		this._useMipMaps = useMipMaps;
 		if (pixmap != null) {
-			width = pixmap.getWidth();
-			height = pixmap.getHeight();
-			if (format == null) this.format = pixmap.getFormat();
+			width = pixmap.GetWidth();
+			height = pixmap.GetHeight();
+			if (format == null) this.format = pixmap.GetFormat();
 		}
 	}
 
@@ -38,9 +38,9 @@ namespace SharpGDX.Graphics.GLUtils
 				pixmap = PixmapIO.readCIM(file);
 			else
 				pixmap = new Pixmap(file);
-			width = pixmap.getWidth();
-			height = pixmap.getHeight();
-			if (format == null) format = pixmap.getFormat();
+			width = pixmap.GetWidth();
+			height = pixmap.GetHeight();
+			if (format == null) format = pixmap.GetFormat();
 		}
 		_isPrepared = true;
 	}

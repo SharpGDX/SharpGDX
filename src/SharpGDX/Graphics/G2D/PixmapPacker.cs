@@ -568,9 +568,9 @@ public class PixmapPacker : IDisposable
         public Page(PixmapPacker packer)
         {
             image = new Pixmap(packer.pageWidth, packer.pageHeight, packer.pageFormat);
-            image.setBlending(Blending.None);
-            image.setColor(packer.getTransparentColor());
-            image.fill();
+            image.SetBlending(Blending.None);
+            image.SetColor(packer.getTransparentColor());
+            image.Fill();
         }
 
         public Pixmap getPixmap()
@@ -869,23 +869,23 @@ public class PixmapPacker : IDisposable
         if (startX != 0)
         {
             startX--;
-            endX = raster.getWidth() - 2 - (endX - 1);
+            endX = raster.GetWidth() - 2 - (endX - 1);
         }
         else
         {
             // If no start point was ever found, we assume full stretch.
-            endX = raster.getWidth() - 2;
+            endX = raster.GetWidth() - 2;
         }
 
         if (startY != 0)
         {
             startY--;
-            endY = raster.getHeight() - 2 - (endY - 1);
+            endY = raster.GetHeight() - 2 - (endY - 1);
         }
         else
         {
             // If no start point was ever found, we assume full stretch.
-            endY = raster.getHeight() - 2;
+            endY = raster.GetHeight() - 2;
         }
 
         return new int[] { startX, endX, startY, endY };
@@ -957,7 +957,7 @@ public class PixmapPacker : IDisposable
         int[] rgba = new int[4];
 
         int next = xAxis ? startX : startY;
-        int end = xAxis ? raster.getWidth() : raster.getHeight();
+        int end = xAxis ? raster.GetWidth() : raster.GetHeight();
         int breakA = startPoint ? 255 : 0;
 
         int x = startX;
@@ -969,7 +969,7 @@ public class PixmapPacker : IDisposable
             else
                 y = next;
 
-            int colint = raster.getPixel(x, y);
+            int colint = raster.GetPixel(x, y);
             c.Set(colint);
             rgba[0] = (int)(c.R * 255);
             rgba[1] = (int)(c.G * 255);

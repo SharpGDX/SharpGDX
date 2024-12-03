@@ -28,7 +28,7 @@ namespace SharpGDX.Desktop
         {
             if ((codepoint & 0xff00) == 0xf700) return;
             lastCharacter = (char)codepoint;
-            this.window.getGraphics().RequestRendering();
+            this.window.GetGraphics().RequestRendering();
             eventQueue.KeyTyped((char)codepoint, TimeUtils.nanoTime());
         }
 
@@ -54,7 +54,7 @@ namespace SharpGDX.Desktop
         public unsafe DefaultDesktopInput(DesktopWindow window)
         {
             this.window = window;
-            WindowHandleChanged(window.getWindowPtr());
+            WindowHandleChanged(window.GetWindowPtr());
         }
 
         public void ResetPollingStates()
@@ -77,7 +77,7 @@ namespace SharpGDX.Desktop
         public unsafe void WindowHandleChanged(Window* windowHandle)
         {
             ResetPollingStates();
-            GLFW.SetKeyCallback(window.getWindowPtr(), keyCallback =
+            GLFW.SetKeyCallback(window.GetWindowPtr(), keyCallback =
                 (Window* window, OpenTK.Windowing.GraphicsLibraryFramework.Keys key, int scancode, InputAction action,
                     KeyModifiers mods) =>
                 {
@@ -90,7 +90,7 @@ namespace SharpGDX.Desktop
                             KeyJustPressed = true;
                             PressedKeys[(int)intKey] = true;
                             JustPressedKeys[(int)intKey] = true;
-                            this.window.getGraphics().RequestRendering();
+                            this.window.GetGraphics().RequestRendering();
                             lastCharacter = (char)0;
                             char character = characterForKeyCode((int)intKey);
                             if (character != 0) charCallback(window, character);
@@ -98,33 +98,33 @@ namespace SharpGDX.Desktop
                         case InputAction.Release:
                             PressedKeyCount--;
                             PressedKeys[(int)intKey] = false;
-                            this.window.getGraphics().RequestRendering();
+                            this.window.GetGraphics().RequestRendering();
                             eventQueue.KeyUp((int)intKey, TimeUtils.nanoTime());
                             break;
                         case InputAction.Repeat:
                             if (lastCharacter != 0)
                             {
-                                this.window.getGraphics().RequestRendering();
+                                this.window.GetGraphics().RequestRendering();
                                 eventQueue.KeyTyped(lastCharacter, TimeUtils.nanoTime());
                             }
 
                             break;
                     }
                 });
-            GLFW.SetCharCallback(window.getWindowPtr(), _charCallback = charCallback);
+            GLFW.SetCharCallback(window.GetWindowPtr(), _charCallback = charCallback);
             GLFW.SetScrollCallback
             (
-                window.getWindowPtr(),
+                window.GetWindowPtr(),
                 _scrollCallback = (_, scrollX, scrollY) =>
                 {
-                    this.window.getGraphics().RequestRendering();
+                    this.window.GetGraphics().RequestRendering();
                     eventQueue.Scrolled(-(float)scrollX, -(float)scrollY, TimeUtils.nanoTime());
                 }
             );
 
             GLFW.SetCursorPosCallback
             (
-                window.getWindowPtr(),
+                window.GetWindowPtr(),
                 _cursorPosCallback = (_, x, y) =>
                 {
                     deltaX = (int)x - logicalMouseX;
@@ -132,19 +132,19 @@ namespace SharpGDX.Desktop
                     mouseX = logicalMouseX = (int)x;
                     mouseY = logicalMouseY = (int)y;
 
-                    if (window.getConfig().hdpiMode == HdpiMode.Pixels)
+                    if (window.GetConfig().hdpiMode == HdpiMode.Pixels)
                     {
-                        float xScale = window.getGraphics().GetBackBufferWidth() /
-                                       (float)window.getGraphics().getLogicalWidth();
-                        float yScale = window.getGraphics().GetBackBufferHeight() /
-                                       (float)window.getGraphics().getLogicalHeight();
+                        float xScale = window.GetGraphics().GetBackBufferWidth() /
+                                       (float)window.GetGraphics().getLogicalWidth();
+                        float yScale = window.GetGraphics().GetBackBufferHeight() /
+                                       (float)window.GetGraphics().getLogicalHeight();
                         deltaX = (int)(deltaX * xScale);
                         deltaY = (int)(deltaY * yScale);
                         mouseX = (int)(mouseX * xScale);
                         mouseY = (int)(mouseY * yScale);
                     }
 
-                    this.window.getGraphics().RequestRendering();
+                    this.window.GetGraphics().RequestRendering();
                     long time = TimeUtils.nanoTime();
                     if (mousePressed > 0)
                     {
@@ -160,7 +160,7 @@ namespace SharpGDX.Desktop
             // TODO: Clear this in the dispose method.
             GLFW.SetMouseButtonCallback
             (
-                window.getWindowPtr(),
+                window.GetWindowPtr(),
                 _mouseButtonCallback = (_, button, action, _) =>
                 {
 
@@ -174,13 +174,13 @@ namespace SharpGDX.Desktop
                         mousePressed++;
                         _justTouched = true;
                         justPressedButtons[gdxButton] = true;
-                        this.window.getGraphics().RequestRendering();
+                        this.window.GetGraphics().RequestRendering();
                         eventQueue.TouchDown(mouseX, mouseY, 0, gdxButton, time);
                     }
                     else
                     {
                         mousePressed = Math.Max(0, mousePressed - 1);
-                        this.window.getGraphics().RequestRendering();
+                        this.window.GetGraphics().RequestRendering();
                         eventQueue.TouchUp(mouseX, mouseY, 0, gdxButton, time);
                     }
                 }
@@ -263,11 +263,11 @@ namespace SharpGDX.Desktop
 
         public override unsafe bool IsTouched()
         {
-            return GLFW.GetMouseButton(window.getWindowPtr(), MouseButton.Button1) == InputAction.Press
-                   || GLFW.GetMouseButton(window.getWindowPtr(), MouseButton.Button2) == InputAction.Press
-                   || GLFW.GetMouseButton(window.getWindowPtr(), MouseButton.Button3) == InputAction.Press
-                   || GLFW.GetMouseButton(window.getWindowPtr(), MouseButton.Button4) == InputAction.Press
-                   || GLFW.GetMouseButton(window.getWindowPtr(), MouseButton.Button5) == InputAction.Press;
+            return GLFW.GetMouseButton(window.GetWindowPtr(), MouseButton.Button1) == InputAction.Press
+                   || GLFW.GetMouseButton(window.GetWindowPtr(), MouseButton.Button2) == InputAction.Press
+                   || GLFW.GetMouseButton(window.GetWindowPtr(), MouseButton.Button3) == InputAction.Press
+                   || GLFW.GetMouseButton(window.GetWindowPtr(), MouseButton.Button4) == InputAction.Press
+                   || GLFW.GetMouseButton(window.GetWindowPtr(), MouseButton.Button5) == InputAction.Press;
         }
 
         public override bool JustTouched()
@@ -292,7 +292,7 @@ namespace SharpGDX.Desktop
 
         public override unsafe bool IsButtonPressed(int button)
         {
-            return GLFW.GetMouseButton(window.getWindowPtr(), (MouseButton)button) == InputAction.Press;
+            return GLFW.GetMouseButton(window.GetWindowPtr(), (MouseButton)button) == InputAction.Press;
         }
 
         public override bool IsButtonJustPressed(int button)
@@ -335,30 +335,30 @@ namespace SharpGDX.Desktop
 
         public override unsafe void SetCursorCatched(bool catched)
         {
-            GLFW.SetInputMode(window.getWindowPtr(), CursorStateAttribute.Cursor,
+            GLFW.SetInputMode(window.GetWindowPtr(), CursorStateAttribute.Cursor,
                 catched ? CursorModeValue.CursorDisabled : CursorModeValue.CursorNormal);
         }
 
         public override unsafe bool IsCursorCatched()
         {
-            return GLFW.GetInputMode(window.getWindowPtr(), CursorStateAttribute.Cursor) ==
+            return GLFW.GetInputMode(window.GetWindowPtr(), CursorStateAttribute.Cursor) ==
                    CursorModeValue.CursorDisabled;
         }
 
         public override unsafe void SetCursorPosition(int x, int y)
         {
-            if (window.getConfig().hdpiMode == HdpiMode.Pixels)
+            if (window.GetConfig().hdpiMode == HdpiMode.Pixels)
             {
-                float xScale = window.getGraphics().getLogicalWidth() /
-                               (float)window.getGraphics().GetBackBufferWidth();
-                float yScale = window.getGraphics().getLogicalHeight() /
-                               (float)window.getGraphics().GetBackBufferHeight();
+                float xScale = window.GetGraphics().getLogicalWidth() /
+                               (float)window.GetGraphics().GetBackBufferWidth();
+                float yScale = window.GetGraphics().getLogicalHeight() /
+                               (float)window.GetGraphics().GetBackBufferHeight();
                 x = (int)(x * xScale);
                 y = (int)(y * yScale);
             }
 
-            GLFW.SetCursorPos(window.getWindowPtr(), x, y);
-            _cursorPosCallback(window.getWindowPtr(), x, y);
+            GLFW.SetCursorPos(window.GetWindowPtr(), x, y);
+            _cursorPosCallback(window.GetWindowPtr(), x, y);
         }
 
         protected char characterForKeyCode(int key)

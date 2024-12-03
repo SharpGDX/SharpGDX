@@ -1,589 +1,619 @@
-﻿using SharpGDX.Graphics;
-using System.Runtime.InteropServices;
+﻿using System.Runtime.InteropServices;
 using OpenTK.Windowing.GraphicsLibraryFramework;
-using static OpenTK.Windowing.GraphicsLibraryFramework.GLFWCallbacks;
 using SharpGDX.Files;
+using SharpGDX.Graphics;
 using SharpGDX.Shims;
 using SharpGDX.Utils;
+using static OpenTK.Windowing.GraphicsLibraryFramework.GLFWCallbacks;
 
 
-namespace SharpGDX.Desktop
+namespace SharpGDX.Desktop;
+
+public class DesktopWindow : IDisposable
 {
-    public class DesktopWindow : IDisposable
+    private readonly IDesktopApplicationBase _application;
+    private readonly DesktopApplicationConfiguration _config;
+    private readonly Array<Runnable> _executedRunnables = new();
+    private readonly Array<ILifecycleListener> _lifecycleListeners;
+    private readonly IApplicationListener _listener;
+    private readonly Array<Runnable> _runnables = new();
+
+    private WindowFocusCallback _focusCallback;
+    private bool _focused;
+    private DesktopGraphics _graphics;
+    private bool _iconified;
+    private IDesktopInput _input;
+    private bool _listenerInitialized;
+    private WindowMaximizeCallback _maximizeCallback;
+    private WindowRefreshCallback _refreshCallback;
+    private bool _requestRendering;
+    private unsafe Window* _windowHandle;
+    private IDesktopWindowListener? _windowListener;
+
+    internal bool AsyncResized;
+
+    private WindowCloseCallback closeCallback;
+    private WindowIconifyCallback iconifyCallback;
+
+    internal DesktopWindow(IApplicationListener listener, Array<ILifecycleListener> lifecycleListeners,
+        DesktopApplicationConfiguration config,
+        IDesktopApplicationBase application)
     {
-        private unsafe Window* windowHandle;
-        readonly IApplicationListener listener;
-        private readonly Array<ILifecycleListener> lifecycleListeners;
-        readonly IDesktopApplicationBase application;
-        private bool listenerInitialized = false;
-        IDesktopWindowListener windowListener;
-        private DesktopGraphics graphics;
-        private IDesktopInput input;
-        private readonly DesktopApplicationConfiguration config;
-        private readonly Array<Runnable> runnables = new();
-        private readonly Array<Runnable> executedRunnables = new();
-        private readonly IntBuffer tmpBuffer;
-        private readonly IntBuffer tmpBuffer2;
-        bool iconified = false;
-        bool focused = false;
-        internal bool asyncResized = false;
-        private bool _requestRendering = false;
+        _listener = listener;
+        _lifecycleListeners = lifecycleListeners;
+        _windowListener = config.WindowListener;
+        _config = config;
+        _application = application;
+    }
 
-        private WindowFocusCallback _focusCallback;
+    public unsafe void Dispose()
+    {
+        _listener.Pause();
+        _listener.Dispose();
+        DesktopCursor.dispose(this);
+        _graphics.Dispose();
+        _input.Dispose();
 
-        private WindowIconifyCallback iconifyCallback;
-        private WindowMaximizeCallback _maximizeCallback;
+        GLFW.SetWindowFocusCallback(_windowHandle, null);
+        GLFW.SetWindowIconifyCallback(_windowHandle, null);
+        GLFW.SetWindowMaximizeCallback(_windowHandle, null);
+        GLFW.SetWindowCloseCallback(_windowHandle, null);
+        GLFW.SetDropCallback(_windowHandle, null);
+        GLFW.SetWindowRefreshCallback(_windowHandle, null);
 
-        private WindowCloseCallback closeCallback;
+        GLFW.DestroyWindow(_windowHandle);
+    }
+    
+    private unsafe void DropCallback(Window* windowHandle, int count, byte** names)
+    {
+        var files = new string?[count];
 
-
-        private unsafe void dropCallback(Window* windowHandle, int count, byte** names)
+        for (var i = 0; i < count; i++)
         {
-            String[] files = new String[count];
-            for (int i = 0; i < count; i++)
-            {
-                // TODO: Do these need to be freed?
-                files[i] = Marshal.PtrToStringUTF8((IntPtr)names[i]);
-            }
-
-            postRunnable(() =>
-            {
-
-                if (windowListener != null)
-                {
-                    windowListener.FilesDropped(files);
-                }
-            });
+            // TODO: Do these need to be freed? -RP
+            files[i] = Marshal.PtrToStringUTF8((IntPtr)names[i]);
         }
 
-        private WindowRefreshCallback refreshCallback;
-
-        internal DesktopWindow(IApplicationListener listener, Array<ILifecycleListener> lifecycleListeners,
-            DesktopApplicationConfiguration config,
-            IDesktopApplicationBase application)
+        PostRunnable(() =>
         {
-            this.listener = listener;
-            this.lifecycleListeners = lifecycleListeners;
-            this.windowListener = config.WindowListener;
-            this.config = config;
-            this.application = application;
+            _windowListener?.FilesDropped(files);
+        });
+    }
 
-            // TODO: This was originally BufferUtils.createIntBuffer, not sure if this is right.
-            this.tmpBuffer = IntBuffer.allocate(1);
-            this.tmpBuffer2 = IntBuffer.allocate(1);
-        }
+    internal unsafe void Create(Window* windowHandle)
+    {
+        _windowHandle = windowHandle;
+        _input = _application.CreateInput(this);
+        _graphics = new DesktopGraphics(this);
 
-        internal unsafe void create(Window* windowHandle)
-        {
-            this.windowHandle = windowHandle;
-            this.input = application.CreateInput(this);
-            this.graphics = new DesktopGraphics(this);
-
-            GLFW.SetWindowFocusCallback
-            (
-                windowHandle,
-                _focusCallback = (_, focused) => postRunnable(() =>
+        GLFW.SetWindowFocusCallback
+        (
+            windowHandle,
+            _focusCallback = (_, focused) => PostRunnable(() =>
+            {
+                if (_windowListener != null)
                 {
-
-                    if (windowListener != null)
+                    if (focused)
                     {
-                        if (focused)
+                        if (_config.pauseWhenLostFocus)
                         {
-                            if (config.pauseWhenLostFocus)
+                            lock (_lifecycleListeners)
                             {
-                                lock (lifecycleListeners)
+                                foreach (var lifecycleListener in _lifecycleListeners)
                                 {
-                                    foreach (ILifecycleListener lifecycleListener in lifecycleListeners)
-                                    {
-                                        lifecycleListener.Resume();
-                                    }
+                                    lifecycleListener.Resume();
                                 }
-                            }
-
-                            windowListener.FocusGained();
-                        }
-                        else
-                        {
-                            windowListener.FocusLost();
-
-                            if (config.pauseWhenLostFocus)
-                            {
-                                lock (lifecycleListeners)
-                                {
-                                    foreach (ILifecycleListener lifecycleListener in lifecycleListeners)
-                                    {
-                                        lifecycleListener.Pause();
-                                    }
-                                }
-
-                                listener.Pause();
                             }
                         }
 
-                        this.focused = focused;
+                        _windowListener.FocusGained();
                     }
-                })
-            );
-
-            GLFW.SetWindowIconifyCallback
-            (
-                windowHandle,
-                iconifyCallback = (_, iconified) => postRunnable(() =>
-                {
-
-                    if (windowListener != null)
+                    else
                     {
-                        windowListener.Iconified(iconified);
-                    }
+                        _windowListener.FocusLost();
 
-                    this.iconified = iconified;
-                    if (iconified)
-                    {
-                        if (config.pauseWhenMinimized)
+                        if (_config.pauseWhenLostFocus)
                         {
-                            lock (lifecycleListeners)
+                            lock (_lifecycleListeners)
                             {
-                                foreach (ILifecycleListener lifecycleListener in lifecycleListeners)
+                                foreach (var lifecycleListener in _lifecycleListeners)
                                 {
                                     lifecycleListener.Pause();
                                 }
                             }
 
-                            listener.Pause();
+                            _listener.Pause();
                         }
                     }
-                    else
-                    {
-                        if (config.pauseWhenMinimized)
-                        {
-                            lock (lifecycleListeners)
-                            {
-                                foreach (ILifecycleListener lifecycleListener in lifecycleListeners)
-                                {
-                                    lifecycleListener.Resume();
-                                }
-                            }
 
-                            listener.Resume();
-                        }
-                    }
-                })
-            );
+                    _focused = focused;
+                }
+            })
+        );
 
-            GLFW.SetWindowMaximizeCallback(windowHandle, _maximizeCallback = (window, maximized) => postRunnable(() =>
+        GLFW.SetWindowIconifyCallback
+        (
+            windowHandle,
+            iconifyCallback = (_, iconified) => PostRunnable(() =>
             {
-                if (windowListener != null)
+                if (_windowListener != null)
                 {
-                    windowListener.Maximized(maximized);
+                    _windowListener.Iconified(iconified);
                 }
 
-            }));
+                _iconified = iconified;
 
-            GLFW.SetWindowCloseCallback
-            (
-                windowHandle,
-                closeCallback = (_) => postRunnable(() =>
+                if (iconified)
                 {
-
-                    if (windowListener != null)
+                    if (_config.pauseWhenMinimized)
                     {
-                        if (!windowListener.CloseRequested())
+                        lock (_lifecycleListeners)
                         {
-                            GLFW.SetWindowShouldClose(windowHandle, false);
+                            foreach (var lifecycleListener in _lifecycleListeners)
+                            {
+                                lifecycleListener.Pause();
+                            }
                         }
+
+                        _listener.Pause();
                     }
-
-                })
-            );
-
-            GLFW.SetDropCallback(windowHandle, dropCallback);
-
-            GLFW.SetWindowRefreshCallback
-            (
-                windowHandle,
-                refreshCallback = (_) => postRunnable(() =>
+                }
+                else
                 {
-                    if (windowListener != null)
+                    if (_config.pauseWhenMinimized)
                     {
-                        windowListener.RefreshRequested();
+                        lock (_lifecycleListeners)
+                        {
+                            foreach (var lifecycleListener in _lifecycleListeners)
+                            {
+                                lifecycleListener.Resume();
+                            }
+                        }
+
+                        _listener.Resume();
                     }
+                }
+            })
+        );
 
-                })
-            );
+        GLFW.SetWindowMaximizeCallback(windowHandle, _maximizeCallback = (_, maximized) => PostRunnable(() =>
+        {
+            _windowListener?.Maximized(maximized);
+        }));
 
-            if (windowListener != null)
+        GLFW.SetWindowCloseCallback
+        (
+            windowHandle,
+            closeCallback = _ => PostRunnable(() =>
             {
-                windowListener.Created(this);
-            }
+                if (_windowListener?.CloseRequested() == false)
+                {
+                    GLFW.SetWindowShouldClose(windowHandle, false);
+                }
+            })
+        );
+
+        GLFW.SetDropCallback(windowHandle, DropCallback);
+
+        GLFW.SetWindowRefreshCallback
+        (
+            windowHandle,
+            _refreshCallback = _ => PostRunnable(() => { _windowListener?.RefreshRequested(); })
+        );
+
+        _windowListener?.Created(this);
+    }
+
+    /** @return the {@link ApplicationListener} associated with this window **/
+    public IApplicationListener GetListener()
+    {
+        return _listener;
+    }
+
+    /// <summary>
+    /// Returns the <see cref="IDesktopWindowListener"/> set on this window.
+    /// </summary>
+    /// <returns>The <see cref="IDesktopWindowListener"/> set on this window.</returns>
+    public IDesktopWindowListener? GetWindowListener()
+    {
+        return _windowListener;
+    }
+
+    public void SetWindowListener(IDesktopWindowListener listener)
+    {
+        _windowListener = listener;
+    }
+
+    /**
+     * Post a {@link Runnable} to this window's event queue. Use this if you access statics like {@link Gdx#graphics} in your
+     * runnable instead of {@link Application#postRunnable(Runnable)}.
+     */
+    public void PostRunnable(Runnable runnable)
+    {
+        lock (_runnables)
+        {
+            _runnables.Add(runnable);
+        }
+    }
+
+    /** Sets the position of the window in logical coordinates. All monitors span a virtual surface together. The coordinates are
+     * relative to the first monitor in the virtual surface. **/
+    public unsafe void SetPosition(int x, int y)
+    {
+        GLFW.SetWindowPos(_windowHandle, x, y);
+    }
+
+    /**
+     * @return the window position in logical coordinates. All monitors span a virtual surface together. The coordinates are
+     * relative to the first monitor in the virtual surface. *
+     */
+    public unsafe int GetPositionX()
+    {
+        GLFW.GetWindowPos(_windowHandle, out var x, out var y);
+        return x;
+    }
+
+    /**
+     * @return the window position in logical coordinates. All monitors span a virtual surface together. The coordinates are
+     * relative to the first monitor in the virtual surface. *
+     */
+    public unsafe int GetPositionY()
+    {
+        GLFW.GetWindowPos(_windowHandle, out var x, out var y);
+        return y;
+    }
+
+    /**
+     * Sets the visibility of the window. Invisible windows will still call their {@link ApplicationListener}
+     */
+    public unsafe void SetVisible(bool visible)
+    {
+        if (visible)
+        {
+            GLFW.ShowWindow(_windowHandle);
+        }
+        else
+        {
+            GLFW.HideWindow(_windowHandle);
+        }
+    }
+
+    /**
+     * Closes this window and pauses and disposes the associated {@link ApplicationListener}.
+     */
+    public unsafe void CloseWindow()
+    {
+        GLFW.SetWindowShouldClose(_windowHandle, true);
+    }
+
+    /**
+     * Minimizes (iconifies) the window. Iconified windows do not call their {@link ApplicationListener} until the window is
+     * restored.
+     */
+    public unsafe void IconifyWindow()
+    {
+        GLFW.IconifyWindow(_windowHandle);
+    }
+
+    /// <summary>
+    ///     Whether the window is iconified.
+    /// </summary>
+    /// <returns></returns>
+    public bool IsIconified()
+    {
+        return _iconified;
+    }
+
+    /// <summary>
+    ///     De-minimizes (de-iconifies) and de-maximizes the window.
+    /// </summary>
+    public unsafe void RestoreWindow()
+    {
+        GLFW.RestoreWindow(_windowHandle);
+    }
+
+    /**
+     * Maximizes the window.
+     */
+    public unsafe void MaximizeWindow()
+    {
+        GLFW.MaximizeWindow(_windowHandle);
+    }
+
+    /// <summary>
+    ///     Brings the window to front and sets input focus.
+    /// </summary>
+    /// <remarks>
+    ///     The window should already be visible and not iconified.
+    /// </remarks>
+    public unsafe void FocusWindow()
+    {
+        GLFW.FocusWindow(_windowHandle);
+    }
+
+    public bool IsFocused()
+    {
+        return _focused;
+    }
+
+    /**
+     * Sets the icon that will be used in the window's title bar. Has no effect in macOS, which doesn't use window icons.
+     * @param image One or more images. The one closest to the system's desired size will be scaled. Good sizes include 16x16,
+     * 32x32 and 48x48. Pixmap format {@link com.badlogic.gdx.graphics.Pixmap.Format#RGBA8888 RGBA8888} is preferred so
+     * the images will not have to be copied and converted. The chosen image is copied, and the provided Pixmaps are not
+     * disposed.
+     */
+    public unsafe void SetIcon(Pixmap[] image)
+    {
+        SetIcon(_windowHandle, image);
+    }
+
+    internal static unsafe void SetIcon(Window* windowHandle, string[] imagePaths, FileType imageFileType)
+    {
+        if (SharedLibraryLoader.isMac)
+        {
+            return;
         }
 
-        /** @return the {@link ApplicationListener} associated with this window **/
-        public IApplicationListener getListener()
+        var pixmaps = new Pixmap[imagePaths.Length];
+        for (var i = 0; i < imagePaths.Length; i++)
         {
-            return listener;
+            pixmaps[i] = new Pixmap(GDX.Files.GetFileHandle(imagePaths[i], imageFileType));
         }
 
-        /** @return the {@link DesktopWindowListener} set on this window **/
-        public IDesktopWindowListener getWindowListener()
+        SetIcon(windowHandle, pixmaps);
+
+        foreach (var pixmap in pixmaps)
         {
-            return windowListener;
+            pixmap.Dispose();
+        }
+    }
+
+    private static unsafe void SetIcon(Window* windowHandle, Pixmap[] images)
+    {
+        if (SharedLibraryLoader.isMac)
+        {
+            return;
         }
 
-        public void setWindowListener(IDesktopWindowListener listener)
-        {
-            this.windowListener = listener;
-        }
+        Span<GCHandle> handles = stackalloc GCHandle[images.Length];
+        Span<Image> glfwImages = stackalloc Image[images.Length];
 
-        /** Post a {@link Runnable} to this window's event queue. Use this if you access statics like {@link Gdx#graphics} in your
-         * runnable instead of {@link Application#postRunnable(Runnable)}. */
-        public void postRunnable(Runnable runnable)
+        Pixmap?[] tmpPixmaps = new Pixmap[images.Length];
+
+        for (var i = 0; i < images.Length; i++)
         {
-            lock (runnables)
+            var pixmap = images[i];
+
+            if (pixmap.GetFormat() != Pixmap.Format.RGBA8888)
             {
-                runnables.Add(runnable);
-            }
-        }
-
-        /** Sets the position of the window in logical coordinates. All monitors span a virtual surface together. The coordinates are
-         * relative to the first monitor in the virtual surface. **/
-        public unsafe void setPosition(int x, int y)
-        {
-            GLFW.SetWindowPos(windowHandle, x, y);
-        }
-
-        /** @return the window position in logical coordinates. All monitors span a virtual surface together. The coordinates are
-         *         relative to the first monitor in the virtual surface. **/
-        public unsafe int getPositionX()
-        {
-            GLFW.GetWindowPos(windowHandle, out var x, out var y);
-            return x;
-        }
-
-        /** @return the window position in logical coordinates. All monitors span a virtual surface together. The coordinates are
-         *         relative to the first monitor in the virtual surface. **/
-        public unsafe int getPositionY()
-        {
-            GLFW.GetWindowPos(windowHandle, out var x, out var y);
-            return y;
-        }
-
-        /** Sets the visibility of the window. Invisible windows will still call their {@link ApplicationListener} */
-        public unsafe void setVisible(bool visible)
-        {
-            if (visible)
-            {
-                GLFW.ShowWindow(windowHandle);
-            }
-            else
-            {
-                GLFW.HideWindow(windowHandle);
-            }
-        }
-
-        /** Closes this window and pauses and disposes the associated {@link ApplicationListener}. */
-        public unsafe void closeWindow()
-        {
-            GLFW.SetWindowShouldClose(windowHandle, true);
-        }
-
-        /** Minimizes (iconifies) the window. Iconified windows do not call their {@link ApplicationListener} until the window is
-         * restored. */
-        public unsafe void iconifyWindow()
-        {
-            GLFW.IconifyWindow(windowHandle);
-        }
-
-        /** Whether the window is iconfieid */
-        public bool isIconified()
-        {
-            return iconified;
-        }
-
-        /** De-minimizes (de-iconifies) and de-maximizes the window. */
-        public unsafe void restoreWindow()
-        {
-            GLFW.RestoreWindow(windowHandle);
-        }
-
-        /** Maximizes the window. */
-        public unsafe void maximizeWindow()
-        {
-            GLFW.MaximizeWindow(windowHandle);
-        }
-
-        /** Brings the window to front and sets input focus. The window should already be visible and not iconified. */
-        public unsafe void focusWindow()
-        {
-            GLFW.FocusWindow(windowHandle);
-        }
-
-        public bool isFocused()
-        {
-            return focused;
-        }
-
-        /** Sets the icon that will be used in the window's title bar. Has no effect in macOS, which doesn't use window icons.
-         * @param image One or more images. The one closest to the system's desired size will be scaled. Good sizes include 16x16,
-         *           32x32 and 48x48. Pixmap format {@link com.badlogic.gdx.graphics.Pixmap.Format#RGBA8888 RGBA8888} is preferred so
-         *           the images will not have to be copied and converted. The chosen image is copied, and the provided Pixmaps are not
-         *           disposed. */
-        public unsafe void setIcon(Pixmap[] image)
-        {
-            setIcon(windowHandle, image);
-        }
-
-        internal static unsafe void setIcon(Window* windowHandle, String[] imagePaths, FileType imageFileType)
-        {
-            if (SharedLibraryLoader.isMac) return;
-
-            Pixmap[] pixmaps = new Pixmap[imagePaths.Length];
-            for (int i = 0; i < imagePaths.Length; i++)
-            {
-                pixmaps[i] = new Pixmap(GDX.Files.GetFileHandle(imagePaths[i], imageFileType));
+                var rgba = new Pixmap(pixmap.GetWidth(), pixmap.GetHeight(), Pixmap.Format.RGBA8888);
+                rgba.SetBlending(Pixmap.Blending.None);
+                rgba.DrawPixmap(pixmap, 0, 0);
+                tmpPixmaps[i] = rgba;
+                pixmap = rgba;
             }
 
-            setIcon(windowHandle, pixmaps);
+            handles[i] = GCHandle.Alloc(pixmap.GetPixels().array(), GCHandleType.Pinned);
+            var addrOfPinnedObject = (byte*)handles[i].AddrOfPinnedObject();
 
-            foreach (Pixmap pixmap in pixmaps)
+            glfwImages[i] = new Image(pixmap.GetWidth(), pixmap.GetHeight(), addrOfPinnedObject);
+        }
+
+        GLFW.SetWindowIcon(windowHandle, glfwImages);
+
+        foreach (var handle in handles)
+        {
+            handle.Free();
+        }
+
+        foreach (var pixmap in tmpPixmaps)
+        {
+            if (pixmap != null)
             {
                 pixmap.Dispose();
             }
         }
+    }
 
-        private static unsafe void setIcon(Window* windowHandle, Pixmap[] images)
+    public unsafe void SetTitle(string title)
+    {
+        GLFW.SetWindowTitle(_windowHandle, title);
+    }
+
+    /**
+     * Sets minimum and maximum size limits for the window. If the window is full screen or not resizable, these limits are
+     * ignored. Use -1 to indicate an unrestricted dimension.
+     */
+    public unsafe void SetSizeLimits(int minWidth, int minHeight, int maxWidth, int maxHeight)
+    {
+        SetSizeLimits(_windowHandle, minWidth, minHeight, maxWidth, maxHeight);
+    }
+
+    internal static unsafe void SetSizeLimits
+    (
+        Window* windowHandle,
+        int minWidth,
+        int minHeight,
+        int maxWidth,
+        int maxHeight
+    )
+    {
+        GLFW.SetWindowSizeLimits(windowHandle, minWidth > -1 ? minWidth : GLFW.DontCare,
+            minHeight > -1 ? minHeight : GLFW.DontCare, maxWidth > -1 ? maxWidth : GLFW.DontCare,
+            maxHeight > -1 ? maxHeight : GLFW.DontCare);
+    }
+
+    internal DesktopGraphics GetGraphics()
+    {
+        return _graphics;
+    }
+
+    internal IDesktopInput GetInput()
+    {
+        return _input;
+    }
+
+    public unsafe long GetWindowHandle()
+    {
+        // TODO: This should be an IntPtr and should be marshaled.
+        return (long)_windowHandle;
+    }
+
+    internal unsafe Window* GetWindowPtr()
+    {
+        return _windowHandle;
+    }
+
+    private unsafe void WindowHandleChanged(Window* windowHandle)
+    {
+        _windowHandle = windowHandle;
+        _input.WindowHandleChanged(windowHandle);
+    }
+
+    internal unsafe bool Update()
+    {
+        if (!_listenerInitialized)
         {
-            if (SharedLibraryLoader.isMac) return;
-
-            Span<GCHandle> handles = stackalloc GCHandle[images.Length];
-            Span<Image> glfwImages = stackalloc Image[images.Length];
-
-            Pixmap?[] tmpPixmaps = new Pixmap[images.Length];
-
-            for (int i = 0; i < images.Length; i++)
-            {
-                Pixmap pixmap = images[i];
-
-                if (pixmap.getFormat() != Pixmap.Format.RGBA8888)
-                {
-                    Pixmap rgba = new Pixmap(pixmap.getWidth(), pixmap.getHeight(), Pixmap.Format.RGBA8888);
-                    rgba.setBlending(Pixmap.Blending.None);
-                    rgba.drawPixmap(pixmap, 0, 0);
-                    tmpPixmaps[i] = rgba;
-                    pixmap = rgba;
-                }
-
-                handles[i] = GCHandle.Alloc(pixmap.getPixels().array(), GCHandleType.Pinned);
-                var addrOfPinnedObject = (byte*)handles[i].AddrOfPinnedObject();
-
-                glfwImages[i] = new Image(pixmap.getWidth(), pixmap.getHeight(), addrOfPinnedObject);
-            }
-
-            GLFW.SetWindowIcon(windowHandle, glfwImages);
-
-            foreach (var handle in handles)
-            {
-                handle.Free();
-            }
-
-            foreach (Pixmap pixmap in tmpPixmaps)
-            {
-                if (pixmap != null)
-                {
-                    pixmap.Dispose();
-                }
-            }
-
+            InitializeListener();
         }
 
-        public unsafe void setTitle(string title)
+        lock (_runnables)
         {
-            GLFW.SetWindowTitle(windowHandle, title);
+            _executedRunnables.addAll(_runnables);
+            _runnables.clear();
         }
 
-        /** Sets minimum and maximum size limits for the window. If the window is full screen or not resizable, these limits are
-         * ignored. Use -1 to indicate an unrestricted dimension. */
-        public unsafe void setSizeLimits(int minWidth, int minHeight, int maxWidth, int maxHeight)
+        foreach (var runnable in _executedRunnables)
         {
-            setSizeLimits(windowHandle, minWidth, minHeight, maxWidth, maxHeight);
+            runnable.Invoke();
         }
 
-        internal static unsafe void setSizeLimits(Window* windowHandle, int minWidth, int minHeight, int maxWidth,
-            int maxHeight)
+        var shouldRender = _executedRunnables.size > 0 || _graphics.IsContinuousRendering();
+        _executedRunnables.clear();
+
+        if (!_iconified)
         {
-            GLFW.SetWindowSizeLimits(windowHandle, minWidth > -1 ? minWidth : GLFW.DontCare,
-                minHeight > -1 ? minHeight : GLFW.DontCare, maxWidth > -1 ? maxWidth : GLFW.DontCare,
-                maxHeight > -1 ? maxHeight : GLFW.DontCare);
+            _input.Update();
         }
 
-        internal DesktopGraphics getGraphics()
+        lock (this)
         {
-            return graphics;
+            shouldRender |= _requestRendering && !_iconified;
+            _requestRendering = false;
         }
 
-        internal IDesktopInput getInput()
+        // In case glfw_async is used, we need to resize outside the GLFW
+        if (AsyncResized)
         {
-            return input;
-        }
-
-
-
-        public unsafe long getWindowHandle()
-        {
-            // TODO: This should be an IntPtr and should be marshaled.
-            return (long)windowHandle;
-        }
-
-        internal unsafe Window* getWindowPtr()
-        {
-            return windowHandle;
-        }
-
-        private unsafe void windowHandleChanged(Window* windowHandle)
-        {
-            this.windowHandle = windowHandle;
-            input.WindowHandleChanged(windowHandle);
-        }
-
-        internal unsafe bool update()
-        {
-            if (!listenerInitialized)
-            {
-                initializeListener();
-            }
-
-            lock (runnables)
-            {
-                executedRunnables.addAll(runnables);
-                runnables.clear();
-            }
-
-            foreach (Runnable runnable in executedRunnables)
-            {
-                runnable.Invoke();
-            }
-
-            bool shouldRender = executedRunnables.size > 0 || graphics.IsContinuousRendering();
-            executedRunnables.clear();
-
-            if (!iconified) input.Update();
-
-            lock (this)
-            {
-                shouldRender |= _requestRendering && !iconified;
-                _requestRendering = false;
-            }
-
-            // In case glfw_async is used, we need to resize outside the GLFW
-            if (asyncResized)
-            {
-                asyncResized = false;
-                graphics.updateFramebufferInfo();
-                graphics.gl20.glViewport(0, 0, graphics.GetBackBufferWidth(), graphics.GetBackBufferHeight());
-                listener.Resize(graphics.GetWidth(), graphics.GetHeight());
-                graphics.update();
-                listener.Render();
-                GLFW.SwapBuffers(windowHandle);
-                return true;
-            }
-
-            if (shouldRender)
-            {
-                graphics.update();
-                listener.Render();
-                GLFW.SwapBuffers(windowHandle);
-            }
-
-            if (!iconified) input.PrepareNext();
-
-            return shouldRender;
-        }
-
-        internal void requestRendering()
-        {
-            lock (this)
-            {
-                this._requestRendering = true;
-            }
-        }
-
-        internal unsafe bool shouldClose()
-        {
-            return GLFW.WindowShouldClose(windowHandle);
-        }
-
-        internal DesktopApplicationConfiguration getConfig()
-        {
-            return config;
-        }
-
-        internal bool isListenerInitialized()
-        {
-            return listenerInitialized;
-        }
-
-        void initializeListener()
-        {
-            if (!listenerInitialized)
-            {
-                listener.Create();
-                listener.Resize(graphics.GetWidth(), graphics.GetHeight());
-                listenerInitialized = true;
-            }
-        }
-
-        internal unsafe void makeCurrent()
-        {
-            GDX.Graphics = graphics;
-            GDX.GL32 = graphics.GetGL32();
-            GDX.GL31 = GDX.GL32 != null ? GDX.GL32 : graphics.GetGL31();
-            GDX.GL30 = GDX.GL31 != null ? GDX.GL31 : graphics.GetGL30();
-            GDX.GL20 = GDX.GL30 != null ? GDX.GL30 : graphics.GetGL20();
-            GDX.GL = GDX.GL20;
-            GDX.Input = input;
-
-            GLFW.MakeContextCurrent(windowHandle);
-        }
-
-        public unsafe void Dispose()
-        {
-            listener.Pause();
-            listener.Dispose();
-            DesktopCursor.dispose(this);
-            graphics.Dispose();
-            input.Dispose();
-
-            GLFW.SetWindowFocusCallback(windowHandle, null);
-            GLFW.SetWindowIconifyCallback(windowHandle, null);
-            GLFW.SetWindowMaximizeCallback(windowHandle, null);
-            GLFW.SetWindowCloseCallback(windowHandle, null);
-            GLFW.SetDropCallback(windowHandle, null);
-            GLFW.SetWindowRefreshCallback(windowHandle, null);
-
-            GLFW.DestroyWindow(windowHandle);
-        }
-
-        public override unsafe int GetHashCode()
-        {
-            int prime = 31;
-            int result = 1;
-            // TODO: Not sure that this cast works
-            result = prime * result + (int)((long)windowHandle ^ ((long)windowHandle >>> 32));
-            return result;
-        }
-
-        public override unsafe bool Equals(Object? obj)
-        {
-            if (this == obj) return true;
-            if (obj == null) return false;
-            if (GetType() != obj.GetType()) return false;
-            DesktopWindow other = (DesktopWindow)obj;
-            if (windowHandle != other.windowHandle) return false;
+            AsyncResized = false;
+            _graphics.updateFramebufferInfo();
+            _graphics.gl20.glViewport(0, 0, _graphics.GetBackBufferWidth(), _graphics.GetBackBufferHeight());
+            _listener.Resize(_graphics.GetWidth(), _graphics.GetHeight());
+            _graphics.update();
+            _listener.Render();
+            GLFW.SwapBuffers(_windowHandle);
             return true;
         }
 
-        public unsafe void flash()
+        if (shouldRender)
         {
-            GLFW.RequestWindowAttention(windowHandle);
+            _graphics.update();
+            _listener.Render();
+            GLFW.SwapBuffers(_windowHandle);
         }
+
+        if (!_iconified)
+        {
+            _input.PrepareNext();
+        }
+
+        return shouldRender;
+    }
+
+    internal void RequestRendering()
+    {
+        lock (this)
+        {
+            _requestRendering = true;
+        }
+    }
+
+    internal unsafe bool ShouldClose()
+    {
+        return GLFW.WindowShouldClose(_windowHandle);
+    }
+
+    internal DesktopApplicationConfiguration GetConfig()
+    {
+        return _config;
+    }
+
+    internal bool IsListenerInitialized()
+    {
+        return _listenerInitialized;
+    }
+
+    private void InitializeListener()
+    {
+        if (!_listenerInitialized)
+        {
+            _listener.Create();
+            _listener.Resize(_graphics.GetWidth(), _graphics.GetHeight());
+            _listenerInitialized = true;
+        }
+    }
+
+    internal unsafe void MakeCurrent()
+    {
+        GDX.Graphics = _graphics;
+        GDX.GL32 = _graphics.GetGL32();
+        GDX.GL31 = GDX.GL32 != null ? GDX.GL32 : _graphics.GetGL31();
+        GDX.GL30 = GDX.GL31 != null ? GDX.GL31 : _graphics.GetGL30();
+        GDX.GL20 = GDX.GL30 != null ? GDX.GL30 : _graphics.GetGL20();
+        GDX.GL = GDX.GL20;
+        GDX.Input = _input;
+
+        GLFW.MakeContextCurrent(_windowHandle);
+    }
+
+    public override unsafe int GetHashCode()
+    {
+        var prime = 31;
+        var result = 1;
+        // TODO: Not sure that this cast works
+        result = prime * result + (int)((long)_windowHandle ^ ((long)_windowHandle >>> 32));
+        return result;
+    }
+
+    public override unsafe bool Equals(object? obj)
+    {
+        if (this == obj)
+        {
+            return true;
+        }
+
+        if (obj == null)
+        {
+            return false;
+        }
+
+        if (GetType() != obj.GetType())
+        {
+            return false;
+        }
+
+        var other = (DesktopWindow)obj;
+        if (_windowHandle != other._windowHandle)
+        {
+            return false;
+        }
+
+        return true;
+    }
+
+    public unsafe void Flash()
+    {
+        GLFW.RequestWindowAttention(_windowHandle);
     }
 }

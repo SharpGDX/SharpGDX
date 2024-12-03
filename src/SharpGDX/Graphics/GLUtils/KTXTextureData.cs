@@ -235,8 +235,8 @@ public class KTXTextureData : ITextureData, ICubemapData {
 							if (!GDX.Graphics.SupportsExtension("GL_OES_compressed_ETC1_RGB8_texture")) {
 								ETC1.ETC1Data etcData = new ETC1.ETC1Data(pixelWidth, pixelHeight, data, 0);
 								Pixmap pixmap = ETC1.decodeImage(etcData, Pixmap.Format.RGB888);
-								GDX.GL.glTexImage2D(target + face, level, pixmap.getGLInternalFormat(), pixmap.getWidth(),
-									pixmap.getHeight(), 0, pixmap.getGLFormat(), pixmap.getGLType(), pixmap.getPixels());
+								GDX.GL.glTexImage2D(target + face, level, pixmap.GetGLInternalFormat(), pixmap.GetWidth(),
+									pixmap.GetHeight(), 0, pixmap.GetGLFormat(), pixmap.GetGLType(), pixmap.GetPixels());
 								pixmap.Dispose();
 							} else {
 								GDX.GL.glCompressedTexImage2D(target + face, level, glInternalFormat, pixelWidth, pixelHeight, 0,

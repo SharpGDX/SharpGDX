@@ -1,321 +1,335 @@
 ﻿using SharpGDX.Headless.Mock.Audio;
 using SharpGDX.Headless.Mock.Graphics;
 using SharpGDX.Headless.Mock.Input;
-using SharpGDX.Headless;
 using SharpGDX.Shims;
 using SharpGDX.Utils;
-using SharpGDX;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SharpGDX.Input;
 using static SharpGDX.IApplication;
 
-namespace SharpGDX.Headless
+namespace SharpGDX.Headless;
+
+/// <summary>
+///     A headless implementation of a SharpGDX Application; primarily intended to be used in servers.
+/// </summary>
+public class HeadlessApplication : IApplication
 {
-	/** a headless implementation of a GDX Application primarily intended to be used in servers
- * @author Jon Renner */
-	public class HeadlessApplication : IApplication
-	{
-		protected readonly IApplicationListener listener;
-		protected Thread mainLoopThread;
-		protected readonly HeadlessFiles files;
-		protected readonly HeadlessNet net;
-		protected readonly MockAudio audio;
-		protected readonly MockInput input;
-		protected readonly MockGraphics graphics;
-		protected bool running = true;
-		protected readonly Array<Runnable> runnables = new Array<Runnable>();
-		protected readonly Array<Runnable> executedRunnables = new Array<Runnable>();
-		protected readonly Array<ILifecycleListener> lifecycleListeners = new Array<ILifecycleListener>();
-		protected int logLevel = LogInfo;
-		protected IApplicationLogger applicationLogger;
-		private String preferencesdir;
+    private readonly ObjectMap<string, IPreferences> _preferences = new();
+    private readonly string _preferencesDir;
 
-		public HeadlessApplication(IApplicationListener listener)
-			: this(listener, null)
-		{
-		}
+    protected readonly MockAudio Audio;
+    protected readonly Array<Runnable> ExecutedRunnables = [];
+    protected readonly HeadlessFiles Files;
+    protected readonly MockGraphics Graphics;
+    protected readonly MockInput Input;
+    protected readonly Array<ILifecycleListener> LifecycleListeners = [];
+    protected readonly IApplicationListener Listener;
+    protected readonly HeadlessNet Net;
+    protected readonly Array<Runnable> Runnables = [];
+    protected IApplicationLogger ApplicationLogger;
+    protected int LogLevel = LogInfo;
+    protected Thread MainLoopThread;
+    protected bool Running = true;
 
-		public HeadlessApplication(IApplicationListener listener, HeadlessApplicationConfiguration config)
-		{
-			if (config == null) config = new HeadlessApplicationConfiguration();
+    public HeadlessApplication(IApplicationListener listener)
+        : this(listener, null)
+    {
+    }
 
-			HeadlessNativesLoader.Load();
-			SetApplicationLogger(new HeadlessApplicationLogger());
-			this.listener = listener;
-			this.files = new HeadlessFiles();
-			this.net = new HeadlessNet(config);
-			// the following elements are not applicable for headless applications
-			// they are only implemented as mock objects
-			this.graphics = new MockGraphics();
-			this.graphics.SetForegroundFPS(config.updatesPerSecond);
-			this.audio = new MockAudio();
-			this.input = new MockInput();
+    public HeadlessApplication(IApplicationListener listener, HeadlessApplicationConfiguration? config)
+    {
+        config ??= new HeadlessApplicationConfiguration();
 
-			this.preferencesdir = config.preferencesDirectory;
+        HeadlessNativesLoader.Load();
+        SetApplicationLogger(new HeadlessApplicationLogger());
+        Listener = listener;
+        Files = new HeadlessFiles();
+        Net = new HeadlessNet(config);
+        Graphics = new MockGraphics();
+        Graphics.SetForegroundFPS(config.updatesPerSecond);
+        Audio = new MockAudio();
+        Input = new MockInput();
 
-			GDX.App = this;
-			GDX.Files = files;
-			GDX.Net = net;
-			GDX.Audio = audio;
-			GDX.Graphics = graphics;
-			GDX.Input = input;
+        _preferencesDir = config.preferencesDirectory;
 
-			initialize();
-		}
+        GDX.App = this;
+        GDX.Files = Files;
+        GDX.Net = Net;
+        GDX.Audio = Audio;
+        GDX.Graphics = Graphics;
+        GDX.Input = Input;
 
-		private void initialize()
-		{
-			mainLoopThread = new Thread(() =>
-			{
+        Initialize();
+    }
 
-				try
-				{
-					this.mainLoop();
-				}
-				catch (Exception t)
-				{
-					if (t is RuntimeException)
-						throw (RuntimeException)t;
-					else
-						throw new GdxRuntimeException(t);
-				}
+    public IApplicationListener GetApplicationListener()
+    {
+        return Listener;
+    }
 
-			})
-			{
-				Name = "HeadlessApplication"
-			};
-			mainLoopThread.Start();
-		}
+    public IGraphics GetGraphics()
+    {
+        return Graphics;
+    }
 
-		protected void mainLoop()
-		{
-			Array<ILifecycleListener> lifecycleListeners = this.lifecycleListeners;
+    public IAudio GetAudio()
+    {
+        return Audio;
+    }
 
-			listener.Create();
+    public IInput GetInput()
+    {
+        return Input;
+    }
 
-			// unlike LwjglApplication, a headless application will eat up CPU in this while loop
-			// it is up to the implementation to call Thread.sleep as necessary
-			long t = TimeUtils.nanoTime() + graphics.getTargetRenderInterval();
-			if (graphics.getTargetRenderInterval() >= 0f)
-			{
-				while (running)
-				{
-					long n = TimeUtils.nanoTime();
-					if (t > n)
-					{
-						try
-						{
-							long sleep = t - n;
+    public IFiles GetFiles()
+    {
+        return Files;
+    }
 
-							// TODO: The original call is Thread.sleep(long, int). C# can't sleep that precisely, and I doubt Java can either.
-							Thread.Sleep((int)(sleep / 1000000));//, (int)(sleep % 1000000));
-						}
-						catch (ThreadInterruptedException e)
-						{
-						}
+    public INet GetNet()
+    {
+        return Net;
+    }
 
-						t = t + graphics.getTargetRenderInterval();
-					}
-					else
-						t = n + graphics.getTargetRenderInterval();
+    public ApplicationType GetType()
+    {
+        return ApplicationType.HeadlessDesktop;
+    }
 
-					executeRunnables();
-					graphics.incrementFrameId();
-					listener.Render();
-					graphics.updateTime();
+    public int GetVersion()
+    {
+        return 0;
+    }
 
-					// If one of the runnables set running to false, for example after an exit().
-					if (!running) break;
-				}
-			}
+    public long GetJavaHeap()
+    {
+        // TODO: return Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
+        throw new NotImplementedException();
+    }
 
-			lock (lifecycleListeners)
-			{
-				foreach (ILifecycleListener listener in lifecycleListeners)
-				{
-					listener.Pause();
-					listener.Dispose();
-				}
-			}
+    public long GetNativeHeap()
+    {
+        return GetJavaHeap();
+    }
 
-			listener.Pause();
-			listener.Dispose();
-		}
+    public IPreferences? GetPreferences(string name)
+    {
+        if (_preferences.containsKey(name))
+        {
+            return _preferences.get(name);
+        }
 
-		public bool executeRunnables()
-		{
-			lock (runnables)
-			{
-				for (int i = runnables.size - 1; i >= 0; i--)
-					executedRunnables.Add(runnables.Get(i));
-				runnables.clear();
-			}
+        IPreferences preferences = new HeadlessPreferences(name, _preferencesDir);
+        _preferences.put(name, preferences);
 
-			if (executedRunnables.size == 0) return false;
-			for (int i = executedRunnables.size - 1; i >= 0; i--)
-				executedRunnables.RemoveIndex(i).Invoke();
-			return true;
-		}
+        return preferences;
+    }
 
-		public IApplicationListener GetApplicationListener()
-		{
-			return listener;
-		}
+    public IClipboard? GetClipboard()
+    {
+        return null;
+    }
 
-		public IGraphics GetGraphics()
-		{
-			return graphics;
-		}
+    public void PostRunnable(Runnable runnable)
+    {
+        lock (Runnables)
+        {
+            Runnables.Add(runnable);
+        }
+    }
 
-		public IAudio GetAudio()
-		{
-			return audio;
-		}
+    public void Debug(string tag, string message)
+    {
+        if (LogLevel >= LogDebug)
+        {
+            GetApplicationLogger().Debug(tag, message);
+        }
+    }
 
-		public IInput GetInput()
-		{
-			return input;
-		}
+    public void Debug(string tag, string message, Exception exception)
+    {
+        if (LogLevel >= LogDebug)
+        {
+            GetApplicationLogger().Debug(tag, message, exception);
+        }
+    }
 
-		public IFiles GetFiles()
-		{
-			return files;
-		}
+    public void Log(string tag, string message)
+    {
+        if (LogLevel >= LogInfo)
+        {
+            GetApplicationLogger().Log(tag, message);
+        }
+    }
 
-		public INet GetNet()
-		{
-			return net;
-		}
+    public void Log(string tag, string message, Exception exception)
+    {
+        if (LogLevel >= LogInfo)
+        {
+            GetApplicationLogger().Log(tag, message, exception);
+        }
+    }
 
-		public ApplicationType GetType()
-		{
-			return ApplicationType.HeadlessDesktop;
-		}
+    public void Error(string tag, string message)
+    {
+        if (LogLevel >= LogError)
+        {
+            GetApplicationLogger().Error(tag, message);
+        }
+    }
 
-		public int GetVersion()
-		{
-			return 0;
-		}
+    public void Error(string tag, string message, Exception exception)
+    {
+        if (LogLevel >= LogError)
+        {
+            GetApplicationLogger().Error(tag, message, exception);
+        }
+    }
 
-		public long GetJavaHeap()
-		{
-			// TODO: return Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
-			throw new NotImplementedException();
-		}
+    public void SetLogLevel(int logLevel)
+    {
+        LogLevel = logLevel;
+    }
 
-		public long GetNativeHeap()
-		{
-			return GetJavaHeap();
-		}
+    public int GetLogLevel()
+    {
+        return LogLevel;
+    }
 
-		ObjectMap<String, IPreferences> preferences = new ObjectMap<String, IPreferences>();
+    public void SetApplicationLogger(IApplicationLogger applicationLogger)
+    {
+        ApplicationLogger = applicationLogger;
+    }
 
-		public IPreferences GetPreferences(String name)
-		{
-			if (preferences.containsKey(name))
-			{
-				return preferences.get(name);
-			}
-			else
-			{
-				IPreferences prefs = new HeadlessPreferences(name, this.preferencesdir);
-				preferences.put(name, prefs);
-				return prefs;
-			}
-		}
+    public IApplicationLogger GetApplicationLogger()
+    {
+        return ApplicationLogger;
+    }
 
-		public IClipboard GetClipboard()
-		{
-			// no clipboards for headless apps
-			return null;
-		}
+    public void Exit()
+    {
+        PostRunnable(() => { Running = false; });
+    }
 
-		public void PostRunnable(Runnable runnable)
-		{
-			lock (runnables)
-			{
-				runnables.Add(runnable);
-			}
-		}
+    public void AddLifecycleListener(ILifecycleListener listener)
+    {
+        lock (LifecycleListeners)
+        {
+            LifecycleListeners.Add(listener);
+        }
+    }
 
-		public void Debug(String tag, String message)
-		{
-			if (logLevel >= LogDebug) GetApplicationLogger().Debug(tag, message);
-		}
+    public void RemoveLifecycleListener(ILifecycleListener listener)
+    {
+        lock (LifecycleListeners)
+        {
+            LifecycleListeners.RemoveValue(listener, true);
+        }
+    }
 
-		public void Debug(String tag, String message, Exception exception)
-		{
-			if (logLevel >= LogDebug) GetApplicationLogger().Debug(tag, message, exception);
-		}
+    private void Initialize()
+    {
+        MainLoopThread = new Thread(() =>
+        {
+            try
+            {
+                MainLoop();
+            }
+            catch (Exception t)
+            {
+                if (t is RuntimeException re)
+                {
+                    throw re;
+                }
 
-		public void Log(String tag, String message)
-		{
-			if (logLevel >= LogInfo) GetApplicationLogger().Log(tag, message);
-		}
+                throw new GdxRuntimeException(t);
+            }
+        })
+        {
+            Name = "HeadlessApplication"
+        };
+        MainLoopThread.Start();
+    }
 
-		public void Log(String tag, String message, Exception exception)
-		{
-			if (logLevel >= LogInfo) GetApplicationLogger().Log(tag, message, exception);
-		}
+    protected void MainLoop()
+    {
+        Listener.Create();
 
-		public void Error(String tag, String message)
-		{
-			if (logLevel >= LogError) GetApplicationLogger().Error(tag, message);
-		}
+        var t = TimeUtils.nanoTime() + Graphics.getTargetRenderInterval();
 
-		public void Error(String tag, String message, Exception exception)
-		{
-			if (logLevel >= LogError) GetApplicationLogger().Error(tag, message, exception);
-		}
+        if (Graphics.getTargetRenderInterval() >= 0f)
+        {
+            while (Running)
+            {
+                var n = TimeUtils.nanoTime();
 
-		public void SetLogLevel(int logLevel)
-		{
-			this.logLevel = logLevel;
-		}
+                if (t > n)
+                {
+                    try
+                    {
+                        var sleep = t - n;
 
-		public int GetLogLevel()
-		{
-			return logLevel;
-		}
+                        // TODO: The original call is Thread.sleep(long, int). C# can't sleep that precisely, and I doubt Java can either.
+                        Thread.Sleep((int)(sleep / 1000000)); //, (int)(sleep % 1000000));
+                    }
+                    catch (ThreadInterruptedException e)
+                    {
+                    }
 
-		public void SetApplicationLogger(IApplicationLogger applicationLogger)
-		{
-			this.applicationLogger = applicationLogger;
-		}
+                    t = t + Graphics.getTargetRenderInterval();
+                }
+                else
+                {
+                    t = n + Graphics.getTargetRenderInterval();
+                }
 
-		public IApplicationLogger GetApplicationLogger()
-		{
-			return applicationLogger;
-		}
+                ExecuteRunnables();
+                Graphics.incrementFrameId();
+                Listener.Render();
+                Graphics.updateTime();
 
-		public void Exit()
-		{
-			PostRunnable(() =>
-			{
+                // If one of the runnables set running to false, for example after an exit().
+                if (!Running)
+                {
+                    break;
+                }
+            }
+        }
 
-				running = false;
+        lock (LifecycleListeners)
+        {
+            foreach (var listener in LifecycleListeners)
+            {
+                listener.Pause();
+                listener.Dispose();
+            }
+        }
 
-			});
-		}
+        Listener.Pause();
+        Listener.Dispose();
+    }
 
-		public void AddLifecycleListener(ILifecycleListener listener)
-		{
-			lock (lifecycleListeners)
-			{
-				lifecycleListeners.Add(listener);
-			}
-		}
+    public bool ExecuteRunnables()
+    {
+        lock (Runnables)
+        {
+            for (var i = Runnables.size - 1; i >= 0; i--)
+            {
+                ExecutedRunnables.Add(Runnables.Get(i));
+            }
 
-		public void RemoveLifecycleListener(ILifecycleListener listener)
-		{
-			lock (lifecycleListeners)
-			{
-				lifecycleListeners.RemoveValue(listener, true);
-			}
-		}
-	}
+            Runnables.clear();
+        }
+
+        if (ExecutedRunnables.size == 0)
+        {
+            return false;
+        }
+
+        for (var i = ExecutedRunnables.size - 1; i >= 0; i--)
+        {
+            ExecutedRunnables.RemoveIndex(i).Invoke();
+        }
+
+        return true;
+    }
 }

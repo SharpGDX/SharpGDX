@@ -139,8 +139,8 @@ public class DesktopTestStarter {
                 DesktopWindowConfiguration winConfig = new DesktopWindowConfiguration();
                 winConfig.SetTitle(_testName);
                 winConfig.SetWindowedMode(640, 480);
-                winConfig.SetWindowPosition(((DesktopGraphics)GDX.Graphics).getWindow().getPositionX() + 40,
-                    ((DesktopGraphics)GDX.Graphics).getWindow().getPositionY() + 40);
+                winConfig.SetWindowPosition(((DesktopGraphics)GDX.Graphics).getWindow().GetPositionX() + 40,
+                    ((DesktopGraphics)GDX.Graphics).getWindow().GetPositionY() + 40);
                 winConfig.UseVsync(false);
                 ((DesktopApplication)GDX.App).newWindow(new GdxTestWrapper(test, options.logGLErrors), winConfig);
                 Console.WriteLine("Started test: " + _testName);

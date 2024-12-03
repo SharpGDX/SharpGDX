@@ -34,7 +34,7 @@ public interface IDesktopWindowListener
 	///     Called when external files are dropped into the window, e.g from the Desktop.
 	/// </summary>
 	/// <param name="files">Array with absolute paths to the files.</param>
-	public void FilesDropped(string[] files);
+	public void FilesDropped(string?[] files);
 
 	/// <summary>
 	///     Called when the window gained focus.

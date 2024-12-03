@@ -162,17 +162,17 @@ public class FacedCubemapData : ICubemapData {
 			} else {
 				Pixmap pixmap = data[i].consumePixmap();
 				bool disposePixmap = data[i].disposePixmap();
-				if (data[i].getFormat() != pixmap.getFormat()) {
-					Pixmap tmp = new Pixmap(pixmap.getWidth(), pixmap.getHeight(), data[i].getFormat());
-					tmp.setBlending(Pixmap.Blending.None);
-					tmp.drawPixmap(pixmap, 0, 0, 0, 0, pixmap.getWidth(), pixmap.getHeight());
+				if (data[i].getFormat() != pixmap.GetFormat()) {
+					Pixmap tmp = new Pixmap(pixmap.GetWidth(), pixmap.GetHeight(), data[i].getFormat());
+					tmp.SetBlending(Pixmap.Blending.None);
+					tmp.DrawPixmap(pixmap, 0, 0, 0, 0, pixmap.GetWidth(), pixmap.GetHeight());
 					if (data[i].disposePixmap()) pixmap.Dispose();
 					pixmap = tmp;
 					disposePixmap = true;
 				}
 				GDX.GL.glPixelStorei(IGL20.GL_UNPACK_ALIGNMENT, 1);
-				GDX.GL.glTexImage2D(IGL20.GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, pixmap.getGLInternalFormat(), pixmap.getWidth(),
-					pixmap.getHeight(), 0, pixmap.getGLFormat(), pixmap.getGLType(), pixmap.getPixels());
+				GDX.GL.glTexImage2D(IGL20.GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, pixmap.GetGLInternalFormat(), pixmap.GetWidth(),
+					pixmap.GetHeight(), 0, pixmap.GetGLFormat(), pixmap.GetGLType(), pixmap.GetPixels());
 				if (disposePixmap) pixmap.Dispose();
 			}
 		}

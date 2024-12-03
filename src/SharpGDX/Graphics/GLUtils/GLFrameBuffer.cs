@@ -592,8 +592,8 @@ public abstract class GLFrameBufferBuilder<U>
 
     public GLFrameBufferBuilder<U> addBasicColorTextureAttachment(Pixmap.Format format)
     {
-        int glFormat = Pixmap.FormatUtils.toGlFormat(format);
-        int glType = Pixmap.FormatUtils.toGlType(format);
+        int glFormat = Pixmap.FormatUtils.ToGlFormat(format);
+        int glType = Pixmap.FormatUtils.ToGlType(format);
         return addColorTextureAttachment(glFormat, glFormat, glType);
     }
 

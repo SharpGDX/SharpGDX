@@ -127,10 +127,10 @@ public class ETC1 {
 	 * @param pixmap the {@link Pixmap}
 	 * @return the {@link ETC1Data} */
 	public static ETC1Data encodeImage (Pixmap pixmap) {
-		int pixelSize = getPixelSize(pixmap.getFormat());
-		ByteBuffer compressedData = encodeImage(pixmap.getPixels(), 0, pixmap.getWidth(), pixmap.getHeight(), pixelSize);
+		int pixelSize = getPixelSize(pixmap.GetFormat());
+		ByteBuffer compressedData = encodeImage(pixmap.GetPixels(), 0, pixmap.GetWidth(), pixmap.GetHeight(), pixelSize);
 		BufferUtils.newUnsafeByteBuffer(compressedData);
-		return new ETC1Data(pixmap.getWidth(), pixmap.getHeight(), compressedData, 0);
+		return new ETC1Data(pixmap.GetWidth(), pixmap.GetHeight(), compressedData, 0);
 	}
 
 	/** Encodes the image via the ETC1 compression scheme. Only {@link Format#RGB565} and {@link Format#RGB888} are supported. Adds
@@ -138,10 +138,10 @@ public class ETC1 {
 	 * @param pixmap the {@link Pixmap}
 	 * @return the {@link ETC1Data} */
 	public static ETC1Data encodeImagePKM (Pixmap pixmap) {
-		int pixelSize = getPixelSize(pixmap.getFormat());
-		ByteBuffer compressedData = encodeImagePKM(pixmap.getPixels(), 0, pixmap.getWidth(), pixmap.getHeight(), pixelSize);
+		int pixelSize = getPixelSize(pixmap.GetFormat());
+		ByteBuffer compressedData = encodeImagePKM(pixmap.GetPixels(), 0, pixmap.GetWidth(), pixmap.GetHeight(), pixelSize);
 		BufferUtils.newUnsafeByteBuffer(compressedData);
-		return new ETC1Data(pixmap.getWidth(), pixmap.getHeight(), compressedData, 16);
+		return new ETC1Data(pixmap.GetWidth(), pixmap.GetHeight(), compressedData, 16);
 	}
 
 	/** Takes ETC1 compressed image data and converts it to a {@link Format#RGB565} or {@link Format#RGB888} {@link Pixmap}. Does
@@ -166,7 +166,7 @@ public class ETC1 {
 
 		int pixelSize = getPixelSize(format);
 		Pixmap pixmap = new Pixmap(width, height, format);
-		decodeImage(etc1Data.compressedData, dataOffset, pixmap.getPixels(), 0, width, height, pixelSize);
+		decodeImage(etc1Data.compressedData, dataOffset, pixmap.GetPixels(), 0, width, height, pixelSize);
 		return pixmap;
 	}
 

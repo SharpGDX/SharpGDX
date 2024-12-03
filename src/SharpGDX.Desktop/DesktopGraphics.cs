@@ -47,36 +47,36 @@ namespace SharpGDX.Desktop
             if (!"glfw_async".Equals(Configuration.GLFW_LIBRARY_NAME))
             {
                 updateFramebufferInfo();
-                if (!window.isListenerInitialized())
+                if (!window.IsListenerInitialized())
                 {
                     return;
                 }
 
-                window.makeCurrent();
+                window.MakeCurrent();
                 gl20.glViewport(0, 0, backBufferWidth, backBufferHeight);
-                window.getListener().Resize(GetWidth(), GetHeight());
+                window.GetListener().Resize(GetWidth(), GetHeight());
                 update();
-                window.getListener().Render();
+                window.GetListener().Render();
                 GLFW.SwapBuffers(windowHandle);
             }
             else
 			{
-                window.asyncResized = true;
+                window.AsyncResized = true;
             }
 		}
 
 		public unsafe DesktopGraphics(DesktopWindow window)
 		{
 			this.window = window;
-			if (window.getConfig().glEmulation == DesktopApplicationConfiguration.GLEmulation.GL32)
+			if (window.GetConfig().glEmulation == DesktopApplicationConfiguration.GLEmulation.GL32)
 			{
 				this.gl20 = this.gl30 = this.gl31 = this.gl32 = new DesktopGL32();
 			}
-			else if (window.getConfig().glEmulation == DesktopApplicationConfiguration.GLEmulation.GL31)
+			else if (window.GetConfig().glEmulation == DesktopApplicationConfiguration.GLEmulation.GL31)
 			{
 				this.gl20 = this.gl30 = this.gl31 = new DesktopGL31();
 			}
-			else if (window.getConfig().glEmulation == DesktopApplicationConfiguration.GLEmulation.GL30)
+			else if (window.GetConfig().glEmulation == DesktopApplicationConfiguration.GLEmulation.GL30)
 			{
 				this.gl20 = this.gl30 = new DesktopGL30();
 			}
@@ -84,7 +84,7 @@ namespace SharpGDX.Desktop
 			{
 				try
 				{
-					this.gl20 = window.getConfig().glEmulation == DesktopApplicationConfiguration.GLEmulation.GL20
+					this.gl20 = window.GetConfig().glEmulation == DesktopApplicationConfiguration.GLEmulation.GL20
 						? new DesktopGL20()
 						: throw new NotImplementedException(); // TODO: (GL20)Class.forName("com.badlogic.gdx.backends.lwjgl3.angle.Lwjgl3GLES20").newInstance();
 				}
@@ -100,7 +100,7 @@ namespace SharpGDX.Desktop
 			initiateGL();
 
 			// TODO: Clear this in the dispose method
-			GLFW.SetFramebufferSizeCallback(window.getWindowPtr(), _framebufferSizeCallback = resizeCallback);
+			GLFW.SetFramebufferSizeCallback(window.GetWindowPtr(), _framebufferSizeCallback = resizeCallback);
 		}
 
 		private void initiateGL()
@@ -144,9 +144,9 @@ namespace SharpGDX.Desktop
 
 		internal unsafe void updateFramebufferInfo()
 		{
-			GLFW.GetFramebufferSize(window.getWindowPtr(), out backBufferWidth, out backBufferHeight);
-			GLFW.GetWindowSize(window.getWindowPtr(), out logicalWidth, out logicalHeight);
-			DesktopApplicationConfiguration config = window.getConfig();
+			GLFW.GetFramebufferSize(window.GetWindowPtr(), out backBufferWidth, out backBufferHeight);
+			GLFW.GetWindowSize(window.GetWindowPtr(), out logicalWidth, out logicalHeight);
+			DesktopApplicationConfiguration config = window.GetConfig();
 			bufferFormat = new BufferFormat(config.r, config.g, config.b, config.a, config.depth, config.stencil,
 				config.samples,
 				false);
@@ -234,7 +234,7 @@ namespace SharpGDX.Desktop
 
 		public override int GetWidth()
 		{
-			if (window.getConfig().hdpiMode == HdpiMode.Pixels)
+			if (window.GetConfig().hdpiMode == HdpiMode.Pixels)
 			{
 				return backBufferWidth;
 			}
@@ -246,7 +246,7 @@ namespace SharpGDX.Desktop
 
 		public override int GetHeight()
 		{
-			if (window.getConfig().hdpiMode == HdpiMode.Pixels)
+			if (window.GetConfig().hdpiMode == HdpiMode.Pixels)
 			{
 				return backBufferHeight;
 			}
@@ -347,8 +347,8 @@ namespace SharpGDX.Desktop
 			Monitor[] monitors = GetMonitors();
 			Monitor result = monitors[0];
 
-			GLFW.GetWindowPos(window.getWindowPtr(), out var windowX, out var windowY);
-			GLFW.GetWindowSize(window.getWindowPtr(), out var windowWidth, out var windowHeight);
+			GLFW.GetWindowPos(window.GetWindowPtr(), out var windowX, out var windowY);
+			GLFW.GetWindowSize(window.GetWindowPtr(), out var windowWidth, out var windowHeight);
 			int overlap;
 			int bestOverlap = 0;
 
@@ -427,7 +427,7 @@ namespace SharpGDX.Desktop
 
 		public override unsafe bool SetFullscreenMode(DisplayMode displayMode)
 		{
-			window.getInput().ResetPollingStates();
+			window.GetInput().ResetPollingStates();
 			DesktopDisplayMode newMode = (DesktopDisplayMode)displayMode;
 			if (IsFullscreen())
 			{
@@ -435,12 +435,12 @@ namespace SharpGDX.Desktop
 				if (currentMode.getMonitor() == newMode.getMonitor() && currentMode.RefreshRate == newMode.RefreshRate)
 				{
 					// same monitor and refresh rate
-					GLFW.SetWindowSize(window.getWindowPtr(), newMode.Width, newMode.Height);
+					GLFW.SetWindowSize(window.GetWindowPtr(), newMode.Width, newMode.Height);
 				}
 				else
 				{
 					// different monitor and/or refresh rate
-					GLFW.SetWindowMonitor(window.getWindowPtr(), newMode.getMonitor(), 0, 0, newMode.Width,
+					GLFW.SetWindowMonitor(window.GetWindowPtr(), newMode.getMonitor(), 0, 0, newMode.Width,
 						newMode.Height,
 						newMode.RefreshRate);
 				}
@@ -451,21 +451,21 @@ namespace SharpGDX.Desktop
 				storeCurrentWindowPositionAndDisplayMode();
 
 				// switch from windowed to fullscreen
-				GLFW.SetWindowMonitor(window.getWindowPtr(), newMode.getMonitor(), 0, 0, newMode.Width, newMode.Height,
+				GLFW.SetWindowMonitor(window.GetWindowPtr(), newMode.getMonitor(), 0, 0, newMode.Width, newMode.Height,
 					newMode.RefreshRate);
 			}
 
 			updateFramebufferInfo();
 
-			SetVSync(window.getConfig().VSyncEnabled);
+			SetVSync(window.GetConfig().VSyncEnabled);
 
 			return true;
 		}
 
 		private void storeCurrentWindowPositionAndDisplayMode()
 		{
-			windowPosXBeforeFullscreen = window.getPositionX();
-			windowPosYBeforeFullscreen = window.getPositionY();
+			windowPosXBeforeFullscreen = window.GetPositionX();
+			windowPosYBeforeFullscreen = window.GetPositionY();
 			windowWidthBeforeFullscreen = logicalWidth;
 			windowHeightBeforeFullscreen = logicalHeight;
 			displayModeBeforeFullscreen = GetDisplayMode();
@@ -473,7 +473,7 @@ namespace SharpGDX.Desktop
 
 		public override unsafe bool SetWindowedMode(int width, int height)
 		{
-			window.getInput().ResetPollingStates();
+			window.GetInput().ResetPollingStates();
 			if (!IsFullscreen())
 			{
 				GridPoint2 newPos = null;
@@ -485,10 +485,10 @@ namespace SharpGDX.Desktop
 						(DesktopMonitor)GetMonitor(), width, height);
 				}
 
-				GLFW.SetWindowSize(window.getWindowPtr(), width, height);
+				GLFW.SetWindowSize(window.GetWindowPtr(), width, height);
 				if (centerWindow)
 				{
-					window.setPosition(newPos.x,
+					window.SetPosition(newPos.x,
 						newPos.y); // on macOS the centering has to happen _after_ the new window size was set
 				}
 			}
@@ -507,13 +507,13 @@ namespace SharpGDX.Desktop
 					GridPoint2 newPos = DesktopApplicationConfiguration.CalculateCenteredWindowPosition(
 						(DesktopMonitor)GetMonitor(), width,
 						height);
-					GLFW.SetWindowMonitor(window.getWindowPtr(), null, newPos.x, newPos.y, width, height,
+					GLFW.SetWindowMonitor(window.GetWindowPtr(), null, newPos.x, newPos.y, width, height,
 						displayModeBeforeFullscreen.RefreshRate);
 				}
 				else
 				{
 					// restore previous position
-					GLFW.SetWindowMonitor(window.getWindowPtr(), null, windowPosXBeforeFullscreen,
+					GLFW.SetWindowMonitor(window.GetWindowPtr(), null, windowPosXBeforeFullscreen,
 						windowPosYBeforeFullscreen, width,
 						height, displayModeBeforeFullscreen.RefreshRate);
 				}
@@ -530,24 +530,24 @@ namespace SharpGDX.Desktop
 				title = "";
 			}
 
-			GLFW.SetWindowTitle(window.getWindowPtr(), title);
+			GLFW.SetWindowTitle(window.GetWindowPtr(), title);
 		}
 
 		public override unsafe void SetUndecorated(bool undecorated)
 		{
-			getWindow().getConfig().SetDecorated(!undecorated);
-			GLFW.SetWindowAttrib(window.getWindowPtr(), WindowAttribute.Decorated, !undecorated);
+			getWindow().GetConfig().SetDecorated(!undecorated);
+			GLFW.SetWindowAttrib(window.GetWindowPtr(), WindowAttribute.Decorated, !undecorated);
 		}
 
 		public override unsafe void SetResizable(bool resizable)
 		{
-			getWindow().getConfig().SetResizable(resizable);
-			GLFW.SetWindowAttrib(window.getWindowPtr(), WindowAttribute.Resizable, resizable);
+			getWindow().GetConfig().SetResizable(resizable);
+			GLFW.SetWindowAttrib(window.GetWindowPtr(), WindowAttribute.Resizable, resizable);
 		}
 
 		public override void SetVSync(bool vsync)
 		{
-			getWindow().getConfig().VSyncEnabled = vsync;
+			getWindow().GetConfig().VSyncEnabled = vsync;
 			GLFW.SwapInterval(vsync ? 1 : 0);
 		}
 
@@ -557,7 +557,7 @@ namespace SharpGDX.Desktop
 		 * @param fps fps */
 		public override void SetForegroundFPS(int fps)
 		{
-			getWindow().getConfig().foregroundFPS = fps;
+			getWindow().GetConfig().foregroundFPS = fps;
 		}
 
 		public override BufferFormat GetBufferFormat()
@@ -582,12 +582,12 @@ namespace SharpGDX.Desktop
 
 		public override void RequestRendering()
 		{
-			window.requestRendering();
+			window.RequestRendering();
 		}
 
 		public override unsafe bool IsFullscreen()
 		{
-			return GLFW.GetWindowMonitor(window.getWindowPtr()) != null;
+			return GLFW.GetWindowMonitor(window.GetWindowPtr()) != null;
 		}
 
 		public override ICursor NewCursor(Pixmap pixmap, int xHotspot, int yHotspot)
@@ -597,12 +597,12 @@ namespace SharpGDX.Desktop
 
 		public override unsafe void SetCursor(ICursor cursor)
 		{
-			GLFW.SetCursor(getWindow().getWindowPtr(), ((DesktopCursor)cursor).glfwCursor);
+			GLFW.SetCursor(getWindow().GetWindowPtr(), ((DesktopCursor)cursor).glfwCursor);
 		}
 
 		public override unsafe void SetSystemCursor(ICursor.SystemCursor systemCursor)
 		{
-			DesktopCursor.setSystemCursor(getWindow().getWindowPtr(), systemCursor);
+			DesktopCursor.setSystemCursor(getWindow().GetWindowPtr(), systemCursor);
 		}
 
 		public void Dispose()

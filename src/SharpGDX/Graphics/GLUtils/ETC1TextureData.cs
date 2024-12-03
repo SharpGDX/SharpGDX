@@ -59,9 +59,9 @@ namespace SharpGDX.Graphics.GLUtils
 
 		if (!GDX.Graphics.SupportsExtension("GL_OES_compressed_ETC1_RGB8_texture")) {
 			Pixmap pixmap = ETC1.decodeImage(data, Pixmap.Format.RGB565);
-			GDX.GL.glTexImage2D(target, 0, pixmap.getGLInternalFormat(), pixmap.getWidth(), pixmap.getHeight(), 0,
-				pixmap.getGLFormat(), pixmap.getGLType(), pixmap.getPixels());
-			if (_useMipMaps) MipMapGenerator.generateMipMap(target, pixmap, pixmap.getWidth(), pixmap.getHeight());
+			GDX.GL.glTexImage2D(target, 0, pixmap.GetGLInternalFormat(), pixmap.GetWidth(), pixmap.GetHeight(), 0,
+				pixmap.GetGLFormat(), pixmap.GetGLType(), pixmap.GetPixels());
+			if (_useMipMaps) MipMapGenerator.generateMipMap(target, pixmap, pixmap.GetWidth(), pixmap.GetHeight());
 			pixmap.Dispose();
 			_useMipMaps = false;
 		} else {

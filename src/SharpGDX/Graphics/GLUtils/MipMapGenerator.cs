@@ -43,8 +43,8 @@ namespace SharpGDX.Graphics.GLUtils
 	}
 
 	private static void generateMipMapGLES20 (int target, Pixmap pixmap) {
-		GDX.GL.glTexImage2D(target, 0, pixmap.getGLInternalFormat(), pixmap.getWidth(), pixmap.getHeight(), 0, pixmap.getGLFormat(),
-			pixmap.getGLType(), pixmap.getPixels());
+		GDX.GL.glTexImage2D(target, 0, pixmap.GetGLInternalFormat(), pixmap.GetWidth(), pixmap.GetHeight(), 0, pixmap.GetGLFormat(),
+			pixmap.GetGLType(), pixmap.GetPixels());
 		GDX.GL20.glGenerateMipmap(target);
 	}
 
@@ -54,8 +54,8 @@ namespace SharpGDX.Graphics.GLUtils
 			|| GDX.Graphics.SupportsExtension("GL_EXT_framebuffer_object")
 			|| GDX.GL20.GetType().Name.Equals("com.badlogic.gdx.backends.lwjgl3.Lwjgl3GLES20") // LWJGL3ANGLE
 			|| GDX.GL30 != null) {
-			GDX.GL.glTexImage2D(target, 0, pixmap.getGLInternalFormat(), pixmap.getWidth(), pixmap.getHeight(), 0,
-				pixmap.getGLFormat(), pixmap.getGLType(), pixmap.getPixels());
+			GDX.GL.glTexImage2D(target, 0, pixmap.GetGLInternalFormat(), pixmap.GetWidth(), pixmap.GetHeight(), 0,
+				pixmap.GetGLFormat(), pixmap.GetGLType(), pixmap.GetPixels());
 			GDX.GL20.glGenerateMipmap(target);
 		} else {
 			generateMipMapCPU(target, pixmap, textureWidth, textureHeight);
@@ -63,25 +63,25 @@ namespace SharpGDX.Graphics.GLUtils
 	}
 
 	private static void generateMipMapCPU (int target, Pixmap pixmap, int textureWidth, int textureHeight) {
-		GDX.GL.glTexImage2D(target, 0, pixmap.getGLInternalFormat(), pixmap.getWidth(), pixmap.getHeight(), 0, pixmap.getGLFormat(),
-			pixmap.getGLType(), pixmap.getPixels());
+		GDX.GL.glTexImage2D(target, 0, pixmap.GetGLInternalFormat(), pixmap.GetWidth(), pixmap.GetHeight(), 0, pixmap.GetGLFormat(),
+			pixmap.GetGLType(), pixmap.GetPixels());
 		if ((GDX.GL20 == null) && textureWidth != textureHeight)
 			throw new GdxRuntimeException("texture width and height must be square when using mipmapping.");
-		int width = pixmap.getWidth() / 2;
-		int height = pixmap.getHeight() / 2;
+		int width = pixmap.GetWidth() / 2;
+		int height = pixmap.GetHeight() / 2;
 		int level = 1;
 		while (width > 0 && height > 0) {
-			Pixmap tmp = new Pixmap(width, height, pixmap.getFormat());
-			tmp.setBlending(Pixmap.Blending.None);
-			tmp.drawPixmap(pixmap, 0, 0, pixmap.getWidth(), pixmap.getHeight(), 0, 0, width, height);
+			Pixmap tmp = new Pixmap(width, height, pixmap.GetFormat());
+			tmp.SetBlending(Pixmap.Blending.None);
+			tmp.DrawPixmap(pixmap, 0, 0, pixmap.GetWidth(), pixmap.GetHeight(), 0, 0, width, height);
 			if (level > 1) pixmap.Dispose();
 			pixmap = tmp;
 
-			GDX.GL.glTexImage2D(target, level, pixmap.getGLInternalFormat(), pixmap.getWidth(), pixmap.getHeight(), 0,
-				pixmap.getGLFormat(), pixmap.getGLType(), pixmap.getPixels());
+			GDX.GL.glTexImage2D(target, level, pixmap.GetGLInternalFormat(), pixmap.GetWidth(), pixmap.GetHeight(), 0,
+				pixmap.GetGLFormat(), pixmap.GetGLType(), pixmap.GetPixels());
 
-			width = pixmap.getWidth() / 2;
-			height = pixmap.getHeight() / 2;
+			width = pixmap.GetWidth() / 2;
+			height = pixmap.GetHeight() / 2;
 			level++;
 		}
 	}

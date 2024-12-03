@@ -240,10 +240,10 @@ public abstract class GLTexture : IDisposable {
 
 		Pixmap pixmap = data.consumePixmap();
 		bool disposePixmap = data.disposePixmap();
-		if (data.getFormat() != pixmap.getFormat()) {
-			Pixmap tmp = new Pixmap(pixmap.getWidth(), pixmap.getHeight(), data.getFormat());
-			tmp.setBlending(Pixmap.Blending.None);
-			tmp.drawPixmap(pixmap, 0, 0, 0, 0, pixmap.getWidth(), pixmap.getHeight());
+		if (data.getFormat() != pixmap.GetFormat()) {
+			Pixmap tmp = new Pixmap(pixmap.GetWidth(), pixmap.GetHeight(), data.getFormat());
+			tmp.SetBlending(Pixmap.Blending.None);
+			tmp.DrawPixmap(pixmap, 0, 0, 0, 0, pixmap.GetWidth(), pixmap.GetHeight());
 			if (data.disposePixmap()) {
 				pixmap.Dispose();
 			}
@@ -253,14 +253,14 @@ public abstract class GLTexture : IDisposable {
 
 		GDX.GL.glPixelStorei(IGL20.GL_UNPACK_ALIGNMENT, 1);
 		if (data.useMipMaps()) {
-			MipMapGenerator.generateMipMap(target, pixmap, pixmap.getWidth(), pixmap.getHeight());
+			MipMapGenerator.generateMipMap(target, pixmap, pixmap.GetWidth(), pixmap.GetHeight());
 		} else {
 			// TODO: Testing -RP
-			var array = pixmap.getPixels().array();
-			GDX.GL.glTexImage2D(target, miplevel, pixmap.getGLInternalFormat(), pixmap.getWidth(), pixmap.getHeight(), 0,
-				pixmap.getGLFormat(), pixmap.getGLType(), array);
+			var array = pixmap.GetPixels().array();
+			GDX.GL.glTexImage2D(target, miplevel, pixmap.GetGLInternalFormat(), pixmap.GetWidth(), pixmap.GetHeight(), 0,
+				pixmap.GetGLFormat(), pixmap.GetGLType(), array);
 
-			pixmap.getPixels().put(array);
+			pixmap.GetPixels().put(array);
 		}
 		if (disposePixmap) pixmap.Dispose();
 	}

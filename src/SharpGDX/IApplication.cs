@@ -92,7 +92,7 @@ public partial interface IApplication
     /// <returns>The <see cref="IAudio" /> instance.</returns>
     public IAudio GetAudio();
 
-    public IClipboard GetClipboard();
+    public IClipboard? GetClipboard();
 
     /// <summary>
     ///     Gets the <see cref="IFiles" /> instance.
@@ -142,7 +142,7 @@ public partial interface IApplication
     /// </summary>
     /// <param name="name">The name of the preferences, must be usable as a file name.</param>
     /// <returns>The preferences.</returns>
-    public IPreferences GetPreferences(string name);
+    public IPreferences? GetPreferences(string name);
 
     /// <summary>
     ///     Gets what <see cref="ApplicationType" /> this application has, e.g. Android or Desktop.

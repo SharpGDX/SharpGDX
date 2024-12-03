@@ -1,22 +1,15 @@
 ﻿using SharpGDX.Files;
 using SharpGDX.Shims;
 using SharpGDX.Utils;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
 using System.Text;
-using System.Threading.Tasks;
 using System.Xml;
-using System.Xml.Linq;
-using static SharpGDX.IFiles;
 
 namespace SharpGDX.Desktop
 {
 	public class DesktopPreferences : IPreferences
 	{
-		private readonly Map<string, string> properties = new Map<string, string>();
-		private readonly FileHandle file;
+		private readonly Map<string, string> _properties = new Map<string, string>();
+		private readonly FileHandle _file;
 
 		public DesktopPreferences(String name, String directory)
 			: this(new DesktopFileHandle(new SharpGDX.Shims.File(directory, name), FileType.External))
@@ -26,7 +19,7 @@ namespace SharpGDX.Desktop
 
 		public DesktopPreferences(FileHandle file)
 		{
-			this.file = file;
+			this._file = file;
 			if (!file.exists()) return;
 			FileStream @in = null;
 			try
@@ -48,31 +41,31 @@ namespace SharpGDX.Desktop
 
 		public IPreferences PutBoolean(String key, bool val)
 		{
-			properties.put(key, (val).ToString());
+			_properties.put(key, (val).ToString());
 			return this;
 		}
 
 		public IPreferences PutInteger(String key, int val)
 		{
-			properties.put(key, (val).ToString());
+			_properties.put(key, (val).ToString());
 			return this;
 		}
 
 		public IPreferences PutLong(String key, long val)
 		{
-			properties.put(key, (val).ToString());
+			_properties.put(key, (val).ToString());
 			return this;
 		}
 
 		public IPreferences PutFloat(String key, float val)
 		{
-			properties.put(key, (val).ToString());
+			_properties.put(key, (val).ToString());
 			return this;
 		}
 
 		public IPreferences PutString(String key, String val)
 		{
-			properties.put(key, val);
+			_properties.put(key, val);
 			return this;
 		}
 
@@ -117,33 +110,33 @@ namespace SharpGDX.Desktop
 
 		public bool GetBoolean(String key, bool defValue)
 		{
-			return bool.Parse(properties.get(key, defValue.ToString()));
+			return bool.Parse(_properties.get(key, defValue.ToString()));
 		}
 
 		public int GetInteger(String key, int defValue)
 		{
-			return int.Parse(properties.get(key, (defValue).ToString()));
+			return int.Parse(_properties.get(key, (defValue).ToString()));
 		}
 
 		public long GetLong(String key, long defValue)
 		{
-			return long.Parse(properties.get(key, defValue.ToString()));
+			return long.Parse(_properties.get(key, defValue.ToString()));
 		}
 
 		public float GetFloat(String key, float defValue)
 		{
-			return float.Parse(properties.get(key, (defValue).ToString()));
+			return float.Parse(_properties.get(key, (defValue).ToString()));
 		}
 
 		public String GetString(String key, String defValue)
 		{
-			return properties.get(key, defValue);
+			return _properties.get(key, defValue);
 		}
 
 		public Map<String, object> Get()
 		{
 			Map<String, Object> map = new();
-			foreach (var val in properties.entrySet())
+			foreach (var val in _properties.entrySet())
 			{
 				if (val.Value is Boolean)
 					map.put((String)val.Key, bool.Parse((String)val.Value));
@@ -158,12 +151,12 @@ namespace SharpGDX.Desktop
 
 		public bool Contains(String key)
 		{
-			return properties.containsKey(key);
+			return _properties.containsKey(key);
 		}
 
 		public void Clear()
 		{
-			properties.clear();
+			_properties.clear();
 		}
 
 		public void Flush()
@@ -171,17 +164,17 @@ namespace SharpGDX.Desktop
 			Stream @out = null;
 			try
 			{
-				@out = file.Write(false);
+				@out = _file.Write(false);
 				using XmlTextWriter writer = new XmlTextWriter(@out, Encoding.UTF8);
 
-				foreach (var item in properties.entrySet())
+				foreach (var item in _properties.entrySet())
 				{
 					writer.WriteElementString(item.Key, item.Value);
 				}
 			}
 			catch (Exception ex)
 			{
-				throw new GdxRuntimeException("Error writing preferences: " + file, ex);
+				throw new GdxRuntimeException("Error writing preferences: " + _file, ex);
 			}
 			finally
 			{
@@ -192,7 +185,7 @@ namespace SharpGDX.Desktop
 
 		public void Remove(String key)
 		{
-			properties.remove(key);
+			_properties.remove(key);
 		}
 	}
 }

@@ -61,18 +61,18 @@ public class FileTextureArrayData : ITextureArrayData {
 				ITextureData texData = textureDatas[i];
 				Pixmap pixmap = texData.consumePixmap();
 				bool disposePixmap = texData.disposePixmap();
-				if (texData.getFormat() != pixmap.getFormat()) {
-					Pixmap temp = new Pixmap(pixmap.getWidth(), pixmap.getHeight(), texData.getFormat());
-					temp.setBlending(Pixmap.Blending.None);
-					temp.drawPixmap(pixmap, 0, 0, 0, 0, pixmap.getWidth(), pixmap.getHeight());
+				if (texData.getFormat() != pixmap.GetFormat()) {
+					Pixmap temp = new Pixmap(pixmap.GetWidth(), pixmap.GetHeight(), texData.getFormat());
+					temp.SetBlending(Pixmap.Blending.None);
+					temp.DrawPixmap(pixmap, 0, 0, 0, 0, pixmap.GetWidth(), pixmap.GetHeight());
 					if (texData.disposePixmap()) {
 						pixmap.Dispose();
 					}
 					pixmap = temp;
 					disposePixmap = true;
 				}
-				GDX.GL30.glTexSubImage3D(IGL30.GL_TEXTURE_2D_ARRAY, 0, 0, 0, i, pixmap.getWidth(), pixmap.getHeight(), 1,
-					pixmap.getGLInternalFormat(), pixmap.getGLType(), pixmap.getPixels());
+				GDX.GL30.glTexSubImage3D(IGL30.GL_TEXTURE_2D_ARRAY, 0, 0, 0, i, pixmap.GetWidth(), pixmap.GetHeight(), 1,
+					pixmap.GetGLInternalFormat(), pixmap.GetGLType(), pixmap.GetPixels());
 				if (disposePixmap) pixmap.Dispose();
 			}
 		}
@@ -94,11 +94,11 @@ public class FileTextureArrayData : ITextureArrayData {
 	}
 
 	public int getInternalFormat () {
-		return Pixmap.FormatUtils.toGlFormat(format);
+		return Pixmap.FormatUtils.ToGlFormat(format);
 	}
 
 	public int getGLType () {
-		return Pixmap.FormatUtils.toGlType(format);
+		return Pixmap.FormatUtils.ToGlType(format);
 	}
 
 	public bool isManaged () {

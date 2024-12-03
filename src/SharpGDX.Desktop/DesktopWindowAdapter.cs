@@ -8,36 +8,36 @@
 /// </remarks>
 public class DesktopAdapter : IDesktopWindowListener
 {
-	public virtual bool CloseRequested()
-	{
-		return true;
-	}
+    public virtual bool CloseRequested()
+    {
+        return true;
+    }
 
-	public virtual void Created(DesktopWindow window)
-	{
-	}
+    public virtual void Created(DesktopWindow window)
+    {
+    }
 
-	public virtual void FilesDropped(string[] files)
-	{
-	}
+    public virtual void FilesDropped(string?[] files)
+    {
+    }
 
-	public virtual void FocusGained()
-	{
-	}
+    public virtual void FocusGained()
+    {
+    }
 
-	public virtual void FocusLost()
-	{
-	}
+    public virtual void FocusLost()
+    {
+    }
 
-	public virtual void Iconified(bool isIconified)
-	{
-	}
+    public virtual void Iconified(bool isIconified)
+    {
+    }
 
-	public virtual void Maximized(bool isMaximized)
-	{
-	}
+    public virtual void Maximized(bool isMaximized)
+    {
+    }
 
-	public virtual void RefreshRequested()
-	{
-	}
+    public virtual void RefreshRequested()
+    {
+    }
 }

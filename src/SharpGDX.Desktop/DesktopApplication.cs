@@ -172,20 +172,20 @@ namespace SharpGDX.Desktop
 				{
                     if (currentWindow != window)
                     {
-                        window.makeCurrent();
+                        window.MakeCurrent();
                         currentWindow = window;
                     }
 
                     if (targetFramerate == -2)
                     {
-                        targetFramerate = window.getConfig().foregroundFPS;
+                        targetFramerate = window.GetConfig().foregroundFPS;
                     }
 					lock (lifecycleListeners)
 					{
-						haveWindowsRendered |= window.update();
+						haveWindowsRendered |= window.Update();
 					}
 
-					if (window.shouldClose())
+					if (window.ShouldClose())
 					{
 						closedWindows.Add(window);
 					}
@@ -213,7 +213,7 @@ namespace SharpGDX.Desktop
 					// in the following render.
 					foreach (DesktopWindow window in windows)
 					{
-						if (!window.getGraphics().IsContinuousRendering()) window.requestRendering();
+						if (!window.GetGraphics().IsContinuousRendering()) window.RequestRendering();
 					}
 				}
 
@@ -295,12 +295,12 @@ namespace SharpGDX.Desktop
 
 		public IApplicationListener GetApplicationListener()
 		{
-			return currentWindow.getListener();
+			return currentWindow.GetListener();
 		}
 
 		public IGraphics GetGraphics()
 		{
-			return currentWindow.getGraphics();
+			return currentWindow.GetGraphics();
 		}
 
 		public SharpGDX.IAudio GetAudio()
@@ -310,7 +310,7 @@ namespace SharpGDX.Desktop
 
 		public IInput GetInput()
 		{
-			return currentWindow.getInput();
+			return currentWindow.GetInput();
 		}
 
 		public IFiles GetFiles()
@@ -468,7 +468,7 @@ namespace SharpGDX.Desktop
 			DesktopApplicationConfiguration appConfig = DesktopApplicationConfiguration.Copy(this.config);
 			appConfig.SetWindowConfiguration(config);
 			if (appConfig.Title == null) appConfig.Title = listener.GetType().Name;
-			return createWindow(appConfig, listener, windows.Get(0).getWindowPtr());
+			return createWindow(appConfig, listener, windows.Get(0).GetWindowPtr());
 		}
 
 		private unsafe DesktopWindow createWindow(DesktopApplicationConfiguration config, IApplicationListener listener,
@@ -497,14 +497,14 @@ namespace SharpGDX.Desktop
 			Window* sharedContext)
 		{
 			Window* windowHandle = createGlfwWindow(config, sharedContext);
-			window.create(windowHandle);
-			window.setVisible(config.InitialVisible);
+			window.Create(windowHandle);
+			window.SetVisible(config.InitialVisible);
 
 			for (int i = 0; i < 2; i++)
 			{
-                window.getGraphics().gl20.glClearColor(config.InitialBackgroundColor.R, config.InitialBackgroundColor.G,
+                window.GetGraphics().gl20.glClearColor(config.InitialBackgroundColor.R, config.InitialBackgroundColor.G,
                     config.InitialBackgroundColor.B, config.InitialBackgroundColor.A);
-                window.getGraphics().gl20.glClear(GL11.GL_COLOR_BUFFER_BIT);
+                window.GetGraphics().gl20.glClear(GL11.GL_COLOR_BUFFER_BIT);
                 GLFW.SwapBuffers(windowHandle);
 			}
 
@@ -512,7 +512,7 @@ namespace SharpGDX.Desktop
             {
                 // the call above to createGlfwWindow switches the OpenGL context to the newly created window,
                 // ensure that the invariant "currentWindow is the window with the current active OpenGL context" holds
-                currentWindow.makeCurrent();
+                currentWindow.MakeCurrent();
             }
         }
 
@@ -590,7 +590,7 @@ namespace SharpGDX.Desktop
 				throw new GdxRuntimeException("Couldn't create window");
 			}
 
-			DesktopWindow.setSizeLimits(windowHandle, config.WindowMinWidth, config.WindowMinHeight,
+			DesktopWindow.SetSizeLimits(windowHandle, config.WindowMinWidth, config.WindowMinHeight,
 				config.WindowMaxWidth,
 				config.WindowMaxHeight);
 			if (config.FullscreenMode == null)
@@ -626,7 +626,7 @@ namespace SharpGDX.Desktop
 
 			if (config.WindowIconPaths != null)
 			{
-				DesktopWindow.setIcon(windowHandle, config.WindowIconPaths, config.WindowIconFileType);
+				DesktopWindow.SetIcon(windowHandle, config.WindowIconPaths, config.WindowIconFileType);
 			}
 
 			GLFW.MakeContextCurrent(windowHandle);

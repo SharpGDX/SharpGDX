@@ -216,8 +216,8 @@ public static class ScreenUtils
         var potH = MathUtils.nextPowerOfTwo(h);
         var pixmap = Pixmap.createFromFrameBuffer(x, y, w, h);
         var potPixmap = new Pixmap(potW, potH, Pixmap.Format.RGBA8888);
-        potPixmap.setBlending(Pixmap.Blending.None);
-        potPixmap.drawPixmap(pixmap, 0, 0);
+        potPixmap.SetBlending(Pixmap.Blending.None);
+        potPixmap.DrawPixmap(pixmap, 0, 0);
         var texture = new Texture(potPixmap);
         var textureRegion = new TextureRegion(texture, 0, h, w, -h);
         potPixmap.Dispose();
