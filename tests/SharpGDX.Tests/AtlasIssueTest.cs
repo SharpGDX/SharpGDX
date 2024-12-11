@@ -23,11 +23,11 @@
 //		atlas = new TextureAtlas(Gdx.files.@internal("data/issue_pack"), Gdx.files.@internal("data/"));
 //		sprite = atlas.createSprite("map");
 //		font = new BitmapFont(Gdx.files.@internal("data/font.fnt"), Gdx.files.@internal("data/font.png"), false);
-//		Gdx.gl.glClearColor(0, 1, 0, 1);
+//		GDX.GL.glClearColor(0, 1, 0, 1);
 //	}
 //
 //	public void render () {
-//		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+//		GDX.GL.glClear(GL20.GL_COLOR_BUFFER_BIT);
 //		batch.begin();
 //		sprite.draw(batch);
 //		font.draw(batch, "fps:" + Gdx.graphics.getFramesPerSecond(), 26, 65);

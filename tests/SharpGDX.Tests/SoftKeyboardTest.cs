@@ -48,7 +48,7 @@
 //	}
 //
 //	public override void Render () {
-//		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+//		GDX.GL.glClear(GL20.GL_COLOR_BUFFER_BIT);
 //		batch.begin();
 //		font.draw(batch, textBuffer, 0, Gdx.graphics.getHeight() - 20);
 //		batch.end();

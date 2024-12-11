@@ -22,7 +22,7 @@
 //	IntBuffer pixelBuffer;
 //
 //	public override void Render () {
-//		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+//		GDX.GL.glClear(GL20.GL_COLOR_BUFFER_BIT);
 //		spriteBatch.begin();
 //		spriteBatch.draw(texture, 16, 10, 16, 16, 32, 32, 1, 1, 0, 0, 0, texture.getWidth(), texture.getHeight(), false, false);
 //		spriteBatch.draw(texture, 64, 10, 32, 32, 0, 0, texture.getWidth(), texture.getHeight(), false, false);

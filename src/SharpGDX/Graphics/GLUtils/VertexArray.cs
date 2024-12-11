@@ -107,13 +107,13 @@ namespace SharpGDX.Graphics.GLUtils
 
         public void bind(ShaderProgram shader, int[] locations)
         {
-            int numAttributes = attributes.size();
+            int numAttributes = attributes.Size();
             ((Buffer)byteBuffer).limit(buffer.limit() * 4);
             if (locations == null)
             {
                 for (int i = 0; i < numAttributes; i++)
                 {
-                    VertexAttribute attribute = attributes.get(i);
+                    VertexAttribute attribute = attributes.Get(i);
                     int location = shader.getAttributeLocation(attribute.alias);
                     if (location < 0) continue;
                     shader.enableVertexAttribute(location);
@@ -175,7 +175,7 @@ namespace SharpGDX.Graphics.GLUtils
             {
                 for (int i = 0; i < numAttributes; i++)
                 {
-                    VertexAttribute attribute = attributes.get(i);
+                    VertexAttribute attribute = attributes.Get(i);
                     int location = locations[i];
                     if (location < 0) continue;
                     shader.enableVertexAttribute(location);
@@ -210,12 +210,12 @@ namespace SharpGDX.Graphics.GLUtils
 
         public void unbind(ShaderProgram shader, int[] locations)
         {
-            int numAttributes = attributes.size();
+            int numAttributes = attributes.Size();
             if (locations == null)
             {
                 for (int i = 0; i < numAttributes; i++)
                 {
-                    shader.disableVertexAttribute(attributes.get(i).alias);
+                    shader.disableVertexAttribute(attributes.Get(i).alias);
                 }
             }
             else

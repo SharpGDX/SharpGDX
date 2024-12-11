@@ -62,11 +62,11 @@ public class TextureLoader : AsynchronousAssetLoader<Texture, TextureLoader.Text
 		return texture;
 	}
 
-	public override Array<AssetDescriptor<Texture>>? getDependencies (String fileName, FileHandle file, TextureParameter parameter) {
+	public override Array<AssetDescriptor>? getDependencies (String fileName, FileHandle file, TextureParameter parameter) {
 		return null;
 	}
 
-	 public class TextureParameter : AssetLoaderParameters<Texture> {
+	 public class TextureParameter : AssetLoaderParameters {
 		/** the format of the final Texture. Uses the source images format if null **/
 		public Pixmap.Format? format = null;
 		/** whether to generate mipmaps **/

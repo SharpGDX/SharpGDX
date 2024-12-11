@@ -43,7 +43,7 @@ internal interface IAsynchronousAssetLoader : IAssetLoader
 * @param <T>
 * @param <P> */
 public abstract class AsynchronousAssetLoader<T, P> : AssetLoader<T, P>, IAsynchronousAssetLoader
-where P : AssetLoaderParameters<T>
+where P : AssetLoaderParameters
 {
 
 	public AsynchronousAssetLoader(IFileHandleResolver resolver)

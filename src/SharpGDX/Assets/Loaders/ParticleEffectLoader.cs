@@ -32,7 +32,7 @@ public class ParticleEffectLoader : SynchronousAssetLoader<ParticleEffect, Parti
 		return effect;
 	}
 
-	public override Array<AssetDescriptor<ParticleEffect>> getDependencies(String fileName, FileHandle file, ParticleEffectParameter param)
+	public override Array<AssetDescriptor> getDependencies(String fileName, FileHandle file, ParticleEffectParameter param)
 	{
 		throw new NotImplementedException();
 	//Array<AssetDescriptor> deps = null;
@@ -46,7 +46,7 @@ public class ParticleEffectLoader : SynchronousAssetLoader<ParticleEffect, Parti
 
 	/** Parameter to be passed to {@link AssetManager#load(String, Class, AssetLoaderParameters)} if additional configuration is
 	 * necessary for the {@link ParticleEffect}. */
-	public  class ParticleEffectParameter : AssetLoaderParameters<ParticleEffect> {
+	public  class ParticleEffectParameter : AssetLoaderParameters {
 		/** Atlas file name. */
 		public String atlasFile;
 /** Optional prefix to image names **/

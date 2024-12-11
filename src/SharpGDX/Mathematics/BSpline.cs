@@ -58,10 +58,10 @@ namespace SharpGDX.Mathematics
 		 float dt = 1f - u;
 		 float t2 = u * u;
 		 float t3 = t2 * u;
-		 @out.set(points[i]).scl((3f * t3 - 6f * t2 + 4f) * d6);
-		if (continuous || i > 0) @out.add(tmp.set(points[(n + i - 1) % n]).scl(dt * dt * dt * d6));
-		if (continuous || i < (n - 1)) @out.add(tmp.set(points[(i + 1) % n]).scl((-3f * t3 + 3f * t2 + 3f * u + 1f) * d6));
-		if (continuous || i < (n - 2)) @out.add(tmp.set(points[(i + 2) % n]).scl(t3 * d6));
+		 @out.Set(points[i]).scl((3f * t3 - 6f * t2 + 4f) * d6);
+		if (continuous || i > 0) @out.add(tmp.Set(points[(n + i - 1) % n]).scl(dt * dt * dt * d6));
+		if (continuous || i < (n - 1)) @out.add(tmp.Set(points[(i + 1) % n]).scl((-3f * t3 + 3f * t2 + 3f * u + 1f) * d6));
+		if (continuous || i < (n - 2)) @out.add(tmp.Set(points[(i + 2) % n]).scl(t3 * d6));
 		return @out;
 	}
 
@@ -80,10 +80,10 @@ namespace SharpGDX.Mathematics
 		 float dt = 1f - u;
 		 float t2 = u * u;
 		 float t3 = t2 * u;
-		 @out.set(points[i]).scl(1.5f * t2 - 2 * u);
-		if (continuous || i > 0) @out.add(tmp.set(points[(n + i - 1) % n]).scl(-0.5f * dt * dt));
-		if (continuous || i < (n - 1)) @out.add(tmp.set(points[(i + 1) % n]).scl(-1.5f * t2 + u + 0.5f));
-		if (continuous || i < (n - 2)) @out.add(tmp.set(points[(i + 2) % n]).scl(0.5f * t2));
+		 @out.Set(points[i]).scl(1.5f * t2 - 2 * u);
+		if (continuous || i > 0) @out.add(tmp.Set(points[(n + i - 1) % n]).scl(-0.5f * dt * dt));
+		if (continuous || i < (n - 1)) @out.add(tmp.Set(points[(i + 1) % n]).scl(-1.5f * t2 + u + 0.5f));
+		if (continuous || i < (n - 2)) @out.add(tmp.Set(points[(i + 2) % n]).scl(0.5f * t2));
 		return @out;
 	}
 
@@ -311,7 +311,7 @@ namespace SharpGDX.Mathematics
 		float tempLength = 0;
 		for (int i = 0; i < samples; ++i)
 		{
-			tmp2.set(tmp3);
+			tmp2.Set(tmp3);
 			valueAt(tmp3, (i) / ((float)samples - 1));
 			if (i > 0) tempLength += tmp2.dst(tmp3);
 		}

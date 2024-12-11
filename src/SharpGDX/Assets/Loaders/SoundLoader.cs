@@ -35,11 +35,11 @@ public class SoundLoader : AsynchronousAssetLoader<ISound, SoundLoader.SoundPara
 		return sound;
 	}
 
-	public override Array<AssetDescriptor<ISound>> getDependencies (String fileName, FileHandle file, SoundParameter parameter) {
+	public override Array<AssetDescriptor> getDependencies (String fileName, FileHandle file, SoundParameter parameter) {
 		return null;
 	}
 
-	public class SoundParameter : AssetLoaderParameters<ISound> {
+	public class SoundParameter : AssetLoaderParameters {
 	}
 
 }

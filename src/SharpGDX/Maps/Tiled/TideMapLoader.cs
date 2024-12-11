@@ -24,7 +24,7 @@ namespace SharpGDX.Maps.Tiled;
 
 public class TideMapLoader : SynchronousAssetLoader<TiledMap, TideMapLoader.Parameters> {
 
-	public  class Parameters : AssetLoaderParameters<TiledMap> {
+	public  class Parameters : AssetLoaderParameters {
 
 	}
 
@@ -71,7 +71,7 @@ public class TideMapLoader : SynchronousAssetLoader<TiledMap, TideMapLoader.Para
 		}
 	}
 
-	public override Array<AssetDescriptor<TiledMap>> getDependencies (String fileName, FileHandle tmxFile, Parameters parameter)
+	public override Array<AssetDescriptor> getDependencies (String fileName, FileHandle tmxFile, Parameters parameter)
 	{
 		throw new NotImplementedException();
 		//Array<AssetDescriptor> dependencies = new Array<AssetDescriptor>();

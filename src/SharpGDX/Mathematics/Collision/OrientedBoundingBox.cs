@@ -106,35 +106,35 @@ namespace SharpGDX.Mathematics.Collision
 	}
 
 	public Vector3 getCorner000 ( Vector3 @out) {
-		return @out.set(vertices[0b000]);
+		return @out.Set(vertices[0b000]);
 	}
 
 	public Vector3 getCorner001 ( Vector3 @out) {
-		return @out.set(vertices[0b001]);
+		return @out.Set(vertices[0b001]);
 	}
 
 	public Vector3 getCorner010 ( Vector3 @out) {
-		return @out.set(vertices[0b010]);
+		return @out.Set(vertices[0b010]);
 	}
 
 	public Vector3 getCorner011 ( Vector3 @out) {
-		return @out.set(vertices[0b011]);
+		return @out.Set(vertices[0b011]);
 	}
 
 	public Vector3 getCorner100 ( Vector3 @out) {
-		return @out.set(vertices[0b100]);
+		return @out.Set(vertices[0b100]);
 	}
 
 	public Vector3 getCorner101 ( Vector3 @out) {
-		return @out.set(vertices[0b101]);
+		return @out.Set(vertices[0b101]);
 	}
 
 	public Vector3 getCorner110 ( Vector3 @out) {
-		return @out.set(vertices[0b110]);
+		return @out.Set(vertices[0b110]);
 	}
 
 	public Vector3 getCorner111 ( Vector3 @out) {
-		return @out.set(vertices[0b111]);
+		return @out.Set(vertices[0b111]);
 	}
 
 	/** Returns whether the given vector is contained in this oriented bounding box.
@@ -145,7 +145,7 @@ namespace SharpGDX.Mathematics.Collision
 	}
 
 	private bool contains (Vector3 v, Matrix4 invTransform) {
-		Vector3 localV = tmpVectors[0].set(v).mul(invTransform);
+		Vector3 localV = tmpVectors[0].Set(v).mul(invTransform);
 		return bounds.contains(localV);
 	}
 
@@ -186,15 +186,15 @@ namespace SharpGDX.Mathematics.Collision
 		tempAxes[3] = Vector3.X;
 		tempAxes[4] = Vector3.Y;
 		tempAxes[5] = Vector3.Z;
-		tempAxes[6] = tmpVectors[0].set(aAxes[0]).crs(Vector3.X);
-		tempAxes[7] = tmpVectors[1].set(aAxes[0]).crs(Vector3.Y);
-		tempAxes[8] = tmpVectors[2].set(aAxes[0]).crs(Vector3.Z);
-		tempAxes[9] = tmpVectors[3].set(aAxes[1]).crs(Vector3.X);
-		tempAxes[10] = tmpVectors[4].set(aAxes[1]).crs(Vector3.Y);
-		tempAxes[11] = tmpVectors[5].set(aAxes[1]).crs(Vector3.Z);
-		tempAxes[12] = tmpVectors[6].set(aAxes[2]).crs(Vector3.X);
-		tempAxes[13] = tmpVectors[7].set(aAxes[2]).crs(Vector3.Y);
-		tempAxes[14] = tmpVectors[8].set(aAxes[2]).crs(Vector3.Z);
+		tempAxes[6] = tmpVectors[0].Set(aAxes[0]).crs(Vector3.X);
+		tempAxes[7] = tmpVectors[1].Set(aAxes[0]).crs(Vector3.Y);
+		tempAxes[8] = tmpVectors[2].Set(aAxes[0]).crs(Vector3.Z);
+		tempAxes[9] = tmpVectors[3].Set(aAxes[1]).crs(Vector3.X);
+		tempAxes[10] = tmpVectors[4].Set(aAxes[1]).crs(Vector3.Y);
+		tempAxes[11] = tmpVectors[5].Set(aAxes[1]).crs(Vector3.Z);
+		tempAxes[12] = tmpVectors[6].Set(aAxes[2]).crs(Vector3.X);
+		tempAxes[13] = tmpVectors[7].Set(aAxes[2]).crs(Vector3.Y);
+		tempAxes[14] = tmpVectors[8].Set(aAxes[2]).crs(Vector3.Z);
 
 		Vector3[] aVertices = getVertices();
 		Vector3[] bVertices = getVertices(b);
@@ -215,15 +215,15 @@ namespace SharpGDX.Mathematics.Collision
 		tempAxes[3] = bAxes[0];
 		tempAxes[4] = bAxes[1];
 		tempAxes[5] = bAxes[2];
-		tempAxes[6] = tmpVectors[0].set(aAxes[0]).crs(bAxes[0]);
-		tempAxes[7] = tmpVectors[1].set(aAxes[0]).crs(bAxes[1]);
-		tempAxes[8] = tmpVectors[2].set(aAxes[0]).crs(bAxes[2]);
-		tempAxes[9] = tmpVectors[3].set(aAxes[1]).crs(bAxes[0]);
-		tempAxes[10] = tmpVectors[4].set(aAxes[1]).crs(bAxes[1]);
-		tempAxes[11] = tmpVectors[5].set(aAxes[1]).crs(bAxes[2]);
-		tempAxes[12] = tmpVectors[6].set(aAxes[2]).crs(bAxes[0]);
-		tempAxes[13] = tmpVectors[7].set(aAxes[2]).crs(bAxes[1]);
-		tempAxes[14] = tmpVectors[8].set(aAxes[2]).crs(bAxes[2]);
+		tempAxes[6] = tmpVectors[0].Set(aAxes[0]).crs(bAxes[0]);
+		tempAxes[7] = tmpVectors[1].Set(aAxes[0]).crs(bAxes[1]);
+		tempAxes[8] = tmpVectors[2].Set(aAxes[0]).crs(bAxes[2]);
+		tempAxes[9] = tmpVectors[3].Set(aAxes[1]).crs(bAxes[0]);
+		tempAxes[10] = tmpVectors[4].Set(aAxes[1]).crs(bAxes[1]);
+		tempAxes[11] = tmpVectors[5].Set(aAxes[1]).crs(bAxes[2]);
+		tempAxes[12] = tmpVectors[6].Set(aAxes[2]).crs(bAxes[0]);
+		tempAxes[13] = tmpVectors[7].Set(aAxes[2]).crs(bAxes[1]);
+		tempAxes[14] = tmpVectors[8].Set(aAxes[2]).crs(bAxes[2]);
 
 		return Intersector.hasOverlap(tempAxes, vertices, obb.vertices);
 	}
@@ -256,9 +256,9 @@ namespace SharpGDX.Mathematics.Collision
 		bounds.getCorner110(vertices[0b110]).mul(transform);
 		bounds.getCorner111(vertices[0b111]).mul(transform);
 
-		axes[0].set(transform.val[Matrix4.M00], transform.val[Matrix4.M10], transform.val[Matrix4.M20]).nor();
-		axes[1].set(transform.val[Matrix4.M01], transform.val[Matrix4.M11], transform.val[Matrix4.M21]).nor();
-		axes[2].set(transform.val[Matrix4.M02], transform.val[Matrix4.M12], transform.val[Matrix4.M22]).nor();
+		axes[0].Set(transform.val[Matrix4.M00], transform.val[Matrix4.M10], transform.val[Matrix4.M20]).nor();
+		axes[1].Set(transform.val[Matrix4.M01], transform.val[Matrix4.M11], transform.val[Matrix4.M21]).nor();
+		axes[2].Set(transform.val[Matrix4.M02], transform.val[Matrix4.M12], transform.val[Matrix4.M22]).nor();
 
 		inverseTransform.set(transform).inv();
 	}

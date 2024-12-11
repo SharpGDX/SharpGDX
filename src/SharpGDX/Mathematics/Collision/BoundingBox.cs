@@ -29,7 +29,7 @@ public class BoundingBox   {
 	/** @param out The {@link Vector3} to receive the center of the bounding box.
 	 * @return The vector specified with the out argument. */
 	public Vector3 getCenter (Vector3 @out) {
-		return @out.set(cnt);
+		return @out.Set(cnt);
 	}
 
 	public float getCenterX () {
@@ -45,41 +45,41 @@ public class BoundingBox   {
 	}
 
 	public Vector3 getCorner000 ( Vector3 @out) {
-		return @out.set(min.x, min.y, min.z);
+		return @out.Set(min.x, min.y, min.z);
 	}
 
 	public Vector3 getCorner001 ( Vector3 @out) {
-		return @out.set(min.x, min.y, max.z);
+		return @out.Set(min.x, min.y, max.z);
 	}
 
 	public Vector3 getCorner010 ( Vector3 @out) {
-		return @out.set(min.x, max.y, min.z);
+		return @out.Set(min.x, max.y, min.z);
 	}
 
 	public Vector3 getCorner011 ( Vector3 @out) {
-		return @out.set(min.x, max.y, max.z);
+		return @out.Set(min.x, max.y, max.z);
 	}
 
 	public Vector3 getCorner100 ( Vector3 @out) {
-		return @out.set(max.x, min.y, min.z);
+		return @out.Set(max.x, min.y, min.z);
 	}
 
 	public Vector3 getCorner101 ( Vector3 @out) {
-		return @out.set(max.x, min.y, max.z);
+		return @out.Set(max.x, min.y, max.z);
 	}
 
 	public Vector3 getCorner110 ( Vector3 @out) {
-		return @out.set(max.x, max.y, min.z);
+		return @out.Set(max.x, max.y, min.z);
 	}
 
 	public Vector3 getCorner111 ( Vector3 @out) {
-		return @out.set(max.x, max.y, max.z);
+		return @out.Set(max.x, max.y, max.z);
 	}
 
 	/** @param out The {@link Vector3} to receive the dimensions of this bounding box on all three axis.
 	 * @return The vector specified with the out argument */
 	public Vector3 getDimensions ( Vector3 @out) {
-		return @out.set(dim);
+		return @out.Set(dim);
 	}
 
 	public float getWidth () {
@@ -97,13 +97,13 @@ public class BoundingBox   {
 	/** @param out The {@link Vector3} to receive the minimum values.
 	 * @return The vector specified with the out argument */
 	public Vector3 getMin ( Vector3 @out) {
-		return @out.set(min);
+		return @out.Set(min);
 	}
 
 	/** @param out The {@link Vector3} to receive the maximum values.
 	 * @return The vector specified with the out argument */
 	public Vector3 getMax ( Vector3 @out) {
-		return @out.set(max);
+		return @out.Set(max);
 	}
 
 	/** Constructs a new bounding box with the minimum and maximum vector set to zeros. */
@@ -140,9 +140,9 @@ public class BoundingBox   {
 	 * @param maximum The maximum vector
 	 * @return This bounding box for chaining. */
 	public BoundingBox set (Vector3 minimum, Vector3 maximum) {
-		min.set(minimum.x < maximum.x ? minimum.x : maximum.x, minimum.y < maximum.y ? minimum.y : maximum.y,
+		min.Set(minimum.x < maximum.x ? minimum.x : maximum.x, minimum.y < maximum.y ? minimum.y : maximum.y,
 			minimum.z < maximum.z ? minimum.z : maximum.z);
-		max.set(minimum.x > maximum.x ? minimum.x : maximum.x, minimum.y > maximum.y ? minimum.y : maximum.y,
+		max.Set(minimum.x > maximum.x ? minimum.x : maximum.x, minimum.y > maximum.y ? minimum.y : maximum.y,
 			minimum.z > maximum.z ? minimum.z : maximum.z);
 		update();
 		return this;
@@ -150,8 +150,8 @@ public class BoundingBox   {
 
 	/** Should be called if you modify {@link #min} and/or {@link #max} vectors manually. */
 	public void update () {
-		cnt.set(min).add(max).scl(0.5f);
-		dim.set(max).sub(min);
+		cnt.Set(min).add(max).scl(0.5f);
+		dim.Set(max).sub(min);
 	}
 
 	/** Sets the bounding box minimum and maximum vector from the given points.
@@ -180,10 +180,10 @@ public class BoundingBox   {
 	 *
 	 * @return This bounding box for chaining. */
 	public BoundingBox inf () {
-		min.set(float.PositiveInfinity, float.PositiveInfinity, float.PositiveInfinity);
-		max.set(float.NegativeInfinity, float.NegativeInfinity, float.NegativeInfinity);
-		cnt.set(0, 0, 0);
-		dim.set(0, 0, 0);
+		min.Set(float.PositiveInfinity, float.PositiveInfinity, float.PositiveInfinity);
+		max.Set(float.NegativeInfinity, float.NegativeInfinity, float.NegativeInfinity);
+		cnt.Set(0, 0, 0);
+		dim.Set(0, 0, 0);
 		return this;
 	}
 
@@ -191,14 +191,14 @@ public class BoundingBox   {
 	 * @param point The vector
 	 * @return This bounding box for chaining. */
 	public BoundingBox ext (Vector3 point) {
-		return this.set(min.set(Min(min.x, point.x), Min(min.y, point.y), Min(min.z, point.z)),
-			max.set(Math.Max(max.x, point.x), Math.Max(max.y, point.y), Math.Max(max.z, point.z)));
+		return this.set(min.Set(Min(min.x, point.x), Min(min.y, point.y), Min(min.z, point.z)),
+			max.Set(Math.Max(max.x, point.x), Math.Max(max.y, point.y), Math.Max(max.z, point.z)));
 	}
 
 	/** Sets the minimum and maximum vector to zeros.
 	 * @return This bounding box for chaining. */
 	public BoundingBox clr () {
-		return this.set(min.set(0, 0, 0), max.set(0, 0, 0));
+		return this.set(min.Set(0, 0, 0), max.Set(0, 0, 0));
 	}
 
 	/** Returns whether this bounding box is valid. This means that {@link #max} is greater than or equal to {@link #min}.
@@ -212,8 +212,8 @@ public class BoundingBox   {
 	 * @param a_bounds The bounding box
 	 * @return This bounding box for chaining. */
 	public BoundingBox ext (BoundingBox a_bounds) {
-		return this.set(min.set(Min(min.x, a_bounds.min.x), Min(min.y, a_bounds.min.y), Min(min.z, a_bounds.min.z)),
-			max.set(Max(max.x, a_bounds.max.x), Max(max.y, a_bounds.max.y), Max(max.z, a_bounds.max.z)));
+		return this.set(min.Set(Min(min.x, a_bounds.min.x), Min(min.y, a_bounds.min.y), Min(min.z, a_bounds.min.z)),
+			max.Set(Max(max.x, a_bounds.max.x), Max(max.y, a_bounds.max.y), Max(max.z, a_bounds.max.z)));
 	}
 
 	/** Extends this bounding box by the given sphere.
@@ -222,8 +222,8 @@ public class BoundingBox   {
 	 * @param radius Sphere radius
 	 * @return This bounding box for chaining. */
 	public BoundingBox ext (Vector3 center, float radius) {
-		return this.set(min.set(Min(min.x, center.x - radius), Min(min.y, center.y - radius), Min(min.z, center.z - radius)),
-			max.set(Max(max.x, center.x + radius), Max(max.y, center.y + radius), Max(max.z, center.z + radius)));
+		return this.set(min.Set(Min(min.x, center.x - radius), Min(min.y, center.y - radius), Min(min.z, center.z - radius)),
+			max.Set(Max(max.x, center.x + radius), Max(max.y, center.y + radius), Max(max.z, center.z + radius)));
 	}
 
 	/** Extends this bounding box by the given transformed bounding box.
@@ -232,14 +232,14 @@ public class BoundingBox   {
 	 * @param transform The transformation matrix to apply to bounds, before using it to extend this bounding box.
 	 * @return This bounding box for chaining. */
 	public BoundingBox ext (BoundingBox bounds, Matrix4 transform) {
-		ext(tmpVector.set(bounds.min.x, bounds.min.y, bounds.min.z).mul(transform));
-		ext(tmpVector.set(bounds.min.x, bounds.min.y, bounds.max.z).mul(transform));
-		ext(tmpVector.set(bounds.min.x, bounds.max.y, bounds.min.z).mul(transform));
-		ext(tmpVector.set(bounds.min.x, bounds.max.y, bounds.max.z).mul(transform));
-		ext(tmpVector.set(bounds.max.x, bounds.min.y, bounds.min.z).mul(transform));
-		ext(tmpVector.set(bounds.max.x, bounds.min.y, bounds.max.z).mul(transform));
-		ext(tmpVector.set(bounds.max.x, bounds.max.y, bounds.min.z).mul(transform));
-		ext(tmpVector.set(bounds.max.x, bounds.max.y, bounds.max.z).mul(transform));
+		ext(tmpVector.Set(bounds.min.x, bounds.min.y, bounds.min.z).mul(transform));
+		ext(tmpVector.Set(bounds.min.x, bounds.min.y, bounds.max.z).mul(transform));
+		ext(tmpVector.Set(bounds.min.x, bounds.max.y, bounds.min.z).mul(transform));
+		ext(tmpVector.Set(bounds.min.x, bounds.max.y, bounds.max.z).mul(transform));
+		ext(tmpVector.Set(bounds.max.x, bounds.min.y, bounds.min.z).mul(transform));
+		ext(tmpVector.Set(bounds.max.x, bounds.min.y, bounds.max.z).mul(transform));
+		ext(tmpVector.Set(bounds.max.x, bounds.max.y, bounds.min.z).mul(transform));
+		ext(tmpVector.Set(bounds.max.x, bounds.max.y, bounds.max.z).mul(transform));
 		return this;
 	}
 
@@ -251,14 +251,14 @@ public class BoundingBox   {
 	public BoundingBox mul (Matrix4 transform) {
 		float x0 = min.x, y0 = min.y, z0 = min.z, x1 = max.x, y1 = max.y, z1 = max.z;
 		inf();
-		ext(tmpVector.set(x0, y0, z0).mul(transform));
-		ext(tmpVector.set(x0, y0, z1).mul(transform));
-		ext(tmpVector.set(x0, y1, z0).mul(transform));
-		ext(tmpVector.set(x0, y1, z1).mul(transform));
-		ext(tmpVector.set(x1, y0, z0).mul(transform));
-		ext(tmpVector.set(x1, y0, z1).mul(transform));
-		ext(tmpVector.set(x1, y1, z0).mul(transform));
-		ext(tmpVector.set(x1, y1, z1).mul(transform));
+		ext(tmpVector.Set(x0, y0, z0).mul(transform));
+		ext(tmpVector.Set(x0, y0, z1).mul(transform));
+		ext(tmpVector.Set(x0, y1, z0).mul(transform));
+		ext(tmpVector.Set(x0, y1, z1).mul(transform));
+		ext(tmpVector.Set(x1, y0, z0).mul(transform));
+		ext(tmpVector.Set(x1, y0, z1).mul(transform));
+		ext(tmpVector.Set(x1, y1, z0).mul(transform));
+		ext(tmpVector.Set(x1, y1, z1).mul(transform));
 		return this;
 	}
 
@@ -318,7 +318,7 @@ public class BoundingBox   {
 	 * @param z The z-coordinate
 	 * @return This bounding box for chaining. */
 	public BoundingBox ext (float x, float y, float z) {
-		return this.set(min.set(Min(min.x, x), Min(min.y, y), Min(min.z, z)), max.set(Max(max.x, x), Max(max.y, y), Max(max.z, z)));
+		return this.set(min.Set(Min(min.x, x), Min(min.y, y), Min(min.z, z)), max.Set(Max(max.x, x), Max(max.y, y), Max(max.z, z)));
 	}
 
 	static float Min ( float a,  float b) {

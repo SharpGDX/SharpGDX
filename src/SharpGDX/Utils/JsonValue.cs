@@ -43,7 +43,7 @@ namespace SharpGDX.Utils
 		/** May be null. When changing this field the parent {@link #size()} may need to be changed. */
 		public JsonValue? _next, _prev;
 
-		public int _size;
+		public int Size;
 
 		public JsonValue(ValueType type)
 		{
@@ -164,7 +164,7 @@ namespace SharpGDX.Utils
 				if (child._next != null) child._next._prev = child._prev;
 			}
 
-			_size--;
+			Size--;
 			return child;
 		}
 
@@ -185,7 +185,7 @@ namespace SharpGDX.Utils
 				if (child._next != null) child._next._prev = child._prev;
 			}
 
-			_size--;
+			Size--;
 			return child;
 		}
 
@@ -204,19 +204,19 @@ namespace SharpGDX.Utils
 				if (_next != null) _next._prev = _prev;
 			}
 
-			_parent._size--;
+			_parent.Size--;
 		}
 
 		/** Returns true if there are one or more children in the array or object. */
 		public bool notEmpty()
 		{
-			return _size > 0;
+			return Size > 0;
 		}
 
 		/** Returns true if there are not children in the array or object. */
 		public bool isEmpty()
 		{
-			return _size == 0;
+			return Size == 0;
 		}
 
 		/** Returns this value as a string.
@@ -399,7 +399,7 @@ namespace SharpGDX.Utils
 		public String[] asStringArray()
 		{
 			if (_type != ValueType.array) throw new IllegalStateException("Value is not an array: " + _type);
-			String[] array = new String[_size];
+			String[] array = new String[Size];
 			int i = 0;
 			for (JsonValue? value = _child; value != null; value = value._next, i++)
 			{
@@ -436,7 +436,7 @@ namespace SharpGDX.Utils
 		public float[] asFloatArray()
 		{
 			if (_type != ValueType.array) throw new IllegalStateException("Value is not an array: " + _type);
-			float[] array = new float[_size];
+			float[] array = new float[Size];
 			int i = 0;
 			for (JsonValue? value = _child; value != null; value = value._next, i++)
 			{
@@ -470,7 +470,7 @@ namespace SharpGDX.Utils
 		public double[] asDoubleArray()
 		{
 			if (_type != ValueType.array) throw new IllegalStateException("Value is not an array: " + _type);
-			double[] array = new double[_size];
+			double[] array = new double[Size];
 			int i = 0;
 			for (JsonValue? value = _child; value != null; value = value._next, i++)
 			{
@@ -504,7 +504,7 @@ namespace SharpGDX.Utils
 		public long[] asLongArray()
 		{
 			if (_type != ValueType.array) throw new IllegalStateException("Value is not an array: " + _type);
-			long[] array = new long[_size];
+			long[] array = new long[Size];
 			int i = 0;
 			for (JsonValue? value = _child; value != null; value = value._next, i++)
 			{
@@ -538,7 +538,7 @@ namespace SharpGDX.Utils
 		public int[] asIntArray()
 		{
 			if (_type != ValueType.array) throw new IllegalStateException("Value is not an array: " + _type);
-			int[] array = new int[_size];
+			int[] array = new int[Size];
 			int i = 0;
 			for (JsonValue? value = _child; value != null; value = value._next, i++)
 			{
@@ -572,7 +572,7 @@ namespace SharpGDX.Utils
 		public bool[] asBooleanArray()
 		{
 			if (_type != ValueType.array) throw new IllegalStateException("Value is not an array: " + _type);
-			bool[] array = new bool[_size];
+			bool[] array = new bool[Size];
 			int i = 0;
 			for (JsonValue? value = _child; value != null; value = value._next, i++)
 			{
@@ -606,7 +606,7 @@ namespace SharpGDX.Utils
 		public byte[] asByteArray()
 		{
 			if (_type != ValueType.array) throw new IllegalStateException("Value is not an array: " + _type);
-			byte[] array = new byte[_size];
+			byte[] array = new byte[Size];
 			int i = 0;
 			for (JsonValue? value = _child; value != null; value = value._next, i++)
 			{
@@ -640,7 +640,7 @@ namespace SharpGDX.Utils
 		public short[] asShortArray()
 		{
 			if (_type != ValueType.array) throw new IllegalStateException("Value is not an array: " + _type);
-			short[] array = new short[_size];
+			short[] array = new short[Size];
 			int i = 0;
 			for (JsonValue? value = _child; value != null; value = value._next, i++)
 			{
@@ -674,7 +674,7 @@ namespace SharpGDX.Utils
 		public char[] asCharArray()
 		{
 			if (_type != ValueType.array) throw new IllegalStateException("Value is not an array: " + _type);
-			char[] array = new char[_size];
+			char[] array = new char[Size];
 			int i = 0;
 			for (JsonValue? value = _child; value != null; value = value._next, i++)
 			{
@@ -1054,7 +1054,7 @@ namespace SharpGDX.Utils
 				throw new IllegalStateException("An object child requires a name: " + value);
 			value._parent = this;
 			value._next = null;
-			_size++;
+			Size++;
 			JsonValue current = _child;
 			if (current == null)
 			{

@@ -28,7 +28,7 @@
 //	public override void Render () {
 //		GL20 gl = Gdx.gl20;
 //		gl.glViewport(0, 0, Gdx.graphics.getBackBufferWidth(), Gdx.graphics.getBackBufferHeight());
-//		Gdx.gl.glClearColor(0.7f, 0, 0, 1);
+//		GDX.GL.glClearColor(0.7f, 0, 0, 1);
 //		gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 //
 //		shader.bind();

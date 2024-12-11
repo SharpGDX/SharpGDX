@@ -62,7 +62,7 @@ public class Octree<T> {
 		{
 			_octree = octree;
 		}
-		protected override OctreeNode newObject()
+		protected internal override OctreeNode newObject()
 		{
 			return new OctreeNode(_octree);
 		}

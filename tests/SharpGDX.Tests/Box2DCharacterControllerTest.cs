@@ -149,7 +149,7 @@
 //	}
 //
 //	public override void Render () {
-//		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+//		GDX.GL.glClear(GL20.GL_COLOR_BUFFER_BIT);
 //		cam.position.set(player.getPosition().x, player.getPosition().y, 0);
 //		cam.update();
 //		renderer.render(world, cam.combined);

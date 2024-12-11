@@ -37,7 +37,7 @@ public class Vector2 : IVector<Vector2> {
 	/** Constructs a vector from the given vector
 	 * @param v The vector */
 	public Vector2 (Vector2 v) {
-		set(v);
+		Set(v);
 	}
 
 	public Vector2 cpy () {
@@ -60,7 +60,7 @@ public class Vector2 : IVector<Vector2> {
 		return x * x + y * y;
 	}
 
-	public Vector2 set (Vector2 v) {
+	public Vector2 Set (Vector2 v) {
 		x = v.x;
 		y = v.y;
 		return this;

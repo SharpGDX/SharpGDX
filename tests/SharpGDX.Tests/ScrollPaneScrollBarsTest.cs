@@ -217,14 +217,14 @@
 //	}
 //
 //	public void render () {
-//		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+//		GDX.GL.glClear(GL20.GL_COLOR_BUFFER_BIT);
 //		stage.act(Gdx.graphics.getDeltaTime());
 //		stage.draw();
 //	}
 //
 //	public void resize (int width, int height) {
 //		stage.getViewport().update(width, height, true);
-//		// Gdx.gl.glViewport(100, 100, width - 200, height - 200);
+//		// GDX.GL.glViewport(100, 100, width - 200, height - 200);
 //		// stage.setViewport(800, 600, false, 100, 100, width - 200, height - 200);
 //	}
 //

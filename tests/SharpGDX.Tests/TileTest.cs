@@ -51,11 +51,11 @@
 //	}
 //
 //	public override void Render () {
-//		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+//		GDX.GL.glClear(GL20.GL_COLOR_BUFFER_BIT);
 //		cam.update();
 //
-//		Gdx.gl.glEnable(GL20.GL_BLEND);
-//		Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+//		GDX.GL.glEnable(GL20.GL_BLEND);
+//		GDX.GL.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
 //		for (int i = 0; i < LAYERS; i++) {
 //			SpriteCache cache = caches[i];
 //			cache.setProjectionMatrix(cam.combined);

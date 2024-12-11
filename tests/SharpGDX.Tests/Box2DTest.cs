@@ -197,7 +197,7 @@
 //
 //		// next we clear the color buffer and set the camera
 //		// matrices
-//		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+//		GDX.GL.glClear(GL20.GL_COLOR_BUFFER_BIT);
 //		camera.update();
 //
 //		// next we render the ground body

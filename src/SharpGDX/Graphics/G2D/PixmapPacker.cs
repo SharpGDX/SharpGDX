@@ -271,7 +271,7 @@ public class PixmapPacker : IDisposable
         //	if (packToTexture && !duplicateBorder && page.texture != null && !page.dirty)
         //	{
         //		page.texture.bind();
-        //		Gdx.gl.glTexSubImage2D(page.texture.glTarget, 0, rectX, rectY, rectWidth, rectHeight,
+        //		GDX.GL.glTexSubImage2D(page.texture.glTarget, 0, rectX, rectY, rectWidth, rectHeight,
         //			image.getGLFormat(),
         //			image.getGLType(), image.getPixels());
         //	}

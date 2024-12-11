@@ -47,7 +47,7 @@ namespace SharpGDX.Utils
 			this.max = max;
 		}
 
-		abstract protected T newObject();
+		abstract internal protected T newObject();
 
 		/** Returns an object from this pool. The object may be new (from {@link #newObject()}) or reused (previously
 		 * {@link #free(Object) freed}). */
@@ -126,7 +126,7 @@ namespace SharpGDX.Utils
 		}
 
 		/** Removes and discards all free objects from this pool. */
-		public void clear()
+		public virtual void clear()
 		{
 			Array<T> freeObjects = this.freeObjects;
 			for (int i = 0, n = freeObjects.size; i < n; i++)

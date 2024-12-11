@@ -82,7 +82,7 @@
 //
 //	public void render () {
 //		// Console.WriteLine(meow.getValue());
-//		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+//		GDX.GL.glClear(GL20.GL_COLOR_BUFFER_BIT);
 //		stage.act(Gdx.graphics.getDeltaTime());
 //		stage.draw();
 //

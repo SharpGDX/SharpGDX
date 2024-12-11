@@ -23,7 +23,7 @@
 //
 //    public override void Render()
 //    {
-//        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+//        GDX.GL.glClear(GL20.GL_COLOR_BUFFER_BIT);
 //        batch.begin();
 //        font.draw(batch,
 //            "accel: [" + Gdx.input.getAccelerometerX() + "," + Gdx.input.getAccelerometerY() + "," +

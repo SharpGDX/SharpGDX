@@ -180,7 +180,7 @@
 ////
 ////		long beforeOld = TimeUtils.nanoTime();
 ////		oldVBOWithVAOMesh.render(shader, GL20.GL_TRIANGLES);
-////		Gdx.gl.glFlush();
+////		GDX.GL.glFlush();
 ////		oldCounter.addValue((TimeUtils.nanoTime() - beforeOld));
 ////
 ////		Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -192,7 +192,7 @@
 ////
 ////		long beforeNew = TimeUtils.nanoTime();
 ////		newVBOWithVAOMesh.render(shader, GL20.GL_TRIANGLES);
-////		Gdx.gl.glFlush();
+////		GDX.GL.glFlush();
 ////		newCounter.addValue((TimeUtils.nanoTime() - beforeNew));
 ////
 ////		Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -205,7 +205,7 @@
 ////		long beforeOldStress = TimeUtils.nanoTime();
 ////		for (int i = 0; i < 100; i++)
 ////			oldVBOWithVAOMesh.render(shader, GL20.GL_TRIANGLES);
-////		Gdx.gl.glFlush();
+////		GDX.GL.glFlush();
 ////		oldCounterStress.addValue((TimeUtils.nanoTime() - beforeOldStress));
 ////
 ////		Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -218,7 +218,7 @@
 ////		long beforeNewStress = TimeUtils.nanoTime();
 ////		for (int i = 0; i < 100; i++)
 ////			newVBOWithVAOMesh.render(shader, GL20.GL_TRIANGLES);
-////		Gdx.gl.glFlush();
+////		GDX.GL.glFlush();
 ////		newCounterStress.addValue((TimeUtils.nanoTime() - beforeNewStress));
 ////
 ////		batch.begin();

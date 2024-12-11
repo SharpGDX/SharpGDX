@@ -51,17 +51,17 @@ public abstract class Camera {
 	 * @param y the y-coordinate of the point to look at
 	 * @param z the z-coordinate of the point to look at */
 	public void lookAt (float x, float y, float z) {
-		tmpVec.set(x, y, z).sub(position).nor();
+		tmpVec.Set(x, y, z).sub(position).nor();
 		if (!tmpVec.isZero()) {
 			float dot = tmpVec.dot(up); // up and direction must ALWAYS be orthonormal vectors
 			if (Math.Abs(dot - 1) < 0.000000001f) {
 				// Collinear
-				up.set(direction).scl(-1);
+				up.Set(direction).scl(-1);
 			} else if (Math.Abs(dot + 1) < 0.000000001f) {
 				// Collinear opposite
-				up.set(direction);
+				up.Set(direction);
 			}
-			direction.set(tmpVec);
+			direction.Set(tmpVec);
 			normalizeUp();
 		}
 	}
@@ -75,8 +75,8 @@ public abstract class Camera {
 	/** Normalizes the up vector by first calculating the right vector via a cross product between direction and up, and then
 	 * recalculating the up vector via a cross product between right and direction. */
 	public void normalizeUp () {
-		tmpVec.set(direction).crs(up);
-		up.set(tmpVec).crs(direction).nor();
+		tmpVec.Set(direction).crs(up);
+		up.Set(tmpVec).crs(direction).nor();
 	}
 
 	/** Rotates the direction and up vector of this camera by the given angle around the given axis. The direction and up vector
@@ -126,7 +126,7 @@ public abstract class Camera {
 	 * @param axis the axis to rotate around
 	 * @param angle the angle, in degrees */
 	public void rotateAround (Vector3 point, Vector3 axis, float angle) {
-		tmpVec.set(point);
+		tmpVec.Set(point);
 		tmpVec.sub(position);
 		translate(tmpVec);
 		rotate(axis, angle);
@@ -228,8 +228,8 @@ public abstract class Camera {
 	 * @return the picking Ray. */
 	public Ray getPickRay (float screenX, float screenY, float viewportX, float viewportY, float viewportWidth,
 		float viewportHeight) {
-		unproject(ray.origin.set(screenX, screenY, 0), viewportX, viewportY, viewportWidth, viewportHeight);
-		unproject(ray.direction.set(screenX, screenY, 1), viewportX, viewportY, viewportWidth, viewportHeight);
+		unproject(ray.origin.Set(screenX, screenY, 0), viewportX, viewportY, viewportWidth, viewportHeight);
+		unproject(ray.direction.Set(screenX, screenY, 1), viewportX, viewportY, viewportWidth, viewportHeight);
 		ray.direction.sub(ray.origin).nor();
 		return ray;
 	}

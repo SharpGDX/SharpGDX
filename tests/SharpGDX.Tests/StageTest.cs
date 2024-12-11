@@ -141,7 +141,7 @@
 //	private readonly Vector2 stageCoords = new Vector2();
 //
 //	public override void Render () {
-//		Gdx.gl.glViewport(0, 0, Gdx.graphics.getBackBufferWidth(), Gdx.graphics.getBackBufferHeight());
+//		GDX.GL.glViewport(0, 0, Gdx.graphics.getBackBufferWidth(), Gdx.graphics.getBackBufferHeight());
 //		ScreenUtils.clear(0.2f, 0.2f, 0.2f, 1);
 //
 //		if (Gdx.input.isTouched()) {

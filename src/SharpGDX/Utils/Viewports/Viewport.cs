@@ -35,7 +35,7 @@ public abstract class Viewport
         _camera.viewportHeight = _worldHeight;
         if (centerCamera)
         {
-            _camera.position.set(_worldWidth / 2, _worldHeight / 2, 0);
+            _camera.position.Set(_worldWidth / 2, _worldHeight / 2, 0);
         }
 
         _camera.update();
@@ -154,7 +154,7 @@ public abstract class Viewport
     /// <returns>The vector that was passed in, transformed to screen coordinates.</returns>
     public Vector2 Project(Vector2 worldCoords)
     {
-        _tmp.set(worldCoords.x, worldCoords.y, 1);
+        _tmp.Set(worldCoords.x, worldCoords.y, 1);
         _camera.project(_tmp, _screenX, _screenY, _screenWidth, _screenHeight);
         worldCoords.Set(_tmp.x, _tmp.y);
         return worldCoords;
@@ -310,7 +310,7 @@ public abstract class Viewport
     /// <returns></returns>
     public Vector2 ToScreenCoordinates(Vector2 worldCoords, Matrix4 transformMatrix)
     {
-        _tmp.set(worldCoords.x, worldCoords.y, 0);
+        _tmp.Set(worldCoords.x, worldCoords.y, 0);
         _tmp.mul(transformMatrix);
         _camera.project(_tmp, _screenX, _screenY, _screenWidth, _screenHeight);
         _tmp.y = GDX.Graphics.GetHeight() - _tmp.y;
@@ -329,7 +329,7 @@ public abstract class Viewport
     /// <returns>The vector that was passed in, transformed to world coordinates.</returns>
     public Vector2 Unproject(Vector2 screenCoords)
     {
-        _tmp.set(screenCoords.x, screenCoords.y, 1);
+        _tmp.Set(screenCoords.x, screenCoords.y, 1);
         _camera.unproject(_tmp, _screenX, _screenY, _screenWidth, _screenHeight);
         screenCoords.Set(_tmp.x, _tmp.y);
         return screenCoords;

@@ -13,7 +13,7 @@ internal interface ISynchronousAssetLoader : IAssetLoader
 }
 
 public abstract class SynchronousAssetLoader<T, P> : AssetLoader<T, P>, ISynchronousAssetLoader
-	where P : AssetLoaderParameters<T>
+	where P : AssetLoaderParameters
 {
 	public SynchronousAssetLoader(IFileHandleResolver resolver)
 		: base(resolver)

@@ -78,7 +78,7 @@
 //			scrollPane.scrollTo(0, textArea.getHeight() - textArea.getCursorY(), 0, textArea.getStyle().font.getLineHeight());
 //		}
 //
-//		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+//		GDX.GL.glClear(GL20.GL_COLOR_BUFFER_BIT);
 //		stage.act(Gdx.graphics.getDeltaTime());
 //		stage.draw();
 //	}

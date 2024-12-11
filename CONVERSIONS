@@ -2,6 +2,7 @@ Not sure that string.Substring() in C# is equivalent to the one in Java, need to
 Check that all switch 'Fall Throughs' are handled appropriately (I did not understand what it meant when originally starting).
 I don't like the way the FrameBuffer classes were converted, this should be revisited.
 Verify that FileHandle is completely ported.
+Ensure that Float/Int/etc.toString() are converted correctly.
 
 SharpGDX
 --------

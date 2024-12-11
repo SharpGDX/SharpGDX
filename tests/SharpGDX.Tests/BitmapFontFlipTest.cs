@@ -79,7 +79,7 @@
 //	public override void Render () {
 //		red.a = (red.a + Gdx.graphics.getDeltaTime() * 0.1f) % 1;
 //
-//		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+//		GDX.GL.glClear(GL20.GL_COLOR_BUFFER_BIT);
 //		spriteBatch.begin();
 //		logoSprite.draw(spriteBatch);
 //		switch (renderMode) {

@@ -90,7 +90,7 @@
 //	}
 //
 //	public override void Render () {
-//		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+//		GDX.GL.glClear(GL20.GL_COLOR_BUFFER_BIT);
 //		int x = Gdx.input.getX() >> 2, y = Gdx.input.getY() >> 2;
 //		if ((lastX != x || lastY != y) && x >= 0 && x < 160 && y >= 0 && y < 120) {
 //			lastX = x;

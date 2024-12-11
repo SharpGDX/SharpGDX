@@ -20,7 +20,7 @@ namespace SharpGDX.Mathematics
 
 		private class GridPoint2Pool : Pool<GridPoint2>
 		{
-			protected override GridPoint2 newObject()
+			protected internal override GridPoint2 newObject()
 			{
 				return new GridPoint2();
 			}

@@ -62,7 +62,7 @@
 //		batch.setProjectionMatrix(camera.projection);
 //		batch.setTransformMatrix(camera.view);
 //
-//		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+//		GDX.GL.glClear(GL20.GL_COLOR_BUFFER_BIT);
 //		batch.begin();
 //		// draw a white background so we are able to see the black bars
 //		batch.setColor(1, 1, 1, 1);

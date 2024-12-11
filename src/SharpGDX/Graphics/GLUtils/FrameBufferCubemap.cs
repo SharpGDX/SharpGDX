@@ -27,8 +27,8 @@ namespace SharpGDX.Graphics.GLUtils;
  * frameBuffer.getSide().getDirection(camera.direction);<br />
  * camera.update(); <br />
  *
- * Gdx.gl.glClearColor(0, 0, 0, 1); <br />
- * Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT); <br />
+ * GDX.GL.glClearColor(0, 0, 0, 1); <br />
+ * GDX.GL.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT); <br />
  * modelBatch.begin(camera); <br />
  * modelBatch.render(renderableProviders); <br />
  * modelBatch.end(); <br />

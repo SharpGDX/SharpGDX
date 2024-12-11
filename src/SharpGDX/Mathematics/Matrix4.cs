@@ -802,9 +802,9 @@ public class Matrix4   {
 	 * @param up The up vector
 	 * @return This matrix for the purpose of chaining methods together. */
 	public Matrix4 setToLookAt (Vector3 direction, Vector3 up) {
-		l_vez.set(direction).nor();
-		l_vex.set(direction).crs(up).nor();
-		l_vey.set(l_vex).crs(l_vez).nor();
+		l_vez.Set(direction).nor();
+		l_vex.Set(direction).crs(up).nor();
+		l_vey.Set(l_vex).crs(l_vez).nor();
 		idt();
 		val[M00] = l_vex.x;
 		val[M01] = l_vex.y;
@@ -824,16 +824,16 @@ public class Matrix4   {
 	 * @param up the up vector
 	 * @return This matrix */
 	public Matrix4 setToLookAt (Vector3 position, Vector3 target, Vector3 up) {
-		tmpVec.set(target).sub(position);
+		tmpVec.Set(target).sub(position);
 		setToLookAt(tmpVec, up);
 		mul(tmpMat.setToTranslation(-position.x, -position.y, -position.z));
 		return this;
 	}
 
 	public Matrix4 setToWorld (Vector3 position, Vector3 forward, Vector3 up) {
-		tmpForward.set(forward).nor();
-		right.set(tmpForward).crs(up).nor();
-		tmpUp.set(right).crs(tmpForward).nor();
+		tmpForward.Set(forward).nor();
+		right.Set(tmpForward).crs(up).nor();
+		tmpUp.Set(right).crs(tmpForward).nor();
 		set(right, tmpUp, tmpForward.scl(-1), position);
 		return this;
 	}
@@ -876,9 +876,9 @@ public class Matrix4   {
 	public Matrix4 avg (Matrix4[] t) {
 		 float w = 1.0f / t.Length;
 
-		tmpVec.set(t[0].getScale(tmpUp).scl(w));
+		tmpVec.Set(t[0].getScale(tmpUp).scl(w));
 		quat.set(t[0].getRotation(quat2).exp(w));
-		tmpForward.set(t[0].getTranslation(tmpUp).scl(w));
+		tmpForward.Set(t[0].getTranslation(tmpUp).scl(w));
 
 		for (int i = 1; i < t.Length; i++) {
 			tmpVec.add(t[i].getScale(tmpUp).scl(w));
@@ -900,9 +900,9 @@ public class Matrix4   {
 	 * @param w List of weights
 	 * @return This matrix for chaining */
 	public Matrix4 avg (Matrix4[] t, float[] w) {
-		tmpVec.set(t[0].getScale(tmpUp).scl(w[0]));
+		tmpVec.Set(t[0].getScale(tmpUp).scl(w[0]));
 		quat.set(t[0].getRotation(quat2).exp(w[0]));
-		tmpForward.set(t[0].getTranslation(tmpUp).scl(w[0]));
+		tmpForward.Set(t[0].getTranslation(tmpUp).scl(w[0]));
 
 		for (int i = 1; i < t.Length; i++) {
 			tmpVec.add(t[i].getScale(tmpUp).scl(w[i]));
@@ -1092,7 +1092,7 @@ public class Matrix4   {
 	/** @param scale The vector which will receive the (non-negative) scale components on each axis.
 	 * @return The provided vector for chaining. */
 	public Vector3 getScale (Vector3 scale) {
-		return scale.set(getScaleX(), getScaleY(), getScaleZ());
+		return scale.Set(getScaleX(), getScaleY(), getScaleZ());
 	}
 
 	/** removes the translational part and transposes the matrix. */
@@ -1569,9 +1569,9 @@ public class Matrix4   {
 	 * @param up up vector
 	 * @return This matrix for chaining */
 	public Matrix4 rotateTowardDirection ( Vector3 direction,  Vector3 up) {
-		l_vez.set(direction).nor();
-		l_vex.set(direction).crs(up).nor();
-		l_vey.set(l_vex).crs(l_vez).nor();
+		l_vez.Set(direction).nor();
+		l_vex.Set(direction).crs(up).nor();
+		l_vey.Set(l_vex).crs(l_vez).nor();
 		float m00 = val[M00] * l_vex.x + val[M01] * l_vex.y + val[M02] * l_vex.z;
 		float m01 = val[M00] * l_vey.x + val[M01] * l_vey.y + val[M02] * l_vey.z;
 		float m02 = val[M00] * -l_vez.x + val[M01] * -l_vez.y + val[M02] * -l_vez.z;
@@ -1604,7 +1604,7 @@ public class Matrix4   {
 	 * @param up the up vector
 	 * @return This matrix for chaining */
 	public Matrix4 rotateTowardTarget ( Vector3 target,  Vector3 up) {
-		tmpVec.set(target.x - val[M03], target.y - val[M13], target.z - val[M23]);
+		tmpVec.Set(target.x - val[M03], target.y - val[M13], target.z - val[M23]);
 		return rotateTowardDirection(tmpVec, up);
 	}
 

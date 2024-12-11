@@ -99,13 +99,12 @@ namespace SharpGDX.Graphics.G2D
                 (GDX.GL30 != null) ? Mesh.VertexDataType.VertexBufferObjectWithVAO : defaultVertexDataType;
 
             mesh = new Mesh(vertexDataType, false, size * 4, size * 6,
-                new VertexAttribute[]
-                {
+               
                     new VertexAttribute(VertexAttributes.Usage.Position, 2, ShaderProgram.POSITION_ATTRIBUTE),
                     new VertexAttribute(VertexAttributes.Usage.ColorPacked, 4, ShaderProgram.COLOR_ATTRIBUTE),
                     new VertexAttribute(VertexAttributes.Usage.TextureCoordinates, 2,
                         ShaderProgram.TEXCOORD_ATTRIBUTE + "0")
-                });
+                );
 
             projectionMatrix.setToOrtho2D(0, 0, GDX.Graphics.GetWidth(), GDX.Graphics.GetHeight());
 

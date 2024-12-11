@@ -151,12 +151,12 @@ public class VertexBufferObjectWithVAO : IVertexData {
 
 	private void bindAttributes (ShaderProgram shader, int[] locations) {
 		bool stillValid = this.cachedLocations.size != 0;
-		int numAttributes = attributes.size();
+		int numAttributes = attributes.Size();
 
 		if (stillValid) {
 			if (locations == null) {
 				for (int i = 0; stillValid && i < numAttributes; i++) {
-					VertexAttribute attribute = attributes.get(i);
+					VertexAttribute attribute = attributes.Get(i);
 					int location = shader.getAttributeLocation(attribute.alias);
 					stillValid = location == this.cachedLocations.get(i);
 				}
@@ -174,7 +174,7 @@ public class VertexBufferObjectWithVAO : IVertexData {
 			this.cachedLocations.clear();
 
 			for (int i = 0; i < numAttributes; i++) {
-				VertexAttribute attribute = attributes.get(i);
+				VertexAttribute attribute = attributes.Get(i);
 				if (locations == null) {
 					this.cachedLocations.add(shader.getAttributeLocation(attribute.alias));
 				} else {
@@ -197,7 +197,7 @@ public class VertexBufferObjectWithVAO : IVertexData {
 		if (cachedLocations.size == 0) {
 			return;
 		}
-		int numAttributes = attributes.size();
+		int numAttributes = attributes.Size();
 		for (int i = 0; i < numAttributes; i++) {
 			int location = cachedLocations.get(i);
 			if (location < 0) {

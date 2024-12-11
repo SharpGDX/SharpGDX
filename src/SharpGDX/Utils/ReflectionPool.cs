@@ -44,7 +44,7 @@ public class ReflectionPool<T> : Pool<T> {
 		}
 	}
 
-	protected override T newObject () {
+	protected internal override T newObject () {
 		try {
 			return (T)constructor.newInstance((Object[])null);
 		} catch (Exception ex) {

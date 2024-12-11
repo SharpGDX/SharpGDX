@@ -28,10 +28,10 @@ public class PixmapLoader : AsynchronousAssetLoader<Pixmap, PixmapLoader.PixmapP
 		return pixmap;
 	}
 
-	public override Array<AssetDescriptor<Pixmap>> getDependencies (String fileName, FileHandle file, PixmapParameter parameter) {
+	public override Array<AssetDescriptor> getDependencies (String fileName, FileHandle file, PixmapParameter parameter) {
 		return null;
 	}
 
-	public class PixmapParameter : AssetLoaderParameters<Pixmap> {
+	public class PixmapParameter : AssetLoaderParameters {
 	}
 }

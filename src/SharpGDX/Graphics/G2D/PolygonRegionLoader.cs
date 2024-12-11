@@ -13,7 +13,7 @@ namespace SharpGDX.Graphics.G2D;
  * @author dermetfan */
 public class PolygonRegionLoader : SynchronousAssetLoader<PolygonRegion, PolygonRegionLoader.PolygonRegionParameters> {
 
-	public  class PolygonRegionParameters : AssetLoaderParameters<PolygonRegion> {
+	public  class PolygonRegionParameters : AssetLoaderParameters {
 
 		/** what the line starts with that contains the file name of the texture for this {@code PolygonRegion} */
 		public String texturePrefix = "i ";
@@ -56,7 +56,7 @@ public class PolygonRegionLoader : SynchronousAssetLoader<PolygonRegion, Polygon
 	 * given file with the same name and the first found extension in {@link PolygonRegionParameters#textureExtensions
 	 * params.textureExtensions} will be used. If no suitable file is found, the returned Array will be empty. */
 	
-	public override Array<AssetDescriptor<PolygonRegion>> getDependencies (String fileName, FileHandle file, PolygonRegionParameters @params)
+	public override Array<AssetDescriptor> getDependencies (String fileName, FileHandle file, PolygonRegionParameters @params)
 	{
 		throw new NotImplementedException();
 		//if (@params == null) @params = defaultParameters;

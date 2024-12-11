@@ -625,7 +625,7 @@ public class TextField : Widget, IDisableable
             }
 
             current = textField;
-            currentCoords.set(bestCoords);
+            currentCoords.Set(bestCoords);
         }
     }
 
@@ -650,7 +650,7 @@ public class TextField : Widget, IDisableable
                 if (better)
                 {
                     best = (TextField)actor;
-                    bestCoords.set(actorCoords);
+                    bestCoords.Set(actorCoords);
                 }
             }
             else if (actor is Group)

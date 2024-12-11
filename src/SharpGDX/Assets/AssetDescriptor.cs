@@ -4,8 +4,7 @@ using SharpGDX.Files;
 namespace SharpGDX.Assets;
 
 /// <inheritdoc cref="IAssetDescriptor" />
-/// <typeparam name="T">The asset type.</typeparam>
-public class AssetDescriptor<T> : IAssetDescriptor
+public class AssetDescriptor : IAssetDescriptor
 {
 	public AssetDescriptor(string fileName, Type assetType)
 		: this(fileName, assetType, null)
@@ -22,7 +21,7 @@ public class AssetDescriptor<T> : IAssetDescriptor
 	{
 	}
 
-	public AssetDescriptor(string fileName, Type assetType, AssetLoaderParameters<T>? @params)
+	public AssetDescriptor(string fileName, Type assetType, AssetLoaderParameters? @params)
 	{
 		FileName = fileName;
 		Type = assetType;
@@ -35,7 +34,7 @@ public class AssetDescriptor<T> : IAssetDescriptor
 	/// <param name="file">TODO</param>
 	/// <param name="assetType">TODO</param>
 	/// <param name="params">TODO</param>
-	public AssetDescriptor(FileHandle file, Type assetType, AssetLoaderParameters<T>? @params)
+	public AssetDescriptor(FileHandle file, Type assetType, AssetLoaderParameters? @params)
 	{
 		FileName = file.path();
 		File = file;
@@ -53,7 +52,7 @@ public class AssetDescriptor<T> : IAssetDescriptor
 
 	public string FileName { get; }
 
-	public AssetLoaderParameters<T>? Parameters { get; }
+	public AssetLoaderParameters? Parameters { get; }
 
 	public Type Type { get; }
 

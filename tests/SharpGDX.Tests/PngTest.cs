@@ -23,7 +23,7 @@
 //	}
 //
 //	public void render () {
-//		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+//		GDX.GL.glClear(GL20.GL_COLOR_BUFFER_BIT);
 //		batch.begin();
 //		if (screenshot == null) {
 //			int width = Gdx.graphics.getWidth(), height = Gdx.graphics.getHeight();

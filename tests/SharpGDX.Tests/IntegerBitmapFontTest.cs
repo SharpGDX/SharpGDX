@@ -38,7 +38,7 @@
 //	}
 //
 //	public void render () {
-//		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+//		GDX.GL.glClear(GL20.GL_COLOR_BUFFER_BIT);
 //		batch.begin();
 //		font.setUseIntegerPositions(false);
 //		font.setColor(1, 0, 0, 1);

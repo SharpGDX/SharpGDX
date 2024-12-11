@@ -67,13 +67,13 @@ public class OrthographicCamera : Camera {
 	 * @param viewportHeight */
 	public void setToOrtho (bool yDown, float viewportWidth, float viewportHeight) {
 		if (yDown) {
-			up.set(0, -1, 0);
-			direction.set(0, 0, 1);
+			up.Set(0, -1, 0);
+			direction.Set(0, 0, 1);
 		} else {
-			up.set(0, 1, 0);
-			direction.set(0, 0, -1);
+			up.Set(0, 1, 0);
+			direction.Set(0, 0, -1);
 		}
-		position.set(zoom * viewportWidth / 2.0f, zoom * viewportHeight / 2.0f, 0);
+		position.Set(zoom * viewportWidth / 2.0f, zoom * viewportHeight / 2.0f, 0);
 		this.viewportWidth = viewportWidth;
 		this.viewportHeight = viewportHeight;
 		update();

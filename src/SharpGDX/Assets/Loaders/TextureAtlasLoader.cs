@@ -38,7 +38,7 @@ public class TextureAtlasLoader : SynchronousAssetLoader<TextureAtlas, TextureAt
 		return atlas;
 	}
 
-	public override Array<AssetDescriptor<TextureAtlas>> getDependencies(String fileName, FileHandle atlasFile,
+	public override Array<AssetDescriptor> getDependencies(String fileName, FileHandle atlasFile,
 		TextureAtlasParameter parameter)
 	{
 		FileHandle imgDir = atlasFile.parent();
@@ -59,7 +59,7 @@ public class TextureAtlasLoader : SynchronousAssetLoader<TextureAtlas, TextureAt
 			@params.minFilter = page.minFilter;
 			@params.magFilter = page.magFilter;
 			// TODO: Is AssetDescriptor<Texture> right? -RP
-			dependencies.Add(new AssetDescriptor<Texture>(page.textureFile, typeof(Texture), @params));
+			dependencies.Add(new AssetDescriptor(page.textureFile, typeof(Texture), @params));
 		}
 
 		throw new NotImplementedException();
@@ -67,7 +67,7 @@ public class TextureAtlasLoader : SynchronousAssetLoader<TextureAtlas, TextureAt
 		// return dependencies;
 	}
 
-	public class TextureAtlasParameter : AssetLoaderParameters<TextureAtlas>
+	public class TextureAtlasParameter : AssetLoaderParameters
 	{
 		/** whether to flip the texture atlas vertically **/
 		public bool flip = false;

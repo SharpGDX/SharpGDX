@@ -26,7 +26,7 @@
 //	}
 //
 //	public override void Render () {
-//		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+//		GDX.GL.glClear(GL20.GL_COLOR_BUFFER_BIT);
 //		batch.begin();
 //		batch.draw(texture, 0, 0);
 //		batch.draw(region, 128, 0, 64, 64, 128, 128, 1, 1, 90);

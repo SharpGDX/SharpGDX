@@ -34,7 +34,7 @@ public class Plane  {
 	 * @param normal The plane normal
 	 * @param d The distance to the origin */
 	public Plane (Vector3 normal, float d) {
-		this.normal.set(normal).nor();
+		this.normal.Set(normal).nor();
 		this.d = d;
 	}
 
@@ -43,7 +43,7 @@ public class Plane  {
 	 * @param normal The normal
 	 * @param point The point on the plane */
 	public Plane (Vector3 normal, Vector3 point) {
-		this.normal.set(normal).nor();
+		this.normal.Set(normal).nor();
 		this.d = -this.normal.dot(point);
 	}
 
@@ -64,7 +64,7 @@ public class Plane  {
 	 * @param point2
 	 * @param point3 */
 	public void set (Vector3 point1, Vector3 point2, Vector3 point3) {
-		normal.set(point1).sub(point2).crs(point2.x - point3.x, point2.y - point3.y, point2.z - point3.z).nor();
+		normal.Set(point1).sub(point2).crs(point2.x - point3.x, point2.y - point3.y, point2.z - point3.z).nor();
 		d = -point1.dot(normal);
 	}
 
@@ -75,7 +75,7 @@ public class Plane  {
 	 * @param nz normal z-component
 	 * @param d distance to origin */
 	public void set (float nx, float ny, float nz, float d) {
-		normal.set(nx, ny, nz);
+		normal.Set(nx, ny, nz);
 		this.d = d;
 	}
 
@@ -146,12 +146,12 @@ public class Plane  {
 	 * @param point the point on the plane
 	 * @param normal the normal of the plane */
 	public void set (Vector3 point, Vector3 normal) {
-		this.normal.set(normal);
+		this.normal.Set(normal);
 		d = -point.dot(normal);
 	}
 
 	public void set (float pointX, float pointY, float pointZ, float norX, float norY, float norZ) {
-		this.normal.set(norX, norY, norZ);
+		this.normal.Set(norX, norY, norZ);
 		d = -(pointX * norX + pointY * norY + pointZ * norZ);
 	}
 
@@ -159,7 +159,7 @@ public class Plane  {
 	 * 
 	 * @param plane the plane */
 	public void set (Plane plane) {
-		this.normal.set(plane.normal);
+		this.normal.Set(plane.normal);
 		this.d = plane.d;
 	}
 

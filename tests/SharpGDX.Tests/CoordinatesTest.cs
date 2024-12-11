@@ -127,12 +127,12 @@
 //		ScreenUtils.clear(0.2f, 0.2f, 0.2f, 1);
 //
 //		// clear viewport virtual screen with lighter color
-//		Gdx.gl.glEnable(GL20.GL_SCISSOR_TEST);
-//		Gdx.gl.glScissor(gameViewport.getScreenX(), gameViewport.getScreenY(), gameViewport.getScreenWidth(),
+//		GDX.GL.glEnable(GL20.GL_SCISSOR_TEST);
+//		GDX.GL.glScissor(gameViewport.getScreenX(), gameViewport.getScreenY(), gameViewport.getScreenWidth(),
 //			gameViewport.getScreenHeight());
-//		Gdx.gl.glClearColor(0.5f, 0.5f, 0.5f, 1);
-//		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-//		Gdx.gl.glDisable(GL20.GL_SCISSOR_TEST);
+//		GDX.GL.glClearColor(0.5f, 0.5f, 0.5f, 1);
+//		GDX.GL.glClear(GL20.GL_COLOR_BUFFER_BIT);
+//		GDX.GL.glDisable(GL20.GL_SCISSOR_TEST);
 //
 //		// test stage world coordinates
 //		img.setPosition(stWorldX, stWorldY);

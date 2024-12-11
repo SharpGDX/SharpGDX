@@ -42,10 +42,10 @@
 //	}
 //
 //	public override void Render () {
-//		Gdx.gl.glViewport(0, 0, Gdx.graphics.getBackBufferWidth(), Gdx.graphics.getBackBufferHeight());
-//		Gdx.gl.glClearColor(clearColor.r, clearColor.g, clearColor.b, clearColor.a);
-//		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
-//		Gdx.gl.glEnable(GL20.GL_DEPTH_TEST);
+//		GDX.GL.glViewport(0, 0, Gdx.graphics.getBackBufferWidth(), Gdx.graphics.getBackBufferHeight());
+//		GDX.GL.glClearColor(clearColor.r, clearColor.g, clearColor.b, clearColor.a);
+//		GDX.GL.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
+//		GDX.GL.glEnable(GL20.GL_DEPTH_TEST);
 //
 //		cam.update();
 //

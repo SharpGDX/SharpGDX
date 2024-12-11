@@ -901,7 +901,7 @@ namespace SharpGDX.Utils
             else if (current.isArray() || current.isObject())
             {
                 child._parent = current;
-                if (current._size == 0)
+                if (current.Size == 0)
                     current._child = child;
                 else
                 {
@@ -911,7 +911,7 @@ namespace SharpGDX.Utils
                 }
 
                 lastChild.Add(child);
-                current._size++;
+                current.Size++;
             }
             else
                 root = current;
@@ -939,7 +939,7 @@ namespace SharpGDX.Utils
         protected void pop()
         {
             root = elements.pop();
-            if (current._size > 0) lastChild.pop();
+            if (current.Size > 0) lastChild.pop();
             current = elements.size > 0 ? elements.peek() : null;
         }
 

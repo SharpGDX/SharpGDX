@@ -100,7 +100,7 @@ public class Touchpad : Widget {
 				if (knobBounds.contains(x, y)) {
 					knobPosition.Set(x, y);
 				} else {
-					knobPosition.set(knobPercent).nor().scl(knobBounds.radius).add(knobBounds.x, knobBounds.y);
+					knobPosition.Set(knobPercent).nor().scl(knobBounds.radius).add(knobBounds.x, knobBounds.y);
 				}
 			}
 		}

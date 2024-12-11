@@ -63,7 +63,7 @@
 //
 //	public void render () {
 //		ScreenUtils.clear(Color.DARK_GRAY, true);
-//		Gdx.gl.glEnable(GL20.GL_DEPTH_TEST);
+//		GDX.GL.glEnable(GL20.GL_DEPTH_TEST);
 //
 //		camera.update();
 //		for (int i = 0; i < decals.size; i++) {

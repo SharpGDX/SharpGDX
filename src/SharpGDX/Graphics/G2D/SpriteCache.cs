@@ -25,7 +25,7 @@ namespace SharpGDX.Graphics.G2D
  * screen is {@link ApplicationListener#resize(int, int) resized}, the SpriteCache's matrices must be updated. For example:<br>
  * <code>cache.getProjectionMatrix().setToOrtho2D(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());</code><br>
  * <br>
- * Note that SpriteCache does not manage blending. You will need to enable blending (<i>Gdx.gl.glEnable(GL10.GL_BLEND);</i>) and
+ * Note that SpriteCache does not manage blending. You will need to enable blending (<i>GDX.GL.glEnable(GL10.GL_BLEND);</i>) and
  * set the blend func as needed before or between calls to {@link #draw(int)}.<br>
  * <br>
  * SpriteCache is managed. If the OpenGL context is lost and the restored, all OpenGL resources a SpriteCache uses internally are

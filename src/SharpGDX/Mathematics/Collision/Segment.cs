@@ -24,8 +24,8 @@ public class Segment   {
 	 * @param a the first point
 	 * @param b the second point */
 	public Segment (Vector3 a, Vector3 b) {
-		this.a.set(a);
-		this.b.set(b);
+		this.a.Set(a);
+		this.b.Set(b);
 	}
 
 	/** Constructs a new Segment from the two points given.
@@ -36,8 +36,8 @@ public class Segment   {
 	 * @param bY the y-coordinate of the second point
 	 * @param bZ the z-coordinate of the second point */
 	public Segment (float aX, float aY, float aZ, float bX, float bY, float bZ) {
-		this.a.set(aX, aY, aZ);
-		this.b.set(bX, bY, bZ);
+		this.a.Set(aX, aY, aZ);
+		this.b.Set(bX, bY, bZ);
 	}
 
 	public float len () {

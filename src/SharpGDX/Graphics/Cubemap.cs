@@ -81,12 +81,12 @@ public class Cubemap : GLTexture {
 
 		/** @return The up vector of the side. */
 		public Vector3 getUp (Vector3 @out) {
-			return @out.set(up);
+			return @out.Set(up);
 		}
 
 		/** @return The direction vector of the side. */
 		public Vector3 getDirection (Vector3 @out) {
-			return @out.set(direction);
+			return @out.Set(direction);
 		}
 	}
 
@@ -271,7 +271,7 @@ public class Cubemap : GLTexture {
 					// unload the c, create a new gl handle then reload it.
 					assetManager.unload(fileName);
 					cubemap.glHandle = GDX.GL.glGenTexture();
-					assetManager.load(fileName, typeof(Cubemap), @params);
+					assetManager.load<Cubemap>(fileName, typeof(Cubemap), @params);
 				}
 			}
 			managedCubemapArray.clear();

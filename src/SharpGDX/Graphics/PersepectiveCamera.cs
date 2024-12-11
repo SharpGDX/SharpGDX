@@ -51,7 +51,7 @@ public class PerspectiveCamera : Camera
 	{
 		var aspect = viewportWidth / viewportHeight;
 		projection.setToProjection(Math.Abs(near), Math.Abs(far), FieldOfView, aspect);
-		view.setToLookAt(position, tmp.set(position).add(direction), up);
+		view.setToLookAt(position, tmp.Set(position).add(direction), up);
 		Combined.set(projection);
 		Matrix4.mul(Combined.val, view.val);
 

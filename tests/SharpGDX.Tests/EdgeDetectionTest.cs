@@ -81,15 +81,15 @@
 //
 //	public void render () {
 //		angle += 45 * Gdx.graphics.getDeltaTime();
-//		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
+//		GDX.GL.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
 //
 //		cam.update();
 //		matrix.setToRotation(0, 1, 0, angle);
 //		cam.combined.mul(matrix);
 //
 //		fbo.begin();
-//		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
-//		Gdx.gl.glEnable(GL20.GL_DEPTH_TEST);
+//		GDX.GL.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
+//		GDX.GL.glEnable(GL20.GL_DEPTH_TEST);
 //		modelBatch.begin(cam);
 //		modelBatch.render(sceneInstance);
 //		modelBatch.end();

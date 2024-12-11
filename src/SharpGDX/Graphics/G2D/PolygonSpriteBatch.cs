@@ -115,11 +115,10 @@ public class PolygonSpriteBatch : IPolygonBatch {
 			vertexDataType = VertexDataType.VertexBufferObjectWithVAO;
 		}
 		mesh = new Mesh(vertexDataType, false, maxVertices, maxTriangles * 3,
-			new []{
 			new VertexAttribute(Usage.Position, 2, ShaderProgram.POSITION_ATTRIBUTE),
 			new VertexAttribute(Usage.ColorPacked, 4, ShaderProgram.COLOR_ATTRIBUTE),
 			new VertexAttribute(Usage.TextureCoordinates, 2, ShaderProgram.TEXCOORD_ATTRIBUTE + "0")
-			});
+			);
 
 		vertices = new float[maxVertices * VERTEX_SIZE];
 		triangles = new short[maxTriangles * 3];

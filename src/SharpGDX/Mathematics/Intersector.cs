@@ -36,15 +36,15 @@ namespace SharpGDX.Mathematics
          * @return whether the point is in the triangle */
         public static bool isPointInTriangle(Vector3 point, Vector3 t1, Vector3 t2, Vector3 t3)
         {
-            v0.set(t1).sub(point);
-            v1.set(t2).sub(point);
-            v2.set(t3).sub(point);
+            v0.Set(t1).sub(point);
+            v1.Set(t2).sub(point);
+            v2.Set(t3).sub(point);
 
             v1.crs(v2);
             v2.crs(v0);
 
             if (v1.dot(v2) < 0f) return false;
-            v0.crs(v2.set(t2).sub(point));
+            v0.crs(v2.Set(t2).sub(point));
             return (v1.dot(v0) >= 0f);
         }
 
@@ -68,13 +68,13 @@ namespace SharpGDX.Mathematics
 
         public static bool intersectSegmentPlane(Vector3 start, Vector3 end, Plane plane, Vector3 intersection)
         {
-            Vector3 dir = v0.set(end).sub(start);
+            Vector3 dir = v0.Set(end).sub(start);
             float denom = dir.dot(plane.getNormal());
             if (denom == 0f) return false;
             float t = -(start.dot(plane.getNormal()) + plane.getD()) / denom;
             if (t < 0 || t > 1) return false;
 
-            intersection.set(start).add(dir.scl(t));
+            intersection.Set(start).add(dir.scl(t));
             return true;
         }
 
@@ -304,10 +304,10 @@ namespace SharpGDX.Mathematics
         public static Vector2 nearestSegmentPoint(Vector2 start, Vector2 end, Vector2 point, Vector2 nearest)
         {
             float length2 = start.dst2(end);
-            if (length2 == 0) return nearest.set(start);
+            if (length2 == 0) return nearest.Set(start);
             float t = ((point.x - start.x) * (end.x - start.x) + (point.y - start.y) * (end.y - start.y)) / length2;
-            if (t <= 0) return nearest.set(start);
-            if (t >= 1) return nearest.set(end);
+            if (t <= 0) return nearest.Set(start);
+            if (t >= 1) return nearest.Set(end);
             return nearest.Set(start.x + t * (end.x - start.x), start.y + t * (end.y - start.y));
         }
 
@@ -334,22 +334,22 @@ namespace SharpGDX.Mathematics
          * @return Whether the line segment and the circle intersect */
         public static bool intersectSegmentCircle(Vector2 start, Vector2 end, Vector2 center, float squareRadius)
         {
-            tmp.set(end.x - start.x, end.y - start.y, 0);
-            tmp1.set(center.x - start.x, center.y - start.y, 0);
+            tmp.Set(end.x - start.x, end.y - start.y, 0);
+            tmp1.Set(center.x - start.x, center.y - start.y, 0);
             float l = tmp.len();
             float u = tmp1.dot(tmp.nor());
             if (u <= 0)
             {
-                tmp2.set(start.x, start.y, 0);
+                tmp2.Set(start.x, start.y, 0);
             }
             else if (u >= l)
             {
-                tmp2.set(end.x, end.y, 0);
+                tmp2.Set(end.x, end.y, 0);
             }
             else
             {
-                tmp3.set(tmp.scl(u)); // remember tmp is already normalized
-                tmp2.set(tmp3.x + start.x, tmp3.y + start.y, 0);
+                tmp3.Set(tmp.scl(u)); // remember tmp is already normalized
+                tmp2.Set(tmp3.x + start.x, tmp3.y + start.y, 0);
             }
 
             float x = center.x - tmp2.x;
@@ -367,22 +367,22 @@ namespace SharpGDX.Mathematics
         public static bool intersectSegmentCircle(Vector2 start, Vector2 end, Circle circle,
             MinimumTranslationVector mtv)
         {
-            v2a.set(end).sub(start);
+            v2a.Set(end).sub(start);
             v2b.Set(circle.x - start.x, circle.y - start.y);
             float len = v2a.len();
             float u = v2b.dot(v2a.nor());
             if (u <= 0)
             {
-                v2c.set(start);
+                v2c.Set(start);
             }
             else if (u >= len)
             {
-                v2c.set(end);
+                v2c.Set(end);
             }
             else
             {
-                v2d.set(v2a.scl(u)); // remember v2a is already normalized
-                v2c.set(v2d).add(start);
+                v2d.Set(v2a.scl(u)); // remember v2a is already normalized
+                v2c.Set(v2d).add(start);
             }
 
             v2a.Set(v2c.x - circle.x, v2c.y - circle.y);
@@ -393,12 +393,12 @@ namespace SharpGDX.Mathematics
                 if (v2a.Equals(Vector2.Zero))
                 {
                     v2d.Set(end.y - start.y, start.x - end.x);
-                    mtv.normal.set(v2d).nor();
+                    mtv.normal.Set(v2d).nor();
                     mtv.depth = circle.radius;
                 }
                 else
                 {
-                    mtv.normal.set(v2a).nor();
+                    mtv.normal.Set(v2a).nor();
                     mtv.depth = circle.radius - v2a.len();
                 }
             }
@@ -499,12 +499,12 @@ namespace SharpGDX.Mathematics
                 float t = -(ray.origin.dot(plane.getNormal()) + plane.getD()) / denom;
                 if (t < 0) return false;
 
-                if (intersection != null) intersection.set(ray.origin).add(v0.set(ray.direction).scl(t));
+                if (intersection != null) intersection.Set(ray.origin).add(v0.Set(ray.direction).scl(t));
                 return true;
             }
             else if (plane.testPoint(ray.origin) == Plane.PlaneSide.OnPlane)
             {
-                if (intersection != null) intersection.set(ray.origin);
+                if (intersection != null) intersection.Set(ray.origin);
                 return true;
             }
             else
@@ -517,18 +517,18 @@ namespace SharpGDX.Mathematics
         public static float intersectLinePlane(float x, float y, float z, float x2, float y2, float z2, Plane plane,
             Vector3 intersection)
         {
-            Vector3 direction = tmp.set(x2, y2, z2).sub(x, y, z);
-            Vector3 origin = tmp2.set(x, y, z);
+            Vector3 direction = tmp.Set(x2, y2, z2).sub(x, y, z);
+            Vector3 origin = tmp2.Set(x, y, z);
             float denom = direction.dot(plane.getNormal());
             if (denom != 0)
             {
                 float t = -(origin.dot(plane.getNormal()) + plane.getD()) / denom;
-                if (intersection != null) intersection.set(origin).add(direction.scl(t));
+                if (intersection != null) intersection.Set(origin).add(direction.scl(t));
                 return t;
             }
             else if (plane.testPoint(origin) == Plane.PlaneSide.OnPlane)
             {
-                if (intersection != null) intersection.set(origin);
+                if (intersection != null) intersection.Set(origin);
                 return 0;
             }
 
@@ -540,9 +540,9 @@ namespace SharpGDX.Mathematics
          * @param intersection The point where the three planes intersect */
         public static bool intersectPlanes(Plane a, Plane b, Plane c, Vector3 intersection)
         {
-            tmp1.set(a.normal).crs(b.normal);
-            tmp2.set(b.normal).crs(c.normal);
-            tmp3.set(c.normal).crs(a.normal);
+            tmp1.Set(a.normal).crs(b.normal);
+            tmp2.Set(b.normal).crs(c.normal);
+            tmp3.Set(c.normal).crs(a.normal);
 
             float f = -a.normal.dot(tmp2);
             if (Math.Abs(f) < MathUtils.FLOAT_ROUNDING_ERROR)
@@ -554,7 +554,7 @@ namespace SharpGDX.Mathematics
             tmp2.scl(a.d);
             tmp3.scl(b.d);
 
-            intersection.set(tmp1.x + tmp2.x + tmp3.x, tmp1.y + tmp2.y + tmp3.y, tmp1.z + tmp2.z + tmp3.z);
+            intersection.Set(tmp1.x + tmp2.x + tmp3.x, tmp1.y + tmp2.y + tmp3.y, tmp1.z + tmp2.z + tmp3.z);
             intersection.scl(1 / f);
             return true;
         }
@@ -570,10 +570,10 @@ namespace SharpGDX.Mathematics
          * @return True in case an intersection is present. */
         public static bool intersectRayTriangle(Ray ray, Vector3 t1, Vector3 t2, Vector3 t3, Vector3 intersection)
         {
-            Vector3 edge1 = v0.set(t2).sub(t1);
-            Vector3 edge2 = v1.set(t3).sub(t1);
+            Vector3 edge1 = v0.Set(t2).sub(t1);
+            Vector3 edge2 = v1.Set(t3).sub(t1);
 
-            Vector3 pvec = v2.set(ray.direction).crs(edge2);
+            Vector3 pvec = v2.Set(ray.direction).crs(edge2);
             float det = edge1.dot(pvec);
             if (MathUtils.isZero(det))
             {
@@ -581,7 +581,7 @@ namespace SharpGDX.Mathematics
                 if (p.testPoint(ray.origin) == Plane.PlaneSide.OnPlane &&
                     Intersector.isPointInTriangle(ray.origin, t1, t2, t3))
                 {
-                    if (intersection != null) intersection.set(ray.origin);
+                    if (intersection != null) intersection.Set(ray.origin);
                     return true;
                 }
 
@@ -590,7 +590,7 @@ namespace SharpGDX.Mathematics
 
             det = 1.0f / det;
 
-            Vector3 tvec = i.set(ray.origin).sub(t1);
+            Vector3 tvec = i.Set(ray.origin).sub(t1);
             float u = tvec.dot(pvec) * det;
             if (u < 0.0f || u > 1.0f) return false;
 
@@ -605,7 +605,7 @@ namespace SharpGDX.Mathematics
             {
                 if (t <= MathUtils.FLOAT_ROUNDING_ERROR)
                 {
-                    intersection.set(ray.origin);
+                    intersection.Set(ray.origin);
                 }
                 else
                 {
@@ -635,7 +635,7 @@ namespace SharpGDX.Mathematics
             float r2 = radius * radius;
             if (dst2 > r2) return false;
             if (intersection != null)
-                intersection.set(ray.direction).scl(len - (float)Math.Sqrt(r2 - dst2)).add(ray.origin);
+                intersection.Set(ray.direction).scl(len - (float)Math.Sqrt(r2 - dst2)).add(ray.origin);
             return true;
         }
 
@@ -657,7 +657,7 @@ namespace SharpGDX.Mathematics
         {
             if (box.contains(ray.origin))
             {
-                if (intersection != null) intersection.set(ray.origin);
+                if (intersection != null) intersection.Set(ray.origin);
                 return true;
             }
 
@@ -670,7 +670,7 @@ namespace SharpGDX.Mathematics
                 t = (box.min.x - ray.origin.x) / ray.direction.x;
                 if (t >= 0)
                 {
-                    v2.set(ray.direction).scl(t).add(ray.origin);
+                    v2.Set(ray.direction).scl(t).add(ray.origin);
                     if (v2.y >= box.min.y && v2.y <= box.max.y && v2.z >= box.min.z && v2.z <= box.max.z &&
                         (!hit || t < lowest))
                     {
@@ -686,7 +686,7 @@ namespace SharpGDX.Mathematics
                 t = (box.max.x - ray.origin.x) / ray.direction.x;
                 if (t >= 0)
                 {
-                    v2.set(ray.direction).scl(t).add(ray.origin);
+                    v2.Set(ray.direction).scl(t).add(ray.origin);
                     if (v2.y >= box.min.y && v2.y <= box.max.y && v2.z >= box.min.z && v2.z <= box.max.z &&
                         (!hit || t < lowest))
                     {
@@ -702,7 +702,7 @@ namespace SharpGDX.Mathematics
                 t = (box.min.y - ray.origin.y) / ray.direction.y;
                 if (t >= 0)
                 {
-                    v2.set(ray.direction).scl(t).add(ray.origin);
+                    v2.Set(ray.direction).scl(t).add(ray.origin);
                     if (v2.x >= box.min.x && v2.x <= box.max.x && v2.z >= box.min.z && v2.z <= box.max.z &&
                         (!hit || t < lowest))
                     {
@@ -718,7 +718,7 @@ namespace SharpGDX.Mathematics
                 t = (box.max.y - ray.origin.y) / ray.direction.y;
                 if (t >= 0)
                 {
-                    v2.set(ray.direction).scl(t).add(ray.origin);
+                    v2.Set(ray.direction).scl(t).add(ray.origin);
                     if (v2.x >= box.min.x && v2.x <= box.max.x && v2.z >= box.min.z && v2.z <= box.max.z &&
                         (!hit || t < lowest))
                     {
@@ -734,7 +734,7 @@ namespace SharpGDX.Mathematics
                 t = (box.min.z - ray.origin.z) / ray.direction.z;
                 if (t >= 0)
                 {
-                    v2.set(ray.direction).scl(t).add(ray.origin);
+                    v2.Set(ray.direction).scl(t).add(ray.origin);
                     if (v2.x >= box.min.x && v2.x <= box.max.x && v2.y >= box.min.y && v2.y <= box.max.y &&
                         (!hit || t < lowest))
                     {
@@ -750,7 +750,7 @@ namespace SharpGDX.Mathematics
                 t = (box.max.z - ray.origin.z) / ray.direction.z;
                 if (t >= 0)
                 {
-                    v2.set(ray.direction).scl(t).add(ray.origin);
+                    v2.Set(ray.direction).scl(t).add(ray.origin);
                     if (v2.x >= box.min.x && v2.x <= box.max.x && v2.y >= box.min.y && v2.y <= box.max.y &&
                         (!hit || t < lowest))
                     {
@@ -762,7 +762,7 @@ namespace SharpGDX.Mathematics
 
             if (hit && intersection != null)
             {
-                intersection.set(ray.direction).scl(lowest).add(ray.origin);
+                intersection.Set(ray.direction).scl(lowest).add(ray.origin);
                 if (intersection.x < box.min.x)
                 {
                     intersection.x = box.min.x;
@@ -889,7 +889,7 @@ namespace SharpGDX.Mathematics
 
             // Test intersection with the 2 planes perpendicular to the OBB's X axis
             Vector3 xaxis = tmp1;
-            tmp1.set(transform.val[Matrix4.M00], transform.val[Matrix4.M10], transform.val[Matrix4.M20]);
+            tmp1.Set(transform.val[Matrix4.M00], transform.val[Matrix4.M10], transform.val[Matrix4.M20]);
             float e = xaxis.dot(delta);
             float f = ray.direction.dot(xaxis);
 
@@ -937,7 +937,7 @@ namespace SharpGDX.Mathematics
             // Test intersection with the 2 planes perpendicular to the OBB's Y axis
             // Exactly the same thing than above.
             Vector3 yaxis = tmp2;
-            tmp2.set(transform.val[Matrix4.M01], transform.val[Matrix4.M11], transform.val[Matrix4.M21]);
+            tmp2.Set(transform.val[Matrix4.M01], transform.val[Matrix4.M11], transform.val[Matrix4.M21]);
 
             e = yaxis.dot(delta);
             f = ray.direction.dot(yaxis);
@@ -978,7 +978,7 @@ namespace SharpGDX.Mathematics
             // Test intersection with the 2 planes perpendicular to the OBB's Z axis
             // Exactly the same thing than above.
             Vector3 zaxis = tmp3;
-            tmp3.set(transform.val[Matrix4.M02], transform.val[Matrix4.M12], transform.val[Matrix4.M22]);
+            tmp3.Set(transform.val[Matrix4.M02], transform.val[Matrix4.M12], transform.val[Matrix4.M22]);
 
             e = zaxis.dot(delta);
             f = ray.direction.dot(zaxis);
@@ -1043,9 +1043,9 @@ namespace SharpGDX.Mathematics
 
             for (int i = 0; i < triangles.Length; i += 9)
             {
-                bool result = intersectRayTriangle(ray, tmp1.set(triangles[i], triangles[i + 1], triangles[i + 2]),
-                    tmp2.set(triangles[i + 3], triangles[i + 4], triangles[i + 5]),
-                    tmp3.set(triangles[i + 6], triangles[i + 7], triangles[i + 8]), tmp);
+                bool result = intersectRayTriangle(ray, tmp1.Set(triangles[i], triangles[i + 1], triangles[i + 2]),
+                    tmp2.Set(triangles[i + 3], triangles[i + 4], triangles[i + 5]),
+                    tmp3.Set(triangles[i + 6], triangles[i + 7], triangles[i + 8]), tmp);
 
                 if (result)
                 {
@@ -1053,7 +1053,7 @@ namespace SharpGDX.Mathematics
                     if (dist < min_dist)
                     {
                         min_dist = dist;
-                        best.set(tmp);
+                        best.Set(tmp);
                         hit = true;
                     }
                 }
@@ -1063,7 +1063,7 @@ namespace SharpGDX.Mathematics
                 return false;
             else
             {
-                if (intersection != null) intersection.set(best);
+                if (intersection != null) intersection.Set(best);
                 return true;
             }
         }
@@ -1087,9 +1087,9 @@ namespace SharpGDX.Mathematics
                 int i2 = indices[i + 1] * vertexSize;
                 int i3 = indices[i + 2] * vertexSize;
 
-                bool result = intersectRayTriangle(ray, tmp1.set(vertices[i1], vertices[i1 + 1], vertices[i1 + 2]),
-                    tmp2.set(vertices[i2], vertices[i2 + 1], vertices[i2 + 2]),
-                    tmp3.set(vertices[i3], vertices[i3 + 1], vertices[i3 + 2]), tmp);
+                bool result = intersectRayTriangle(ray, tmp1.Set(vertices[i1], vertices[i1 + 1], vertices[i1 + 2]),
+                    tmp2.Set(vertices[i2], vertices[i2 + 1], vertices[i2 + 2]),
+                    tmp3.Set(vertices[i3], vertices[i3 + 1], vertices[i3 + 2]), tmp);
 
                 if (result)
                 {
@@ -1097,7 +1097,7 @@ namespace SharpGDX.Mathematics
                     if (dist < min_dist)
                     {
                         min_dist = dist;
-                        best.set(tmp);
+                        best.Set(tmp);
                         hit = true;
                     }
                 }
@@ -1107,7 +1107,7 @@ namespace SharpGDX.Mathematics
                 return false;
             else
             {
-                if (intersection != null) intersection.set(best);
+                if (intersection != null) intersection.Set(best);
                 return true;
             }
         }
@@ -1133,7 +1133,7 @@ namespace SharpGDX.Mathematics
                     if (dist < min_dist)
                     {
                         min_dist = dist;
-                        best.set(tmp);
+                        best.Set(tmp);
                         hit = true;
                     }
                 }
@@ -1143,7 +1143,7 @@ namespace SharpGDX.Mathematics
                 return false;
             else
             {
-                if (intersection != null) intersection.set(best);
+                if (intersection != null) intersection.Set(best);
                 return true;
             }
         }

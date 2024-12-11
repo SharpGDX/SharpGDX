@@ -89,7 +89,7 @@ public abstract class GLTexture : IDisposable {
 	/** Sets the {@link TextureWrap} for this texture on the u and v axis. Assumes the texture is bound and active!
 	 * @param u the u wrap
 	 * @param v the v wrap */
-	public void unsafeSetWrap (Texture.TextureWrap u, Texture.TextureWrap v) {
+	public void unsafeSetWrap (Texture.TextureWrap? u, Texture.TextureWrap? v) {
 		unsafeSetWrap(u, v, false);
 	}
 
@@ -97,14 +97,14 @@ public abstract class GLTexture : IDisposable {
 	 * @param u the u wrap
 	 * @param v the v wrap
 	 * @param force True to always set the values, even if they are the same as the current values. */
-	public void unsafeSetWrap (Texture.TextureWrap u, Texture.TextureWrap v, bool force) {
+	public void unsafeSetWrap (Texture.TextureWrap? u, Texture.TextureWrap? v, bool force) {
 		if (u != null && (force || uWrap != u)) {
-			GDX.GL.glTexParameteri(glTarget, IGL20.GL_TEXTURE_WRAP_S, Texture.TextureWrapUtils.getGLEnum(u));
-			uWrap = u;
+			GDX.GL.glTexParameteri(glTarget, IGL20.GL_TEXTURE_WRAP_S, Texture.TextureWrapUtils.getGLEnum(u.Value));
+			uWrap = u.Value;
 		}
 		if (v != null && (force || vWrap != v)) {
-			GDX.GL.glTexParameteri(glTarget, IGL20.GL_TEXTURE_WRAP_T, Texture.TextureWrapUtils.getGLEnum(v));
-			vWrap = v;
+			GDX.GL.glTexParameteri(glTarget, IGL20.GL_TEXTURE_WRAP_T, Texture.TextureWrapUtils.getGLEnum(v.Value));
+			vWrap = v.Value;
 		}
 	}
 
@@ -123,7 +123,7 @@ public abstract class GLTexture : IDisposable {
 	 * active!
 	 * @param minFilter the minification filter
 	 * @param magFilter the magnification filter */
-	public void unsafeSetFilter (Texture.TextureFilter minFilter, Texture.TextureFilter magFilter) {
+	public void unsafeSetFilter (Texture.TextureFilter? minFilter, Texture.TextureFilter? magFilter) {
 		unsafeSetFilter(minFilter, magFilter, false);
 	}
 
@@ -132,14 +132,14 @@ public abstract class GLTexture : IDisposable {
 	 * @param minFilter the minification filter
 	 * @param magFilter the magnification filter
 	 * @param force True to always set the values, even if they are the same as the current values. */
-	public void unsafeSetFilter (Texture.TextureFilter minFilter, Texture.TextureFilter magFilter, bool force) {
+	public void unsafeSetFilter (Texture.TextureFilter? minFilter, Texture.TextureFilter? magFilter, bool force) {
 		if (minFilter != null && (force || this.minFilter != minFilter)) {
-			GDX.GL.glTexParameteri(glTarget, IGL20.GL_TEXTURE_MIN_FILTER, Texture.TextureFilterUtils.getGLEnum(minFilter));
-			this.minFilter = minFilter;
+			GDX.GL.glTexParameteri(glTarget, IGL20.GL_TEXTURE_MIN_FILTER, Texture.TextureFilterUtils.getGLEnum(minFilter.Value));
+			this.minFilter = minFilter.Value;
 		}
 		if (magFilter != null && (force || this.magFilter != magFilter)) {
-			GDX.GL.glTexParameteri(glTarget, IGL20.GL_TEXTURE_MAG_FILTER, Texture.TextureFilterUtils.getGLEnum(magFilter));
-			this.magFilter = magFilter;
+			GDX.GL.glTexParameteri(glTarget, IGL20.GL_TEXTURE_MAG_FILTER, Texture.TextureFilterUtils.getGLEnum(magFilter.Value));
+			this.magFilter = magFilter.Value;
 		}
 	}
 

@@ -25,7 +25,7 @@ public class BitmapFontLoader : AsynchronousAssetLoader<BitmapFont, BitmapFontLo
 
 	BitmapFontData data;
 
-	public override Array<AssetDescriptor<BitmapFont>> getDependencies(String fileName, FileHandle file,
+	public override Array<AssetDescriptor> getDependencies(String fileName, FileHandle file,
 		BitmapFontParameter parameter)
 	{
 		throw new NotImplementedException();
@@ -96,7 +96,7 @@ public class BitmapFontLoader : AsynchronousAssetLoader<BitmapFont, BitmapFontLo
 	/** Parameter to be passed to {@link AssetManager#load(String, Class, AssetLoaderParameters)} if additional configuration is
 	 * necessary for the {@link BitmapFont}.
 	 * @author mzechner */
-	public class BitmapFontParameter : AssetLoaderParameters<BitmapFont>
+	public class BitmapFontParameter : AssetLoaderParameters
 	{
 		/** Flips the font vertically if {@code true}. Defaults to {@code false}. **/
 		public bool flip = false;

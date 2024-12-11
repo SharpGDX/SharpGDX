@@ -47,7 +47,7 @@
 //			long beforeFlush = TimeUtils.nanoTime();
 //
 //			spriteBatch.flush();
-//			Gdx.gl.glFlush();
+//			GDX.GL.glFlush();
 //			long afterFlush = TimeUtils.nanoTime();
 //
 //			counter.addValue(afterFlush - beforeFlush);

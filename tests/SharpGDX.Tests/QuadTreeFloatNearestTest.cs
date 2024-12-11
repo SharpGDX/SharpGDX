@@ -34,7 +34,7 @@
 //		results.clear();
 //		bool found = q.nearest(x, y, results);
 //
-//		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+//		GDX.GL.glClear(GL20.GL_COLOR_BUFFER_BIT);
 //		shapes.begin(ShapeRenderer.ShapeType.Line);
 //		draw(q);
 //		shapes.setColor(Color.GREEN);

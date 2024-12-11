@@ -23,8 +23,8 @@ public class Ray  {
 	 * @param origin The starting position
 	 * @param direction The direction */
 	public Ray (Vector3 origin, Vector3 direction) {
-		this.origin.set(origin);
-		this.direction.set(direction).nor();
+		this.origin.Set(origin);
+		this.direction.Set(direction).nor();
 	}
 
 	/** @return a copy of this ray. */
@@ -37,7 +37,7 @@ public class Ray  {
 	 * @param distance The distance from the end point to the start point.
 	 * @return The out param */
 	public Vector3 getEndPoint ( Vector3 @out,  float distance) {
-		return @out.set(direction).scl(distance).add(origin);
+		return @out.Set(direction).scl(distance).add(origin);
 	}
 
 	static Vector3 tmp = new Vector3();
@@ -47,10 +47,10 @@ public class Ray  {
 	 * @param matrix The matrix
 	 * @return This ray for chaining. */
 	public Ray mul (Matrix4 matrix) {
-		tmp.set(origin).add(direction);
+		tmp.Set(origin).add(direction);
 		tmp.mul(matrix);
 		origin.mul(matrix);
-		direction.set(tmp.sub(origin)).nor();
+		direction.Set(tmp.sub(origin)).nor();
 		return this;
 	}
 
@@ -65,8 +65,8 @@ public class Ray  {
 	 * @param direction The direction
 	 * @return this ray for chaining */
 	public Ray set (Vector3 origin, Vector3 direction) {
-		this.origin.set(origin);
-		this.direction.set(direction).nor();
+		this.origin.Set(origin);
+		this.direction.Set(direction).nor();
 		return this;
 	}
 
@@ -80,8 +80,8 @@ public class Ray  {
 	 * @param dz The z-component of the direction
 	 * @return this ray for chaining */
 	public Ray set (float x, float y, float z, float dx, float dy, float dz) {
-		this.origin.set(x, y, z);
-		this.direction.set(dx, dy, dz).nor();
+		this.origin.Set(x, y, z);
+		this.direction.Set(dx, dy, dz).nor();
 		return this;
 	}
 
@@ -90,8 +90,8 @@ public class Ray  {
 	 * @param ray The ray
 	 * @return This ray for chaining */
 	public Ray set (Ray ray) {
-		this.origin.set(ray.origin);
-		this.direction.set(ray.direction).nor();
+		this.origin.Set(ray.origin);
+		this.direction.Set(ray.direction).nor();
 		return this;
 	}
 

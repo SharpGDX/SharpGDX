@@ -47,7 +47,7 @@
 //
 //		font = new BitmapFont(Gdx.files.@internal("data/font.fnt"), atlas.findRegion("font"), false);
 //
-//		Gdx.gl.glClearColor(0, 1, 0, 1);
+//		GDX.GL.glClearColor(0, 1, 0, 1);
 //
 //		Gdx.input.setInputProcessor(new InputAdapter() {
 //			public boolean keyUp (int keycode) {
@@ -67,7 +67,7 @@
 //
 //	public void render () {
 //		time += Gdx.graphics.getDeltaTime();
-//		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+//		GDX.GL.glClear(GL20.GL_COLOR_BUFFER_BIT);
 //
 //		renderer.begin(ShapeRenderer.ShapeType.Line);
 //		renderer.rect(10, 10, 256, 256);

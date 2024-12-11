@@ -82,8 +82,8 @@ public sealed class VertexAttribute {
 		this.normalized = normalized;
 		this.alias = alias;
 		this.unit = unit;
-			// TODO: Verify parity of Integer.numberOfTrailingZeros
-			this.usageIndex = BitOperations.TrailingZeroCount(usage);
+        // TODO: Verify parity of Integer.numberOfTrailingZeros -RP
+            this.usageIndex = BitOperations.TrailingZeroCount(usage);
 	}
 
 	/** @return A copy of this VertexAttribute with the same parameters. The {@link #offset} is not copied and must be

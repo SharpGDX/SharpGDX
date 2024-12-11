@@ -45,11 +45,11 @@
 //		this.fonts[2].setColor(Color.GREEN);
 //		this.testStrings = new String[] {"I'm loaded from an atlas!", "I, too, am loaded from an atlas", "I'm with stupid ^"};
 //
-//		Gdx.gl.glClearColor(1, 1, 1, 1);
+//		GDX.GL.glClearColor(1, 1, 1, 1);
 //	}
 //
 //	public override void Render () {
-//		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+//		GDX.GL.glClear(GL20.GL_COLOR_BUFFER_BIT);
 //
 //		batch.begin();
 //

@@ -28,7 +28,7 @@ public interface IAssetLoader
  * @param <T> the class of the asset the loader supports
  * @param <P> the class of the loading parameters the loader supports. */
 public abstract class AssetLoader<T, P > : IAssetLoader
-where P: AssetLoaderParameters<T>
+where P: AssetLoaderParameters
 {
 	/** {@link FileHandleResolver} used to map from plain asset names to {@link FileHandle} instances **/
 	private IFileHandleResolver resolver;
@@ -50,7 +50,7 @@ where P: AssetLoaderParameters<T>
 	 * @param file the resolved file to load
 	 * @param parameter parameters for loading the asset
 	 * @return other assets that the asset depends on and need to be loaded first or null if there are no dependencies. */
-	public abstract Array<AssetDescriptor<T>>? getDependencies (String fileName, FileHandle file, P parameter);
+	public abstract Array<AssetDescriptor>? getDependencies (String fileName, FileHandle file, P parameter);
 	
 	Array<IAssetDescriptor> IAssetLoader.getDependencies(string fileName, FileHandle file,
 		IAssetLoaderParameters parameter)

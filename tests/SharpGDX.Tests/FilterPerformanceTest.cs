@@ -29,9 +29,9 @@
 //
 //	void setTextureFilter (int filter) {
 //		atlas.findRegion("map").getTexture().bind();
-//		Gdx.gl.glTexParameterf(GL20.GL_TEXTURE_2D, GL20.GL_TEXTURE_MIN_FILTER, filters[filter]);
+//		GDX.GL.glTexParameterf(GL20.GL_TEXTURE_2D, GL20.GL_TEXTURE_MIN_FILTER, filters[filter]);
 //		texture.bind();
-//		Gdx.gl.glTexParameterf(GL20.GL_TEXTURE_2D, GL20.GL_TEXTURE_MIN_FILTER, filters[filter]);
+//		GDX.GL.glTexParameterf(GL20.GL_TEXTURE_2D, GL20.GL_TEXTURE_MIN_FILTER, filters[filter]);
 //	}
 //
 //	void setModeString () {
@@ -72,7 +72,7 @@
 //	}
 //
 //	public void render () {
-//		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+//		GDX.GL.glClear(GL20.GL_COLOR_BUFFER_BIT);
 //
 //		batch.setProjectionMatrix(sceneMatrix);
 //		batch.begin();

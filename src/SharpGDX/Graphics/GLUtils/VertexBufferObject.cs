@@ -156,10 +156,10 @@ public class VertexBufferObject : IVertexData {
 			isDirty = false;
 		}
 
-		int numAttributes = attributes.size();
+		int numAttributes = attributes.Size();
 		if (locations == null) {
 			for (int i = 0; i < numAttributes; i++) {
-				 VertexAttribute attribute = attributes.get(i);
+				 VertexAttribute attribute = attributes.Get(i);
 				 int location = shader.getAttributeLocation(attribute.alias);
 				if (location < 0) continue;
 				shader.enableVertexAttribute(location);
@@ -170,7 +170,7 @@ public class VertexBufferObject : IVertexData {
 
 		} else {
 			for (int i = 0; i < numAttributes; i++) {
-				 VertexAttribute attribute = attributes.get(i);
+				 VertexAttribute attribute = attributes.Get(i);
 				 int location = locations[i];
 				if (location < 0) continue;
 				shader.enableVertexAttribute(location);
@@ -191,10 +191,10 @@ public class VertexBufferObject : IVertexData {
 
 	public void unbind (ShaderProgram shader, int[] locations) {
 		 IGL20 gl = GDX.GL20;
-		 int numAttributes = attributes.size();
+		 int numAttributes = attributes.Size();
 		if (locations == null) {
 			for (int i = 0; i < numAttributes; i++) {
-				shader.disableVertexAttribute(attributes.get(i).alias);
+				shader.disableVertexAttribute(attributes.Get(i).alias);
 			}
 		} else {
 			for (int i = 0; i < numAttributes; i++) {

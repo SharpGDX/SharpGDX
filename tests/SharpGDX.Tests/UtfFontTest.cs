@@ -23,7 +23,7 @@
 //	}
 //
 //	public override void Render () {
-//		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+//		GDX.GL.glClear(GL20.GL_COLOR_BUFFER_BIT);
 //		batch.begin();
 //
 //		// https://github.com/libgdx/libgdx/pull/6501#issuecomment-821749417

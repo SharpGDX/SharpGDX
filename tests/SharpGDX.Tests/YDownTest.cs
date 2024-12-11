@@ -62,7 +62,7 @@
 //	public override void Render () {
 //		// clear the screen, update the camera and make the sprite batch
 //		// use its matrices.
-//		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+//		GDX.GL.glClear(GL20.GL_COLOR_BUFFER_BIT);
 //		camera.update();
 //		batch.setProjectionMatrix(camera.combined);
 //

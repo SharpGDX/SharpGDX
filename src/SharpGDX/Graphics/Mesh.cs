@@ -115,27 +115,27 @@ public class Mesh : IDisposable {
 	}
 
 	/** Creates a new Mesh with the given attributes. This is an expert method with no error checking. Use at your own risk.
-	 *
-	 * @param type the {@link VertexDataType} to be used, VBO or VA.
-	 * @param isStatic whether this mesh is static or not. Allows for internal optimizations.
-	 * @param maxVertices the maximum number of vertices this mesh can hold
-	 * @param maxIndices the maximum number of indices this mesh can hold
-	 * @param attributes the {@link VertexAttribute}s. Each vertex attribute defines one property of a vertex such as position,
-	 *           normal or texture coordinate */
-	public Mesh (VertexDataType type, bool isStatic, int maxVertices, int maxIndices, VertexAttribute[] attributes) 
-	: this(type, isStatic, maxVertices, maxIndices, new VertexAttributes(attributes))
-	{
-		
-	}
+     *
+     * @param type the {@link VertexDataType} to be used, VBO or VA.
+     * @param isStatic whether this mesh is static or not. Allows for internal optimizations.
+     * @param maxVertices the maximum number of vertices this mesh can hold
+     * @param maxIndices the maximum number of indices this mesh can hold
+     * @param attributes the {@link VertexAttribute}s. Each vertex attribute defines one property of a vertex such as position,
+     *           normal or texture coordinate */
+    public Mesh(VertexDataType type, bool isStatic, int maxVertices, int maxIndices, params VertexAttribute[] attributes)
+        : this(type, isStatic, maxVertices, maxIndices, new VertexAttributes(attributes))
+    {
 
-	/** Creates a new Mesh with the given attributes. This is an expert method with no error checking. Use at your own risk.
-	 *
-	 * @param type the {@link VertexDataType} to be used, VBO or VA.
-	 * @param isStatic whether this mesh is static or not. Allows for internal optimizations.
-	 * @param maxVertices the maximum number of vertices this mesh can hold
-	 * @param maxIndices the maximum number of indices this mesh can hold
-	 * @param attributes the {@link VertexAttributes}. */
-	public Mesh (VertexDataType type, bool isStatic, int maxVertices, int maxIndices, VertexAttributes attributes) {
+    }
+
+        /** Creates a new Mesh with the given attributes. This is an expert method with no error checking. Use at your own risk.
+         *
+         * @param type the {@link VertexDataType} to be used, VBO or VA.
+         * @param isStatic whether this mesh is static or not. Allows for internal optimizations.
+         * @param maxVertices the maximum number of vertices this mesh can hold
+         * @param maxIndices the maximum number of indices this mesh can hold
+         * @param attributes the {@link VertexAttributes}. */
+        public Mesh (VertexDataType type, bool isStatic, int maxVertices, int maxIndices, VertexAttributes attributes) {
 		switch (type) {
 		case VertexDataType.VertexBufferObject:
 			_vertices = new VertexBufferObject(isStatic, maxVertices, attributes);
@@ -639,9 +639,9 @@ public class Mesh : IDisposable {
 	 * @return the VertexAttribute or null if no attribute with that usage was found. */
 	public VertexAttribute getVertexAttribute (int usage) {
 		VertexAttributes attributes = _vertices.getAttributes();
-		int len = attributes.size();
+		int len = attributes.Size();
 		for (int i = 0; i < len; i++)
-			if (attributes.get(i).usage == usage) return attributes.get(i);
+			if (attributes.Get(i).usage == usage) return attributes.Get(i);
 
 		return null;
 	}
@@ -760,14 +760,14 @@ public class Mesh : IDisposable {
 			if (numIndices > 0) {
 				for (int i = offset; i < end; i++) {
 					 int idx = (index.get(i) & 0xFFFF) * vertexSize + posoff;
-					tmpV.set(verts.get(idx), 0, 0);
+					tmpV.Set(verts.get(idx), 0, 0);
 					if (transform != null) tmpV.mul(transform);
 					@out.ext(tmpV);
 				}
 			} else {
 				for (int i = offset; i < end; i++) {
 					 int idx = i * vertexSize + posoff;
-					tmpV.set(verts.get(idx), 0, 0);
+					tmpV.Set(verts.get(idx), 0, 0);
 					if (transform != null) tmpV.mul(transform);
 					@out.ext(tmpV);
 				}
@@ -777,14 +777,14 @@ public class Mesh : IDisposable {
 			if (numIndices > 0) {
 				for (int i = offset; i < end; i++) {
 					 int idx = (index.get(i) & 0xFFFF) * vertexSize + posoff;
-					tmpV.set(verts.get(idx), verts.get(idx + 1), 0);
+					tmpV.Set(verts.get(idx), verts.get(idx + 1), 0);
 					if (transform != null) tmpV.mul(transform);
 					@out.ext(tmpV);
 				}
 			} else {
 				for (int i = offset; i < end; i++) {
 					 int idx = i * vertexSize + posoff;
-					tmpV.set(verts.get(idx), verts.get(idx + 1), 0);
+					tmpV.Set(verts.get(idx), verts.get(idx + 1), 0);
 					if (transform != null) tmpV.mul(transform);
 					@out.ext(tmpV);
 				}
@@ -794,14 +794,14 @@ public class Mesh : IDisposable {
 			if (numIndices > 0) {
 				for (int i = offset; i < end; i++) {
 					 int idx = (index.get(i) & 0xFFFF) * vertexSize + posoff;
-					tmpV.set(verts.get(idx), verts.get(idx + 1), verts.get(idx + 2));
+					tmpV.Set(verts.get(idx), verts.get(idx + 1), verts.get(idx + 2));
 					if (transform != null) tmpV.mul(transform);
 					@out.ext(tmpV);
 				}
 			} else {
 				for (int i = offset; i < end; i++) {
 					 int idx = i * vertexSize + posoff;
-					tmpV.set(verts.get(idx), verts.get(idx + 1), verts.get(idx + 2));
+					tmpV.Set(verts.get(idx), verts.get(idx + 1), verts.get(idx + 2));
 					if (transform != null) tmpV.mul(transform);
 					@out.ext(tmpV);
 				}
@@ -836,7 +836,7 @@ public class Mesh : IDisposable {
 		case 1:
 			for (int i = offset; i < end; i++) {
 				 int idx = (index.get(i) & 0xFFFF) * vertexSize + posoff;
-				tmpV.set(verts.get(idx), 0, 0);
+				tmpV.Set(verts.get(idx), 0, 0);
 				if (transform != null) tmpV.mul(transform);
 				 float r = tmpV.sub(centerX, centerY, centerZ).len2();
 				if (r > result) result = r;
@@ -845,7 +845,7 @@ public class Mesh : IDisposable {
 		case 2:
 			for (int i = offset; i < end; i++) {
 				 int idx = (index.get(i) & 0xFFFF) * vertexSize + posoff;
-				tmpV.set(verts.get(idx), verts.get(idx + 1), 0);
+				tmpV.Set(verts.get(idx), verts.get(idx + 1), 0);
 				if (transform != null) tmpV.mul(transform);
 				 float r = tmpV.sub(centerX, centerY, centerZ).len2();
 				if (r > result) result = r;
@@ -854,7 +854,7 @@ public class Mesh : IDisposable {
 		case 3:
 			for (int i = offset; i < end; i++) {
 				 int idx = (index.get(i) & 0xFFFF) * vertexSize + posoff;
-				tmpV.set(verts.get(idx), verts.get(idx + 1), verts.get(idx + 2));
+				tmpV.Set(verts.get(idx), verts.get(idx + 1), verts.get(idx + 2));
 				if (transform != null) tmpV.mul(transform);
 				 float r = tmpV.sub(centerX, centerY, centerZ).len2();
 				if (r > result) result = r;
@@ -1049,14 +1049,14 @@ public class Mesh : IDisposable {
 		switch (dimensions) {
 		case 1:
 			for (int i = 0; i < count; i++) {
-				tmp.set(vertices[idx], 0, 0).mul(matrix);
+				tmp.Set(vertices[idx], 0, 0).mul(matrix);
 				vertices[idx] = tmp.x;
 				idx += vertexSize;
 			}
 			break;
 		case 2:
 			for (int i = 0; i < count; i++) {
-				tmp.set(vertices[idx], vertices[idx + 1], 0).mul(matrix);
+				tmp.Set(vertices[idx], vertices[idx + 1], 0).mul(matrix);
 				vertices[idx] = tmp.x;
 				vertices[idx + 1] = tmp.y;
 				idx += vertexSize;
@@ -1064,7 +1064,7 @@ public class Mesh : IDisposable {
 			break;
 		case 3:
 			for (int i = 0; i < count; i++) {
-				tmp.set(vertices[idx], vertices[idx + 1], vertices[idx + 2]).mul(matrix);
+				tmp.Set(vertices[idx], vertices[idx + 1], vertices[idx + 2]).mul(matrix);
 				vertices[idx] = tmp.x;
 				vertices[idx + 1] = tmp.y;
 				vertices[idx + 2] = tmp.z;

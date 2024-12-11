@@ -22,10 +22,10 @@
 //	}
 //
 //	public override void Render () {
-//		Gdx.gl.glClearColor(1, 1, 1, 1);
-//		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-//		Gdx.gl.glEnable(GL20.GL_BLEND);
-//		Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+//		GDX.GL.glClearColor(1, 1, 1, 1);
+//		GDX.GL.glClear(GL20.GL_COLOR_BUFFER_BIT);
+//		GDX.GL.glEnable(GL20.GL_BLEND);
+//		GDX.GL.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
 //
 //		renderer.begin(ShapeRenderer.ShapeType.Line);
 //		renderer.setColor(1, 0, 0, 0.5f);

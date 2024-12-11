@@ -35,11 +35,11 @@ public class MusicLoader : AsynchronousAssetLoader<IMusic, MusicLoader.MusicPara
 		return music;
 	}
 
-	public override Array<AssetDescriptor<IMusic>> getDependencies (String fileName, FileHandle file, MusicParameter parameter) {
+	public override Array<AssetDescriptor> getDependencies (String fileName, FileHandle file, MusicParameter parameter) {
 		return null;
 	}
 
-	public class MusicParameter : AssetLoaderParameters<IMusic> {
+	public class MusicParameter : AssetLoaderParameters {
 	}
 
 }

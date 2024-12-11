@@ -24,8 +24,8 @@
 //	Vector2 tp = new Vector2();
 //
 //	public override void Render () {
-//		Gdx.gl.glViewport(0, 0, Gdx.graphics.getBackBufferWidth(), Gdx.graphics.getBackBufferHeight());
-//		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+//		GDX.GL.glViewport(0, 0, Gdx.graphics.getBackBufferWidth(), Gdx.graphics.getBackBufferHeight());
+//		GDX.GL.glClear(GL20.GL_COLOR_BUFFER_BIT);
 //		camera.update();
 //		renderer.setProjectionMatrix(camera.combined);
 //		renderer.begin(ShapeRenderer.ShapeType.Filled);

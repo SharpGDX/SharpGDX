@@ -23,7 +23,7 @@ public abstract class BaseTmxMapLoader<P> : AsynchronousAssetLoader<TiledMap, P>
     where P : BaseTmxMapLoader<P>.Parameters
 {
 
-    public class Parameters : AssetLoaderParameters<TiledMap>
+    public class Parameters : AssetLoaderParameters
     {
         /** generate mipmaps? **/
         public bool generateMipMaps = false;
@@ -67,7 +67,7 @@ public abstract class BaseTmxMapLoader<P> : AsynchronousAssetLoader<TiledMap, P>
 
     }
 
-    public override Array<AssetDescriptor<TiledMap>> getDependencies(String fileName, FileHandle tmxFile, P parameter)
+    public override Array<AssetDescriptor> getDependencies(String fileName, FileHandle tmxFile, P parameter)
     {
         throw new NotImplementedException();
         //this.root = xml.parse(tmxFile);

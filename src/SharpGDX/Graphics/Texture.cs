@@ -58,7 +58,7 @@ public class Texture : GLTexture {
 		MipMapLinearLinear=(IGL20.GL_LINEAR_MIPMAP_LINEAR)
 		
 	}
-
+        
 	public static class TextureFilterUtils
 	{
 		public static bool isMipMap(TextureFilter filter)
@@ -297,7 +297,7 @@ public class Texture : GLTexture {
 					// unload the texture, create a new gl handle then reload it.
 					assetManager.unload(fileName);
 					texture.glHandle = GDX.GL.glGenTexture();
-					assetManager.load(fileName, typeof(Texture), @params);
+					assetManager.load<Texture>(fileName, typeof(Texture), @params);
 				}
 			}
 			managedTextureArray.clear();

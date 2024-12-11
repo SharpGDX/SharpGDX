@@ -44,7 +44,7 @@
 //
 //    public override void Render()
 //    {
-//        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+//        GDX.GL.glClear(GL20.GL_COLOR_BUFFER_BIT);
 //        stage.act(Math.Min(Gdx.graphics.getDeltaTime(), 1 / 30f));
 //        stage.draw();
 //    }

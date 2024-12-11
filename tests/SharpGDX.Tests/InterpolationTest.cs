@@ -47,7 +47,7 @@
 //	}
 //
 //	public override void Create () {
-//		Gdx.gl.glClearColor(.3f, .3f, .3f, 1);
+//		GDX.GL.glClearColor(.3f, .3f, .3f, 1);
 //		renderer = new ShapeRenderer();
 //
 //		skin = new Skin(Gdx.files.@internal("data/uiskin.json"));
@@ -110,7 +110,7 @@
 //	}
 //
 //	public void render () {
-//		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+//		GDX.GL.glClear(GL20.GL_COLOR_BUFFER_BIT);
 //
 //		float bottomLeftX = Gdx.graphics.getWidth() / 2 - graphSize / 2, bottomLeftY = Gdx.graphics.getHeight() / 2 - graphSize / 2;
 //

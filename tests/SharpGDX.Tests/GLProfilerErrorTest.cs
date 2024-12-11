@@ -47,7 +47,7 @@
 //		if (makeGlError) {
 //			makeGlError = false;
 //			try {
-//				Gdx.gl.glClear(42); // Random invalid value, will raise GL_INVALID_VALUE (0x501, 1281)
+//				GDX.GL.glClear(42); // Random invalid value, will raise GL_INVALID_VALUE (0x501, 1281)
 //			} catch (GdxRuntimeException glError) {
 //				if ("GLProfiler: Got gl error GL_INVALID_VALUE".equals(glError.getMessage())) {
 //					message = "Got expected exception.";

@@ -97,8 +97,8 @@
 //			font.draw(spriteBatch, layout, 10, 10 + meowy);
 //			spriteBatch.end();
 //
-//			Gdx.gl.glEnable(GL20.GL_BLEND);
-//			Gdx.gl.glBlendFunc(GL20.GL_ONE, GL20.GL_ONE);
+//			GDX.GL.glEnable(GL20.GL_BLEND);
+//			GDX.GL.glBlendFunc(GL20.GL_ONE, GL20.GL_ONE);
 //			renderer.begin(ShapeRenderer.ShapeType.Line);
 //			float c = 0.8f;
 //

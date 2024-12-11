@@ -42,8 +42,8 @@
 //
 //	public override void Render () {
 //
-//		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
-//		Gdx.gl.glEnable(GL20.GL_DEPTH_TEST);
+//		GDX.GL.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
+//		GDX.GL.glEnable(GL20.GL_DEPTH_TEST);
 //
 //		cam.update();
 //
@@ -65,7 +65,7 @@
 //		if (Gdx.input.isKeyPressed(Keys.A)) cam.rotate(20 * Gdx.graphics.getDeltaTime(), 0, 1, 0);
 //		if (Gdx.input.isKeyPressed(Keys.D)) cam.rotate(-20 * Gdx.graphics.getDeltaTime(), 0, 1, 0);
 //
-//		Gdx.gl.glDisable(GL20.GL_DEPTH_TEST);
+//		GDX.GL.glDisable(GL20.GL_DEPTH_TEST);
 //		batch.begin();
 //		for (int i = 0; i < instances.length; i++) {
 //			instances[i].transform.getTranslation(tmp);

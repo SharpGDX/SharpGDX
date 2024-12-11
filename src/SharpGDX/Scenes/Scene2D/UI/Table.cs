@@ -36,7 +36,7 @@ public class Table : WidgetGroup {
 
 	private class CellPool : Pool<Cell>
 	{
-		protected override Cell newObject()
+		protected internal override Cell newObject()
 		{
             return new Cell();
 		}

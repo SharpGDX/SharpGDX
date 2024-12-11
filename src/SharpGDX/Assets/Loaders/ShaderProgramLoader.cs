@@ -35,7 +35,7 @@ public class ShaderProgramLoader : AsynchronousAssetLoader<ShaderProgram, Shader
 		this.fragmentFileSuffix = fragmentFileSuffix;
 	}
 
-	public override Array<AssetDescriptor<ShaderProgram>> getDependencies (String fileName, FileHandle file, ShaderProgramParameter parameter) {
+	public override Array<AssetDescriptor> getDependencies (String fileName, FileHandle file, ShaderProgramParameter parameter) {
 		return null;
 	}
 
@@ -71,7 +71,7 @@ public class ShaderProgramLoader : AsynchronousAssetLoader<ShaderProgram, Shader
 		return shaderProgram;
 	}
 
-	public class ShaderProgramParameter : AssetLoaderParameters<ShaderProgram> {
+	public class ShaderProgramParameter : AssetLoaderParameters {
 		/** File name to be used for the vertex program instead of the default determined by the file name used to submit this asset
 		 * to AssetManager. */
 		public String vertexFile;

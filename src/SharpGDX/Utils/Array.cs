@@ -74,7 +74,7 @@ namespace SharpGDX.Utils
 	 * and will be ordered if the specified array is ordered. The capacity is set to the number of elements, so any subsequent
 	 * elements added will cause the backing array to be grown. */
 	public Array(Array<T> array)
-	: this(array.ordered, array.size, array.items.GetType().GetGenericTypeDefinition())
+	: this(array.ordered, array.size, array.items.GetType().GetElementType())
 		{
 		size = array.size;
 		Array.Copy(array.items, 0, items, 0, size);

@@ -33,9 +33,9 @@ public sealed class GeometryUtils {
 	 * 
 	 * @return barycentricOut */
 	static public Vector2 toBarycoord (Vector2 p, Vector2 a, Vector2 b, Vector2 c, Vector2 barycentricOut) {
-		Vector2 v0 = tmp1.set(b).sub(a);
-		Vector2 v1 = tmp2.set(c).sub(a);
-		Vector2 v2 = tmp3.set(p).sub(a);
+		Vector2 v0 = tmp1.Set(b).sub(a);
+		Vector2 v1 = tmp2.Set(c).sub(a);
+		Vector2 v2 = tmp3.Set(p).sub(a);
 		float d00 = v0.dot(v0);
 		float d01 = v0.dot(v1);
 		float d11 = v1.dot(v1);

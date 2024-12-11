@@ -35,10 +35,10 @@
 		 int n = points.Length;
 		 float u2 = u * u;
 		 float u3 = u2 * u;
-		@out.set(points[i]).scl(1.5f * u3 - 2.5f * u2 + 1.0f);
-		if (continuous || i > 0) @out.add(tmp.set(points[(n + i - 1) % n]).scl(-0.5f * u3 + u2 - 0.5f * u));
-		if (continuous || i < (n - 1)) @out.add(tmp.set(points[(i + 1) % n]).scl(-1.5f * u3 + 2f * u2 + 0.5f * u));
-		if (continuous || i < (n - 2)) @out.add(tmp.set(points[(i + 2) % n]).scl(0.5f * u3 - 0.5f * u2));
+		@out.Set(points[i]).scl(1.5f * u3 - 2.5f * u2 + 1.0f);
+		if (continuous || i > 0) @out.add(tmp.Set(points[(n + i - 1) % n]).scl(-0.5f * u3 + u2 - 0.5f * u));
+		if (continuous || i < (n - 1)) @out.add(tmp.Set(points[(i + 1) % n]).scl(-1.5f * u3 + 2f * u2 + 0.5f * u));
+		if (continuous || i < (n - 2)) @out.add(tmp.Set(points[(i + 2) % n]).scl(0.5f * u3 - 0.5f * u2));
 		return @out;
 	}
 
@@ -76,10 +76,10 @@
 		 int n = points.Length;
 		 float u2 = u * u;
 		// final float u3 = u2 * u;
-		@out.set(points[i]).scl(-u * 5 + u2 * 4.5f);
-		if (continuous || i > 0) @out.add(tmp.set(points[(n + i - 1) % n]).scl(-0.5f + u * 2 - u2 * 1.5f));
-		if (continuous || i < (n - 1)) @out.add(tmp.set(points[(i + 1) % n]).scl(0.5f + u * 4 - u2 * 4.5f));
-		if (continuous || i < (n - 2)) @out.add(tmp.set(points[(i + 2) % n]).scl(-u + u2 * 1.5f));
+		@out.Set(points[i]).scl(-u * 5 + u2 * 4.5f);
+		if (continuous || i > 0) @out.add(tmp.Set(points[(n + i - 1) % n]).scl(-0.5f + u * 2 - u2 * 1.5f));
+		if (continuous || i < (n - 1)) @out.add(tmp.Set(points[(i + 1) % n]).scl(0.5f + u * 4 - u2 * 4.5f));
+		if (continuous || i < (n - 2)) @out.add(tmp.Set(points[(i + 2) % n]).scl(-u + u2 * 1.5f));
 		return @out;
 	}
 
@@ -217,7 +217,7 @@
 		float tempLength = 0;
 		for (int i = 0; i < samples; ++i)
 		{
-			tmp2.set(tmp3);
+			tmp2.Set(tmp3);
 			valueAt(tmp3, (i) / ((float)samples - 1));
 			if (i > 0) tempLength += tmp2.dst(tmp3);
 		}

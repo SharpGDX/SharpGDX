@@ -131,7 +131,7 @@
 //	}
 //
 //	public override void Render () {
-//		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+//		GDX.GL.glClear(GL20.GL_COLOR_BUFFER_BIT);
 //		ui.act(Gdx.graphics.getDeltaTime());
 //		ui.draw();
 //	}

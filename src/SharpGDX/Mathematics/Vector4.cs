@@ -88,7 +88,7 @@ public class Vector4 :  IVector<Vector4> {
 		return this;
 	}
 
-	public Vector4 set ( Vector4 vector) {
+	public Vector4 Set ( Vector4 vector) {
 		return this.set(vector.x, vector.y, vector.z, vector.w);
 	}
 

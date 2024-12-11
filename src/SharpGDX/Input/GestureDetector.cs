@@ -109,8 +109,8 @@ public class GestureDetector : InputAdapter {
 				// Start pinch.
 				inTapRectangle = false;
 				pinching = true;
-				initialPointer1.set(pointer1);
-				initialPointer2.set(pointer2);
+				initialPointer1.Set(pointer1);
+				initialPointer2.Set(pointer2);
 				longPressTask.cancel();
 			} else {
 				// Normal touch down.
@@ -126,8 +126,8 @@ public class GestureDetector : InputAdapter {
 			pointer2.Set(x, y);
 			inTapRectangle = false;
 			pinching = true;
-			initialPointer1.set(pointer1);
-			initialPointer2.set(pointer2);
+			initialPointer1.Set(pointer1);
+			initialPointer2.Set(pointer2);
 			longPressTask.cancel();
 		}
 		return listener.touchDown(x, y, pointer, button);
@@ -348,7 +348,7 @@ public class GestureDetector : InputAdapter {
 	/** Derrive from this if you only want to implement a subset of {@link GestureListener}.
 	 * @author mzechner */
 	public class GestureAdapter : IGestureListener {
-		public bool touchDown (float x, float y, int pointer, int button) {
+		public virtual bool touchDown (float x, float y, int pointer, int button) {
 			return false;
 		}
 
@@ -380,7 +380,7 @@ public class GestureDetector : InputAdapter {
 			return false;
 		}
 
-		public void pinchStop () {
+		public virtual void pinchStop () {
 		}
 	}
 

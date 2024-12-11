@@ -114,11 +114,11 @@
 //	private void invalidateTexture (Texture texture) {
 //		IntBuffer buffer = BufferUtils.newIntBuffer(1);
 //		buffer.put(0, texture.getTextureObjectHandle());
-//		Gdx.gl.glDeleteTextures(1, buffer);
+//		GDX.GL.glDeleteTextures(1, buffer);
 //	}
 //
 //	public void render () {
-//		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+//		GDX.GL.glClear(GL20.GL_COLOR_BUFFER_BIT);
 //
 //		boolean result = manager.update(16);
 //		if (result) {

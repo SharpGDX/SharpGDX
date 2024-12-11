@@ -19,7 +19,7 @@
 //	ShaderProgram shaderProgram;
 //
 //	public override void Create () {
-//		Gdx.app.log("GLES30Test", "GL_VERSION = " + Gdx.gl.glGetString(GL20.GL_VERSION));
+//		Gdx.app.log("GLES30Test", "GL_VERSION = " + GDX.GL.glGetString(GL20.GL_VERSION));
 //		batch = new SpriteBatch();
 //		texture = new Texture(Gdx.files.@internal("data/badlogic.jpg"));
 //		shaderProgram = new ShaderProgram(Gdx.files.@internal("data/shaders/gles30sprite.vert"),

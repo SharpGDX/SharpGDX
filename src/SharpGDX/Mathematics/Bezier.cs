@@ -24,7 +24,7 @@ namespace SharpGDX.Mathematics
 	public static T linear( T @out,  float t,  T p0,  T p1,  T tmp)
 	{
 		// B1(t) = p0 + (p1-p0)*t
-		return @out.set(p0).scl(1f - t).add(tmp.set(p1).scl(t)); // Could just use lerp...
+		return @out.Set(p0).scl(1f - t).add(tmp.Set(p1).scl(t)); // Could just use lerp...
 	}
 
 	/** Simple linear interpolation derivative
@@ -37,7 +37,7 @@ namespace SharpGDX.Mathematics
 	public static T linear_derivative( T @out,  float t,  T p0,  T p1,  T tmp)
 	{
 		// B1'(t) = p1-p0
-		return @out.set(p1).sub(p0);
+		return @out.Set(p1).sub(p0);
 	}
 
 	/** Quadratic Bezier curve
@@ -52,7 +52,7 @@ namespace SharpGDX.Mathematics
 	{
 		// B2(t) = (1 - t) * (1 - t) * p0 + 2 * (1-t) * t * p1 + t*t*p2
 		 float dt = 1f - t;
-		return @out.set(p0).scl(dt * dt).add(tmp.set(p1).scl(2 * dt * t)).add(tmp.set(p2).scl(t * t));
+		return @out.Set(p0).scl(dt * dt).add(tmp.Set(p1).scl(2 * dt * t)).add(tmp.Set(p2).scl(t * t));
 	}
 
 	/** Quadratic Bezier curve derivative
@@ -68,7 +68,7 @@ namespace SharpGDX.Mathematics
 	{
 		// B2'(t) = 2 * (1 - t) * (p1 - p0) + 2 * t * (p2 - p1)
 		 float dt = 1f - t;
-		return @out.set(p1).sub(p0).scl(2).scl(1 - t).add(tmp.set(p2).sub(p1).scl(t).scl(2));
+		return @out.Set(p1).sub(p0).scl(2).scl(1 - t).add(tmp.Set(p2).sub(p1).scl(t).scl(2));
 	}
 
 	/** Cubic Bezier curve
@@ -87,8 +87,8 @@ namespace SharpGDX.Mathematics
 		 float dt = 1f - t;
 		 float dt2 = dt * dt;
 		 float t2 = t * t;
-		return @out.set(p0).scl(dt2 * dt).add(tmp.set(p1).scl(3 * dt2 * t)).add(tmp.set(p2).scl(3 * dt * t2))
-			.add(tmp.set(p3).scl(t2 * t));
+		return @out.Set(p0).scl(dt2 * dt).add(tmp.Set(p1).scl(3 * dt2 * t)).add(tmp.Set(p2).scl(3 * dt * t2))
+			.add(tmp.Set(p3).scl(t2 * t));
 	}
 
 	/** Cubic Bezier curve derivative
@@ -107,7 +107,7 @@ namespace SharpGDX.Mathematics
 		 float dt = 1f - t;
 		 float dt2 = dt * dt;
 		 float t2 = t * t;
-		return @out.set(p1).sub(p0).scl(dt2 * 3).add(tmp.set(p2).sub(p1).scl(dt * t * 6)).add(tmp.set(p3).sub(p2).scl(t2 * 3));
+		return @out.Set(p1).sub(p0).scl(dt2 * 3).add(tmp.Set(p2).sub(p1).scl(dt * t * 6)).add(tmp.Set(p3).sub(p2).scl(t2 * 3));
 	}
 
 	public Array<T> points = new Array<T>();
@@ -210,7 +210,7 @@ namespace SharpGDX.Mathematics
 		float tempLength = 0;
 		for (int i = 0; i < samples; ++i)
 		{
-			tmp2.set(tmp3);
+			tmp2.Set(tmp3);
 			valueAt(tmp3, (i) / ((float)samples - 1));
 			if (i > 0) tempLength += tmp2.dst(tmp3);
 		}

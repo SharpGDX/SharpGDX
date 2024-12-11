@@ -21,7 +21,7 @@
 //	}
 //
 //	public override void Render () {
-//		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+//		GDX.GL.glClear(GL20.GL_COLOR_BUFFER_BIT);
 //		batch.begin();
 //		font.draw(batch,
 //			"Density: " + Gdx.graphics.getDensity() + "\n" + "PPC-x: " + Gdx.graphics.getPpcX() + "\n" + "PPC-y: "

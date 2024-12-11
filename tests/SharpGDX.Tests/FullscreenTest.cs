@@ -48,7 +48,7 @@
 //			if (fullscreen) {
 //				Gdx.graphics.setWindowedMode(480, 320);
 //				batch.getProjectionMatrix().setToOrtho2D(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-//				Gdx.gl.glViewport(0, 0, Gdx.graphics.getBackBufferWidth(), Gdx.graphics.getBackBufferHeight());
+//				GDX.GL.glViewport(0, 0, Gdx.graphics.getBackBufferWidth(), Gdx.graphics.getBackBufferHeight());
 //				fullscreen = false;
 //			} else {
 //				DisplayMode m = null;
@@ -64,7 +64,7 @@
 //
 //				Gdx.graphics.setFullscreenMode(Gdx.graphics.getDisplayMode());
 //				batch.getProjectionMatrix().setToOrtho2D(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-//				Gdx.gl.glViewport(0, 0, Gdx.graphics.getBackBufferWidth(), Gdx.graphics.getBackBufferHeight());
+//				GDX.GL.glViewport(0, 0, Gdx.graphics.getBackBufferWidth(), Gdx.graphics.getBackBufferHeight());
 //				fullscreen = true;
 //			}
 //		}

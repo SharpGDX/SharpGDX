@@ -21,7 +21,7 @@ namespace SharpGDX.Assets
 		public FinishedLoadingCallback loadedCallback { get; }
 	}
 
-	public class AssetLoaderParameters<T> : IAssetLoaderParameters
+	public class AssetLoaderParameters : IAssetLoaderParameters
 	{
 		public FinishedLoadingCallback loadedCallback;
 		FinishedLoadingCallback IAssetLoaderParameters.loadedCallback => loadedCallback;

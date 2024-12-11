@@ -173,7 +173,7 @@ namespace SharpGDX.Assets
 		/** @param assetDescriptor the asset descriptor
 		 * @return the asset
 		 * @throws GdxRuntimeException if the asset is not loaded */
-		public T get<T>(AssetDescriptor<T> assetDescriptor)
+		public T get<T>(AssetDescriptor assetDescriptor)
 		{
 			lock (this)
 				return get<T>(assetDescriptor.FileName, assetDescriptor.Type, true);
@@ -421,7 +421,7 @@ namespace SharpGDX.Assets
 		 * @param fileName the file name (interpretation depends on {@link AssetLoader})
 		 * @param type the type of the asset.
 		 * @param parameter parameters for the AssetLoader. */
-		public void load<T>(String fileName, Type type, AssetLoaderParameters<T> parameter)
+		public void load<T>(String fileName, Type type, AssetLoaderParameters parameter)
 		{
 			lock (this)
 			{
@@ -474,7 +474,7 @@ namespace SharpGDX.Assets
 					                              ClassReflection.getSimpleName(otherType) + ")");
 
 				toLoad++;
-				var assetDesc = new AssetDescriptor<T>(fileName, type, parameter);
+				var assetDesc = new AssetDescriptor(fileName, type, parameter);
 				loadQueue.Add(assetDesc);
 				log.debug("Queued: " + assetDesc);
 			}
@@ -482,7 +482,7 @@ namespace SharpGDX.Assets
 
 		/** Adds the given asset to the loading queue of the AssetManager.
 		 * @param desc the {@link AssetDescriptor} */
-		public void load<T>(AssetDescriptor<T> desc)
+		public void load<T>(AssetDescriptor desc)
 		{
 			lock (this)
 				load<T>(desc.FileName, desc.Type, desc.Parameters);
@@ -792,7 +792,7 @@ namespace SharpGDX.Assets
 		 * @param type the type of the asset
 		 * @param loader the loader */
 		public void setLoader<T, P>(Type type, AssetLoader<T, P> loader)
-			where P : AssetLoaderParameters<T>
+			where P : AssetLoaderParameters
 		{
 			lock (this)
 				setLoader(type, null, loader);
@@ -804,7 +804,7 @@ namespace SharpGDX.Assets
 		 * @param loader the loader */
 		public void setLoader<T, P>(Type type, String suffix,
 			AssetLoader<T, P> loader)
-			where P : AssetLoaderParameters<T>
+			where P : AssetLoaderParameters
 		{
 			lock (this)
 			{

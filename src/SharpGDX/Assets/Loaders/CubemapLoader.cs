@@ -77,12 +77,12 @@ public class CubemapLoader : AsynchronousAssetLoader<Cubemap, CubemapLoader.Cube
 		return cubemap;
 	}
 
-	public override Array<AssetDescriptor<Cubemap>> getDependencies(String fileName, FileHandle file, CubemapParameter parameter)
+	public override Array<AssetDescriptor> getDependencies(String fileName, FileHandle file, CubemapParameter parameter)
 	{
 		return null;
 	}
 
-	public class CubemapParameter : AssetLoaderParameters<Cubemap> {
+	public class CubemapParameter : AssetLoaderParameters {
 		/** the format of the final Texture. Uses the source images format if null **/
 		public Pixmap.Format? format = null;
 	/** The texture to put the {@link TextureData} in, optional. **/

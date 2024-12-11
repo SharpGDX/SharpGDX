@@ -65,7 +65,7 @@
 //	}
 //
 //	public void render () {
-//		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+//		GDX.GL.glClear(GL20.GL_COLOR_BUFFER_BIT);
 //
 //		renderer.setColor(Color.RED);
 //		renderer.begin(ShapeRenderer.ShapeType.Filled);

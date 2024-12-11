@@ -116,13 +116,13 @@ namespace SharpGDX.Scenes.Scene2D.Utils
 		public static void calculateScissors(Camera camera, float viewportX, float viewportY, float viewportWidth,
 			float viewportHeight, Matrix4 batchTransform, Rectangle area, Rectangle scissor)
 		{
-			tmp.set(area.x, area.y, 0);
+			tmp.Set(area.x, area.y, 0);
 			tmp.mul(batchTransform);
 			camera.project(tmp, viewportX, viewportY, viewportWidth, viewportHeight);
 			scissor.x = tmp.x;
 			scissor.y = tmp.y;
 
-			tmp.set(area.x + area.width, area.y + area.height, 0);
+			tmp.Set(area.x + area.width, area.y + area.height, 0);
 			tmp.mul(batchTransform);
 			camera.project(tmp, viewportX, viewportY, viewportWidth, viewportHeight);
 			scissor.width = tmp.x - scissor.x;

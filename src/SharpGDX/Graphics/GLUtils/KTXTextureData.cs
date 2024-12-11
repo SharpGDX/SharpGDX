@@ -224,10 +224,10 @@ public class KTXTextureData : ITextureData, ICubemapData {
 				((Buffer)data).limit(faceLodSizeRounded);
 				if (textureDimensions == 1) {
 					// if (compressed)
-					// Gdx.gl.glCompressedTexImage1D(target + face, level, glInternalFormat, pixelWidth, 0, faceLodSize,
+					// GDX.GL.glCompressedTexImage1D(target + face, level, glInternalFormat, pixelWidth, 0, faceLodSize,
 					// data);
 					// else
-					// Gdx.gl.glTexImage1D(target + face, level, glInternalFormat, pixelWidth, 0, glFormat, glType, data);
+					// GDX.GL.glTexImage1D(target + face, level, glInternalFormat, pixelWidth, 0, glFormat, glType, data);
 				} else if (textureDimensions == 2) {
 					if (numberOfArrayElements > 0) pixelHeight = numberOfArrayElements;
 					if (compressed) {
@@ -252,10 +252,10 @@ public class KTXTextureData : ITextureData, ICubemapData {
 				} else if (textureDimensions == 3) {
 					if (numberOfArrayElements > 0) pixelDepth = numberOfArrayElements;
 					// if (compressed)
-					// Gdx.gl.glCompressedTexImage3D(target + face, level, glInternalFormat, pixelWidth, pixelHeight, pixelDepth, 0,
+					// GDX.GL.glCompressedTexImage3D(target + face, level, glInternalFormat, pixelWidth, pixelHeight, pixelDepth, 0,
 					// faceLodSize, data);
 					// else
-					// Gdx.gl.glTexImage3D(target + face, level, glInternalFormat, pixelWidth, pixelHeight, pixelDepth, 0, glFormat,
+					// GDX.GL.glTexImage3D(target + face, level, glInternalFormat, pixelWidth, pixelHeight, pixelDepth, 0, glFormat,
 					// glType, data);
 				}
 			}

@@ -130,7 +130,7 @@
 //		ScreenUtils.clear(0, 0, 0, 1, true);
 //
 //		// cubemap
-//		Gdx.gl.glViewport(gw - pw, gh - ph, pw, ph);
+//		GDX.GL.glViewport(gw - pw, gh - ph, pw, ph);
 //		perspectiveCamera.viewportWidth = pw;
 //		perspectiveCamera.viewportHeight = ph;
 //		perspectiveCamera.update();
@@ -139,7 +139,7 @@
 //		modelBatch.end();
 //
 //		// 2D texture with alpha & ETC1
-//		Gdx.gl.glViewport(0, 0, pw, ph);
+//		GDX.GL.glViewport(0, 0, pw, ph);
 //		orthoCamera.viewportWidth = pw;
 //		orthoCamera.viewportHeight = ph;
 //		orthoCamera.update();

@@ -89,10 +89,10 @@ public class ActorGestureListener : IEventListener {
 			public override bool pinch(Vector2 stageInitialPointer1, Vector2 stageInitialPointer2, Vector2 stagePointer1,
 				Vector2 stagePointer2)
 			{
-				_actorGestureListener.actor.stageToLocalCoordinates(initialPointer1.set(stageInitialPointer1));
-				_actorGestureListener.actor.stageToLocalCoordinates(initialPointer2.set(stageInitialPointer2));
-				_actorGestureListener.actor.stageToLocalCoordinates(pointer1.set(stagePointer1));
-				_actorGestureListener.actor.stageToLocalCoordinates(pointer2.set(stagePointer2));
+				_actorGestureListener.actor.stageToLocalCoordinates(initialPointer1.Set(stageInitialPointer1));
+				_actorGestureListener.actor.stageToLocalCoordinates(initialPointer2.Set(stageInitialPointer2));
+				_actorGestureListener.actor.stageToLocalCoordinates(pointer1.Set(stagePointer1));
+				_actorGestureListener.actor.stageToLocalCoordinates(pointer2.Set(stagePointer2));
 				_actorGestureListener.pinch(_actorGestureListener.@event, initialPointer1, initialPointer2, pointer1, pointer2);
 				return true;
 			}
