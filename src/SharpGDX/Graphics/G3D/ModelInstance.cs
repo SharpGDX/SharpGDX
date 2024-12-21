@@ -348,7 +348,7 @@ public class ModelInstance : RenderableProvider {
 	 * 
 	 * @param renderables the output array
 	 * @param pool the pool to obtain Renderables from */
-	public void getRenderables (Array<Renderable> renderables, Pool<Renderable> pool) {
+	public virtual void getRenderables (Array<Renderable> renderables, Pool<Renderable> pool) {
 		foreach (Node node in nodes) {
 			getRenderables(node, renderables, pool);
 		}

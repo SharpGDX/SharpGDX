@@ -22,7 +22,21 @@ namespace SharpGDX.Shims
 			Array.Sort(array);
 		}
 
-		public static List<T> asList<T>(T[] array)
+        public static T[] copyOfRange<T>(T[] source, int pos, int count)
+        {
+            T[] result = new T[count - pos];
+			Array.Copy(source, pos, result, 0, count - pos);
+            return result;
+        }
+
+        public static T[] copyOf<T>(T[] source, int capacity)
+        {
+            var result = new T[capacity];
+            Array.Copy(source, 0, source, 0, Math.Min(source.Length, capacity));
+            return result;
+        }
+
+        public static List<T> asList<T>(T[] array)
 		{
 			return array.ToList();
 		}

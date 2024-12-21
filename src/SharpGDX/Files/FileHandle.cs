@@ -115,12 +115,13 @@ namespace SharpGDX.Files
 		}
 
 		private static InputStream getResourceAsStream(string resource)
-		{
-			System.Reflection.Assembly a = System.Reflection.Assembly.GetExecutingAssembly();
-			Stream resFilestream = a.GetManifestResourceStream(resource);
-			
-				return new InputStream(resFilestream);
-		}
+        {
+            throw new NotImplementedException();
+            //System.Reflection.Assembly a = System.Reflection.Assembly.GetExecutingAssembly();
+            //Stream resFilestream = a.GetManifestResourceStream(resource);
+
+            //	return new InputStream(resFilestream);
+        }
 
 		/** Returns a stream for reading this file as bytes.
 		 * @throws GdxRuntimeException if the file handle represents a directory, doesn't exist, or could not be read. */

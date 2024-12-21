@@ -24,6 +24,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\SharpGDX.MP3\SharpGDX.MP3.csproj" />
 		<ProjectReference Include="..\SharpGDX\SharpGDX.csproj" />
 	</ItemGroup>
 

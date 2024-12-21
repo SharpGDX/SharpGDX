@@ -65,7 +65,7 @@ public class Mesh : IDisposable {
 	 * @param maxIndices the maximum number of indices this mesh can hold
 	 * @param attributes the {@link VertexAttribute}s. Each vertex attribute defines one property of a vertex such as position,
 	 *           normal or texture coordinate */
-	public Mesh (bool isStatic, int maxVertices, int maxIndices, VertexAttribute[] attributes) {
+	public Mesh (bool isStatic, int maxVertices, int maxIndices, params VertexAttribute[] attributes) {
 		_vertices = makeVertexBuffer(isStatic, maxVertices, new VertexAttributes(attributes));
 		indices = new IndexBufferObject(isStatic, maxIndices);
 		isVertexArray = false;

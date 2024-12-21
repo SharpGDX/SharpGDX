@@ -48,8 +48,8 @@ namespace SharpGDX.Desktop.Audio
 			//registerMusic("ogg", Ogg.Music.class);
 			registerSound("wav", typeof(Wav.Sound));
 			registerMusic("wav", typeof(Wav.Music));
-			//registerSound("mp3", Mp3.Sound.class);
-			//registerMusic("mp3", Mp3.Music.class);
+			registerSound("mp3", typeof(Mp3.Sound));
+			registerMusic("mp3", typeof(Mp3.Music));
 
 			device = ALC.OpenDevice(null);
 			if (device == 0L)

@@ -1,33 +1,56 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace SharpGDX.Shims;
 
-namespace SharpGDX.Shims
+public class FilterInputStream : InputStream
 {
-	public class FilterInputStream : InputStream, ICloseable
-	{
-		public override int read()
-		{
-			return @in._stream.ReadByte();
-		}
+    protected volatile InputStream @in;
 
-		protected InputStream @in;
+    protected FilterInputStream(InputStream @in)
+    {
+        this.@in = @in;
+    }
 
-		protected FilterInputStream(InputStream @in)
-		
-		{
-			this.@in = @in;
-		}
+    public override int read()
+    {
+        return @in.read();
+    }
 
-		public override int  read(byte[] b, int off, int len)
-		{
-			var bytesRead = @in._stream.Read(b, off, len);
-			return bytesRead > 0 ? bytesRead : -1;
-		}
+    public override int read(byte[] b)
+    {
+        return read(b, 0, b.Length);
+    }
 
-		public override void close() { }
-	}
+    public override int read(byte[] b, int off, int len)
+    {
+        return @in.read(b, off, len);
+    }
+
+    public override long skip(long n)
+    {
+        return @in.skip(n);
+    }
+
+    public override int available()
+    {
+        return @in.available();
+    }
+
+    public override void close()
+    {
+        @in.close();
+    }
+
+    public override void mark(int readlimit)
+    {
+        @in.mark(readlimit);
+    }
+
+    public override void reset()
+    {
+        @in.reset();
+    }
+
+    public override bool markSupported()
+    {
+        return @in.markSupported();
+    }
 }

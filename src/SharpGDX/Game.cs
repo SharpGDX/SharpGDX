@@ -29,7 +29,7 @@ public abstract class Game : IApplicationListener
     ///     Returns the currently active <see cref="IScreen" />.
     /// </summary>
     /// <returns>The currently active <see cref="IScreen" /></returns>
-    public IScreen? GetScreen()
+    public virtual IScreen? GetScreen()
     {
         return Screen;
     }

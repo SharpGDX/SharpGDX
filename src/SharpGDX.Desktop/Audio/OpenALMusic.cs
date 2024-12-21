@@ -87,7 +87,6 @@ namespace SharpGDX.Desktop.Audio
 					filled = true;
 					// TODO: Verify
 					AL.SourceQueueBuffers(sourceID, 1, new[] { bufferID });
-
 				}
 
 				if (!filled && onCompletionListener != null) onCompletionListener?.Invoke(this);

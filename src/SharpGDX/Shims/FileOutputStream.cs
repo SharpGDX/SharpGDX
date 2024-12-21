@@ -12,5 +12,10 @@ namespace SharpGDX.Shims
 		{
 
 		}
-	}
+
+        public override void write(int b)
+        {
+            throw new NotImplementedException();
+        }
+    }
 }
