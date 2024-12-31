@@ -5,7 +5,9 @@ using SharpGDX.Graphics.G2D;
 using SharpGDX.Utils;
 using SharpGDX.Mathematics;
 using Buffer = SharpGDX.Shims.Buffer;
+using System.Security.Claims;
 
+// TODO: Re-Port this class. -RP
 namespace SharpGDX.Utils.Reflect
 {
 	/** Utilities for Class reflection.
@@ -35,8 +37,37 @@ namespace SharpGDX.Utils.Reflect
             }
         }
 
+        /** Returns a {@link Field} that represents the specified public member field for the supplied class. */
+        static public Field getField(Type c, String name)
+        {
+            try
+            {
+                return new Field(c.GetField(name));
+                //} catch (SecurityException e) {
+                //throw new ReflectionException("Security violation while getting field: " + name + ", for class: " + c.Name, e);
+                //} catch (NoSuchFieldException e) {
+            }
+            catch (Exception e)
+            {
+
+                throw new ReflectionException("Field not found: " + name + ", for class: " + c.Name, e);
+            }
+        }
+
+        /** Returns an array of {@link Field} containing the public fields of the class represented by the supplied Class. */
+        static public Field[] getFields(Type c)
+        {
+            var fields = c.GetFields();
+            Field[] result = new Field[fields.Length];
+            for (int i = 0, j = fields.Length; i < j; i++)
+            {
+                result[i] = new Field(fields[i]);
+            }
+            return result;
+        }
+
         /** Returns the simple name of the underlying class as supplied in the source code. */
-static public String getSimpleName(Type c)
+        static public String getSimpleName(Type c)
 		{
 			return c.Name;
 		}
@@ -300,65 +331,66 @@ static public String getSimpleName(Type c)
 			return result;
 		}
 
-		//	/** Returns a {@link Field} that represents the specified declared field for the supplied class. */
-		//	static public Field getDeclaredField (Class c, String name) throws ReflectionException {
-		//		try {
-		//			return new Field(c.getDeclaredField(name));
-		//		} catch (SecurityException e) {
-		//			throw new ReflectionException("Security violation while getting field: " + name + ", for class: " + c.getName(), e);
-		//		} catch (NoSuchFieldException e) {
-		//			throw new ReflectionException("Field not found: " + name + ", for class: " + c.getName(), e);
-		//		}
-		//	}
+        //	/** Returns a {@link Field} that represents the specified declared field for the supplied class. */
+        //	static public Field getDeclaredField (Class c, String name) throws ReflectionException {
+        //		try {
+        //			return new Field(c.getDeclaredField(name));
+        //		} catch (SecurityException e) {
+        //			throw new ReflectionException("Security violation while getting field: " + name + ", for class: " + c.getName(), e);
+        //		} catch (NoSuchFieldException e) {
+        //			throw new ReflectionException("Field not found: " + name + ", for class: " + c.getName(), e);
+        //		}
+        //	}
 
-		//	/** Returns true if the supplied class includes an annotation of the given type. */
-		//	static public boolean isAnnotationPresent (Class c, Class<? extends java.lang.annotation.Annotation> annotationType) {
-		//		return c.isAnnotationPresent(annotationType);
-		//	}
+        //	/** Returns true if the supplied class includes an annotation of the given type. */
+        //	static public boolean isAnnotationPresent (Class c, Class<? extends java.lang.annotation.Annotation> annotationType) {
+        //		return c.isAnnotationPresent(annotationType);
+        //	}
 
-		//	/** Returns an array of {@link Annotation} objects reflecting all annotations declared by the supplied class, and inherited
-		//	 * from its superclass. Returns an empty array if there are none. */
-		//	static public Annotation[] getAnnotations (Class c) {
-		//		java.lang.annotation.Annotation[] annotations = c.getAnnotations();
-		//		Annotation[] result = new Annotation[annotations.length];
-		//		for (int i = 0; i < annotations.length; i++) {
-		//			result[i] = new Annotation(annotations[i]);
-		//		}
-		//		return result;
-		//	}
+        //	/** Returns an array of {@link Annotation} objects reflecting all annotations declared by the supplied class, and inherited
+        //	 * from its superclass. Returns an empty array if there are none. */
+        //	static public Annotation[] getAnnotations (Class c) {
+        //		java.lang.annotation.Annotation[] annotations = c.getAnnotations();
+        //		Annotation[] result = new Annotation[annotations.length];
+        //		for (int i = 0; i < annotations.length; i++) {
+        //			result[i] = new Annotation(annotations[i]);
+        //		}
+        //		return result;
+        //	}
 
-		//	/** Returns an {@link Annotation} object reflecting the annotation provided, or null if this class doesn't have such an
-		//	 * annotation. This is a convenience function if the caller knows already which annotation type he's looking for. */
-		//	static public Annotation getAnnotation (Class c, Class<? extends java.lang.annotation.Annotation> annotationType) {
-		//		java.lang.annotation.Annotation annotation = c.getAnnotation(annotationType);
-		//		if (annotation != null) return new Annotation(annotation);
-		//		return null;
-		//	}
+        /** Returns an {@link Annotation} object reflecting the annotation provided, or null if this class doesn't have such an
+     * annotation. This is a convenience function if the caller knows already which annotation type he's looking for. */
+        static public Annotation getAnnotation(Type c, Type annotationType)
+        {
+            var annotation = c.GetCustomAttribute(annotationType);
+            if (annotation != null) return new Annotation(annotation);
+            return null;
+        }
 
-		//	/** Returns an array of {@link Annotation} objects reflecting all annotations declared by the supplied class, or an empty array
-		//	 * if there are none. Does not include inherited annotations. */
-		//	static public Annotation[] getDeclaredAnnotations (Class c) {
-		//		java.lang.annotation.Annotation[] annotations = c.getDeclaredAnnotations();
-		//		Annotation[] result = new Annotation[annotations.length];
-		//		for (int i = 0; i < annotations.length; i++) {
-		//			result[i] = new Annotation(annotations[i]);
-		//		}
-		//		return result;
-		//	}
+        //	/** Returns an array of {@link Annotation} objects reflecting all annotations declared by the supplied class, or an empty array
+        //	 * if there are none. Does not include inherited annotations. */
+        //	static public Annotation[] getDeclaredAnnotations (Class c) {
+        //		java.lang.annotation.Annotation[] annotations = c.getDeclaredAnnotations();
+        //		Annotation[] result = new Annotation[annotations.length];
+        //		for (int i = 0; i < annotations.length; i++) {
+        //			result[i] = new Annotation(annotations[i]);
+        //		}
+        //		return result;
+        //	}
 
-		//	/** Returns an {@link Annotation} object reflecting the annotation provided, or null if this class doesn't have such an
-		//	 * annotation. This is a convenience function if the caller knows already which annotation type he's looking for. */
-		//	static public Annotation getDeclaredAnnotation (Class c, Class<? extends java.lang.annotation.Annotation> annotationType) {
-		//		java.lang.annotation.Annotation[] annotations = c.getDeclaredAnnotations();
-		//		for (java.lang.annotation.Annotation annotation : annotations) {
-		//			if (annotation.annotationType().equals(annotationType)) return new Annotation(annotation);
-		//		}
-		//		return null;
-		//	}
+        //	/** Returns an {@link Annotation} object reflecting the annotation provided, or null if this class doesn't have such an
+        //	 * annotation. This is a convenience function if the caller knows already which annotation type he's looking for. */
+        //	static public Annotation getDeclaredAnnotation (Class c, Class<? extends java.lang.annotation.Annotation> annotationType) {
+        //		java.lang.annotation.Annotation[] annotations = c.getDeclaredAnnotations();
+        //		for (java.lang.annotation.Annotation annotation : annotations) {
+        //			if (annotation.annotationType().equals(annotationType)) return new Annotation(annotation);
+        //		}
+        //		return null;
+        //	}
 
-		//	static public Class[] getInterfaces (Class c) {
-		//		return c.getInterfaces();
-		//	}
+        //	static public Class[] getInterfaces (Class c) {
+        //		return c.getInterfaces();
+        //	}
 
-	}
+    }
 }
