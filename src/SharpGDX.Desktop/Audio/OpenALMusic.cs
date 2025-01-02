@@ -305,7 +305,10 @@ namespace SharpGDX.Desktop.Audio
 
 			// A buffer underflow will cause the source to stop.
 			AL.GetSource(sourceID, ALGetSourcei.SourceState, out var state);
-			if (_isPlaying && state != (int)ALSourceState.Playing) AL.SourcePlay(sourceID);
+            if (_isPlaying && state != (int)ALSourceState.Playing)
+            {
+                AL.SourcePlay(sourceID);
+            }
 		}
 
 		private bool fill(int bufferID)
@@ -333,7 +336,7 @@ namespace SharpGDX.Desktop.Audio
 			renderedSecondsQueue.insert(0, previousLoadedSeconds + currentBufferSeconds);
 
 			tempBuffer.put(tempBytes, 0, length).flip();
-			AL.BufferData(bufferID, format, tempBuffer.array(), sampleRate);
+            AL.BufferData(bufferID, format, tempBuffer.array(), sampleRate);
 
 			return true;
 		}

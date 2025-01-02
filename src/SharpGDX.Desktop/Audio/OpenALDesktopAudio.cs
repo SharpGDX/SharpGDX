@@ -372,7 +372,10 @@ namespace SharpGDX.Desktop.Audio
 		public void stopSound(long soundId)
 		{
 			int? sourceId = soundIdToSource.get(soundId);
-			if (sourceId != null) AL.SourceStop(sourceId.Value);
+            if (sourceId != null)
+            {
+                AL.SourceStop(sourceId.Value);
+            }
 		}
 
 		public void pauseSound(long soundId)
@@ -426,7 +429,10 @@ namespace SharpGDX.Desktop.Audio
 			{
 				int sourceID = allSources.get(i);
 				AL.GetSource(sourceID, ALGetSourcei.SourceState, out int state);
-				if (state != (int)ALSourceState.Stopped) AL.SourceStop(sourceID);
+                if (state != (int)ALSourceState.Stopped)
+                {
+                    AL.SourceStop(sourceID);
+                }
 
 				// TODO: Verify
 				AL.DeleteSource(sourceID);
