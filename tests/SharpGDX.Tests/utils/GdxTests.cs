@@ -262,43 +262,44 @@ typeof(NoncontinuousRenderingTest)//,
 
     static GdxTests()
     {
-        Type g;
+        throw new NotImplementedException();
+//        Type g;
 
 
-        if (System.IO.File.Exists("/mapping.txt"))
-        {
-            InputStream mappingInput = new InputStream(System.IO.File.OpenRead("/mapping.txt"));
-            if (mappingInput != null)
-            {
-                BufferedReader reader = null;
-                try
-                {
-                    reader = new BufferedReader(new InputStreamReader(mappingInput), 512);
-                    while (true)
-                    {
-                        String line = reader.readLine();
-                        if (line == null) break;
-                        if (line.StartsWith("    ")) continue;
-                        String[] split = line.Replace(":", "").Split(" -> ");
-                        String original = split[0];
-                        if (original.IndexOf('.') != -1) original = original.Substring(original.LastIndexOf('.') + 1);
-                        originalToObfuscated.put(original, split[1]);
-                        obfuscatedToOriginal.put(split[1], original);
-                    }
+//        if (System.IO.File.Exists("/mapping.txt"))
+//        {
+//            InputStream mappingInput = new InputStream(System.IO.File.OpenRead("/mapping.txt"));
+//            if (mappingInput != null)
+//            {
+//                BufferedReader reader = null;
+//                try
+//                {
+//                    reader = new BufferedReader(new InputStreamReader(mappingInput), 512);
+//                    while (true)
+//                    {
+//                        String line = reader.readLine();
+//                        if (line == null) break;
+//                        if (line.StartsWith("    ")) continue;
+//                        String[] split = line.Replace(":", "").Split(" -> ");
+//                        String original = split[0];
+//                        if (original.IndexOf('.') != -1) original = original.Substring(original.LastIndexOf('.') + 1);
+//                        originalToObfuscated.put(original, split[1]);
+//                        obfuscatedToOriginal.put(split[1], original);
+//                    }
 
-                    reader.close();
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("GdxTests: Error reading mapping file: mapping.txt");
-// TODO: ??? ex.printStackTrace();
-                }
-                finally
-                {
-                    StreamUtils.closeQuietly(reader);
-                }
-            }
-        }
+//                    reader.close();
+//                }
+//                catch (Exception ex)
+//                {
+//                    Console.WriteLine("GdxTests: Error reading mapping file: mapping.txt");
+//// TODO: ??? ex.printStackTrace();
+//                }
+//                finally
+//                {
+//                    StreamUtils.closeQuietly(reader);
+//                }
+//            }
+//        }
     }
 
     public static List<String> getNames()
