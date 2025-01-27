@@ -4,6 +4,9 @@
 **[SharpGDX](https://sharpgdx.com) is a C# port of Java's cross-platform game development framework, libGDX (1.13.0), based on OpenGL (ES), designed for Windows, Linux, macOS.** It provides a robust and well-established environment for rapid prototyping and iterative development. Unlike other frameworks, ShrpGDX does not impose a specific design or coding style, allowing you the freedom to create games according to your preferences.
 
 ## Status
+>[!NOTE]
+>I am currently in the process of converting all of the Buffer (ByteBuffer, IntBuffer, FloatBuffer, etc.) usage to Memory<T>. As of 1/27/2025, this is still going to take a week or so to complete.
+
 While this is considered to be in the earlier stages of development, and most features do work, I do expect bugs.
 
 I also plan to clean up all the code to make it more consistent with the best practices of C#. This will include changes such as cleaning up the documentation and solidifying access (C# and Java differ on the inherit access level of objects when it is unspecified).
