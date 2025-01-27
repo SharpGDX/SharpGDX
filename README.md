@@ -5,7 +5,7 @@
 
 ## Status
 >[!NOTE]
->I am currently in the process of converting all of the Buffer (ByteBuffer, IntBuffer, FloatBuffer, etc.) usage to Memory<T>. As of 1/27/2025, this is still going to take a week or so to complete.
+>I am currently in the process of converting all of the `Buffer` (`ByteBuffer`, `IntBuffer`, `FloatBuffer`, etc.) usage to `Memory<T>`. As of 1/27/2025, this is still going to take a week or so to complete.
 
 While this is considered to be in the earlier stages of development, and most features do work, I do expect bugs.
 
